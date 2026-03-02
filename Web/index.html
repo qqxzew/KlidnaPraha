@@ -324,6 +324,47 @@
       font-size: 0.6rem; color: #3a5070; margin-top: 3px;
     }
     .slider-marks span:nth-child(2) { color: #4a6888; }
+
+    /* ── SOS ── */
+    @keyframes sos-pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(233,69,96,0.55); }
+      50%      { box-shadow: 0 0 0 10px rgba(233,69,96,0); }
+    }
+    #btn-sos {
+      width: calc(100% - 40px); margin: 14px 20px 6px;
+      padding: 11px 0; border-radius: 10px;
+      background: #e94560; border: none; color: #fff;
+      font-size: 1rem; font-weight: 800; letter-spacing: 0.08em;
+      cursor: pointer; animation: sos-pulse 2s infinite;
+      transition: background 0.15s; user-select: none;
+    }
+    #btn-sos:hover   { background: #c73050; }
+    #btn-sos.picking { background: #b02040; animation: none; }
+    #btn-sos.cancel  { background: #5a2030; animation: none; }
+
+    #sos-info {
+      display: none;
+      background: rgba(105,240,174,0.07);
+      border: 1px solid rgba(105,240,174,0.25);
+      border-radius: 8px; margin: 0 20px 10px;
+      padding: 10px 12px;
+    }
+    #sos-info .sos-park { font-size:0.9rem; font-weight:700; color:#69f0ae; margin-bottom:5px;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    #sos-info .sos-meta { font-size:0.78rem; color:#8899aa; display:flex; gap:12px; }
+    #sos-cancel { font-size:0.73rem; color:#e94560; background:none; border:none;
+      cursor:pointer; padding:0; margin-top:6px; text-decoration:underline; }
+
+    .pin-sos-you {
+      background:#0f2a40; border:2px solid #4fc3f7; color:#fff;
+      font-size:0.72rem; font-weight:700; padding:3px 9px;
+      border-radius:12px; white-space:nowrap; box-shadow:0 2px 8px rgba(0,0,0,0.6);
+    }
+    .pin-sos-park {
+      background:#0f2a18; border:2px solid #69f0ae; color:#fff;
+      font-size:0.72rem; font-weight:700; padding:3px 9px;
+      border-radius:12px; white-space:nowrap; box-shadow:0 2px 8px rgba(0,0,0,0.6);
+    }
   </style>
 </head>
 <body>
@@ -331,7 +372,21 @@
 <div id="sidebar">
   <h1>Tichá <span>Praha</span></h1>
 
-  <!-- ══ ROUTING ══ -->
+  <!-- ══ SOS ══ -->
+  <button id="btn-sos" onclick="startSOS()">&#x1F198; SOS &ndash; Tiché místo</button>
+  <div id="sos-info">
+    <div class="sos-park">&#x1F333; <span id="sos-park-name"></span></div>
+    <div class="sos-meta">
+      <span id="sos-dist"></span>
+      <span id="sos-time"></span>
+    </div>
+    <div id="sos-spinner" style="display:none;align-items:center;gap:6px;font-size:0.78rem;color:#8899aa;margin-top:5px;">
+      <div class="spinner" style="display:inline-block;"></div> Počítám trasu…
+    </div>
+    <button id="sos-cancel" onclick="cancelSOS()">&#x2715; Zrušit SOS trasu</button>
+  </div>
+
+  <hr class="divider" style="margin:4px 0 0;"/>
   <div class="section">
     <div class="section-title">Trasa</div>
 
@@ -832,8 +887,11 @@ function draw3DMarkers() {
     .setLngLat([ptEnd.lng, ptEnd.lat]).addTo(map3dGL);
 }
 
-// ── Shared click handler ──
+// Shared click handler for both 2D and 3D maps
 function handleMapClick(lat, lng) {
+  // SOS mode takes priority over normal routing
+  if (sosMode) { handleSOSClick(lat, lng); return; }
+
   if (!ptStart) {
     ptStart = {lat, lng};
     // Leaflet marker
@@ -962,7 +1020,132 @@ async function calcRoutes() {
 }
 
 // ═══════════════════════════════════════════════════════════
-// 3D MAP (MAPBOX GL JS – LOD2 buildings)
+// SOS – ticho místo
+// ═══════════════════════════════════════════════════════════
+let sosMode    = false;
+// parks_sos.geojson — pre-computed Point centroids of all parks ≥ 0.4 ha (48 KB)
+let _parksGeoJSON = null;
+let sosMark = null, sosDestMark = null, sosPolyLine = null;
+
+async function _ensureParks() {
+  if (_parksGeoJSON) return;
+  // Lightweight file: 274 Point features with {name, area_ha} – avoids loading 50 MB Parks.geojson
+  _parksGeoJSON = await fetchJSON('./parks_sos.geojson');
+}
+
+// squared approx distance (lat-corrected) – sufficient for "nearest" ranking
+function _dist2(la1, ln1, la2, ln2) {
+  const d1 = la1-la2, d2 = (ln1-ln2)*0.64; return d1*d1+d2*d2;
+}
+
+function _findNearestPark(lat, lng) {
+  // parks_sos features are already filtered by area; geometry is Point {coordinates:[lng,lat]}
+  const feats = _parksGeoJSON?.features ?? [];
+  let best = null, bestD = Infinity;
+  for (const f of feats) {
+    const c = f.geometry?.coordinates; // [lng, lat]
+    if (!c) continue;
+    const d = _dist2(lat, lng, c[1], c[0]);
+    if (d < bestD) { bestD = d; best = { f, c }; }
+  }
+  return best;
+}
+
+function _sosClearLayers() {
+  if (sosMark)     { map.removeLayer(sosMark);     sosMark = null; }
+  if (sosDestMark) { map.removeLayer(sosDestMark); sosDestMark = null; }
+  if (sosPolyLine) { map.removeLayer(sosPolyLine); sosPolyLine = null; }
+  if (map3dGL) {
+    if (map3dGL.getLayer('sos-line'))   map3dGL.removeLayer('sos-line');
+    if (map3dGL.getSource('sos-route')) map3dGL.removeSource('sos-route');
+  }
+}
+
+function cancelSOS() {
+  _sosClearLayers();
+  sosMode = false;
+  const btn = document.getElementById('btn-sos');
+  btn.classList.remove('picking','cancel');
+  btn.textContent = '\u{1F198} SOS \u2013 Tich\u00e9 m\u00edsto';
+  document.getElementById('map').style.cursor = '';
+  if (map3dGL) map3dGL.getCanvas().style.cursor = '';
+  document.getElementById('sos-info').style.display = 'none';
+}
+
+async function startSOS() {
+  if (sosMode) { cancelSOS(); return; }
+  _sosClearLayers();
+  const btn = document.getElementById('btn-sos');
+  btn.classList.add('picking');
+  btn.textContent = '\u{1F4CD} Klikn\u011bte na sv\u00e9 m\u00edsto…';
+  try { await _ensureParks(); } catch(e) { toast('Chyba na\u010d\u00edt\u00e1n\u00ed park\u016f.'); cancelSOS(); return; }
+  sosMode = true;
+  document.getElementById('map').style.cursor = 'crosshair';
+  if (map3dGL && is3D) map3dGL.getCanvas().style.cursor = 'crosshair';
+  toast('\ud83d\udccd Klikn\u011bte na sv\u00e9 m\u00edsto na map\u011b', 4000);
+}
+
+async function handleSOSClick(lat, lng) {
+  sosMode = false;
+  const btn = document.getElementById('btn-sos');
+  btn.classList.remove('picking'); btn.classList.add('cancel');
+  btn.textContent = '\u{1F198} SOS aktivn\u00ed';
+  document.getElementById('map').style.cursor = '';
+  if (map3dGL) map3dGL.getCanvas().style.cursor = '';
+
+  _sosClearLayers();
+
+  // "You are here" marker
+  sosMark = L.marker([lat, lng], { icon: L.divIcon({
+    className:'', html:'<div class="pin-sos-you">\ud83d\udccd Jsem zde</div>', iconAnchor:[50,10]
+  })}).addTo(map);
+
+  const park = _findNearestPark(lat, lng);
+  if (!park) { toast('\u017d\u00e1dn\u00fd vhodn\u00fd park nenalezen.', 4000); return; }
+
+  const [pLng, pLat] = park.c;
+  const pName = park.f.properties?.name || 'Park';
+
+  sosDestMark = L.marker([pLat, pLng], { icon: L.divIcon({
+    className:'', html:`<div class="pin-sos-park">\ud83c\udf33 ${pName}</div>`, iconAnchor:[50,10]
+  })}).addTo(map);
+
+  const infoEl = document.getElementById('sos-info');
+  document.getElementById('sos-park-name').textContent = pName;
+  document.getElementById('sos-dist').textContent = '';
+  document.getElementById('sos-time').textContent = '';
+  document.getElementById('sos-spinner').style.display = 'flex';
+  infoEl.style.display = 'block';
+
+  try {
+    const r = await postRoute({lat, lng}, {lat:pLat, lng:pLng}, 'normal_walk', buildCustomModel(timeMode));
+    const path = r.paths[0];
+    const latLngs = decodePolyline(path.points);
+    path._leafletCoords = latLngs;
+    path._geojsonCoords = latLngs.map(([la,ln])=>[ln,la]);
+
+    sosPolyLine = L.polyline(latLngs, { color:'#69f0ae', weight:6, opacity:0.95, dashArray:'10 7' })
+      .addTo(map)
+      .bindPopup(`<b>\ud83c\udf33 ${pName}</b><br>${fmtDist(path.distance)} \u00b7 ${fmtTime(path.time)}`);
+    map.fitBounds(sosPolyLine.getBounds(), { padding:[60,60] });
+
+    document.getElementById('sos-dist').textContent = fmtDist(path.distance);
+    document.getElementById('sos-time').textContent = fmtTime(path.time);
+
+    if (map3dGL) {
+      const below = map3dGL.getLayer('3d-buildings') ? '3d-buildings' : undefined;
+      map3dGL.addSource('sos-route', { type:'geojson', data:{type:'Feature',
+        geometry:{type:'LineString', coordinates: path._geojsonCoords}} });
+      map3dGL.addLayer({ id:'sos-line', type:'line', source:'sos-route',
+        layout:{'line-join':'round','line-cap':'round'},
+        paint:{'line-color':'#69f0ae','line-width':6,'line-opacity':0.95,
+               'line-dasharray':[2,1.5]} }, below);
+    }
+  } catch(e) {
+    toast('Chyba v\u00fdpo\u010dtu trasy do parku.', 4000); console.error(e);
+  }
+  document.getElementById('sos-spinner').style.display = 'none';
+}
 // ═══════════════════════════════════════════════════════════
 mapboxgl.accessToken = 'pk.eyJ1IjoicXF4emV3IiwiYSI6ImNtbTFyY3VtNTBibDYycXM3OG94OTJleTcifQ.nSV6VT1f0hDwztl8KVQfQg';
 
