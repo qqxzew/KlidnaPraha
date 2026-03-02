@@ -1,0 +1,16 @@
+services:
+  graphhopper:
+    build: .
+    ports:
+      - "8989:8989"
+    volumes:
+      - ../:/workspace
+    working_dir: /workspace/Grapphopper
+    depends_on: []
+
+  route-check-ui:
+    image: nginx:alpine
+    ports:
+      - "8088:80"
+    volumes:
+      - ./route-checker:/usr/share/nginx/html:ro

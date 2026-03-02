@@ -1,0 +1,8 @@
+Noise/HlukDen/noise_*.geojson filter=lfs diff=lfs merge=lfs -text
+Noise/HlukNoc/noise_*.geojson filter=lfs diff=lfs merge=lfs -text
+GreenZone/Parks.geojson filter=lfs diff=lfs merge=lfs -text
+Grapphopper/TrailsPedestrians/PedestriansRoads.geojson filter=lfs diff=lfs merge=lfs -text
+Grapphopper/TrailsPedestrians/pedestrian_trails.osm filter=lfs diff=lfs merge=lfs -text
+Grapphopper/custom_areas/noise_day_*.geojson filter=lfs diff=lfs merge=lfs -text
+Grapphopper/custom_areas/noise_night_*.geojson filter=lfs diff=lfs merge=lfs -text
+Grapphopper/custom_areas/merged_parks.geojson filter=lfs diff=lfs merge=lfs -text

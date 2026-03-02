@@ -1,0 +1,69 @@
+{
+  "distance_influence": 70,
+  "priority": [
+    {
+      "if": "!in_merged_parks",
+      "multiply_by": 0.85
+    },
+    {
+      "if": "in_air_level_3",
+      "multiply_by": 0.95
+    },
+    {
+      "if": "in_air_level_4",
+      "multiply_by": 0.8
+    },
+    {
+      "if": "in_air_level_5",
+      "multiply_by": 0.5
+    },
+    {
+      "if": "in_noise_night_25_30",
+      "multiply_by": 0.95
+    },
+    {
+      "if": "in_noise_night_30_35",
+      "multiply_by": 0.95
+    },
+    {
+      "if": "in_noise_night_35_40",
+      "multiply_by": 0.9
+    },
+    {
+      "if": "in_noise_night_40_45",
+      "multiply_by": 0.9
+    },
+    {
+      "if": "in_noise_night_45_50",
+      "multiply_by": 0.85
+    },
+    {
+      "if": "in_noise_night_50_55",
+      "multiply_by": 0.8
+    },
+    {
+      "if": "in_noise_night_55_60",
+      "multiply_by": 0.6
+    },
+    {
+      "if": "in_noise_night_60_65",
+      "multiply_by": 0.3
+    },
+    {
+      "if": "in_noise_night_65_70",
+      "multiply_by": 0.15
+    },
+    {
+      "if": "in_noise_night_70_75",
+      "multiply_by": 0.05
+    },
+    {
+      "if": "in_noise_night_75_80",
+      "multiply_by": 0.01
+    },
+    {
+      "if": "in_noise_night_80_85",
+      "multiply_by": 0.01
+    }
+  ]
+}

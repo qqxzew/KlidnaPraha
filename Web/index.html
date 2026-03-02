@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tichá Praha – Přehled dat</title>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      background: #1a1a2e;
+      color: #e0e0e0;
+    }
+
+    /* ── Sidebar ── */
+    #sidebar {
+      width: 280px;
+      min-width: 280px;
+      background: #16213e;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    #sidebar h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #fff;
+      padding: 20px 20px 12px;
+      border-bottom: 1px solid #0f3460;
+    }
+    #sidebar h1 span { color: #e94560; }
+
+    .section {
+      padding: 14px 20px 8px;
+    }
+    .section-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #5a7fa0;
+      margin-bottom: 10px;
+    }
+
+    .layer-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 0;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .layer-row:hover { background: rgba(255,255,255,0.05); padding-left: 6px; }
+
+    .layer-row input[type=checkbox] {
+      width: 16px; height: 16px;
+      accent-color: #e94560;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .swatch {
+      width: 14px; height: 14px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .layer-label {
+      font-size: 0.85rem;
+      flex: 1;
+      user-select: none;
+    }
+
+    .spinner {
+      width: 12px; height: 12px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-top-color: #e94560;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .noise-sub { padding-left: 12px; }
+
+    /* noise gradient legend */
+    .noise-legend {
+      width: 100%;
+      height: 12px;
+      border-radius: 4px;
+      margin: 6px 0 4px;
+      background: linear-gradient(to right,
+        #ffffb2, #fed976, #feb24c, #fd8d3c, #f03b20, #bd0026);
+    }
+    .noise-legend-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: #8899aa;
+      margin-bottom: 8px;
+    }
+
+    /* air gradient legend */
+    .air-legend {
+      width: 100%;
+      height: 12px;
+      border-radius: 4px;
+      margin: 6px 0 4px;
+      background: linear-gradient(to right,
+        #1a9850, #91cf60, #d9ef8b, #fc8d59, #d73027);
+    }
+    .air-legend-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: #8899aa;
+      margin-bottom: 8px;
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid #0f3460;
+      margin: 4px 0;
+    }
+
+    /* ── Map ── */
+    #map {
+      flex: 1;
+      height: 100%;
+    }
+
+    /* toast */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #16213e;
+      color: #e0e0e0;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 9999;
+      border-left: 3px solid #e94560;
+    }
+    #toast.show { opacity: 1; }
+
+    .leaflet-popup-content-wrapper {
+      background: #16213e;
+      color: #e0e0e0;
+      border-radius: 8px;
+      border: 1px solid #0f3460;
+    }
+    .leaflet-popup-tip { background: #16213e; }
+  </style>
+</head>
+<body>
+
+<div id="sidebar">
+  <h1>Tichá <span>Praha</span></h1>
+
+  <!-- ROADS -->
+  <div class="section">
+    <div class="section-title">Infrastruktura</div>
+    <label class="layer-row" id="row-roads">
+      <input type="checkbox" id="cb-roads" />
+      <span class="swatch" style="background:#4fc3f7;"></span>
+      <span class="layer-label">Pěší cesty</span>
+      <span class="spinner" id="spin-roads"></span>
+    </label>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- NOISE -->
+  <div class="section">
+    <div class="section-title">Hluk</div>
+    <div class="noise-legend"></div>
+    <div class="noise-legend-labels"><span>30 dB</span><span>85+ dB</span></div>
+
+    <label class="layer-row" id="row-noise-day">
+      <input type="checkbox" id="cb-noise-day" />
+      <span class="swatch" style="background:linear-gradient(135deg,#fed976,#bd0026);"></span>
+      <span class="layer-label">Hluk – den</span>
+      <span class="spinner" id="spin-noise-day"></span>
+    </label>
+
+    <label class="layer-row" id="row-noise-night">
+      <input type="checkbox" id="cb-noise-night" />
+      <span class="swatch" style="background:linear-gradient(135deg,#a8d8ea,#4a0080);"></span>
+      <span class="layer-label">Hluk – noc</span>
+      <span class="spinner" id="spin-noise-night"></span>
+    </label>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- AIR -->
+  <div class="section">
+    <div class="section-title">Kvalita ovzduší</div>
+    <div class="air-legend"></div>
+    <div class="air-legend-labels"><span>Úroveň 1</span><span>Úroveň 5</span></div>
+
+    <label class="layer-row" id="row-air">
+      <input type="checkbox" id="cb-air" />
+      <span class="swatch" style="background:linear-gradient(135deg,#1a9850,#d73027);"></span>
+      <span class="layer-label">Ovzduší (úrovně 1–5)</span>
+      <span class="spinner" id="spin-air"></span>
+    </label>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- PARKS -->
+  <div class="section">
+    <div class="section-title">Zeleň</div>
+    <label class="layer-row" id="row-parks">
+      <input type="checkbox" id="cb-parks" />
+      <span class="swatch" style="background:#2e7d32;"></span>
+      <span class="layer-label">Parky &amp; zeleň</span>
+      <span class="spinner" id="spin-parks"></span>
+    </label>
+  </div>
+
+</div>
+
+<div id="map"></div>
+<div id="toast"></div>
+
+<script>
+// ── Map init ──────────────────────────────────────────────────────────────
+const map = L.map('map', {
+  center: [50.0755, 14.4378],
+  zoom: 12,
+  zoomControl: true,
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; OpenStreetMap contributors',
+  maxZoom: 20,
+}).addTo(map);
+
+// ── Toast ─────────────────────────────────────────────────────────────────
+function toast(msg, ms = 3000) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), ms);
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────
+const layerGroups = {};
+const loaded = {};
+
+function spinner(id, on) {
+  document.getElementById('spin-' + id).style.display = on ? 'inline-block' : 'none';
+}
+
+async function loadJson(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`HTTP ${r.status}: ${url}`);
+  return r.json();
+}
+
+function addGroup(id, group) {
+  layerGroups[id] = group;
+}
+
+// ── Noise colours ─────────────────────────────────────────────────────────
+const noiseDay = [
+  { file: 'noise_0_5',   mid: 2.5  },
+  { file: 'noise_5_10',  mid: 7.5  },
+  { file: 'noise_10_15', mid: 12.5 },
+  { file: 'noise_15_20', mid: 17.5 },
+  { file: 'noise_20_25', mid: 22.5 },
+  { file: 'noise_25_30', mid: 27.5 },
+  { file: 'noise_30_35', mid: 32.5 },
+  { file: 'noise_35_40', mid: 37.5 },
+  { file: 'noise_40_45', mid: 42.5 },
+  { file: 'noise_45_50', mid: 47.5 },
+  { file: 'noise_50_55', mid: 52.5 },
+  { file: 'noise_55_60', mid: 57.5 },
+  { file: 'noise_60_65', mid: 62.5 },
+  { file: 'noise_65_70', mid: 67.5 },
+  { file: 'noise_70_75', mid: 72.5 },
+  { file: 'noise_75_80', mid: 77.5 },
+  { file: 'noise_80_85', mid: 82.5 },
+  { file: 'noise_85_90', mid: 87.5 },
+];
+
+function noiseColor(db, night = false) {
+  // yellow → orange → red scale
+  const stops = [
+    [30,  night ? '#c0e4ff' : '#ffffb2'],
+    [45,  night ? '#85c1e9' : '#fed976'],
+    [55,  night ? '#5b8fd4' : '#feb24c'],
+    [65,  night ? '#7b39d0' : '#fd8d3c'],
+    [75,  night ? '#5b0ea6' : '#f03b20'],
+    [90,  night ? '#2d0057' : '#bd0026'],
+  ];
+  const t = Math.max(30, Math.min(db, 90));
+  for (let i = 0; i < stops.length - 1; i++) {
+    const [a, ca] = stops[i];
+    const [b, cb] = stops[i + 1];
+    if (t <= b) {
+      return lerpColor(ca, cb, (t - a) / (b - a));
+    }
+  }
+  return stops[stops.length - 1][1];
+}
+
+function lerpColor(a, b, t) {
+  const ah = parseInt(a.slice(1), 16);
+  const bh = parseInt(b.slice(1), 16);
+  const ar = (ah >> 16) & 0xff, ag = (ah >> 8) & 0xff, ab = ah & 0xff;
+  const br = (bh >> 16) & 0xff, bg = (bh >> 8) & 0xff, bb = bh & 0xff;
+  const r = Math.round(ar + (br - ar) * t);
+  const g = Math.round(ag + (bg - ag) * t);
+  const bl2 = Math.round(ab + (bb - ab) * t);
+  return '#' + [r, g, bl2].map(v => v.toString(16).padStart(2, '0')).join('');
+}
+
+// ── Air colours ───────────────────────────────────────────────────────────
+const airColors = ['#1a9850', '#91cf60', '#d9ef8b', '#fc8d59', '#d73027'];
+
+// ── Load Noise ────────────────────────────────────────────────────────────
+async function loadNoise(key, folder, night) {
+  spinner(key, true);
+  try {
+    const group = L.layerGroup().addTo(map);
+    for (const { file, mid } of noiseDay) {
+      const url = `../Noise/${folder}/${file}.geojson`;
+      let data;
+      try { data = await loadJson(url); } catch { continue; }
+      const col = noiseColor(mid, night);
+      L.geoJSON(data, {
+        style: {
+          color: col,
+          fillColor: col,
+          fillOpacity: 0.45,
+          weight: 0,
+        },
+        onEachFeature(f, layer) {
+          const db = f.properties?.db ?? f.properties?.value ?? mid;
+          layer.bindPopup(`<b>Hluk</b><br>${db} dB`);
+        }
+      }).addTo(group);
+    }
+    addGroup(key, group);
+    loaded[key] = true;
+  } catch (e) {
+    toast('Chyba při načítání hluku: ' + e.message);
+    document.getElementById('cb-' + key).checked = false;
+  }
+  spinner(key, false);
+}
+
+// ── Load Air ──────────────────────────────────────────────────────────────
+async function loadAir() {
+  spinner('air', true);
+  try {
+    const group = L.layerGroup().addTo(map);
+    for (let lvl = 1; lvl <= 5; lvl++) {
+      const url = `../Air/Vzduch/air_level_${lvl}.geojson`;
+      let data;
+      try { data = await loadJson(url); } catch { continue; }
+      const col = airColors[lvl - 1];
+      L.geoJSON(data, {
+        style: {
+          color: col,
+          fillColor: col,
+          fillOpacity: 0.5,
+          weight: 0,
+        },
+        onEachFeature(f, layer) {
+          layer.bindPopup(`<b>Ovzduší</b><br>Úroveň ${lvl}`);
+        }
+      }).addTo(group);
+    }
+    addGroup('air', group);
+    loaded['air'] = true;
+  } catch (e) {
+    toast('Chyba při načítání ovzduší: ' + e.message);
+    document.getElementById('cb-air').checked = false;
+  }
+  spinner('air', false);
+}
+
+// ── Load Parks ────────────────────────────────────────────────────────────
+async function loadParks() {
+  spinner('parks', true);
+  try {
+    const data = await loadJson('../GreenZone/Parks.geojson');
+    const group = L.layerGroup().addTo(map);
+    L.geoJSON(data, {
+      style: {
+        color: '#2e7d32',
+        fillColor: '#4caf50',
+        fillOpacity: 0.45,
+        weight: 0.5,
+      },
+      onEachFeature(f, layer) {
+        const name = f.properties?.name ?? f.properties?.Name ?? 'Park';
+        layer.bindPopup(`<b>${name}</b>`);
+      }
+    }).addTo(group);
+    addGroup('parks', group);
+    loaded['parks'] = true;
+  } catch (e) {
+    toast('Chyba při načítání parků: ' + e.message);
+    document.getElementById('cb-parks').checked = false;
+  }
+  spinner('parks', false);
+}
+
+// ── Load Roads ────────────────────────────────────────────────────────────
+async function loadRoads() {
+  spinner('roads', true);
+  try {
+    const data = await loadJson('../Grapphopper/TrailsPedestrians/PedestriansRoads.geojson');
+    const group = L.layerGroup().addTo(map);
+    L.geoJSON(data, {
+      style: {
+        color: '#4fc3f7',
+        weight: 1.5,
+        opacity: 0.75,
+      },
+      onEachFeature(f, layer) {
+        const name = f.properties?.name ?? f.properties?.highway ?? 'Cesta';
+        layer.bindPopup(`<b>${name}</b>`);
+      }
+    }).addTo(group);
+    addGroup('roads', group);
+    loaded['roads'] = true;
+  } catch (e) {
+    toast('Chyba při načítání cest: ' + e.message);
+    document.getElementById('cb-roads').checked = false;
+  }
+  spinner('roads', false);
+}
+
+// ── Toggle logic ──────────────────────────────────────────────────────────
+async function toggle(id, loader) {
+  const cb = document.getElementById('cb-' + id);
+  if (cb.checked) {
+    if (loaded[id] && layerGroups[id]) {
+      map.addLayer(layerGroups[id]);
+    } else {
+      await loader();
+    }
+  } else {
+    if (layerGroups[id]) map.removeLayer(layerGroups[id]);
+  }
+}
+
+document.getElementById('cb-roads').addEventListener('change', () =>
+  toggle('roads', loadRoads));
+
+document.getElementById('cb-noise-day').addEventListener('change', () =>
+  toggle('noise-day', () => loadNoise('noise-day', 'HlukDen', false)));
+
+document.getElementById('cb-noise-night').addEventListener('change', () =>
+  toggle('noise-night', () => loadNoise('noise-night', 'HlukNoc', true)));
+
+document.getElementById('cb-air').addEventListener('change', () =>
+  toggle('air', loadAir));
+
+document.getElementById('cb-parks').addEventListener('change', () =>
+  toggle('parks', loadParks));
+</script>
+</body>
+</html>

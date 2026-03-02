@@ -1,0 +1,30 @@
+# ── Python ──────────────────────────────────────────────────────────────────
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# ── GraphHopper – генерируемые кэши и данные ────────────────────────────────
+Grapphopper/graph-cache/
+Grapphopper/elevation_data/
+
+# ── Большие исходные геоданные → хранятся в Git LFS (.gitattributes) ────────
+# Noise/HlukDen/noise_*.geojson    ← LFS
+# Noise/HlukNoc/noise_*.geojson    ← LFS
+# GreenZone/Parks.geojson          ← LFS
+# Grapphopper/TrailsPedestrians/PedestriansRoads.geojson  ← LFS
+# Grapphopper/TrailsPedestrians/pedestrian_trails.osm     ← LFS
+# Grapphopper/custom_areas/noise_*.geojson                ← LFS
+# Grapphopper/custom_areas/merged_parks.geojson           ← LFS
+
+# Слишком большие мёрженые исходники (не нужны для сайта/GraphHopper)
+Noise/HlukDen.geojson
+Noise/HlukNoc.geojson
+
+# ── Воздух – промежуточные данные (генерируются Air/main.py на сервере) ──────
+Air/Vzduch/
+
+# ── OS / IDE ─────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/

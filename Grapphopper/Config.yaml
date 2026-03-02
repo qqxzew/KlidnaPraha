@@ -1,0 +1,47 @@
+graphhopper:
+  datareader.file: TrailsPedestrians/pedestrian_trails.osm
+  
+  graph.location: graph-cache
+
+  graph.elevation.provider: srtm
+  graph.elevation.cache_dir: ./elevation_data
+  custom_models.directory: .
+  custom_areas.directory: ./custom_areas
+  custom_areas:
+    merged_parks: custom_areas/merged_parks.geojson
+  import.osm.ignored_highways: ''
+  graph.encoded_values: foot_access, hike_rating, foot_priority, foot_average_speed, average_slope
+
+  profiles:
+    - name: normal_walk
+      navigation_mode: foot
+      custom_model_files:
+        - foot.json
+        - foot_elevation.json
+
+    - name: comfort_walk_day
+      navigation_mode: foot
+      custom_model_files:
+        - foot.json
+        - foot_elevation.json
+        - comfort_model_day.json
+        
+    - name: comfort_walk_night
+      navigation_mode: foot
+      custom_model_files:
+        - foot.json
+        - foot_elevation.json
+        - comfort_model_night.json
+
+server:
+  application_connectors:
+    - type: http
+      port: 8989
+      bind_host: 0.0.0.0
+      max_request_header_size: 50k
+  request_log:
+    appenders: []
+  admin_connectors:
+    - type: http
+      port: 8990
+      bind_host: 0.0.0.0
