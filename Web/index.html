@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tichá Praha – Přehled dat</title>
 
-  <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,8 +25,8 @@
 
     /* ── Sidebar ── */
     #sidebar {
-      width: 280px;
-      min-width: 280px;
+      width: 290px;
+      min-width: 290px;
       background: #16213e;
       display: flex;
       flex-direction: column;
@@ -43,9 +45,8 @@
     }
     #sidebar h1 span { color: #e94560; }
 
-    .section {
-      padding: 14px 20px 8px;
-    }
+    .section { padding: 14px 20px 8px; }
+
     .section-title {
       font-size: 0.7rem;
       text-transform: uppercase;
@@ -64,7 +65,6 @@
       transition: background 0.15s;
     }
     .layer-row:hover { background: rgba(255,255,255,0.05); padding-left: 6px; }
-
     .layer-row input[type=checkbox] {
       width: 16px; height: 16px;
       accent-color: #e94560;
@@ -78,12 +78,7 @@
       flex-shrink: 0;
       border: 1px solid rgba(255,255,255,0.15);
     }
-
-    .layer-label {
-      font-size: 0.85rem;
-      flex: 1;
-      user-select: none;
-    }
+    .layer-label { font-size: 0.85rem; flex: 1; user-select: none; }
 
     .spinner {
       width: 12px; height: 12px;
@@ -96,59 +91,169 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .noise-sub { padding-left: 12px; }
-
-    /* noise gradient legend */
     .noise-legend {
-      width: 100%;
-      height: 12px;
-      border-radius: 4px;
+      width: 100%; height: 12px; border-radius: 4px;
       margin: 6px 0 4px;
-      background: linear-gradient(to right,
-        #ffffb2, #fed976, #feb24c, #fd8d3c, #f03b20, #bd0026);
+      background: linear-gradient(to right, #ffffb2, #fed976, #feb24c, #fd8d3c, #f03b20, #bd0026);
     }
-    .noise-legend-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.65rem;
-      color: #8899aa;
-      margin-bottom: 8px;
-    }
-
-    /* air gradient legend */
     .air-legend {
-      width: 100%;
-      height: 12px;
-      border-radius: 4px;
+      width: 100%; height: 12px; border-radius: 4px;
       margin: 6px 0 4px;
-      background: linear-gradient(to right,
-        #1a9850, #91cf60, #d9ef8b, #fc8d59, #d73027);
+      background: linear-gradient(to right, #1a9850, #91cf60, #d9ef8b, #fc8d59, #d73027);
     }
-    .air-legend-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.65rem;
-      color: #8899aa;
-      margin-bottom: 8px;
+    .legend-labels {
+      display: flex; justify-content: space-between;
+      font-size: 0.65rem; color: #8899aa; margin-bottom: 8px;
     }
 
-    hr.divider {
-      border: none;
-      border-top: 1px solid #0f3460;
-      margin: 4px 0;
+    hr.divider { border: none; border-top: 1px solid #0f3460; margin: 4px 0; }
+
+    /* ── Routing section ── */
+    .route-hint {
+      font-size: 0.78rem;
+      color: #8899aa;
+      line-height: 1.6;
+      margin-bottom: 10px;
     }
+    .route-hint b { color: #c0d8f0; }
+
+    .route-legend-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+    }
+    .route-line {
+      width: 28px; height: 4px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .toggle-label { font-size: 0.78rem; color: #8899aa; margin-right: 2px; }
+    .toggle-btn {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid #0f3460;
+      color: #8899aa;
+      font-size: 0.76rem;
+      padding: 3px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .toggle-btn.active {
+      background: #0f3460;
+      color: #fff;
+      border-color: #4fc3f7;
+    }
+
+    #route-spinner {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: #8899aa;
+      margin: 8px 0;
+    }
+    #route-spinner .spinner { display: inline-block !important; }
+
+    #route-info { margin-top: 10px; display: none; }
+
+    .route-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      border-left: 3px solid #555;
+    }
+    .route-card.normal  { border-left-color: #e94560; }
+    .route-card.comfort { border-left-color: #00e5ff; }
+
+    .card-title {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #5a7fa0;
+      margin-bottom: 3px;
+    }
+    .card-val  { font-size: 1rem; font-weight: 700; color: #fff; }
+    .card-sub  { font-size: 0.78rem; color: #8899aa; margin-top: 2px; }
+
+    .route-diff {
+      font-size: 0.76rem;
+      color: #8899aa;
+      text-align: center;
+      padding: 2px 0 8px;
+    }
+    .plus  { color: #ff6b6b; }
+    .minus { color: #69f0ae; }
+
+    #btn-clear-route {
+      width: 100%;
+      background: transparent;
+      border: 1px solid #e94560;
+      color: #e94560;
+      font-size: 0.8rem;
+      padding: 6px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 2px;
+    }
+    #btn-clear-route:hover { background: rgba(233,69,96,0.12); }
 
     /* ── Map ── */
-    #map {
-      flex: 1;
-      height: 100%;
+    #map-wrap { flex: 1; position: relative; overflow: hidden; }
+    #map  { position: absolute; inset: 0; transition: opacity 0.55s ease; }
+    #map3d {
+      position: absolute; inset: 0; z-index: 5;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.55s ease;
+    }
+    #map3d.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #map.faded { opacity: 0; pointer-events: none; }
+
+    /* ── 3D toggle button ── */
+    #btn-3d {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9000;
+      background: #16213e;
+      border: 1.5px solid #0f3460;
+      color: #c0d8f0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.55);
+      letter-spacing: 0.06em;
+      user-select: none;
+    }
+    #btn-3d:hover { border-color: #4fc3f7; color: #4fc3f7; background: #1a2d4e; }
+    #btn-3d.active {
+      background: #0f3460;
+      border-color: #4fc3f7;
+      color: #4fc3f7;
+      box-shadow: 0 4px 20px rgba(79,195,247,0.25);
     }
 
     /* toast */
     #toast {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
+      bottom: 76px; right: 24px;
       background: #16213e;
       color: #e0e0e0;
       padding: 10px 18px;
@@ -160,6 +265,7 @@
       transition: opacity 0.3s;
       z-index: 9999;
       border-left: 3px solid #e94560;
+      max-width: 320px;
     }
     #toast.show { opacity: 1; }
 
@@ -170,6 +276,19 @@
       border: 1px solid #0f3460;
     }
     .leaflet-popup-tip { background: #16213e; }
+
+    .pin-label {
+      background: #1a3a5c;
+      border: 2px solid #4fc3f7;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 12px;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+    .pin-label.end { border-color: #e94560; background: #3a1a2a; }
   </style>
 </head>
 <body>
@@ -177,10 +296,58 @@
 <div id="sidebar">
   <h1>Tichá <span>Praha</span></h1>
 
+  <!-- ══ ROUTING ══ -->
+  <div class="section">
+    <div class="section-title">Trasa</div>
+
+    <p class="route-hint">
+      <b>1. klik</b> na mapě = start<br>
+      <b>2. klik</b> = cíl → zobrazí obě trasy<br>
+      <b>3. klik</b> = reset a nový start
+    </p>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Profil:</span>
+      <button class="toggle-btn active" id="btn-day"   onclick="setTimeMode('day')">Den</button>
+      <button class="toggle-btn"        id="btn-night" onclick="setTimeMode('night')">Noc</button>
+    </div>
+
+    <div class="route-legend-row">
+      <div class="route-line" style="background:#e94560;"></div>
+      <span>Nejkratší cesta</span>
+    </div>
+    <div class="route-legend-row">
+      <div class="route-line" style="background:#00e5ff;"></div>
+      <span>Tichá / komfortní cesta</span>
+    </div>
+
+    <div id="route-spinner">
+      <div class="spinner"></div>
+      Počítám trasy…
+    </div>
+
+    <div id="route-info">
+      <div class="route-card normal">
+        <div class="card-title">Nejkratší</div>
+        <div class="card-val" id="ri-n-dist">—</div>
+        <div class="card-sub" id="ri-n-time">—</div>
+      </div>
+      <div class="route-card comfort">
+        <div class="card-title">Komfortní</div>
+        <div class="card-val" id="ri-c-dist">—</div>
+        <div class="card-sub" id="ri-c-time">—</div>
+      </div>
+      <div class="route-diff" id="ri-diff"></div>
+      <button id="btn-clear-route" onclick="clearRoute()">✕ &nbsp;Smazat trasu</button>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
   <!-- ROADS -->
   <div class="section">
     <div class="section-title">Infrastruktura</div>
-    <label class="layer-row" id="row-roads">
+    <label class="layer-row">
       <input type="checkbox" id="cb-roads" />
       <span class="swatch" style="background:#4fc3f7;"></span>
       <span class="layer-label">Pěší cesty</span>
@@ -194,16 +361,14 @@
   <div class="section">
     <div class="section-title">Hluk</div>
     <div class="noise-legend"></div>
-    <div class="noise-legend-labels"><span>30 dB</span><span>85+ dB</span></div>
-
-    <label class="layer-row" id="row-noise-day">
+    <div class="legend-labels"><span>30 dB</span><span>85+ dB</span></div>
+    <label class="layer-row">
       <input type="checkbox" id="cb-noise-day" />
       <span class="swatch" style="background:linear-gradient(135deg,#fed976,#bd0026);"></span>
       <span class="layer-label">Hluk – den</span>
       <span class="spinner" id="spin-noise-day"></span>
     </label>
-
-    <label class="layer-row" id="row-noise-night">
+    <label class="layer-row">
       <input type="checkbox" id="cb-noise-night" />
       <span class="swatch" style="background:linear-gradient(135deg,#a8d8ea,#4a0080);"></span>
       <span class="layer-label">Hluk – noc</span>
@@ -217,9 +382,8 @@
   <div class="section">
     <div class="section-title">Kvalita ovzduší</div>
     <div class="air-legend"></div>
-    <div class="air-legend-labels"><span>Úroveň 1</span><span>Úroveň 5</span></div>
-
-    <label class="layer-row" id="row-air">
+    <div class="legend-labels"><span>Úroveň 1</span><span>Úroveň 5</span></div>
+    <label class="layer-row">
       <input type="checkbox" id="cb-air" />
       <span class="swatch" style="background:linear-gradient(135deg,#1a9850,#d73027);"></span>
       <span class="layer-label">Ovzduší (úrovně 1–5)</span>
@@ -232,7 +396,7 @@
   <!-- PARKS -->
   <div class="section">
     <div class="section-title">Zeleň</div>
-    <label class="layer-row" id="row-parks">
+    <label class="layer-row">
       <input type="checkbox" id="cb-parks" />
       <span class="swatch" style="background:#2e7d32;"></span>
       <span class="layer-label">Parky &amp; zeleň</span>
@@ -242,249 +406,501 @@
 
 </div>
 
-<div id="map"></div>
+<div id="map-wrap">
+  <div id="map"></div>
+  <div id="map3d"></div>
+</div>
+<button id="btn-3d" onclick="toggle3D()" title="Přepnout 3D pohled budov">⬛ 3D</button>
 <div id="toast"></div>
 
 <script>
-// ── Map init ──────────────────────────────────────────────────────────────
-const map = L.map('map', {
-  center: [50.0755, 14.4378],
-  zoom: 12,
-  zoomControl: true,
-});
+// ═══════════════════════════════════════════════════════════
+// MAP INIT
+// ═══════════════════════════════════════════════════════════
+const map = L.map('map', { center: [50.0755, 14.4378], zoom: 13 });
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; OpenStreetMap contributors',
+  attribution: '&copy; CARTO &copy; OpenStreetMap contributors',
   maxZoom: 20,
 }).addTo(map);
 
-// ── Toast ─────────────────────────────────────────────────────────────────
-function toast(msg, ms = 3000) {
+// ═══════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════
+function toast(msg, ms = 3500) {
   const el = document.getElementById('toast');
   el.textContent = msg;
   el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), ms);
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), ms);
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────
-const layerGroups = {};
-const loaded = {};
-
-function spinner(id, on) {
-  document.getElementById('spin-' + id).style.display = on ? 'inline-block' : 'none';
+function fmtDist(m) {
+  return m >= 1000 ? (m / 1000).toFixed(2) + ' km' : Math.round(m) + ' m';
+}
+function fmtTime(ms) {
+  const min = Math.round(ms / 60000);
+  return min >= 60 ? `${Math.floor(min/60)} h ${min % 60} min` : `${min} min`;
+}
+function fmtDiff(a, b, type) {
+  const d = b - a;
+  if (Math.abs(d) < (type === 'dist' ? 5 : 30000)) return null;
+  const sign = d > 0 ? '+' : '';
+  const cls  = d > 0 ? 'plus' : 'minus';
+  const val  = type === 'dist' ? fmtDist(Math.abs(d)) : fmtTime(Math.abs(d));
+  return `<span class="${cls}">${sign}${d > 0 ? '' : '−'}${val}</span>`;
 }
 
-async function loadJson(url) {
+async function fetchJSON(url) {
   const r = await fetch(url);
-  if (!r.ok) throw new Error(`HTTP ${r.status}: ${url}`);
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
   return r.json();
 }
 
-function addGroup(id, group) {
-  layerGroups[id] = group;
+// ═══════════════════════════════════════════════════════════
+// DATA LAYERS
+// ═══════════════════════════════════════════════════════════
+const layerGroups = {}, loaded = {};
+
+function sp(id, on) {
+  const el = document.getElementById('spin-' + id);
+  if (el) el.style.display = on ? 'inline-block' : 'none';
 }
 
-// ── Noise colours ─────────────────────────────────────────────────────────
-const noiseDay = [
-  { file: 'noise_0_5',   mid: 2.5  },
-  { file: 'noise_5_10',  mid: 7.5  },
-  { file: 'noise_10_15', mid: 12.5 },
-  { file: 'noise_15_20', mid: 17.5 },
-  { file: 'noise_20_25', mid: 22.5 },
-  { file: 'noise_25_30', mid: 27.5 },
-  { file: 'noise_30_35', mid: 32.5 },
-  { file: 'noise_35_40', mid: 37.5 },
-  { file: 'noise_40_45', mid: 42.5 },
-  { file: 'noise_45_50', mid: 47.5 },
-  { file: 'noise_50_55', mid: 52.5 },
-  { file: 'noise_55_60', mid: 57.5 },
-  { file: 'noise_60_65', mid: 62.5 },
-  { file: 'noise_65_70', mid: 67.5 },
-  { file: 'noise_70_75', mid: 72.5 },
-  { file: 'noise_75_80', mid: 77.5 },
-  { file: 'noise_80_85', mid: 82.5 },
-  { file: 'noise_85_90', mid: 87.5 },
+const noiseFiles = [
+  {f:'noise_0_5',  m:2.5}, {f:'noise_5_10', m:7.5},
+  {f:'noise_10_15',m:12.5},{f:'noise_15_20',m:17.5},
+  {f:'noise_20_25',m:22.5},{f:'noise_25_30',m:27.5},
+  {f:'noise_30_35',m:32.5},{f:'noise_35_40',m:37.5},
+  {f:'noise_40_45',m:42.5},{f:'noise_45_50',m:47.5},
+  {f:'noise_50_55',m:52.5},{f:'noise_55_60',m:57.5},
+  {f:'noise_60_65',m:62.5},{f:'noise_65_70',m:67.5},
+  {f:'noise_70_75',m:72.5},{f:'noise_75_80',m:77.5},
+  {f:'noise_80_85',m:82.5},{f:'noise_85_90',m:87.5},
 ];
 
-function noiseColor(db, night = false) {
-  // yellow → orange → red scale
-  const stops = [
-    [30,  night ? '#c0e4ff' : '#ffffb2'],
-    [45,  night ? '#85c1e9' : '#fed976'],
-    [55,  night ? '#5b8fd4' : '#feb24c'],
-    [65,  night ? '#7b39d0' : '#fd8d3c'],
-    [75,  night ? '#5b0ea6' : '#f03b20'],
-    [90,  night ? '#2d0057' : '#bd0026'],
-  ];
-  const t = Math.max(30, Math.min(db, 90));
-  for (let i = 0; i < stops.length - 1; i++) {
-    const [a, ca] = stops[i];
-    const [b, cb] = stops[i + 1];
-    if (t <= b) {
-      return lerpColor(ca, cb, (t - a) / (b - a));
-    }
-  }
-  return stops[stops.length - 1][1];
-}
-
+function lerp(a, b, t) { return Math.round(a + (b - a) * t); }
 function lerpColor(a, b, t) {
-  const ah = parseInt(a.slice(1), 16);
-  const bh = parseInt(b.slice(1), 16);
-  const ar = (ah >> 16) & 0xff, ag = (ah >> 8) & 0xff, ab = ah & 0xff;
-  const br = (bh >> 16) & 0xff, bg = (bh >> 8) & 0xff, bb = bh & 0xff;
-  const r = Math.round(ar + (br - ar) * t);
-  const g = Math.round(ag + (bg - ag) * t);
-  const bl2 = Math.round(ab + (bb - ab) * t);
-  return '#' + [r, g, bl2].map(v => v.toString(16).padStart(2, '0')).join('');
+  const ah = parseInt(a.slice(1), 16), bh = parseInt(b.slice(1), 16);
+  const r = lerp((ah>>16)&0xff,(bh>>16)&0xff,t);
+  const g = lerp((ah>>8) &0xff,(bh>>8) &0xff,t);
+  const bl= lerp( ah     &0xff, bh     &0xff,t);
+  return '#'+[r,g,bl].map(v=>v.toString(16).padStart(2,'0')).join('');
+}
+function noiseColor(db, night) {
+  const s = night
+    ? [[10,'#c0e4ff'],[45,'#85c1e9'],[55,'#5b8fd4'],[65,'#7b39d0'],[75,'#5b0ea6'],[90,'#2d0057']]
+    : [[10,'#ffffb2'],[45,'#fed976'],[55,'#feb24c'],[65,'#fd8d3c'],[75,'#f03b20'],[90,'#bd0026']];
+  const t = Math.max(s[0][0], Math.min(db, 90));
+  for (let i = 0; i < s.length-1; i++) {
+    const [a,ca]= s[i], [b,cb]= s[i+1];
+    if (t <= b) return lerpColor(ca, cb, (t-a)/(b-a));
+  }
+  return s[s.length-1][1];
 }
 
-// ── Air colours ───────────────────────────────────────────────────────────
-const airColors = ['#1a9850', '#91cf60', '#d9ef8b', '#fc8d59', '#d73027'];
+const airColors = ['#1a9850','#91cf60','#d9ef8b','#fc8d59','#d73027'];
 
-// ── Load Noise ────────────────────────────────────────────────────────────
 async function loadNoise(key, folder, night) {
-  spinner(key, true);
+  sp(key, true);
   try {
-    const group = L.layerGroup().addTo(map);
-    for (const { file, mid } of noiseDay) {
-      const url = `../Noise/${folder}/${file}.geojson`;
-      let data;
-      try { data = await loadJson(url); } catch { continue; }
-      const col = noiseColor(mid, night);
+    const g = L.layerGroup().addTo(map);
+    for (const {f, m} of noiseFiles) {
+      let data; try { data = await fetchJSON(`../Noise/${folder}/${f}.geojson`); } catch { continue; }
+      const col = noiseColor(m, night);
       L.geoJSON(data, {
-        style: {
-          color: col,
-          fillColor: col,
-          fillOpacity: 0.45,
-          weight: 0,
-        },
-        onEachFeature(f, layer) {
-          const db = f.properties?.db ?? f.properties?.value ?? mid;
-          layer.bindPopup(`<b>Hluk</b><br>${db} dB`);
-        }
-      }).addTo(group);
+        style: { color: col, fillColor: col, fillOpacity: 0.45, weight: 0 },
+        onEachFeature(ft,l){ l.bindPopup(`<b>Hluk</b><br>${ft.properties?.db ?? m} dB`); }
+      }).addTo(g);
     }
-    addGroup(key, group);
-    loaded[key] = true;
-  } catch (e) {
-    toast('Chyba při načítání hluku: ' + e.message);
-    document.getElementById('cb-' + key).checked = false;
-  }
-  spinner(key, false);
+    layerGroups[key] = g; loaded[key] = true;
+  } catch(e) { toast('Chyba hluku: '+e.message); document.getElementById('cb-'+key).checked=false; }
+  sp(key, false);
 }
 
-// ── Load Air ──────────────────────────────────────────────────────────────
 async function loadAir() {
-  spinner('air', true);
+  sp('air',true);
   try {
-    const group = L.layerGroup().addTo(map);
-    for (let lvl = 1; lvl <= 5; lvl++) {
-      const url = `../Air/Vzduch/air_level_${lvl}.geojson`;
-      let data;
-      try { data = await loadJson(url); } catch { continue; }
-      const col = airColors[lvl - 1];
-      L.geoJSON(data, {
-        style: {
-          color: col,
-          fillColor: col,
-          fillOpacity: 0.5,
-          weight: 0,
-        },
-        onEachFeature(f, layer) {
-          layer.bindPopup(`<b>Ovzduší</b><br>Úroveň ${lvl}`);
-        }
-      }).addTo(group);
+    const g = L.layerGroup().addTo(map);
+    for (let l=1;l<=5;l++) {
+      let data; try { data = await fetchJSON(`../Air/Vzduch/air_level_${l}.geojson`); } catch { continue; }
+      const col = airColors[l-1];
+      L.geoJSON(data,{
+        style:{color:col,fillColor:col,fillOpacity:0.5,weight:0},
+        onEachFeature(f,ly){ly.bindPopup(`<b>Ovzduší</b><br>Úroveň ${l}`);}
+      }).addTo(g);
     }
-    addGroup('air', group);
-    loaded['air'] = true;
-  } catch (e) {
-    toast('Chyba při načítání ovzduší: ' + e.message);
-    document.getElementById('cb-air').checked = false;
-  }
-  spinner('air', false);
+    layerGroups['air']=g; loaded['air']=true;
+  } catch(e){ toast('Chyba ovzduší: '+e.message); document.getElementById('cb-air').checked=false; }
+  sp('air',false);
 }
 
-// ── Load Parks ────────────────────────────────────────────────────────────
 async function loadParks() {
-  spinner('parks', true);
+  sp('parks',true);
   try {
-    const data = await loadJson('../GreenZone/Parks.geojson');
-    const group = L.layerGroup().addTo(map);
-    L.geoJSON(data, {
-      style: {
-        color: '#2e7d32',
-        fillColor: '#4caf50',
-        fillOpacity: 0.45,
-        weight: 0.5,
-      },
-      onEachFeature(f, layer) {
-        const name = f.properties?.name ?? f.properties?.Name ?? 'Park';
-        layer.bindPopup(`<b>${name}</b>`);
-      }
-    }).addTo(group);
-    addGroup('parks', group);
-    loaded['parks'] = true;
-  } catch (e) {
-    toast('Chyba při načítání parků: ' + e.message);
-    document.getElementById('cb-parks').checked = false;
-  }
-  spinner('parks', false);
+    const data = await fetchJSON('../GreenZone/Parks.geojson');
+    const g = L.layerGroup().addTo(map);
+    L.geoJSON(data,{
+      style:{color:'#2e7d32',fillColor:'#4caf50',fillOpacity:0.45,weight:0.5},
+      onEachFeature(f,l){l.bindPopup(`<b>${f.properties?.name??'Park'}</b>`);}
+    }).addTo(g);
+    layerGroups['parks']=g; loaded['parks']=true;
+  } catch(e){ toast('Chyba parků: '+e.message); document.getElementById('cb-parks').checked=false; }
+  sp('parks',false);
 }
 
-// ── Load Roads ────────────────────────────────────────────────────────────
 async function loadRoads() {
-  spinner('roads', true);
+  sp('roads',true);
   try {
-    const data = await loadJson('../Grapphopper/TrailsPedestrians/PedestriansRoads.geojson');
-    const group = L.layerGroup().addTo(map);
-    L.geoJSON(data, {
-      style: {
-        color: '#4fc3f7',
-        weight: 1.5,
-        opacity: 0.75,
-      },
-      onEachFeature(f, layer) {
-        const name = f.properties?.name ?? f.properties?.highway ?? 'Cesta';
-        layer.bindPopup(`<b>${name}</b>`);
-      }
-    }).addTo(group);
-    addGroup('roads', group);
-    loaded['roads'] = true;
-  } catch (e) {
-    toast('Chyba při načítání cest: ' + e.message);
-    document.getElementById('cb-roads').checked = false;
-  }
-  spinner('roads', false);
+    const data = await fetchJSON('../Grapphopper/TrailsPedestrians/PedestriansRoads.geojson');
+    const g = L.layerGroup().addTo(map);
+    L.geoJSON(data,{
+      style:{color:'#4fc3f7',weight:1.5,opacity:0.75},
+      onEachFeature(f,l){l.bindPopup(`<b>${f.properties?.name??f.properties?.highway??'Cesta'}</b>`);}
+    }).addTo(g);
+    layerGroups['roads']=g; loaded['roads']=true;
+  } catch(e){ toast('Chyba cest: '+e.message); document.getElementById('cb-roads').checked=false; }
+  sp('roads',false);
 }
 
-// ── Toggle logic ──────────────────────────────────────────────────────────
 async function toggle(id, loader) {
-  const cb = document.getElementById('cb-' + id);
+  const cb = document.getElementById('cb-'+id);
   if (cb.checked) {
-    if (loaded[id] && layerGroups[id]) {
-      map.addLayer(layerGroups[id]);
-    } else {
-      await loader();
-    }
+    if (loaded[id] && layerGroups[id]) map.addLayer(layerGroups[id]);
+    else await loader();
   } else {
     if (layerGroups[id]) map.removeLayer(layerGroups[id]);
   }
 }
 
-document.getElementById('cb-roads').addEventListener('change', () =>
-  toggle('roads', loadRoads));
+document.getElementById('cb-roads').addEventListener('change',       ()=>toggle('roads',      loadRoads));
+document.getElementById('cb-noise-day').addEventListener('change',   ()=>toggle('noise-day',  ()=>loadNoise('noise-day',  'HlukDen',false)));
+document.getElementById('cb-noise-night').addEventListener('change', ()=>toggle('noise-night',()=>loadNoise('noise-night','HlukNoc',true)));
+document.getElementById('cb-air').addEventListener('change',         ()=>toggle('air',         loadAir));
+document.getElementById('cb-parks').addEventListener('change',       ()=>toggle('parks',       loadParks));
 
-document.getElementById('cb-noise-day').addEventListener('change', () =>
-  toggle('noise-day', () => loadNoise('noise-day', 'HlukDen', false)));
+// ═══════════════════════════════════════════════════════════
+// ROUTING
+// ═══════════════════════════════════════════════════════════
+const GH = 'http://localhost:8989/route';
 
-document.getElementById('cb-noise-night').addEventListener('change', () =>
-  toggle('noise-night', () => loadNoise('noise-night', 'HlukNoc', true)));
+let ptStart=null, ptEnd=null, timeMode='day';
+let mStart=null, mEnd=null, polyN=null, polyC=null;
+let lastPathN=null, lastPathC=null;   // raw GH path objects – shared between 2D/3D
+let mbStart=null, mbEnd=null;         // Mapbox GL markers
 
-document.getElementById('cb-air').addEventListener('change', () =>
-  toggle('air', loadAir));
+function setTimeMode(m) {
+  timeMode = m;
+  document.getElementById('btn-day').classList.toggle('active',   m==='day');
+  document.getElementById('btn-night').classList.toggle('active', m==='night');
+  if (ptStart && ptEnd) calcRoutes();
+}
 
-document.getElementById('cb-parks').addEventListener('change', () =>
-  toggle('parks', loadParks));
+function pinIcon(label, isEnd) {
+  return L.divIcon({
+    className: '',
+    html: `<div class="pin-label${isEnd?' end':''}">${label}</div>`,
+    iconAnchor: [0, 0],
+  });
+}
+
+// ── 3D route helpers ──
+function remove3DRoutes() {
+  if (!map3dGL) return;
+  ['route-normal-line','route-comfort-line'].forEach(id => {
+    if (map3dGL.getLayer(id)) map3dGL.removeLayer(id);
+  });
+  ['route-normal','route-comfort'].forEach(id => {
+    if (map3dGL.getSource(id)) map3dGL.removeSource(id);
+  });
+  if (mbStart) { mbStart.remove(); mbStart=null; }
+  if (mbEnd)   { mbEnd.remove();   mbEnd=null; }
+}
+
+function draw3DRoutes() {
+  if (!map3dGL) return;
+  // Remove only the specific route that has data
+  ['route-normal-line','route-comfort-line'].forEach(id => {
+    if (map3dGL.getLayer(id)) map3dGL.removeLayer(id);
+  });
+  ['route-normal','route-comfort'].forEach(id => {
+    if (map3dGL.getSource(id)) map3dGL.removeSource(id);
+  });
+
+  const toGeoJSON = p => ({ type:'Feature', geometry:{ type:'LineString', coordinates: p.points.coordinates } });
+  // Insert BEFORE '3d-buildings' so buildings visually occlude the routes
+  const below = map3dGL.getLayer('3d-buildings') ? '3d-buildings' : undefined;
+
+  if (lastPathN) {
+    map3dGL.addSource('route-normal', { type:'geojson', data: toGeoJSON(lastPathN) });
+    map3dGL.addLayer({ id:'route-normal-line', type:'line', source:'route-normal',
+      layout:{'line-join':'round','line-cap':'round'},
+      paint:{'line-color':'#e94560','line-width':7,'line-opacity':0.92} }, below);
+  }
+  if (lastPathC) {
+    map3dGL.addSource('route-comfort', { type:'geojson', data: toGeoJSON(lastPathC) });
+    map3dGL.addLayer({ id:'route-comfort-line', type:'line', source:'route-comfort',
+      layout:{'line-join':'round','line-cap':'round'},
+      paint:{'line-color':'#00e5ff','line-width':5,'line-opacity':0.92} }, below);
+  }
+}
+
+function draw3DMarkers() {
+  if (!map3dGL) return;
+  if (mbStart) { mbStart.remove(); mbStart=null; }
+  if (mbEnd)   { mbEnd.remove();   mbEnd=null; }
+  if (ptStart) mbStart = new mapboxgl.Marker({ color:'#4fc3f7' })
+    .setLngLat([ptStart.lng, ptStart.lat]).addTo(map3dGL);
+  if (ptEnd)   mbEnd   = new mapboxgl.Marker({ color:'#e94560' })
+    .setLngLat([ptEnd.lng, ptEnd.lat]).addTo(map3dGL);
+}
+
+// ── Shared click handler ──
+function handleMapClick(lat, lng) {
+  if (!ptStart) {
+    ptStart = {lat, lng};
+    // Leaflet marker
+    if (mStart) map.removeLayer(mStart);
+    mStart = L.marker([lat,lng], {icon: pinIcon('\u25b6 Start', false)}).addTo(map);
+    // Mapbox marker
+    if (map3dGL) { if (mbStart) mbStart.remove();
+      mbStart = new mapboxgl.Marker({color:'#4fc3f7'}).setLngLat([lng,lat]).addTo(map3dGL); }
+    toast('Start nastaven. Klikněte na cíl.');
+
+  } else if (!ptEnd) {
+    ptEnd = {lat, lng};
+    if (mEnd) map.removeLayer(mEnd);
+    mEnd = L.marker([lat,lng], {icon: pinIcon('\u2691 Cíl', true)}).addTo(map);
+    if (map3dGL) { if (mbEnd) mbEnd.remove();
+      mbEnd = new mapboxgl.Marker({color:'#e94560'}).setLngLat([lng,lat]).addTo(map3dGL); }
+    calcRoutes();
+
+  } else {
+    clearRoute();
+    ptStart = {lat, lng};
+    mStart  = L.marker([lat,lng], {icon: pinIcon('\u25b6 Start', false)}).addTo(map);
+    if (map3dGL) { if (mbStart) mbStart.remove();
+      mbStart = new mapboxgl.Marker({color:'#4fc3f7'}).setLngLat([lng,lat]).addTo(map3dGL); }
+    toast('Nový start nastaven. Klikněte na cíl.');
+  }
+}
+
+function clearRoute() {
+  [mStart, mEnd, polyN, polyC].forEach(l => l && map.removeLayer(l));
+  mStart=mEnd=polyN=polyC=ptStart=ptEnd=null;
+  lastPathN=lastPathC=null;
+  remove3DRoutes();
+  document.getElementById('route-info').style.display    = 'none';
+  document.getElementById('route-spinner').style.display = 'none';
+}
+
+function ghCoords(path) {
+  return path.points.coordinates.map(([lng,lat])=>[lat,lng]);
+}
+
+// Render one route as soon as its fetch resolves (before the other arrives)
+function applyRoute(path, isNormal) {
+  const color = isNormal ? '#e94560' : '#00e5ff';
+  const label = isNormal ? 'Nejkratší trasa' : 'Komfortní trasa';
+  const poly  = L.polyline(ghCoords(path), { color, weight: isNormal ? 6 : 5, opacity: 0.9 })
+    .addTo(map)
+    .bindPopup(`<b>${label}</b><br>${fmtDist(path.distance)} · ${fmtTime(path.time)}`);
+  if (isNormal) { lastPathN = path; polyN = poly; }
+  else          { lastPathC = path; polyC = poly; }
+  if (map3dGL) draw3DRoutes();
+}
+
+async function calcRoutes() {
+  if (polyN) { map.removeLayer(polyN); polyN=null; }
+  if (polyC) { map.removeLayer(polyC); polyC=null; }
+  if (map3dGL) {
+    ['route-normal-line','route-comfort-line'].forEach(id => { if (map3dGL.getLayer(id)) map3dGL.removeLayer(id); });
+    ['route-normal','route-comfort'].forEach(id => { if (map3dGL.getSource(id)) map3dGL.removeSource(id); });
+  }
+  lastPathN=null; lastPathC=null;
+
+  document.getElementById('route-spinner').style.display = 'flex';
+  document.getElementById('route-info').style.display    = 'none';
+
+  const profile = timeMode==='day' ? 'comfort_walk_day' : 'comfort_walk_night';
+  const params  = `point=${ptStart.lat},${ptStart.lng}&point=${ptEnd.lat},${ptEnd.lng}&points_encoded=false`;
+
+  // Each fetch renders immediately when it resolves — no waiting for the other
+  const fetchNormal  = fetchJSON(`${GH}?${params}&profile=normal_walk`)
+    .then(r => { applyRoute(r.paths[0], true);  return r.paths[0]; });
+  const fetchComfort = fetchJSON(`${GH}?${params}&profile=${profile}`)
+    .then(r => { applyRoute(r.paths[0], false); return r.paths[0]; });
+
+  try {
+    const [pN, pC] = await Promise.all([fetchNormal, fetchComfort]);
+
+    // Fit view once both are available
+    map.fitBounds(polyN.getBounds().extend(polyC.getBounds()), { padding: [50, 50] });
+    if (map3dGL) {
+      const all = pN.points.coordinates.concat(pC.points.coordinates);
+      const lngs = all.map(c=>c[0]), lats = all.map(c=>c[1]);
+      map3dGL.fitBounds(
+        [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]],
+        { padding: 60, pitch: 52, duration: 800 }
+      );
+    }
+
+    // Info cards
+    document.getElementById('ri-n-dist').textContent = fmtDist(pN.distance);
+    document.getElementById('ri-n-time').textContent = fmtTime(pN.time);
+    document.getElementById('ri-c-dist').textContent = fmtDist(pC.distance);
+    document.getElementById('ri-c-time').textContent = fmtTime(pC.time);
+
+    const dd = fmtDiff(pN.distance, pC.distance, 'dist');
+    const dt = fmtDiff(pN.time,     pC.time,     'time');
+    const parts = [dd, dt].filter(Boolean);
+    document.getElementById('ri-diff').innerHTML =
+      parts.length ? `Komfortní trasa: ${parts.join(' &nbsp;·&nbsp; ')}` : 'Trasy jsou totožné';
+
+    document.getElementById('route-info').style.display = 'block';
+  } catch(e) {
+    toast('GraphHopper není dostupný (port 8989). Spusť Docker kontejner.', 5000);
+    console.error(e);
+  }
+
+  document.getElementById('route-spinner').style.display = 'none';
+}
+
+// ═══════════════════════════════════════════════════════════
+// 3D MAP (MAPBOX GL JS – LOD2 buildings)
+// ═══════════════════════════════════════════════════════════
+mapboxgl.accessToken = 'pk.eyJ1IjoicXF4emV3IiwiYSI6ImNtbTFyY3VtNTBibDYycXM3OG94OTJleTcifQ.nSV6VT1f0hDwztl8KVQfQg';
+
+let map3dGL = null;
+let is3D    = false;
+
+function init3DMap() {
+  const c = map.getCenter();
+  map3dGL = new mapboxgl.Map({
+    container: 'map3d',
+    style: 'mapbox://styles/mapbox/dark-v11',
+    center: [c.lng, c.lat],
+    zoom:   Math.max(map.getZoom() - 1, 1),
+    pitch:  52,
+    bearing: -15,
+    antialias: true,
+  });
+
+  map3dGL.addControl(new mapboxgl.NavigationControl(), 'top-right');
+  map3dGL.addControl(new mapboxgl.ScaleControl({ unit: 'metric' }), 'bottom-left');
+
+  // Allow route placement via clicks on the 3D map
+  map3dGL.on('click', e => {
+    if (!is3D) return;
+    handleMapClick(e.lngLat.lat, e.lngLat.lng);
+  });
+
+  map3dGL.on('load', () => {
+    // Map has proper dimensions now — force resize then fade in
+    map3dGL.resize();
+    const btn3d   = document.getElementById('btn-3d');
+    const map3dEl = document.getElementById('map3d');
+    btn3d.textContent = '\u25fb 2D';
+    btn3d.disabled    = false;
+    requestAnimationFrame(() => map3dEl.classList.add('visible'));
+    // Redraw existing route if one was drawn before 3D init
+    if (lastPathN) draw3DRoutes();
+    if (ptStart || ptEnd) draw3DMarkers();
+
+    // Subtle atmospheric glow
+    map3dGL.setFog({
+      color: 'rgb(12,18,35)',
+      'high-color': 'rgb(8,12,28)',
+      'horizon-blend': 0.04,
+      'space-color': 'rgb(5,8,20)',
+    });
+
+    // LOD2 – 3D building extrusions with height + min_height from OSM data
+    // Insert buildings below the first symbol/label layer so text stays on top
+    const _styleLayers = map3dGL.getStyle().layers;
+    const _firstSymbol = _styleLayers.find(l => l.type === 'symbol');
+
+    map3dGL.addLayer({
+      id: '3d-buildings',
+      source: 'composite',
+      'source-layer': 'building',
+      filter: ['==', 'extrude', 'true'],
+      type: 'fill-extrusion',
+      minzoom: 14,
+      paint: {
+        // Height-based colour gradient (dark blue → steel blue)
+        'fill-extrusion-color': [
+          'interpolate', ['linear'], ['get', 'height'],
+          0,   '#1a2542',
+          20,  '#1e3a5f',
+          50,  '#0f3460',
+          100, '#1a5276',
+          200, '#21618c',
+        ],
+        // Animate height from 0 → real at zoom 14→14.5 (smooth LOD transition)
+        'fill-extrusion-height': [
+          'interpolate', ['linear'], ['zoom'],
+          14, 0,
+          14.5, ['get', 'height'],
+        ],
+        'fill-extrusion-base': [
+          'interpolate', ['linear'], ['zoom'],
+          14, 0,
+          14.5, ['get', 'min_height'],
+        ],
+        'fill-extrusion-ambient-occlusion-intensity': 0.4,
+        'fill-extrusion-ambient-occlusion-radius': 3,
+        'fill-extrusion-opacity': 0.88,
+      },
+    }, _firstSymbol ? _firstSymbol.id : undefined);
+  });
+}
+
+function toggle3D() {
+  is3D = !is3D;
+  const btn     = document.getElementById('btn-3d');
+  const mapEl   = document.getElementById('map');
+  const map3dEl = document.getElementById('map3d');
+
+  if (is3D) {
+    btn.classList.add('active');
+    mapEl.classList.add('faded');
+
+    if (!map3dGL) {
+      // Show loading state while Mapbox initialises (style + tiles)
+      btn.textContent = '⏳ Načítám…';
+      btn.disabled    = true;
+      // Give browser one frame to reflow so Mapbox reads correct container size
+      requestAnimationFrame(() => init3DMap());
+    } else {
+      btn.textContent = '◻ 2D';
+      const c = map.getCenter();
+      requestAnimationFrame(() => {
+        map3dGL.setCenter([c.lng, c.lat]);
+        map3dGL.setZoom(Math.max(map.getZoom() - 1, 1));
+        map3dGL.resize();
+        map3dEl.classList.add('visible');        // Sync existing route to 3D
+        if (lastPathN) draw3DRoutes();
+        if (ptStart || ptEnd) draw3DMarkers();      });
+    }
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = '⬛ 3D';
+    map3dEl.classList.remove('visible');
+    mapEl.classList.remove('faded');
+    // Sync Mapbox position back to Leaflet
+    if (map3dGL) {
+      const c = map3dGL.getCenter();
+      map.setView([c.lat, c.lng], map3dGL.getZoom() + 1, { animate: false });
+    }
+  }
+}
+
+// Map click delegates to shared handler (only when Leaflet is visible)
+map.on('click', e => {
+  if (is3D) return;
+  handleMapClick(e.latlng.lat, e.latlng.lng);
+});
 </script>
 </body>
 </html>
