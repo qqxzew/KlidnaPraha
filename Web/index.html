@@ -289,6 +289,41 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.6);
     }
     .pin-label.end { border-color: #e94560; background: #3a1a2a; }
+
+    /* ── Priority sliders ── */
+    .slider-row { margin-bottom: 16px; }
+    .slider-header {
+      display: flex; align-items: center; gap: 7px; margin-bottom: 6px;
+    }
+    .slider-icon { font-size: 1rem; line-height: 1; }
+    .slider-label { font-size: 0.82rem; color: #c0d8f0; flex: 1; }
+    .slider-val {
+      font-size: 0.75rem; font-weight: 700; color: #4fc3f7;
+      background: rgba(79,195,247,0.08);
+      padding: 2px 8px; border-radius: 10px;
+      border: 1px solid rgba(79,195,247,0.25);
+      min-width: 36px; text-align: center;
+    }
+    input[type=range].pref-slider {
+      width: 100%; appearance: none; -webkit-appearance: none;
+      height: 4px; border-radius: 2px; outline: none; cursor: pointer;
+      background: linear-gradient(to right, #4fc3f7 50%, #1e3460 50%);
+    }
+    input[type=range].pref-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #4fc3f7; border: 2px solid #16213e;
+      box-shadow: 0 0 6px rgba(79,195,247,0.5); cursor: pointer;
+    }
+    input[type=range].pref-slider::-moz-range-thumb {
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #4fc3f7; border: 2px solid #16213e; cursor: pointer;
+    }
+    .slider-marks {
+      display: flex; justify-content: space-between;
+      font-size: 0.6rem; color: #3a5070; margin-top: 3px;
+    }
+    .slider-marks span:nth-child(2) { color: #4a6888; }
   </style>
 </head>
 <body>
@@ -339,6 +374,47 @@
       </div>
       <div class="route-diff" id="ri-diff"></div>
       <button id="btn-clear-route" onclick="clearRoute()">✕ &nbsp;Smazat trasu</button>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- PRIORITY SLIDERS -->
+  <div class="section">
+    <div class="section-title">Priorit trasy</div>
+    <p class="route-hint" style="margin-bottom:12px;">Uprav váhu faktorů pro komfortní trasu. Změna přepočítá trasu.</p>
+
+    <div class="slider-row">
+      <div class="slider-header">
+        <span class="slider-icon">🔊</span>
+        <span class="slider-label">Hluk</span>
+        <span class="slider-val" id="val-noise">Výchozí</span>
+      </div>
+      <input type="range" class="pref-slider" id="sl-noise" min="0" max="1.4" step="0.2" value="1"
+             oninput="onSlider('sl-noise','val-noise')">
+      <div class="slider-marks"><span>Vyp.</span><span>Méně</span><span>Výchozí</span><span>Více</span></div>
+    </div>
+
+    <div class="slider-row">
+      <div class="slider-header">
+        <span class="slider-icon">💨</span>
+        <span class="slider-label">Ovzduší</span>
+        <span class="slider-val" id="val-air">Výchozí</span>
+      </div>
+      <input type="range" class="pref-slider" id="sl-air" min="0" max="1.4" step="0.2" value="1"
+             oninput="onSlider('sl-air','val-air')">
+      <div class="slider-marks"><span>Vyp.</span><span>Méně</span><span>Výchozí</span><span>Více</span></div>
+    </div>
+
+    <div class="slider-row">
+      <div class="slider-header">
+        <span class="slider-icon">⛰️</span>
+        <span class="slider-label">Přepady výšky</span>
+        <span class="slider-val" id="val-elev">Výchozí</span>
+      </div>
+      <input type="range" class="pref-slider" id="sl-elev" min="0" max="1.4" step="0.2" value="1"
+             oninput="onSlider('sl-elev','val-elev')">
+      <div class="slider-marks"><span>Vyp.</span><span>Méně</span><span>Výchozí</span><span>Více</span></div>
     </div>
   </div>
 
@@ -455,6 +531,106 @@ async function fetchJSON(url) {
   const r = await fetch(url);
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   return r.json();
+}
+
+// Decode Google Encoded Polyline (precision 1e-5) → [[lat, lng], ...]
+function decodePolyline(enc) {
+  const out = []; let i = 0, lat = 0, lng = 0;
+  while (i < enc.length) {
+    let b, s = 0, r = 0;
+    do { b = enc.charCodeAt(i++) - 63; r |= (b & 0x1f) << s; s += 5; } while (b >= 0x20);
+    lat += (r & 1) ? ~(r >> 1) : (r >> 1); s = 0; r = 0;
+    do { b = enc.charCodeAt(i++) - 63; r |= (b & 0x1f) << s; s += 5; } while (b >= 0x20);
+    lng += (r & 1) ? ~(r >> 1) : (r >> 1);
+    out.push([lat * 1e-5, lng * 1e-5]);
+  }
+  return out; // [[lat, lng], ...]
+}
+
+// Route result cache — keyed by start/end coords + profile + slider values
+const _routeCache = new Map();
+function _cacheKey(s, e, profile) {
+  const n = document.getElementById('sl-noise')?.value ?? '1';
+  const a = document.getElementById('sl-air')?.value   ?? '1';
+  const v = document.getElementById('sl-elev')?.value  ?? '1';
+  return `${s.lat.toFixed(5)},${s.lng.toFixed(5)},${e.lat.toFixed(5)},${e.lng.toFixed(5)},${profile},n${n},a${a},e${v}`;
+}
+
+// ── Custom model builder ──
+const _BASE_NOISE_DAY = [
+  ['in_noise_day_25_30',0.95],['in_noise_day_30_35',0.95],['in_noise_day_35_40',0.90],
+  ['in_noise_day_40_45',0.90],['in_noise_day_45_50',0.85],['in_noise_day_50_55',0.80],
+  ['in_noise_day_55_60',0.70],['in_noise_day_60_65',0.50],['in_noise_day_65_70',0.30],
+  ['in_noise_day_70_75',0.20],['in_noise_day_75_80',0.10],['in_noise_day_80_85',0.05],
+  ['in_noise_day_85_90',0.01],
+];
+const _BASE_NOISE_NIGHT = [
+  ['in_noise_night_25_30',0.95],['in_noise_night_30_35',0.95],['in_noise_night_35_40',0.90],
+  ['in_noise_night_40_45',0.90],['in_noise_night_45_50',0.85],['in_noise_night_50_55',0.80],
+  ['in_noise_night_55_60',0.60],['in_noise_night_60_65',0.30],['in_noise_night_65_70',0.15],
+  ['in_noise_night_70_75',0.05],['in_noise_night_75_80',0.01],['in_noise_night_80_85',0.01],
+];
+const _BASE_AIR = [
+  ['in_air_level_3',0.95],['in_air_level_4',0.80],['in_air_level_5',0.50],
+];
+
+// Scale a priority multiplier: scale=0 → 1.0 (off), scale=1 → base, scale=2 → stronger
+function _scaleMult(base, scale) {
+  return Math.round(Math.max(0.01, 1 - (1 - base) * scale) * 1000) / 1000;
+}
+
+function buildCustomModel(mode) {
+  const sN = parseFloat(document.getElementById('sl-noise').value);
+  const sA = parseFloat(document.getElementById('sl-air').value);
+  const sE = parseFloat(document.getElementById('sl-elev').value);
+  // distance_influence: 5 (ignore elev) → 70 (default=1.0) → 103 (max=1.4)
+  const distance_influence = Math.round(5 + sE * 65);
+  const noiseBase = mode === 'day' ? _BASE_NOISE_DAY : _BASE_NOISE_NIGHT;
+  const priority = [
+    { if: '!in_merged_parks', multiply_by: 0.85 },
+    ..._BASE_AIR.map(([k,v])   => ({ if: k, multiply_by: _scaleMult(v, sA) })),
+    ...noiseBase.map(([k,v])   => ({ if: k, multiply_by: _scaleMult(v, sN) })),
+  ];
+  return { distance_influence, priority };
+}
+
+// POST a route request to GH (supports custom_model)
+async function postRoute(s, e, profile, customModel) {
+  const body = {
+    points: [[s.lng, s.lat], [e.lng, e.lat]],
+    profile,
+    points_encoded: true,
+    instructions: false,
+  };
+  if (customModel) body.custom_model = customModel;
+  const r = await fetch(GH, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return r.json();
+}
+
+// Slider interaction
+let _sliderTimer = null;
+function _sliderLabel(v) {
+  if (v <= 0)    return 'Vypnuto';
+  if (v < 0.7)   return 'Méně';
+  if (v < 1.15)  return 'Výchozí';
+  return 'Více';
+}
+
+function onSlider(id, valId) {
+  const v = parseFloat(document.getElementById(id).value);
+  document.getElementById(valId).textContent = _sliderLabel(v);
+  const pct = (v / 1.4 * 100).toFixed(1);
+  document.getElementById(id).style.background =
+    `linear-gradient(to right, #4fc3f7 ${pct}%, #1e3460 ${pct}%)`;
+  clearTimeout(_sliderTimer);
+  if (ptStart && ptEnd) {
+    _sliderTimer = setTimeout(calcRoutes, 350);
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -627,7 +803,8 @@ function draw3DRoutes() {
     if (map3dGL.getSource(id)) map3dGL.removeSource(id);
   });
 
-  const toGeoJSON = p => ({ type:'Feature', geometry:{ type:'LineString', coordinates: p.points.coordinates } });
+  // Use pre-decoded _geojsonCoords ([lng, lat]) — no re-parsing needed
+  const toGeoJSON = p => ({ type:'Feature', geometry:{ type:'LineString', coordinates: p._geojsonCoords } });
   // Insert BEFORE '3d-buildings' so buildings visually occlude the routes
   const below = map3dGL.getLayer('3d-buildings') ? '3d-buildings' : undefined;
 
@@ -694,20 +871,34 @@ function clearRoute() {
   document.getElementById('route-spinner').style.display = 'none';
 }
 
-function ghCoords(path) {
-  return path.points.coordinates.map(([lng,lat])=>[lat,lng]);
-}
-
 // Render one route as soon as its fetch resolves (before the other arrives)
 function applyRoute(path, isNormal) {
+  // Decode encoded polyline and attach both coord formats to the path object
+  const latLngs         = decodePolyline(path.points); // [[lat, lng]]
+  path._leafletCoords   = latLngs;
+  path._geojsonCoords   = latLngs.map(([la, ln]) => [ln, la]); // [[lng, lat]] for Mapbox/GeoJSON
+
   const color = isNormal ? '#e94560' : '#00e5ff';
   const label = isNormal ? 'Nejkratší trasa' : 'Komfortní trasa';
-  const poly  = L.polyline(ghCoords(path), { color, weight: isNormal ? 6 : 5, opacity: 0.9 })
+  const poly  = L.polyline(path._leafletCoords, { color, weight: isNormal ? 6 : 5, opacity: 0.9 })
     .addTo(map)
     .bindPopup(`<b>${label}</b><br>${fmtDist(path.distance)} · ${fmtTime(path.time)}`);
   if (isNormal) { lastPathN = path; polyN = poly; }
   else          { lastPathC = path; polyC = poly; }
   if (map3dGL) draw3DRoutes();
+}
+
+function _finishRouteUI(pN, pC) {
+  document.getElementById('ri-n-dist').textContent = fmtDist(pN.distance);
+  document.getElementById('ri-n-time').textContent = fmtTime(pN.time);
+  document.getElementById('ri-c-dist').textContent = fmtDist(pC.distance);
+  document.getElementById('ri-c-time').textContent = fmtTime(pC.time);
+  const dd = fmtDiff(pN.distance, pC.distance, 'dist');
+  const dt = fmtDiff(pN.time,     pC.time,     'time');
+  const parts = [dd, dt].filter(Boolean);
+  document.getElementById('ri-diff').innerHTML =
+    parts.length ? `Komfortní trasa: ${parts.join(' &nbsp;·&nbsp; ')}` : 'Trasy jsou totožné';
+  document.getElementById('route-info').style.display = 'block';
 }
 
 async function calcRoutes() {
@@ -723,41 +914,45 @@ async function calcRoutes() {
   document.getElementById('route-info').style.display    = 'none';
 
   const profile = timeMode==='day' ? 'comfort_walk_day' : 'comfort_walk_night';
-  const params  = `point=${ptStart.lat},${ptStart.lng}&point=${ptEnd.lat},${ptEnd.lng}&points_encoded=false`;
+  // points_encoded=true + instructions=false passed inside postRoute body
+  const keyN = _cacheKey(ptStart, ptEnd, 'normal_walk_shortest');
+  const keyC = _cacheKey(ptStart, ptEnd, profile);
 
+  const cachedN = _routeCache.get(keyN);
+  const cachedC = _routeCache.get(keyC);
+  if (cachedN) { applyRoute(cachedN, true); }
+  if (cachedC) { applyRoute(cachedC, false); }
+  if (cachedN && cachedC) {
+    document.getElementById('route-spinner').style.display = 'none';
+    _finishRouteUI(cachedN, cachedC);
+    return;
+  }
+
+  const mode = timeMode;
   // Each fetch renders immediately when it resolves — no waiting for the other
-  const fetchNormal  = fetchJSON(`${GH}?${params}&profile=normal_walk`)
-    .then(r => { applyRoute(r.paths[0], true);  return r.paths[0]; });
-  const fetchComfort = fetchJSON(`${GH}?${params}&profile=${profile}`)
-    .then(r => { applyRoute(r.paths[0], false); return r.paths[0]; });
+  const fetchNormal  = cachedN
+    ? Promise.resolve(cachedN)
+    : postRoute(ptStart, ptEnd, 'normal_walk', null)               // shortest: no custom model
+        .then(r => { const p = r.paths[0]; _routeCache.set(keyN, p); applyRoute(p, true);  return p; });
+  const fetchComfort = cachedC
+    ? Promise.resolve(cachedC)
+    : postRoute(ptStart, ptEnd, 'normal_walk', buildCustomModel(mode))  // comfort: full custom model
+        .then(r => { const p = r.paths[0]; _routeCache.set(keyC, p); applyRoute(p, false); return p; });
 
   try {
     const [pN, pC] = await Promise.all([fetchNormal, fetchComfort]);
+    _finishRouteUI(pN, pC);
 
     // Fit view once both are available
     map.fitBounds(polyN.getBounds().extend(polyC.getBounds()), { padding: [50, 50] });
     if (map3dGL) {
-      const all = pN.points.coordinates.concat(pC.points.coordinates);
+      const all = pN._geojsonCoords.concat(pC._geojsonCoords);
       const lngs = all.map(c=>c[0]), lats = all.map(c=>c[1]);
       map3dGL.fitBounds(
         [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]],
         { padding: 60, pitch: 52, duration: 800 }
       );
     }
-
-    // Info cards
-    document.getElementById('ri-n-dist').textContent = fmtDist(pN.distance);
-    document.getElementById('ri-n-time').textContent = fmtTime(pN.time);
-    document.getElementById('ri-c-dist').textContent = fmtDist(pC.distance);
-    document.getElementById('ri-c-time').textContent = fmtTime(pC.time);
-
-    const dd = fmtDiff(pN.distance, pC.distance, 'dist');
-    const dt = fmtDiff(pN.time,     pC.time,     'time');
-    const parts = [dd, dt].filter(Boolean);
-    document.getElementById('ri-diff').innerHTML =
-      parts.length ? `Komfortní trasa: ${parts.join(' &nbsp;·&nbsp; ')}` : 'Trasy jsou totožné';
-
-    document.getElementById('route-info').style.display = 'block';
   } catch(e) {
     toast('GraphHopper není dostupný (port 8989). Spusť Docker kontejner.', 5000);
     console.error(e);
