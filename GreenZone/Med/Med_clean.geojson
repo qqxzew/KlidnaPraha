@@ -1,0 +1,1440 @@
+{
+  "type": "FeatureCollection",
+  "name": "med_clean",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 433,
+        "id_zar": 27,
+        "nazev_zar": "Poliklinika Michnova",
+        "adresa_zar": "Michnova 1622/4",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{2C126AF4-A8B4-4BEF-857C-C4FB976F4D02}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.520624804000022,
+          50.031336026000076
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 434,
+        "id_zar": 28,
+        "nazev_zar": "Poliklinika Vajgarská",
+        "adresa_zar": "Vajgarská 1141",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{0130DD4C-CB97-427D-988B-D334999B4E69}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.554042516000038,
+          50.10161121900006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 435,
+        "id_zar": 29,
+        "nazev_zar": "Poliklinika Budějovická",
+        "adresa_zar": "Antala Staška 1670/80",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{D975E2A9-0297-4C5C-A5AA-96E7685CFCEA}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.451070340000058,
+          50.04253251600005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 436,
+        "id_zar": 30,
+        "nazev_zar": "Poliklinika Pacovská",
+        "adresa_zar": "Pacovská 869/31",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{D7850E84-DFAE-406C-A74B-43144568CFFE}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.447118458000034,
+          50.045380839000075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 437,
+        "id_zar": 32,
+        "nazev_zar": "Poliklinika Kartouzská ",
+        "adresa_zar": "Kartouzská 204/6",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{F9B30771-6485-4FF6-BB6C-52D7ACCBBA9F}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.40154437700005,
+          50.07428242800006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 438,
+        "id_zar": 33,
+        "nazev_zar": "Poliklinika Malešice",
+        "adresa_zar": "Plaňanská 573/1",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{F0EFB948-D583-43D9-A605-E4DBD0787217}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.501234375000024,
+          50.08022009200005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 439,
+        "id_zar": 34,
+        "nazev_zar": "Poliklinika Opatovská",
+        "adresa_zar": "Opatovská 1763/11",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{1C3B013B-02F0-4B34-97AB-C305FC4904C2}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.517840969000076,
+          50.02573975800004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 440,
+        "id_zar": 35,
+        "nazev_zar": "Poliklinika Jižní Město",
+        "adresa_zar": "Šustova 1930/2",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{750D6C8D-CA4F-4865-8F55-25CF75950947}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.489341600000046,
+          50.027463399000055
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 441,
+        "id_zar": 36,
+        "nazev_zar": "Poliklinika Kolbenova",
+        "adresa_zar": "Kolbenova 473/36",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{8AE513F1-EBC7-43C1-A3AF-0B8C8EE2B52B}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.513219029000027,
+          50.11044564300005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 442,
+        "id_zar": 37,
+        "nazev_zar": "Městská poliklinika Praha",
+        "adresa_zar": "Spálená 78/12",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{EA84BEFC-3538-433E-98B7-54AF6C08E51F}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.419949364000047,
+          50.080283603000055
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 443,
+        "id_zar": 38,
+        "nazev_zar": "Poliklinika Mazurská",
+        "adresa_zar": "Mazurská 484/2",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{97D1E944-1DD2-4AFD-B8BD-2194C0A108AB}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41557765400006,
+          50.12679866600007
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 444,
+        "id_zar": 39,
+        "nazev_zar": "Poliklinika Barrandov",
+        "adresa_zar": "Krškova 807/21",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{471A104E-DADB-4C46-B2B0-AEF6852BD1A4}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.374974562000034,
+          50.03316086700005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 445,
+        "id_zar": 40,
+        "nazev_zar": "Poliklina Vinohrady",
+        "adresa_zar": "Vinohradská 1513/176",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{08A5B1C0-7F85-4F82-94C6-2CE7F812F9EF}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.469665533000068,
+          50.07806220600003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 446,
+        "id_zar": 41,
+        "nazev_zar": "Poliklinika I. P. Pavlova",
+        "adresa_zar": "Legerova 389/56",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{3852F5CC-334B-497A-9394-C33DD021775D}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.430450636000046,
+          50.07465926300006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 447,
+        "id_zar": 42,
+        "nazev_zar": "Poliklinika  Prosek",
+        "adresa_zar": "Lovosická 440/40",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{4652EAC7-2F29-4E29-AE3A-9202C173B854}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.490197838000029,
+          50.12886287100008
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 448,
+        "id_zar": 43,
+        "nazev_zar": "Poliklinika Spořilov",
+        "adresa_zar": "Božkovská 2967/4",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{A8396799-7990-4DCC-A325-974396E8340C}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.487031168000044,
+          50.04501249200007
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 449,
+        "id_zar": 45,
+        "nazev_zar": "Poliklinika Praha 7",
+        "adresa_zar": "Františka Křížka 683/22",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{A9E82B20-D2F2-4FAB-8D1C-8149F095DFA9}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.430601857000056,
+          50.09953623500007
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 450,
+        "id_zar": 46,
+        "nazev_zar": "Poliklinika DAM. s.r.o.",
+        "adresa_zar": "Stamicova 1968/21",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{95AA3C0A-C746-4190-82DD-4BBAF91D9706}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.357895668000026,
+          50.08978278400008
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 451,
+        "id_zar": 47,
+        "nazev_zar": "Poliklinika Lípa ",
+        "adresa_zar": "Seydlerova 2451/8",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{304D81CC-E8D4-472F-B0D5-61615EB8968B}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.347370933000036,
+          50.05078292400003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 452,
+        "id_zar": 48,
+        "nazev_zar": "Poliklinika Praha 13",
+        "adresa_zar": "Hostinského 1533/4",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{8A4F2FED-80EF-435A-824D-266DDD89BBD9}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.314916075000042,
+          50.04621208100008
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 453,
+        "id_zar": 49,
+        "nazev_zar": "Poliklinika Vítězné náměstí",
+        "adresa_zar": "Vítězné náměstí 817/9",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{54642D4F-A222-4BB1-97AB-5A133154FDFE}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.396565187000022,
+          50.10114172500005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 454,
+        "id_zar": 50,
+        "nazev_zar": "Poliklinika Zbraslav",
+        "adresa_zar": "Žitavského 497",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{A3CE1B06-5072-4CEB-9C51-ABD4DBB51F56}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.394937047000042,
+          49.97395549100003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 455,
+        "id_zar": 51,
+        "nazev_zar": "Poliklinika Pod Marjánkou",
+        "adresa_zar": "Pod Marjánkou 1906/12",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{DB3957BE-1FD7-4854-9970-D686AC19388D}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.366178834000038,
+          50.084749196000075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 456,
+        "id_zar": 52,
+        "nazev_zar": "Zdravotnické zařízení MEDIAM, s.r.o.",
+        "adresa_zar": "Tusarova 1152/36",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{303114BA-6D69-4B66-A630-5562E537CF01}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.44931417500004,
+          50.10137696800007
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 457,
+        "id_zar": 53,
+        "nazev_zar": "Poliklinika Vysočany",
+        "adresa_zar": "Sokolovská 810/304",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{01C38113-3348-49E2-9CED-7D89E1169068}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.494526860000065,
+          50.10826983800007
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 458,
+        "id_zar": 54,
+        "nazev_zar": "Zdravotní středisko Kbely",
+        "adresa_zar": "Železnobrodská 764/25",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{50D75920-D526-451D-987E-E56202A3CDED}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.549863493000032,
+          50.13392148100007
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 459,
+        "id_zar": 56,
+        "nazev_zar": "Zdravotní středisko Šeberov",
+        "adresa_zar": "K Hrnčířům 263",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{4962CD31-0203-45C9-AFF4-14B102AB5B85}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.513659259000065,
+          50.011640097000054
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 460,
+        "id_zar": 57,
+        "nazev_zar": "Zdravotní středisko Dubeč",
+        "adresa_zar": "Starodubečská 99/6",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{A6EB9240-17EA-4D30-89F1-39FCD84ACC8D}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.592987488000063,
+          50.063818651000076
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 461,
+        "id_zar": 58,
+        "nazev_zar": "Zdravotní středisko Dolní Chabry",
+        "adresa_zar": "Spořická 300/58",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{D9FA35D6-8311-4ADF-AEE5-4583C7AB60EE}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.449546785000052,
+          50.14642849100005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 462,
+        "id_zar": 59,
+        "nazev_zar": "Zdravotní středisko Čimice",
+        "adresa_zar": "Tišická 396/1",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{7CBE1F4C-189B-42F7-BAA6-E9EC49F610BF}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.431471662000035,
+          50.14037315000007
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 463,
+        "id_zar": 61,
+        "nazev_zar": "Zdravotní středisko Hostinského 1536",
+        "adresa_zar": "Hostinského 1536/7",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{E649020F-5BBF-408A-A7FB-2320E8F4C8C9}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.314384676000032,
+          50.04562890600005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 464,
+        "id_zar": 62,
+        "nazev_zar": "Zdravotní středisko Řeporyje",
+        "adresa_zar": "Ke zdravotnímu středisku 447/9",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{C2B9219E-9C7A-486E-B76F-06E5BB4463AC}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.314817772000026,
+          50.03379877700007
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 465,
+        "id_zar": 63,
+        "nazev_zar": "Poliklinika Radotín",
+        "adresa_zar": "Sídliště 1100/31",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{7D0CF680-FA92-4DCB-B730-31764B42A874}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.354135058000054,
+          49.980193374000066
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 466,
+        "id_zar": 64,
+        "nazev_zar": "Středisko zdravotní a sociální péče Újezd n. L.",
+        "adresa_zar": "Živonínská 1630",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{0A7E9392-3277-44D9-86B1-61AEA7E7F1D8}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.679235912000024,
+          50.07101431900003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 467,
+        "id_zar": 66,
+        "nazev_zar": "Zdravotní středisko Horní Počernice",
+        "adresa_zar": "Lhotská 2072/3",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{5606FB3E-626D-4448-BEF9-E810FC6CAB6B}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.601810943000032,
+          50.11182109300006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 468,
+        "id_zar": 67,
+        "nazev_zar": "Zdravotní středisko Hostivař",
+        "adresa_zar": "Tenisová 981/10",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{3F6D69F0-08DB-4EB0-9620-6F4E7B3485AD}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.545351124000035,
+          50.04949787500004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 469,
+        "id_zar": 2,
+        "nazev_zar": "Poliklinika Černý Most \"Parník\"",
+        "adresa_zar": "Generála Janouška 902/17",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{C0B666C9-07BA-4EBC-9D88-80D93245B803}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.572072437000031,
+          50.106863092000026
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 470,
+        "id_zar": 3,
+        "nazev_zar": "Poliklinika Petrovice",
+        "adresa_zar": "Ohmova 271/2",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{F87589F5-8AD5-4F51-897A-C855793D641A}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.559790780000071,
+          50.03875637400006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 471,
+        "id_zar": 4,
+        "nazev_zar": "Lékařský dům Holešovice",
+        "adresa_zar": "Tovární 1342/12",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{5798CA83-36CC-47B5-A924-04D1BBD8EF8A}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.446574507000037,
+          50.10239324100007
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 472,
+        "id_zar": 5,
+        "nazev_zar": "Poliklinika Litochleby",
+        "adresa_zar": "Hviezdoslavova 1600/6",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{30659477-6AFA-4FD5-AC3A-522782829FBC}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.519447232000061,
+          50.03218646700003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 473,
+        "id_zar": 68,
+        "nazev_zar": "Poliklinika Frýdecká",
+        "adresa_zar": "Frýdecká 439",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{36FD68B2-44C8-49CE-B1A9-336FD6A01201}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.508767705000025,
+          50.138557724000066
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 474,
+        "id_zar": 7,
+        "nazev_zar": "Centrum zdravotní péče Jarov",
+        "adresa_zar": "Koněvova 2427/205",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{AE54A101-8BCA-4D38-8EBB-FB8FBBE174E8}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.486176427000032,
+          50.09285562200006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 475,
+        "id_zar": 8,
+        "nazev_zar": "Olšanská poliklinika",
+        "adresa_zar": "Olšanská 2666/7",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{9CA6203C-0D78-4F0E-9BB9-6F34DCB62CA8}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.467738607000058,
+          50.08419521600007
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 476,
+        "id_zar": 9,
+        "nazev_zar": "Poliklinika Zahradní Město",
+        "adresa_zar": "Jabloňová 2992/8",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{7E0C0F64-FB17-4F4D-8A3B-9ABFF3C52EA1}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.497043051000048,
+          50.05621804500004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 477,
+        "id_zar": 10,
+        "nazev_zar": "Poliklinika Revoluční",
+        "adresa_zar": "Revoluční 765/19",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{A8918C4B-C6C6-4971-957F-13ECDF50A821}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42737251400007,
+          50.091643300000044
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 478,
+        "id_zar": 11,
+        "nazev_zar": "Poliklinika Čumpelíkova",
+        "adresa_zar": "Čumpelíkova 1764/2",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{724F14BF-3099-48E3-8A3E-8B812552E7FE}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.46139566100004,
+          50.126635072000056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 479,
+        "id_zar": 12,
+        "nazev_zar": "Poliklinika Senovážné náměstí",
+        "adresa_zar": "Senovážné náměstí 980/22",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{73741432-8169-48AE-8C24-88F97A76BF5C}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.431961477000073,
+          50.085607379000066
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 480,
+        "id_zar": 13,
+        "nazev_zar": "Poliklinika Sokolská",
+        "adresa_zar": "Sokolská 1638/37",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{BCE0D62B-2D23-424B-9E56-C1AB96821670}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.428957550000064,
+          50.07593615800005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 481,
+        "id_zar": 14,
+        "nazev_zar": "Poliklinika Vršovice",
+        "adresa_zar": "Ukrajinská 900/11",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{3A2EAA6B-BC5A-4E26-B90C-29154E67C142}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.450941543000056,
+          50.06521139900008
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 482,
+        "id_zar": 15,
+        "nazev_zar": "Fakultní poliklinika",
+        "adresa_zar": "Karlovo náměstí 554/32",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{854D6337-D9EE-4C26-AB55-F74A91A4334D}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.421125203000031,
+          50.07643072900004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 483,
+        "id_zar": 16,
+        "nazev_zar": "Poliklinika Medika",
+        "adresa_zar": "Kateřinská 1476/34",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{E28BFF81-550B-4CAE-87F9-37AA3AC6E9B1}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42735181300003,
+          50.07483083600005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 484,
+        "id_zar": 17,
+        "nazev_zar": "Poliklinika Praha 13",
+        "adresa_zar": "Janského 2254/45",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{12F0AD7D-AB90-4632-A5E6-C3DDDB68CECF}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.34283285500004,
+          50.03594008600004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 485,
+        "id_zar": 18,
+        "nazev_zar": "Poliklinika Žufanova ",
+        "adresa_zar": "Žufanova 1113/3",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{CD230202-C72E-4D75-8DB8-252512100250}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.308166740000047,
+          50.06840188700005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 486,
+        "id_zar": 20,
+        "nazev_zar": "Poliklinika Medicina Plus",
+        "adresa_zar": "Hvězdova 1601",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{138C7E38-F0EF-4D77-90BE-A45229DB609F}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.434342829000059,
+          50.05128656800008
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 487,
+        "id_zar": 21,
+        "nazev_zar": "Krčská poliklinika ",
+        "adresa_zar": "Krčská 1079/59",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{5819F3ED-4AB7-4016-8A2E-2E2490AA99E0}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.44162681000006,
+          50.04229367800008
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 488,
+        "id_zar": 22,
+        "nazev_zar": "Poliklinika Modřany",
+        "adresa_zar": "Soukalova 3355/3",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{8E4445C0-E141-43D7-AC18-CAB18882203D}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41425552000004,
+          50.00586825600004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 489,
+        "id_zar": 23,
+        "nazev_zar": "Poliklinika Cordeus",
+        "adresa_zar": "Na dlouhém lánu 563/11",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{6A7B0716-C152-4993-B427-5D493BFE172D}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.365045313000053,
+          50.09651722600006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 490,
+        "id_zar": 24,
+        "nazev_zar": "Nuselská poliklinika",
+        "adresa_zar": "Táborská 325/57",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{E2B02A81-3924-4E5C-BD68-301692BEA339}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.44141671400007,
+          50.06299145500003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 491,
+        "id_zar": 25,
+        "nazev_zar": "Lékařský dům Praha 7",
+        "adresa_zar": "Janovského 993/48",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{7FCCD03B-D1D0-4307-90A0-AAA74B859470}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.433150005000073,
+          50.10375166000006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 492,
+        "id_zar": 26,
+        "nazev_zar": "Lékařský dům v Mezibranské",
+        "adresa_zar": "Mezibranská 1367/21",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{6173B591-2019-4E82-A40C-86ABD431D1A0}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.429642724000075,
+          50.07899197100005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 493,
+        "id_zar": 69,
+        "nazev_zar": "Poliklinika Holešovice",
+        "adresa_zar": "Plynární 1617/10",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{BB8623FD-BE9C-4AE0-ADB8-D5AA4560E8FC}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.442624632000047,
+          50.107683499000075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 494,
+        "id_zar": 70,
+        "nazev_zar": "Poliklinika Hůrka",
+        "adresa_zar": "Sluneční náměstí 2588/14",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{2CDC54EC-EF0D-4CD1-B810-26415DE5BB4A}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.343679262000023,
+          50.05029578400007
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 495,
+        "id_zar": 71,
+        "nazev_zar": "Lékařský dům Palmovka",
+        "adresa_zar": "Zenklova  340/22",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{514E84AB-BC9F-4F85-BA9D-C3602994B810}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.473304772000063,
+          50.10436261600006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 496,
+        "id_zar": 72,
+        "nazev_zar": "Nová poliklinika Zbraslav",
+        "adresa_zar": "Elišky Přemyslovny 1325",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{35683AD6-1FB7-481A-9449-932F149D330F}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.382338124000057,
+          49.96464621300004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 497,
+        "id_zar": 73,
+        "nazev_zar": "Poliklinika Bechyňova",
+        "adresa_zar": "Bechyňova 2571/3",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{24E9636F-1FAC-4490-874A-175B91F7DAE8}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.38910837900005,
+          50.105811954000046
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 498,
+        "id_zar": 74,
+        "nazev_zar": "Lékařský dům Uhříněves",
+        "adresa_zar": "Nové náměstí 1431/20",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{7EA252EC-9D80-4ACF-AE61-CBAA7B10BA9A}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.597996480000063,
+          50.031368834000034
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 499,
+        "id_zar": 75,
+        "nazev_zar": "Zdravotní středisko ",
+        "adresa_zar": "Slavětínská 771",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_04",
+        "globalid": "{0DA38201-4C20-4601-BBDF-3AB15B34216E}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.666083356000058,
+          50.08853528600008
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "objectid": 500,
+        "id_zar": 76,
+        "nazev_zar": "Poliklinika Palackého",
+        "adresa_zar": "Palackého 720/5",
+        "druh_uap": 3,
+        "zdroj": "POV_2024",
+        "id_poskyt": 43,
+        "typ_uap": "03_03",
+        "globalid": "{E9E06D54-01AC-4EF2-A34E-019E4DD9336F}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42312700900004,
+          50.081129952000026
+        ]
+      }
+    }
+  ]
+}

@@ -63,132 +63,7 @@ const closeBottomSheet = () => {
 
 settingsBtn.addEventListener('click', openBottomSheet);
 closeSheetBtn.addEventListener('click', closeBottomSheet);
-
-// ── Cyclist sheet ──────────────────────────────────────────
-const cyclistSheet = document.getElementById('cyclistSheet');
-const closeCyclistSheetBtn = document.getElementById('closeCyclistSheetBtn');
-const cyclistBtn = document.getElementById('cyclistBtn');
-
-const openCyclistSheet = () => {
-    cyclistSheet.classList.remove('translate-y-full');
-    backdrop.classList.remove('opacity-0', 'pointer-events-none');
-    backdrop.classList.add('opacity-100', 'pointer-events-auto');
-};
-const closeCyclistSheet = () => {
-    cyclistSheet.classList.add('translate-y-full');
-    backdrop.classList.remove('opacity-100', 'pointer-events-auto');
-    backdrop.classList.add('opacity-0', 'pointer-events-none');
-};
-
-cyclistBtn.addEventListener('click', openCyclistSheet);
-closeCyclistSheetBtn.addEventListener('click', closeCyclistSheet);
-
-backdrop.addEventListener('click', () => {
-    closeBottomSheet();
-    closeCyclistSheet();
-});
-
-// ── Bike route list ────────────────────────────────────────
-let bikeRoutes = [];
-let currentBikeSort = 'length';
-
-let selectedBikeRouteId = null;
-
-const renderBikeRoutes = (routes, sortBy) => {
-    const sorted = [...routes].sort((a, b) => {
-        if (sortBy === 'length')    return b.length_km - a.length_km;
-        if (sortBy === 'noise')     return a.noise_score - b.noise_score;
-        if (sortBy === 'elevation') return a.kategorie - b.kategorie;
-        return 0;
-    });
-
-    const list = document.getElementById('bikeRouteList');
-    if (!sorted.length) {
-        list.innerHTML = '<p class="text-sm text-gray-400 px-2 py-4 text-center">Žádné trasy.</p>';
-        return;
-    }
-
-    list.innerHTML = sorted.map(r => {
-        const km = r.length_km.toFixed(1);
-        let noiseClass;
-        if (r.noise_score < 45)      noiseClass = 'text-green-600 dark:text-green-400';
-        else if (r.noise_score < 60) noiseClass = 'text-yellow-600 dark:text-yellow-400';
-        else                         noiseClass = 'text-rose-500';
-
-        const katLabel = ['hlavní', 'sekundární', 'lokální'][r.kategorie] || '';
-        const isSelected = r.id === selectedBikeRouteId;
-        return `<div class="bike-card rounded-2xl p-3.5 border cursor-pointer transition-colors ${isSelected ? 'border-amber-400 bg-amber-50 dark:bg-amber-900/20' : 'border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-zinc-800'}"
-             data-id="${r.id}" data-bbox="${JSON.stringify(r.bbox)}">
-            <div class="font-semibold text-sm text-gray-800 dark:text-gray-100 mb-0.5">${r.jmeno}</div>
-            <div class="text-xs text-gray-400 dark:text-gray-500 mb-2">${r.nazev} &middot; ${katLabel}</div>
-            <div class="flex gap-3 text-xs flex-wrap">
-                <span class="flex items-center gap-1 text-gray-600 dark:text-gray-300"><i class="ph ph-ruler"></i>${km}&nbsp;km</span>
-                <span class="flex items-center gap-1 ${noiseClass}"><i class="ph ph-speaker-high"></i>${r.noise_score.toFixed(0)}&nbsp;dB</span>
-            </div>
-        </div>`;
-    }).join('');
-};
-
-// Show bike route on map when card tapped
-document.getElementById('bikeRouteList').addEventListener('click', async (e) => {
-    const card = e.target.closest('.bike-card');
-    if (!card) return;
-
-    const id = card.dataset.id;
-    const bbox = JSON.parse(card.dataset.bbox); // [minLng, minLat, maxLng, maxLat]
-
-    selectedBikeRouteId = id;
-    renderBikeRoutes(bikeRoutes, currentBikeSort); // re-render to update highlight
-
-    closeCyclistSheet();
-
-    try {
-        const resp = await fetch(`../../Cyclo/routes/${id}.geojson`);
-        if (!resp.ok) throw new Error('not found');
-        const geojson = await resp.json();
-
-        if (map.getSource('bike-hl')) {
-            map.getSource('bike-hl').setData(geojson);
-        } else {
-            map.addSource('bike-hl', { type: 'geojson', data: geojson });
-            map.addLayer({
-                id: 'bike-hl',
-                type: 'line',
-                source: 'bike-hl',
-                layout: { 'line-join': 'round', 'line-cap': 'round' },
-                paint: { 'line-color': '#f59e0b', 'line-width': 5, 'line-opacity': 0.9 }
-            });
-        }
-
-        map.fitBounds([[bbox[0], bbox[1]], [bbox[2], bbox[3]]], { padding: 60, maxZoom: 16, duration: 600 });
-    } catch (err) {
-        toast('Trasu nelze zobrazit: ' + id);
-    }
-});
-
-document.querySelectorAll('.sort-pill').forEach(btn => {
-    btn.addEventListener('click', () => {
-        currentBikeSort = btn.dataset.sort;
-        document.querySelectorAll('.sort-pill').forEach(b => {
-            b.classList.remove('bg-brand-100', 'text-brand-700', 'border-brand-300');
-            b.classList.add('bg-gray-100', 'text-gray-500', 'dark:bg-zinc-800', 'dark:text-gray-400', 'border-transparent');
-        });
-        btn.classList.remove('bg-gray-100', 'text-gray-500', 'border-transparent');
-        btn.classList.add('bg-brand-100', 'text-brand-700', 'border-brand-300');
-        renderBikeRoutes(bikeRoutes, currentBikeSort);
-    });
-});
-
-fetch('../../Cyclo/routes_index.json')
-    .then(r => r.json())
-    .then(data => {
-        bikeRoutes = data;
-        renderBikeRoutes(bikeRoutes, currentBikeSort);
-    })
-    .catch(() => {
-        const list = document.getElementById('bikeRouteList');
-        if (list) list.innerHTML = '<p class="text-sm text-gray-400 px-2 py-4 text-center">Nepodařilo se načíst trasy.</p>';
-    });
+backdrop.addEventListener('click', closeBottomSheet);
 
 const locateBtn = document.getElementById('locateBtn');
 let hasLocation = false;
@@ -573,15 +448,45 @@ async function fetchJSON(url) {
 }
 
 // ═══════════════════════════════════════════════════════════
-// SOS – Najbližší tichý park
+// SOS – Najbližší tichý park / Klinika / Knihovna
 // ═══════════════════════════════════════════════════════════
 let _parksGeoJSON = null;
+let _medGeoJSON   = null;
+let _libGeoJSON   = null;
 let sosMark = null, sosDestMark = null;
 let sosPickingMode = false;
+let _sosMode = 'park'; // 'park' | 'med' | 'lib'
 
 async function _ensureParks() {
     if (_parksGeoJSON) return;
     _parksGeoJSON = await fetchJSON('../../GreenZone/SOS/parks_sos.geojson');
+}
+
+async function _ensureMed() {
+    if (_medGeoJSON) return;
+    _medGeoJSON = await fetchJSON('../../GreenZone/Med/Med_clean.geojson');
+}
+
+async function _ensureLib() {
+    if (_libGeoJSON) return;
+    _libGeoJSON = await fetchJSON('../../GreenZone/Libraries/Libraries_prague.geojson');
+}
+
+// ── SOS Choice Modal ──────────────────────────────────────
+function _showSOSChoice() {
+    const overlay = document.getElementById('sosChoiceOverlay');
+    const sheet   = document.getElementById('sosChoiceSheet');
+    overlay.style.pointerEvents = 'auto';
+    overlay.style.opacity = '1';
+    sheet.style.transform = 'translateY(0)';
+}
+
+function _hideSOSChoice() {
+    const overlay = document.getElementById('sosChoiceOverlay');
+    const sheet   = document.getElementById('sosChoiceSheet');
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+    sheet.style.transform = 'translateY(100%)';
 }
 
 function _dist2(la1, ln1, la2, ln2) {
@@ -601,6 +506,30 @@ function _findNearestPark(lat, lng) {
     return best;
 }
 
+function _findNearestClinic(lat, lng) {
+    const feats = _medGeoJSON?.features ?? [];
+    let best = null, bestD = Infinity;
+    for (const f of feats) {
+        const c = f.geometry?.coordinates;
+        if (!c) continue;
+        const d = _dist2(lat, lng, c[1], c[0]);
+        if (d < bestD) { bestD = d; best = { f, c }; }
+    }
+    return best;
+}
+
+function _findNearestLibrary(lat, lng) {
+    const feats = _libGeoJSON?.features ?? [];
+    let best = null, bestD = Infinity;
+    for (const f of feats) {
+        const c = f.geometry?.coordinates;
+        if (!c) continue;
+        const d = _dist2(lat, lng, c[1], c[0]);
+        if (d < bestD) { bestD = d; best = { f, c }; }
+    }
+    return best;
+}
+
 function _sosClearLayers() {
     if (sosMark) { sosMark.remove(); sosMark = null; }
     if (sosDestMark) { sosDestMark.remove(); sosDestMark = null; }
@@ -610,6 +539,7 @@ function _sosClearLayers() {
 
 function cancelSOS() {
     _sosClearLayers();
+    _hideSOSChoice();
     sosPickingMode = false;
     const btn = document.getElementById('sosBtn');
     btn.classList.remove('picking', 'cancel');
@@ -621,7 +551,16 @@ function cancelSOS() {
 }
 
 async function startSOS() {
-    if (sosPickingMode) { cancelSOS(); return; }
+    const btn = document.getElementById('sosBtn');
+    // If already active → cancel
+    if (btn.classList.contains('cancel') || sosPickingMode) { cancelSOS(); return; }
+    // Show choice modal
+    _showSOSChoice();
+}
+
+async function _startSOSWithMode(mode) {
+    _sosMode = mode;
+    _hideSOSChoice();
     _sosClearLayers();
 
     const btn = document.getElementById('sosBtn');
@@ -630,13 +569,18 @@ async function startSOS() {
     btnText.textContent = '...';
     btn.querySelector('i').className = 'ph ph-spinner-gap animate-spin text-xl text-rose-500';
 
-    // 1. Load parks first
+    // 1. Load data
     try {
-        await _ensureParks();
-        console.log('[SOS] Parks loaded:', _parksGeoJSON?.features?.length, 'features');
+        if (mode === 'park') {
+            await _ensureParks();
+        } else if (mode === 'med') {
+            await _ensureMed();
+        } else {
+            await _ensureLib();
+        }
     } catch (e) {
-        console.error('[SOS] Failed to load parks:', e);
-        toast('Chyba načítání parků: ' + e?.message, 5000);
+        console.error('[SOS] Failed to load data:', e);
+        toast('Chyba načítání dat: ' + e?.message, 5000);
         cancelSOS();
         return;
     }
@@ -692,22 +636,41 @@ async function handleSOSClick(lat, lng) {
     sosMark = new mapboxgl.Marker({ element: youEl, anchor: 'bottom' })
         .setLngLat([lng, lat]).addTo(map);
 
-    const park = _findNearestPark(lat, lng);
-    if (!park) { toast('\u017dádný vhodný park nenalezen.', 4000); cancelSOS(); return; }
+    // Resolve destination depending on mode
+    let destLng, destLat, destName, destIcon, pinClass;
+    if (_sosMode === 'med') {
+        const clinic = _findNearestClinic(lat, lng);
+        if (!clinic) { toast('Žádná klinika nenalezena.', 4000); cancelSOS(); return; }
+        [destLng, destLat] = clinic.c;
+        const rawName = clinic.f.properties?.nazev_zar || '';
+        destName = rawName.trim() || 'Klinika';
+        destIcon = '🏥';
+        pinClass = 'pin-sos-park';
+    } else if (_sosMode === 'lib') {
+        const lib = _findNearestLibrary(lat, lng);
+        if (!lib) { toast('Žádná knihovna nenalezena.', 4000); cancelSOS(); return; }
+        [destLng, destLat] = lib.c;
+        destName = lib.f.properties?.name?.trim() || 'Knihovna';
+        destIcon = '📚';
+        pinClass = 'pin-sos-park';
+    } else {
+        const park = _findNearestPark(lat, lng);
+        if (!park) { toast('\u017dádný vhodný park nenalezen.', 4000); cancelSOS(); return; }
+        [destLng, destLat] = park.c;
+        const rawName = park.f.properties?.name || '';
+        const cleanName = rawName.replace(/\s*\(.*?\)/g, '').trim();
+        destName = (cleanName === '' || /zelen/i.test(cleanName)) ? 'Park' : cleanName;
+        destIcon = '🌳';
+        pinClass = 'pin-sos-park';
+    }
 
-    const [pLng, pLat] = park.c;
-    // "Zelená plocha" and similar generic names → "Park"
-    const rawName = park.f.properties?.name || '';
-    const cleanName = rawName.replace(/\s*\(.*?\)/g, '').trim();
-    const pName = (cleanName === '' || /zelen/i.test(cleanName)) ? 'Park' : cleanName;
+    const destEl = document.createElement('div');
+    destEl.className = pinClass;
+    destEl.textContent = `${destIcon} ${destName}`;
+    sosDestMark = new mapboxgl.Marker({ element: destEl, anchor: 'bottom' })
+        .setLngLat([destLng, destLat]).addTo(map);
 
-    const parkEl = document.createElement('div');
-    parkEl.className = 'pin-sos-park';
-    parkEl.textContent = `\ud83c\udf33 ${pName}`;
-    sosDestMark = new mapboxgl.Marker({ element: parkEl, anchor: 'bottom' })
-        .setLngLat([pLng, pLat]).addTo(map);
-
-    document.getElementById('sosParkName').textContent = pName;
+    document.getElementById('sosParkName').textContent = `${destIcon} ${destName}`;
     document.getElementById('sosDistText').textContent = '';
     document.getElementById('sosTimeText').textContent = '';
     const spinner = document.getElementById('sosSpinner');
@@ -717,16 +680,13 @@ async function handleSOSClick(lat, lng) {
     _syncFloatBtns();
 
     try {
-        // Shortest route — normal_walk, no extra custom model
-        // ch.disable required because profile uses custom_model_files
         const body = {
-            points: [[lng, lat], [pLng, pLat]],
+            points: [[lng, lat], [destLng, destLat]],
             profile: 'normal_walk',
             points_encoded: true,
             instructions: false,
             'ch.disable': true
         };
-        console.log('[SOS] Requesting route:', JSON.stringify(body));
         const res = await fetch(GH_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -734,21 +694,22 @@ async function handleSOSClick(lat, lng) {
         });
         if (!res.ok) {
             const errText = await res.text();
-            console.error('[SOS] GH error response:', errText);
             throw new Error(`HTTP ${res.status}: ${errText.substring(0, 150)}`);
         }
         const data = await res.json();
         const path = data.paths[0];
         const coords = decodePolyline(path.points);
 
+        const lineColor = _sosMode === 'med' ? '#3b82f6' : _sosMode === 'lib' ? '#8b5cf6' : '#10b981';
         if (map.getSource('sos-route')) {
             map.getSource('sos-route').setData({ type: 'Feature', geometry: { type: 'LineString', coordinates: coords } });
+            if (map.getLayer('sos-line')) map.setPaintProperty('sos-line', 'line-color', lineColor);
         } else {
             map.addSource('sos-route', { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: coords } } });
             map.addLayer({
                 id: 'sos-line', type: 'line', source: 'sos-route',
                 layout: { 'line-join': 'round', 'line-cap': 'round' },
-                paint: { 'line-color': '#10b981', 'line-width': 6, 'line-opacity': 0.95, 'line-dasharray': [2, 1.5] }
+                paint: { 'line-color': lineColor, 'line-width': 6, 'line-opacity': 0.95, 'line-dasharray': [2, 1.5] }
             });
         }
 
@@ -772,6 +733,13 @@ async function handleSOSClick(lat, lng) {
 
 document.getElementById('sosBtn').addEventListener('click', startSOS);
 document.getElementById('sosCancelBtn').addEventListener('click', cancelSOS);
+document.getElementById('sosParkChoice').addEventListener('click', () => _startSOSWithMode('park'));
+document.getElementById('sosMedChoice').addEventListener('click',  () => _startSOSWithMode('med'));
+document.getElementById('sosLibChoice').addEventListener('click',  () => _startSOSWithMode('lib'));
+document.getElementById('sosChoiceCancel').addEventListener('click', () => {
+    _hideSOSChoice();
+    cancelSOS();
+});
 document.getElementById('routeCloseBtnCard').addEventListener('click', () => {
     document.getElementById('routeInfoCard').classList.add('card-hidden');
     _syncFloatBtns();

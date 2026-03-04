@@ -1,0 +1,3638 @@
+{
+  "type": "FeatureCollection",
+  "name": "libraries_prague",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní knihovna České republiky",
+        "address": "Mariánské náměstí 190/5, Praha 1",
+        "sigla": "ABA000",
+        "type": "NK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.415725,
+          50.08642222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Francouzský institut",
+        "address": "Štěpánská 35, Praha 1",
+        "sigla": "ABA005",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42511667,
+          50.07884444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní pedagogické muzeum a knihovna J. A. Komenského",
+        "address": "Jeruzalémská 12, Praha 1",
+        "sigla": "ABA012",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.43252778,
+          50.08399639
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní knihovna České republiky",
+        "address": "Sodomkova 2/1146, Praha 15 - Hostivař",
+        "sigla": "ABA025",
+        "type": "NK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.53071389,
+          50.06115833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Eva Michálková-Aurora",
+        "address": "Spálená 53, Praha 1",
+        "sigla": "ABE358",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41911056,
+          50.08184611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní filmový archiv",
+        "address": "Bartolomějská 11, Praha 1",
+        "sigla": "ABC135",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41756111,
+          50.08307222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nakladatelství ALTER, s.r.o.",
+        "address": "Nad Pahorkem 403/24, Praha 4",
+        "sigla": "ABE342",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.4883,
+          50.04281389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vojenský historický ústav Praha",
+        "address": "Rooseveltova 23, Praha 6 - Bubeneč",
+        "sigla": "ABE045",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.40030556,
+          50.10380556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní pedagogické muzeum a knihovna J. A. Komenského",
+        "address": "Karmelitská 7, Praha 1",
+        "sigla": "ABE128",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.40361111,
+          50.08538333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Multikulturní centrum Praha",
+        "address": "Náplavní 1, Praha 2",
+        "sigla": "ABE363",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41479083,
+          50.07638167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská divadla pražská",
+        "address": "V Jámě 1, Praha 1",
+        "sigla": "ABE252",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42427222,
+          50.08045278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Divadelní ústav",
+        "address": "Celetná 17, Praha 1",
+        "sigla": "ABE304",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42477222,
+          50.08722222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní muzeum",
+        "address": "Vinohradská 1, Praha 1",
+        "sigla": "ABE306",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.43171028,
+          50.07989944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní muzeum",
+        "address": "Betlémské nám. 1, Praha 1",
+        "sigla": "ABE308",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41660833,
+          50.08403889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Archivu Národního divadla",
+        "address": "Anenské nám. 2, Praha 1",
+        "sigla": "ABE309",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.414925,
+          50.08517778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Uměleckoprůmyslového musea v Praze",
+        "address": "ul. 17.listopadu 2, Praha 1",
+        "sigla": "ABE310",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41630556,
+          50.08993056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní technické muzeum",
+        "address": "Kostelní 42, Praha 7",
+        "sigla": "ABE311",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42409444,
+          50.09705278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hvězdárna a planetárium hl.m.Prahy",
+        "address": "Královská obora 233, Praha 7",
+        "sigla": "ABE314",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42752778,
+          50.10550278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní památkový ústav",
+        "address": "Na Perštýně 356/12, Praha 1",
+        "sigla": "ABE315",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41876944,
+          50.08349167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Švandovo divadlo na Smíchově",
+        "address": "Štefánikova 57, Praha 5",
+        "sigla": "ABE316",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.40398889,
+          50.07786667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní památkový ústav",
+        "address": "Liliová 219/5, Praha 1 - Staré město",
+        "sigla": "ABE320",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41649083,
+          50.08475333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Židovské muzeum v Praze",
+        "address": "U Staré školy 1, Praha 1",
+        "sigla": "ABE323",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42111389,
+          50.09034722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní památkový ústav",
+        "address": "Sabinova 5, Praha 3",
+        "sigla": "ABE324",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.45505556,
+          50.08585833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hvězdárna a planetárium hl.m.Prahy",
+        "address": "Strahovská 205, Praha 1",
+        "sigla": "ABE325",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.39823583,
+          50.08352028
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Česká televize",
+        "address": "Na Hřebenech II 1132/4 (Kavčí hory), Praha 4 - Podolí",
+        "sigla": "ABE334",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42794556,
+          50.05132806
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Památníku národního písemnictví",
+        "address": "Pelléova 44/22, Praha 6",
+        "sigla": "ABE336",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.407815,
+          50.10225556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Společnost Franze Kafky",
+        "address": "Široká 14/65, Praha 1",
+        "sigla": "ABE341",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41889722,
+          50.08916111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna na Vinohradech samostatná příspěvková organizace s právní subjektivitou",
+        "address": "Vinohradská 69, Praha 2",
+        "sigla": "ABE344",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.44415,
+          50.07711944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní muzeum",
+        "address": "Na Zátorách 6, Praha 7",
+        "sigla": "ABE345",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.43782778,
+          50.10786667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní pedagogické muzeum a knihovna J. A. Komenského",
+        "address": "Valdštejnská 20, Praha 1",
+        "sigla": "ABE356",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.40519722,
+          50.09050556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Albatros Media, a.s.",
+        "address": "5. května 1746/22, Praha 4",
+        "sigla": "ABE395",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.43838417,
+          50.0553325
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní galerie v Praze",
+        "address": "Hradčanské nám. 15, Praha 1",
+        "sigla": "ABE400",
+        "type": "KI-GA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.39664722,
+          50.09060278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Památník národního písemnictví",
+        "address": "Obora Hvězda - Hájenka, Praha 6 - Liboc",
+        "sigla": "ABE402",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.32610861,
+          50.08342667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "AMARO, s.r.o.",
+        "address": "Blanická 9, Praha 2",
+        "sigla": "ABE443",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.43894194,
+          50.0754875
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ruské středisko vědy a kultury v Praze",
+        "address": "Na Zátorce 16, Praha 6",
+        "sigla": "ABE445",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41241389,
+          50.10010556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní muzeum",
+        "address": "Václavské náměstí 68, Praha 1",
+        "sigla": "ABE451",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.43055639,
+          50.07917778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna v Praze",
+        "address": "Mariánské nám. 1/98, Praha 1 - Staré Město",
+        "sigla": "ABG001",
+        "type": "KK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41739917,
+          50.087395
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Husova knihovna Říčany, příspěvková organizace",
+        "address": "Masarykovo nám. 66, Říčany u Prahy",
+        "sigla": "ABG502",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.65495806,
+          49.99209944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Eduarda Petišky",
+        "address": "Ivana Olbrachta 36, Brandýs nad Labem-Stará Boleslav",
+        "sigla": "ABG503",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.66159167,
+          50.18608611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna Úvaly",
+        "address": "Husova 98, Úvaly",
+        "sigla": "ABG504",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.72650556,
+          50.07315833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna Čelákovice, příspěvková organizace",
+        "address": "Na Hrádku 1092, Čelákovice",
+        "sigla": "ABG505",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.75188056,
+          50.16562778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna Jesenice",
+        "address": "Budějovická 59, Jesenice",
+        "sigla": "ABG522",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.51365,
+          49.96805056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "LYRA PRAGENSIS, o.p.s.",
+        "address": "Adamovská 1/803, Praha 4 - Michle",
+        "sigla": "ABE112",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.45133056,
+          50.05892222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Galén, spol. s r.o.",
+        "address": "Na Popelce 3144/10A, Praha 5",
+        "sigla": "ABE446",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.38490222,
+          50.068615
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "﻿Městská knihovna Františky Plamínkové v Černošicích",
+        "address": "Karlštejnská 259, Černošice",
+        "sigla": "ABG515",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.32042806,
+          49.95886556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna Hostivice",
+        "address": "Husovo nám. 1702, Hostivice",
+        "sigla": "ABG523",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42860583,
+          50.13435944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna a informační centrum Kostelec nad Černými lesy",
+        "address": "nám. Smiřických 33, Kostelec nad Černými lesy",
+        "sigla": "KOG504",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.85983333,
+          49.993825
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna v Libčicích nad Vltavou",
+        "address": "nám. Svobody 90, Libčice nad Vltavou",
+        "sigla": "ABG518",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.36504444,
+          50.19788889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna Mníšek pod Brdy",
+        "address": "Komenského 413, Mníšek pod Brdy",
+        "sigla": "ABG516",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.266675,
+          49.86532222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna Odolena Voda",
+        "address": "Československé armády 362, Odolena Voda",
+        "sigla": "ABG513",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41288611,
+          50.22981111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna Roztoky",
+        "address": "Jungmannova 966, Roztoky u Prahy",
+        "sigla": "ABG508",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.39655083,
+          50.16344306
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna Ignáta Herrmanna",
+        "address": "Mníšecká 29, Řevnice",
+        "sigla": "ABG506",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.23403333,
+          49.91336111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna Jílové u Prahy",
+        "address": "Masarykovo nám. 194, Jílové u Prahy",
+        "sigla": "ABG507",
+        "type": "MK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.49293611,
+          49.89525
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kulturní centrum Kamenice",
+        "address": "Ringhofferovo nám. 434, Olešovice, p. Kamenice",
+        "sigla": "ABG510",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.58786139,
+          49.90423306
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna Klecany",
+        "address": "U školky 487, Klecany",
+        "sigla": "ABG511",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41423056,
+          50.175175
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Líbeznice",
+        "address": "Martinova 142, Líbeznice",
+        "sigla": "ABG509",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.49514722,
+          50.19267778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna Davle",
+        "address": "Na Náměstí 63, Davle",
+        "sigla": "ABG520",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.39991111,
+          49.89105
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Horoměřice",
+        "address": "Požárníků 38, Horoměřice",
+        "sigla": "ABG517",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.3391,
+          50.13087222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Městská knihovna Městské části Praha Uhříněves",
+        "address": "Nové náměstí 1251/2, Praha 10 - Uhříněves",
+        "sigla": "ABG003",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.59829444,
+          50.03259444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní veřejná knihovna v Praze 11 - Chodově",
+        "address": "Donovalská 2222/31, Praha 11 - Chodov",
+        "sigla": "ABG004",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.50613694,
+          50.03661806
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní veřejná knihovna v Praze-Kunraticích",
+        "address": "Golčova 24, Praha 4 - Kunratice",
+        "sigla": "ABG005",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.48337778,
+          50.01164444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Husova knihovna v Modřanech, příspěvková organizace",
+        "address": "Komořanská 35/12, Praha 12 - Modřany",
+        "sigla": "ABG006",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.40509722,
+          50.00284722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna Radotín",
+        "address": "Loučanská 1406, Praha - Radotín",
+        "sigla": "ABG007",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.36122222,
+          49.98145556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna Praha 5 - Řeporyje",
+        "address": "Od školy 596, Praha 5 - Řeporyje",
+        "sigla": "ABG008",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.30906,
+          50.03020611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní veřejná knihovna v Praze - Zbraslavi",
+        "address": "U Malé řeky 3, Praha 16 - Zbraslav",
+        "sigla": "ABG009",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.39608056,
+          49.97576389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna v Praze 17 - Řepy",
+        "address": "Socháňova 1220/27, Praha 6 - Řepy",
+        "sigla": "ABG010",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.30175,
+          50.06511111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní veřejná knihovna",
+        "address": "Suchdolská 360/59, Praha 6 - Suchdol",
+        "sigla": "ABG011",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.378725,
+          50.13988611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Ďáblicích",
+        "address": "Osinalická 901/30, Praha 8 - Ďáblice",
+        "sigla": "ABG012",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.48094167,
+          50.144225
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní veřejná knihovna v Praze - Dolních Chabrech",
+        "address": "Hrušovanské náměstí 253/5, Praha 8 - Dolní Chabry",
+        "sigla": "ABG013",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.44304167,
+          50.14521389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna Praha-Čakovice",
+        "address": "Cukrovarská 1/23, Praha 19 - Čakovice",
+        "sigla": "ABG014",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.52161667,
+          50.15212222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní veřejná knihovna, Praha 9-Horní Počernice",
+        "address": "Náchodská 754, Praha 20 - Horní Počernice",
+        "sigla": "ABG016",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.60732778,
+          50.11407222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna s infocentrem Praha-Kolovraty",
+        "address": "Mírová 20/54, Praha 22 - Kolovraty",
+        "sigla": "ABG018",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.62630833,
+          50.011275
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Václava Šorela",
+        "address": "Rychnovská 651, Praha 18",
+        "sigla": "ABG019",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.510575,
+          50.13640833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní veřejná knihovna Městské části Praha 21",
+        "address": "Staroújezdská 2300, Praha 21 - Újezd nad Lesy",
+        "sigla": "ABG020",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.66724167,
+          50.07270833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Psáry",
+        "address": "Pražská 1000, Psáry - Dolní Jirčany",
+        "sigla": "ABG524",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.5178675,
+          49.94993917
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Regula Pragensis",
+        "address": "V Podbabě 2515/4, Praha 6 - Dejvice",
+        "sigla": "ABE351",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.39335194,
+          50.12236611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Všenorská knihovna a Informační centrum Berounka",
+        "address": "Květoslava Mašity 294, Všenory",
+        "sigla": "ABG521",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.30273056,
+          49.92607583
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vzorová lidová knihovna Velké Popovice",
+        "address": "Komenského 5, Velké Popovice",
+        "sigla": "ABG514",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.63920833,
+          49.92277222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nadace Bohuslava Martinů",
+        "address": "Bořanovická 14, Praha 8 - Kobylisy",
+        "sigla": "ABE357",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.4554,
+          50.12694722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Radio Free Europe",
+        "address": "Vinohradská 159A, Praha 10",
+        "sigla": "ABE090",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.47769444,
+          50.07804722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní muzeum",
+        "address": "Cirkusová 1740, Praha 9 - Horní Počernice",
+        "sigla": "ABE348",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.62883444,
+          50.1208825
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "SAGA, s.r.o",
+        "address": "Pod Sedličkami 243, Středokluky",
+        "sigla": "ABE423",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.23048778,
+          50.1341325
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna v Klánovicích",
+        "address": "Smržovská 1/1, Praha 21 - Klánovice",
+        "sigla": "ABG025",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.66865833,
+          50.09513889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna Praha - Petrovice",
+        "address": "Edisonova 429, Praha 10 - Petrovice",
+        "sigla": "ABG027",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.55524167,
+          50.03639167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní veřejná knihovna v Praze - Šeberově",
+        "address": "K Hrnčířům 34, Praha 4 - Šeberov",
+        "sigla": "ABG028",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.51352222,
+          50.0132
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna Lochkov",
+        "address": "Cementářská 8, Praha 16 - Lochkov",
+        "sigla": "ABG029",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.35291944,
+          50.00262222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní lidová knihovna Přední Kopanina",
+        "address": "Hokešovo náměstí 193, Praha 6 - Přední Kopanina",
+        "sigla": "ABG031",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.29790028,
+          50.11721028
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Veřejná knihovna Slivenec",
+        "address": "K Lochkovu 6, Praha 5 - Slivenec",
+        "sigla": "ABG030",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.35428889,
+          50.01919444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Městské části Praha-Březiněves",
+        "address": "U Parku 140, Praha 8 - Březiněves",
+        "sigla": "ABG032",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.48606944,
+          50.16449167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna v Běchovicích",
+        "address": "Za Poštovskou zahradou 479, Praha 21 - Běchovice",
+        "sigla": "ABG033",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.61806111,
+          50.08220278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Základní knihovna MČ Praha-Koloděje",
+        "address": "K Jízdárně 9/20, Praha 21 - Koloděje",
+        "sigla": "ABG034",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.63818333,
+          50.06211667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna Praha-Satalice",
+        "address": "U Obory 385, Praha 19 - Satalice",
+        "sigla": "ABG035",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.57399444,
+          50.12730556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna Třeboradice",
+        "address": "Schoellerova 11/99, Praha 19 - Třeboradice",
+        "sigla": "ABG036",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.52292972,
+          50.16281028
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna v Praze - Benicích",
+        "address": "Květnového povstání 21, Praha 22 - Benice",
+        "sigla": "ABG038",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.60445833,
+          50.01348889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní veřejná knihovna v Praze 10 - Dubči",
+        "address": "nám. U Lípy Svobody 547, Praha 15 - Dubeč",
+        "sigla": "ABG039",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.59593111,
+          50.06311306
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna v Praze - Královicích",
+        "address": "K Nedvězí 66, Praha 10 - Královice",
+        "sigla": "ABG040",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.63510278,
+          50.03643056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní veřejná knihovna v Praze - Nedvězí",
+        "address": "Únorová 15/3, Praha 22 - Nedvězí",
+        "sigla": "ABG041",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.65240278,
+          50.01749722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna v Praze - Štěrboholech",
+        "address": "K Učilišti 50, Praha 15 - Štěrboholy",
+        "sigla": "ABG042",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.55133056,
+          50.07215833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Studijní a dokumentační centrum Adolfa Loose",
+        "address": "Nad Hradním Vodojemem 53/13, Praha 6 - Střešovice",
+        "sigla": "ABE364",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.37845278,
+          50.09258333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pavel Dobrovský - BETA, s.r.o.",
+        "address": "Květnového vítězství 332, Praha 4",
+        "sigla": "ABE058",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.508675,
+          50.03436944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Institut Cervantes v Praze",
+        "address": "Na Rybníčku 536/6, Praha 2",
+        "sigla": "ABE424",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.425225,
+          50.07607778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Středočeské muzeum v Roztokách u Prahy, příspěvková organizace",
+        "address": "Zámek 1, Roztoky u Prahy",
+        "sigla": "ABE801",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.39939083,
+          50.15831806
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Skandinávský dům, z. s.",
+        "address": "Dejvická 3, Praha 6",
+        "sigla": "ABE447",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.40061111,
+          50.09786667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ústav pro studium totalitních režimů",
+        "address": "Na Poříčí 1047/26, Praha 1",
+        "sigla": "ABE448",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.43394194,
+          50.08971
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Goethe-Institut Praha",
+        "address": "Masarykovo nábř. 32, Praha 1",
+        "sigla": "ABE449",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41413611,
+          50.07950833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Václava Havla, nadační fond",
+        "address": "Ostrovní 13, Praha 1",
+        "sigla": "ABE368",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41728306,
+          50.08075778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní muzeum",
+        "address": "Karmelitská 388/2, Praha 1",
+        "sigla": "ABE370",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.40453611,
+          50.08494806
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Americké centrum - Velvyslanectví USA",
+        "address": "Tržiště 13, Praha 1",
+        "sigla": "ABE193",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.40204306,
+          50.08719806
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní památkový ústav",
+        "address": "Valdštejnské nám. 3/162, Praha 1 - Malá Strana",
+        "sigla": "ABE506",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.404975,
+          50.09020556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Oblastní muzeum Praha - východ, p.o.",
+        "address": "Masarykovo náměstí 97/3, Brandýs nad Labem - Stará Boleslav",
+        "sigla": "ABE802",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.65901972,
+          50.18567889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Čestlice",
+        "address": "Pitkovická 290, Čestlice",
+        "sigla": "ABG526",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.58218917,
+          50.00424639
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ženíškova knihovna Louňovice",
+        "address": "Horní náves 6, Louňovice",
+        "sigla": "ABG527",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.76256056,
+          49.98181333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna Lysolaje",
+        "address": "U Libosadu 387/1, Praha 6 - Lysolaje",
+        "sigla": "ABG044",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.36540222,
+          50.12942361
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní veřejná knihovna v Praze - Lipencích",
+        "address": "K Samoobsluze 500, Praha 5 - Lipence",
+        "sigla": "ABG045",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.35989278,
+          49.96013611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Muzea Policie České Republiky",
+        "address": "Ke Karlovu 453/1, Praha 2",
+        "sigla": "ABE373",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42850833,
+          50.06920278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Pražského literárního domu",
+        "address": "Ječná 11, Praha 2",
+        "sigla": "ABE374",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42254111,
+          50.07579833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Sibřině",
+        "address": "Říčanská 15, Sibřina",
+        "sigla": "ABG528",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.67011111,
+          50.05548611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Základní knihovna Ondřejov",
+        "address": "Choceradská 62, Ondřejov",
+        "sigla": "ABG529",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.78669444,
+          49.90386944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Dobřejovicích",
+        "address": "Čestlická 245, Dobřejovice",
+        "sigla": "ABG530",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.58063139,
+          49.98326778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Tehovci",
+        "address": "Tehovecká 22, Tehovec",
+        "sigla": "ABG531",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.72857222,
+          49.98151389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Mirošovicích",
+        "address": "Na Ohradě 190, Senohraby",
+        "sigla": "ABG532",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.71456667,
+          49.90894444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Mochov",
+        "address": "Na Dolejšku 286, Mochov",
+        "sigla": "ABG533",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.79815278,
+          50.14226667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna ve Světicích",
+        "address": "U Hřiště 151, Říčany",
+        "sigla": "ABG534",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.66503083,
+          49.97185528
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna ve Zvánovicích",
+        "address": "Školní 99, Ondřejov",
+        "sigla": "ABG535",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.77899167,
+          49.93199444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Svojetice",
+        "address": "Svojetice 135, Mukařov",
+        "sigla": "ABG536",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.73093056,
+          49.96653333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna ve Vyšehořovicích",
+        "address": "Vyšehořovice 88, Mochov",
+        "sigla": "ABG537",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.76949167,
+          50.11950556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Panenské Břežany",
+        "address": "Hlavní 17, Odolena Voda",
+        "sigla": "ABG538",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.47734167,
+          50.1774
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Brázdim",
+        "address": "Nový Brázdim 30, Nový Brázdim",
+        "sigla": "ABG539",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.58775,
+          50.18351667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Nehvizdy",
+        "address": "Pražská 14, Nehvizdy",
+        "sigla": "ABG540",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.72973306,
+          50.13050944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Klíčany",
+        "address": "Ke školce 8, Klíčany",
+        "sigla": "ABG541",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.43485278,
+          50.20061944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Měšicích",
+        "address": "Nová 275, Měšice",
+        "sigla": "ABG542",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.5191,
+          50.19889444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Předboj",
+        "address": "Hlavní 18, Kojetice",
+        "sigla": "ABG544",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.47788889,
+          50.22618889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Mukařově",
+        "address": "Příčná 61, Mukařov",
+        "sigla": "ABG545",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.74031417,
+          49.99216278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Hrusice",
+        "address": "Ke Hřišti 142, Hrusice",
+        "sigla": "ABG546",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.73722778,
+          49.91035
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Podolanka",
+        "address": "Hlavní 15, Podolanka",
+        "sigla": "ABG547",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.6024,
+          50.16028889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Lázně Toušeň",
+        "address": "V Ovčárně 87, Lázně Toušeň",
+        "sigla": "ABG548",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.71201361,
+          50.17106139
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Dřevčice",
+        "address": "Dřevčice 73, Brandýs nad Labem",
+        "sigla": "ABG549",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.62701667,
+          50.16694167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Petříkov",
+        "address": "Petříkov 61, Velké Popovice",
+        "sigla": "ABG550",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.61766667,
+          49.92486944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní lidová knihovna v Radějovicích",
+        "address": "Radějovice 10, Kamenice",
+        "sigla": "ABG551",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.56399167,
+          49.94639722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Vodochody",
+        "address": "Školská 59, Vodochody",
+        "sigla": "ABG552",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.39666389,
+          50.20783861
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Mratín",
+        "address": "Kostelecká 131, Mratín",
+        "sigla": "ABG553",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.5542,
+          50.20442222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Kostelec u Křížků",
+        "address": "Kostelec u Křížků 73, Kamenice",
+        "sigla": "ABG554",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.56014444,
+          49.90891667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Zápech",
+        "address": "Zápy 71, Brandýs nad Labem",
+        "sigla": "ABG555",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.68031389,
+          50.16487222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Zeleneč",
+        "address": "U rybníka 13, Zeleneč",
+        "sigla": "ABG556",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.66004,
+          50.13606944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Jirny",
+        "address": "Pražská 800, Jirny",
+        "sigla": "ABG557",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.69344472,
+          50.11980389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Nové Jirny",
+        "address": "Dělnická 303, Jirny",
+        "sigla": "ABG558",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.7090225,
+          50.10513972
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Škvorec",
+        "address": "Masarykovo nám. 122, Škvorec",
+        "sigla": "ABG559",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.72986944,
+          50.04588056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna ve Všestarech",
+        "address": "Všestary 141, Všestary",
+        "sigla": "ABG560",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.68491667,
+          49.95864167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Březí",
+        "address": "Březí 101, Říčany",
+        "sigla": "ABG561",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.69565306,
+          50.01668056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Jenštejn",
+        "address": "nám. 9. května 60, Jenštejn",
+        "sigla": "ABG562",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.61154167,
+          50.15190833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Veleň",
+        "address": "Hlavní 7, Veleň",
+        "sigla": "ABG563",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.55274778,
+          50.17266583
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Babice",
+        "address": "Babice 6, Říčany",
+        "sigla": "ABG564",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.72042222,
+          50.0046
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Tehov",
+        "address": "Panská 107, Tehov",
+        "sigla": "ABG565",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.69340611,
+          49.97125083
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Přezleticích",
+        "address": "Veleňská 48, Jenštejn",
+        "sigla": "ABG566",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.57563611,
+          50.15561667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Bášť",
+        "address": "Dlouhá 52, Bášť, Líbeznice",
+        "sigla": "ABG567",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.47685306,
+          50.20471056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Větrušice",
+        "address": "Vltavská 14, Větrušice",
+        "sigla": "ABG568",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.38396389,
+          50.19140556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Nová Ves",
+        "address": "Nová Ves 500, Mratín",
+        "sigla": "ABG569",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.53825083,
+          50.21940083
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Zdiby",
+        "address": "Průběžná 14, Zdiby",
+        "sigla": "ABG570",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.44075194,
+          50.16748639
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Všešímy",
+        "address": "Nádražní 329, Strančice",
+        "sigla": "ABG572",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.67115917,
+          49.93607556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Křížkový Újezdec",
+        "address": "Křížkový Újezdec 37, Kamenice",
+        "sigla": "ABG573",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.58589444,
+          49.93073333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Sluhy",
+        "address": "Sluhy 7, Mratín",
+        "sigla": "ABG574",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.55771944,
+          50.19111389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Veliká Ves",
+        "address": "Veliká Ves, Hlavní 69, Odolena Voda",
+        "sigla": "ABG575",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.45436194,
+          50.24173333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Káraném",
+        "address": "Václavská 19, Káraný",
+        "sigla": "ABG576",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.73669444,
+          50.17484167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna - Radonice",
+        "address": "Na Skále 185, Radonice",
+        "sigla": "ABG577",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.60856667,
+          50.143075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna ve Struhařově",
+        "address": "Mnichovická 179, Struhařov",
+        "sigla": "ABG578",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.74911222,
+          49.95581306
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Senohraby",
+        "address": "Příčná 61, Senohraby",
+        "sigla": "ABG579",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.72266944,
+          49.894975
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Máslovice",
+        "address": "Pražská 18, Vodochody",
+        "sigla": "ABG580",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.74227778,
+          49.98983333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Doubku",
+        "address": "Doubek 77, Říčany",
+        "sigla": "ABG581",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.74071667,
+          50.02035278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Šestajovicích",
+        "address": "Husova 60, Šestajovice",
+        "sigla": "ABG582",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.67852778,
+          50.11005833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Hovorčovice",
+        "address": "Revoluční 256, Měšice",
+        "sigla": "ABG583",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.51996361,
+          50.18172417
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Sudově Hlavně",
+        "address": "Sudovo Hlavno 15, Kostelní Hlavno",
+        "sigla": "ABG584",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.68446111,
+          50.2615
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Novém Vestci",
+        "address": "Ke Spořilovu 5, Nový Vestec",
+        "sigla": "ABG585",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.72069722,
+          50.18410556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Husinec",
+        "address": "U Radnice 64, Řež",
+        "sigla": "ABG586",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.356925,
+          50.17121389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Hlavenci",
+        "address": "Hlavenec 82, Předměřice nad Jizerou",
+        "sigla": "ABG587",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.70393889,
+          50.24066389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Tachlovice",
+        "address": "Jakubská náves 8, Tachlovice",
+        "sigla": "ABG588",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.244375,
+          50.01100556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Úhonicích",
+        "address": "Na Návsi 24, Úhonice",
+        "sigla": "ABG589",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.18641389,
+          50.04276944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Kytín",
+        "address": "Kytín 2, Mníšek pod Brdy",
+        "sigla": "ABG590",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.21856944,
+          49.850925
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna v Drahelčicích",
+        "address": "Na Návsi 25, Rudná",
+        "sigla": "ABG591",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.29844167,
+          49.89427222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Veřejná knihovna a kulturní centrum Jeneč",
+        "address": "Lidická 82, Jeneč",
+        "sigla": "ABG592",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.21474417,
+          50.08822611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Tursko",
+        "address": "Tursko 59, Tursko",
+        "sigla": "ABG593",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.32163333,
+          50.19134167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Kamenný Přívoz",
+        "address": "Kamenný Přívoz 285, Kamenný Přívoz",
+        "sigla": "ABG594",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.50345556,
+          49.86071111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna Červený Újezd",
+        "address": "Červený Újezd 26, Unhošť",
+        "sigla": "ABG595",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.16496111,
+          50.06842778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Chýně",
+        "address": "Bolzanova 800, Chýně",
+        "sigla": "ABG596",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.221335,
+          50.0573225
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Úholičkách",
+        "address": "Náves 10, Velké Přílepy",
+        "sigla": "ABG597",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.34926667,
+          50.16883889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna J.M. Hovorky ve Statenicích",
+        "address": "Statenická 23, Statenice",
+        "sigla": "ABG598",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.31822222,
+          50.14130833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna v Bratřínově",
+        "address": "Bratřínov 12, Hvoznice",
+        "sigla": "ABG599",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.336375,
+          49.84371111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Svrkyně",
+        "address": "Svrkyně 94, Svrkyně",
+        "sigla": "ABG600",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.29567778,
+          50.17128333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Únětice",
+        "address": "Náves 17/4, Horoměřice",
+        "sigla": "ABG601",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.35519722,
+          50.14809167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna ve Pticích",
+        "address": "Ptice 140, Úhonice",
+        "sigla": "ABG602",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.15147778,
+          50.05421111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Klínec",
+        "address": "Klínec 76, Mníšek pod Brdy",
+        "sigla": "ABG603",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.34179444,
+          49.90084722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Velké Přílepy",
+        "address": "Roztocká 129, Velké Přílepy",
+        "sigla": "ABG604",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.31697944,
+          50.15848278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna městyse Štěchovice, Multifunkční centrum",
+        "address": "prof. Vl. Lista 393, Štěchovice",
+        "sigla": "ABG605",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41779806,
+          49.84741639
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní lidová knihovna Řitka",
+        "address": "Na Návsi 54, Řitka",
+        "sigla": "ABG606",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.31890278,
+          49.93452778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna obce Zvole",
+        "address": "J. Štulíka 13, Zvole u Prahy",
+        "sigla": "ABG607",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.4179,
+          49.93313333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Dobřichovice",
+        "address": "Dobřichovice 123, Dobřichovice",
+        "sigla": "ABG608",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.27357222,
+          49.9288
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Čisovice",
+        "address": "Čisovice 4, Čisovice",
+        "sigla": "ABG609",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.31531944,
+          49.86333389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Bojov",
+        "address": "Bojov 56, Čisovice",
+        "sigla": "ABG610",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.33794167,
+          49.86638611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Petrov",
+        "address": "Hlavní 30, Petrov",
+        "sigla": "ABG611",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.43194444,
+          49.88712778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Kosoř",
+        "address": "Průběžná 260, Kosoř",
+        "sigla": "ABG612",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.32638667,
+          49.98808528
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna Jíloviště",
+        "address": "Pražská 81, Jíloviště",
+        "sigla": "ABG613",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.34239167,
+          49.92726111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní lidová knihovna Dobrovíz",
+        "address": "Pražská 13, Jeneč",
+        "sigla": "ABG614",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.46298611,
+          49.97188056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna ve Zbuzanech",
+        "address": "Na Návsi 1, Zbuzany",
+        "sigla": "ABG615",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.28575361,
+          50.02331611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní lidová knihovna v Číčovicích",
+        "address": "Čičovice 16, Středokluky",
+        "sigla": "ABG616",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.24866667,
+          50.15620833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Hradištku",
+        "address": "Chovatelů 500, Hradištko",
+        "sigla": "ABG617",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41461583,
+          49.86384639
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Jinočany",
+        "address": "Hlavní 52, Jinočany",
+        "sigla": "ABG618",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.2692575,
+          50.03281444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Pikovice",
+        "address": "Pod Medníkem 27, Pikovice",
+        "sigla": "ABG619",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.46490833,
+          49.86563889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna v Chrášťanech",
+        "address": "Chrášťany 28, Rudná u Prahy",
+        "sigla": "ABG620",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.26009167,
+          50.04518611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Místní knihovna Vrané nad Vltavou",
+        "address": "Březovská 382, Vrané nad Vltavou",
+        "sigla": "ABG621",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.38078889,
+          49.93649722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Kněževsi",
+        "address": "U národního výboru 62, Kněževes",
+        "sigla": "ABG622",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.2598275,
+          50.12058694
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna v Karlíku",
+        "address": "Karlická čp. 1, Dobřichovice",
+        "sigla": "ABG623",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.26142222,
+          49.93614444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna ve Hvozdnici",
+        "address": "Hvozdnice 160, Hvozdnice",
+        "sigla": "ABG624",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.38246944,
+          49.87271389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Holubice",
+        "address": "Holubice č.p. 175, Tursko",
+        "sigla": "ABG625",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.29325556,
+          50.20154444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Líšnice",
+        "address": "Líšnice 175, Mníšek pod Brdy",
+        "sigla": "ABG626",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.34478611,
+          49.87993333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Konojedy",
+        "address": "Konojedy 7, Konojedy",
+        "sigla": "KOG515",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.85085806,
+          49.947915
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna ve Vlkančicích",
+        "address": "Vlkančice 18, Kostelec nad Černými lesy",
+        "sigla": "KOG530",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.8964075,
+          49.90125389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna ve Stříbrné Skalici",
+        "address": "Na Městečku 71, Stříbrná Skalice",
+        "sigla": "KOG531",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.845915,
+          49.89722361
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Nučice",
+        "address": "Nučice 2, Nučice",
+        "sigla": "KOG534",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.88459944,
+          49.95576444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Veřejná knihovna Oleška",
+        "address": "Oleška 1 (Obecní úřad), Oleška",
+        "sigla": "KOG543",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.91606056,
+          49.97126472
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Kozojedy",
+        "address": "9. května 40, Kozojedy",
+        "sigla": "KOG554",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.80369833,
+          50.00496528
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Lhota",
+        "address": "Boleslavská 47, Lhota",
+        "sigla": "MEG520",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.56817778,
+          50.26330833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Centrum pro současné umění Praha, o.p.s.",
+        "address": "Dukelských hrdinů 500/25a, Praha 7",
+        "sigla": "ABH301",
+        "type": "KI"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.43266306,
+          50.09838111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Národní muzeum",
+        "address": "Ke Karlovu 20, Praha 2",
+        "sigla": "ABH302",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.42692528,
+          50.07369028
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Česká filharmonie/ Galerie Rudolfinum",
+        "address": "Alšovo nábřeží 12, Praha 1",
+        "sigla": "ABH304",
+        "type": "KI-GA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.41520917,
+          50.09017194
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Černolice",
+        "address": "Hlavní 64, Černolice",
+        "sigla": "ABG629",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.29860694,
+          49.91102667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Obecní knihovna Dolní Břežany",
+        "address": "Na Panský 11, Dolní Břežany",
+        "sigla": "ABG630",
+        "type": "OK"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.45993611,
+          49.96373361
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Knihovna Regionálního muzea v Jílovém u Prahy",
+        "address": "Masarykovo náměstí 16, Jílové u Prahy",
+        "sigla": "ABH307",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.49414306,
+          49.89382
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Muzeum hlavního města Prahy",
+        "address": "Pod Viaduktem 2595/3, Praha 5",
+        "sigla": "ABE375",
+        "type": "KI-MU"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.32200639,
+          50.06240361
+        ]
+      }
+    }
+  ]
+}
