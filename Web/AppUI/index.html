@@ -87,15 +87,50 @@
 
         /* ── SOS ── */
         .pin-sos-you {
-            background: #0f172a; border: 2px solid #38bdf8; color: #fff;
-            font-size: 0.72rem; font-weight: 700; padding: 3px 9px;
-            border-radius: 12px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            background: rgba(15,23,42,0.92);
+            backdrop-filter: blur(6px);
+            border: 1.5px solid rgba(56,189,248,0.7);
+            color: #e0f2fe;
+            font-size: 0.7rem; font-weight: 600; padding: 4px 10px;
+            border-radius: 20px; white-space: nowrap;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5), 0 0 0 4px rgba(56,189,248,0.12);
+            letter-spacing: 0.01em;
         }
-        .pin-sos-park {
-            background: #052e16; border: 2px solid #10b981; color: #fff;
-            font-size: 0.72rem; font-weight: 700; padding: 3px 9px;
-            border-radius: 12px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        .pin-sos-dest {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(6px);
+            color: #111827;
+            font-size: 0.7rem; font-weight: 600; padding: 4px 10px;
+            border-radius: 20px; white-space: nowrap;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+            border: 1.5px solid rgba(0,0,0,0.08);
+            letter-spacing: 0.01em;
         }
+        .dark .pin-sos-dest {
+            background: rgba(30,30,35,0.95);
+            color: #f9fafb;
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        /* SOS button pulse ring when active */
+        @keyframes sos-ring {
+            0%   { transform: scale(1);   opacity: 0.5; }
+            100% { transform: scale(1.9); opacity: 0; }
+        }
+        .sos-pulse::before {
+            content: '';
+            position: absolute; inset: -6px;
+            border-radius: inherit;
+            border: 2px solid #34d399;
+            animation: sos-ring 1.6s ease-out infinite;
+            pointer-events: none;
+        }
+        #sosBtn { position: relative; overflow: visible; }
+
+        /* SOS info card mode accent */
+        #sosInfoCard { border-left: 3px solid #10b981; }
+        #sosInfoCard.mode-med  { border-left-color: #3b82f6; }
+        #sosInfoCard.mode-lib  { border-left-color: #8b5cf6; }
 
         /* ── Search Panel ── */
         #searchPanel {
@@ -228,9 +263,14 @@
 
     <!-- SOS floating button (bottom-left) -->
     <div id="floatBtnsLeft" class="absolute bottom-28 left-4 z-20">
-        <button id="sosBtn" class="bg-surface-light dark:bg-surface-dark shadow-md dark:shadow-black/50 p-3 rounded-2xl flex items-center justify-center gap-2 transition-transform active:scale-95 border border-gray-100 dark:border-gray-800">
-            <i class="ph ph-first-aid-kit text-xl text-rose-500"></i>
-            <span id="sosBtnText" class="text-sm font-semibold text-gray-700 dark:text-gray-200">SOS</span>
+        <button id="sosBtn" class="bg-white dark:bg-zinc-900 shadow-lg dark:shadow-black/60 pl-3 pr-5 py-3 rounded-2xl flex items-center justify-center gap-3 transition-transform active:scale-95 border border-emerald-100 dark:border-emerald-900/40">
+            <span class="w-9 h-9 rounded-xl bg-emerald-500 flex items-center justify-center flex-shrink-0">
+                <i class="ph-fill ph-leaf text-lg text-white"></i>
+            </span>
+            <div class="flex flex-col items-start">
+                <span id="sosBtnText" class="text-sm font-bold text-gray-800 dark:text-gray-100 leading-tight">Potřebuji klid</span>
+                <span class="text-xs text-gray-400 dark:text-zinc-500 leading-tight">Najít klidné místo</span>
+            </div>
         </button>
     </div>
 
@@ -250,44 +290,74 @@
     </div>
 
     <!-- SOS info card (appears above footer when SOS is active) -->
-    <div id="sosInfoCard" class="absolute inset-x-4 z-20 card-hidden bg-surface-light dark:bg-surface-dark rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-4" style="bottom:6.25rem;">
-        <div class="flex items-start justify-between gap-3">
-            <div class="flex-1 min-w-0">
-                <div class="font-semibold text-sm text-gray-800 dark:text-gray-100 truncate mb-1"><span id="sosParkName">Park</span></div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 flex gap-3">
-                    <span id="sosDistText"></span>
-                    <span id="sosTimeText"></span>
-                </div>
-                <div id="sosSpinner" class="hidden items-center gap-2 text-xs text-gray-400 mt-2">
-                    <i class="ph ph-spinner-gap animate-spin"></i> Počítám trasu…
+    <div id="sosInfoCard" class="absolute inset-x-4 z-20 card-hidden bg-surface-light dark:bg-surface-dark rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 overflow-hidden" style="bottom:6.25rem;">
+        <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 flex-1 min-w-0">
+                <span id="sosDestIcon" class="text-xl flex-shrink-0 leading-none">🌳</span>
+                <div class="flex-1 min-w-0">
+                    <div class="font-semibold text-sm text-gray-800 dark:text-gray-100 truncate" id="sosParkName">Park</div>
+                    <div id="sosSpinner" class="hidden items-center gap-1.5 text-xs text-gray-400 mt-0.5">
+                        <i class="ph ph-spinner-gap animate-spin text-xs"></i><span>Hledám trasu…</span>
+                    </div>
+                    <div id="sosRouteInfo" class="text-xs text-gray-500 dark:text-gray-400 flex gap-2 mt-0.5">
+                        <span id="sosDistText"></span>
+                        <span id="sosTimeSep" class="text-gray-300 dark:text-gray-600 hidden">·</span>
+                        <span id="sosTimeText"></span>
+                    </div>
                 </div>
             </div>
-            <button id="sosCancelBtn" class="flex-shrink-0 text-rose-500 text-xs font-semibold underline">&#x2715; Zrušit</button>
+            <button id="sosCancelBtn" class="flex-shrink-0 w-8 h-8 rounded-xl bg-gray-100 dark:bg-zinc-800 flex items-center justify-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+                <i class="ph ph-x text-sm"></i>
+            </button>
         </div>
     </div>
 
     <!-- SOS Choice Modal -->
-    <div id="sosChoiceOverlay" class="absolute inset-0 z-50 flex items-end justify-center pointer-events-none opacity-0 transition-opacity duration-200" style="background:rgba(0,0,0,0.45);">
-        <div id="sosChoiceSheet" class="w-full bg-surface-light dark:bg-surface-dark rounded-t-3xl p-6 pb-8 shadow-2xl pointer-events-auto transform translate-y-full" style="transition:transform 0.28s cubic-bezier(.32,1.2,.5,1);">
-            <div class="flex justify-center mb-4">
-                <div class="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+    <div id="sosChoiceOverlay" class="absolute inset-0 z-50 flex items-end justify-center pointer-events-none opacity-0" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);transition:opacity 0.25s ease;">
+        <div id="sosChoiceSheet" class="w-full bg-surface-light dark:bg-zinc-900 rounded-t-3xl shadow-2xl pointer-events-auto transform translate-y-full pb-safe" style="transition:transform 0.3s cubic-bezier(.32,1.15,.5,1);">
+            <!-- handle -->
+            <div class="flex justify-center pt-3 pb-1">
+                <div class="w-10 h-1 bg-gray-200 dark:bg-zinc-700 rounded-full"></div>
             </div>
-            <h3 class="text-center font-semibold text-gray-800 dark:text-gray-100 mb-5 text-base">Kam hledat nejbližší místo?</h3>
-            <div class="flex gap-3">
-                <button id="sosParkChoice" class="flex-1 flex flex-col items-center gap-2 py-5 px-3 rounded-2xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 active:scale-95 transition-transform">
-                    <span class="text-3xl">🌳</span>
-                    <span class="text-sm font-semibold text-green-700 dark:text-green-400">Park</span>
+            <!-- header -->
+            <div class="px-6 pt-3 pb-5">
+                <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-zinc-500 mb-1">Tichá Praha</p>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 leading-snug">Kam se chceš<br>uchýlit?</h3>
+            </div>
+            <!-- choices -->
+            <div class="px-4 pb-3 flex flex-col gap-3">
+                <button id="sosParkChoice" class="group w-full flex items-center gap-4 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-900/60 active:scale-[0.98] transition-transform text-left">
+                    <span class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/60 flex items-center justify-center flex-shrink-0">
+                        <i class="ph-fill ph-tree text-2xl text-emerald-600 dark:text-emerald-400"></i>
+                    </span>
+                    <div>
+                        <div class="font-semibold text-sm text-gray-900 dark:text-gray-100">Tichý park</div>
+                        <div class="text-xs text-gray-500 dark:text-zinc-400 mt-0.5">Zelená oáza klidu nablízku</div>
+                    </div>
+                    <i class="ph ph-caret-right text-gray-300 dark:text-zinc-600 ml-auto"></i>
                 </button>
-                <button id="sosMedChoice" class="flex-1 flex flex-col items-center gap-2 py-5 px-3 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 active:scale-95 transition-transform">
-                    <span class="text-3xl">🏥</span>
-                    <span class="text-sm font-semibold text-blue-700 dark:text-blue-400">Klinika</span>
+                <button id="sosMedChoice" class="group w-full flex items-center gap-4 p-4 rounded-2xl bg-sky-50 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900/60 active:scale-[0.98] transition-transform text-left">
+                    <span class="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-900/60 flex items-center justify-center flex-shrink-0">
+                        <i class="ph-fill ph-first-aid-kit text-2xl text-sky-600 dark:text-sky-400"></i>
+                    </span>
+                    <div>
+                        <div class="font-semibold text-sm text-gray-900 dark:text-gray-100">Zdravotnické středisko</div>
+                        <div class="text-xs text-gray-500 dark:text-zinc-400 mt-0.5">Nejbližší poliklinika</div>
+                    </div>
+                    <i class="ph ph-caret-right text-gray-300 dark:text-zinc-600 ml-auto"></i>
                 </button>
-                <button id="sosLibChoice" class="flex-1 flex flex-col items-center gap-2 py-5 px-3 rounded-2xl bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-700 active:scale-95 transition-transform">
-                    <span class="text-3xl">📚</span>
-                    <span class="text-sm font-semibold text-violet-700 dark:text-violet-400">Knihovna</span>
+                <button id="sosLibChoice" class="group w-full flex items-center gap-4 p-4 rounded-2xl bg-violet-50 dark:bg-violet-950/40 border border-violet-100 dark:border-violet-900/60 active:scale-[0.98] transition-transform text-left">
+                    <span class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/60 flex items-center justify-center flex-shrink-0">
+                        <i class="ph-fill ph-books text-2xl text-violet-600 dark:text-violet-400"></i>
+                    </span>
+                    <div>
+                        <div class="font-semibold text-sm text-gray-900 dark:text-gray-100">Knihovna</div>
+                        <div class="text-xs text-gray-500 dark:text-zinc-400 mt-0.5">Tiché místo ke čtení</div>
+                    </div>
+                    <i class="ph ph-caret-right text-gray-300 dark:text-zinc-600 ml-auto"></i>
                 </button>
             </div>
-            <button id="sosChoiceCancel" class="w-full mt-4 text-sm text-gray-400 dark:text-gray-500 py-2 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">Zrušit</button>
+            <button id="sosChoiceCancel" class="w-full py-4 text-sm text-gray-400 dark:text-zinc-500 transition-colors">Zrušit</button>
         </div>
     </div>
 
@@ -326,7 +396,7 @@
                     <span id="noiseValText" class="text-xs font-bold text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-900/30 px-3 py-1 rounded-full">Střední</span>
                 </div>
                 <div class="flex items-center gap-4 w-full">
-                    <i class="ph ph-speakers-none text-2xl text-gray-400 w-8 text-center"></i>
+                    <i class="ph ph-speaker-none text-2xl text-gray-400 w-8 text-center"></i>
                     <input type="range" id="noiseLevel" min="1" max="5" step="1" value="3" class="text-blue-500 dark:text-blue-500 focus:outline-none flex-1 touch-pan-y">
                     <i class="ph ph-speaker-high text-2xl text-gray-400 w-8 text-center"></i>
                 </div>

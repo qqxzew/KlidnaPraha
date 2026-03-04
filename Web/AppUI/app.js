@@ -542,11 +542,13 @@ function cancelSOS() {
     _hideSOSChoice();
     sosPickingMode = false;
     const btn = document.getElementById('sosBtn');
-    btn.classList.remove('picking', 'cancel');
-    document.getElementById('sosBtnText').textContent = 'SOS';
-    btn.querySelector('i').className = 'ph ph-first-aid-kit text-xl text-rose-500';
+    btn.classList.remove('picking', 'cancel', 'sos-pulse');
+    document.getElementById('sosBtnText').textContent = 'Potřebuji klid';
+    btn.querySelector('i').className = 'ph-fill ph-leaf text-lg text-white';
     map.getCanvas().style.cursor = '';
-    document.getElementById('sosInfoCard').classList.add('card-hidden');
+    const card = document.getElementById('sosInfoCard');
+    card.classList.add('card-hidden');
+    card.classList.remove('mode-med', 'mode-lib');
     _syncFloatBtns();
 }
 
@@ -566,8 +568,8 @@ async function _startSOSWithMode(mode) {
     const btn = document.getElementById('sosBtn');
     const btnText = document.getElementById('sosBtnText');
     btn.classList.add('picking');
-    btnText.textContent = '...';
-    btn.querySelector('i').className = 'ph ph-spinner-gap animate-spin text-xl text-rose-500';
+    btnText.textContent = '…';
+    btn.querySelector('i').className = 'ph ph-spinner-gap animate-spin text-base text-white';
 
     // 1. Load data
     try {
@@ -605,14 +607,20 @@ async function _startSOSWithMode(mode) {
         sosPickingMode = true;
         map.getCanvas().style.cursor = 'crosshair';
         btnText.textContent = 'Klikněte na mapu';
-        btn.querySelector('i').className = 'ph ph-map-pin text-xl text-rose-500';
+        btn.querySelector('i').className = 'ph ph-map-pin text-base text-white';
 
+        document.getElementById('sosDestIcon').textContent = '📍';
         document.getElementById('sosParkName').textContent = 'Klikněte na své místo na mapě';
         document.getElementById('sosDistText').textContent = '';
         document.getElementById('sosTimeText').textContent = '';
+        document.getElementById('sosTimeSep').classList.add('hidden');
         document.getElementById('sosSpinner').classList.add('hidden');
         document.getElementById('sosSpinner').classList.remove('flex');
-        document.getElementById('sosInfoCard').classList.remove('card-hidden');
+        const card = document.getElementById('sosInfoCard');
+        card.classList.remove('mode-med', 'mode-lib');
+        if (mode === 'med')  card.classList.add('mode-med');
+        if (mode === 'lib')  card.classList.add('mode-lib');
+        card.classList.remove('card-hidden');
         _syncFloatBtns();
     }
 }
@@ -623,8 +631,8 @@ async function handleSOSClick(lat, lng) {
     const btnText = document.getElementById('sosBtnText');
     btn.classList.remove('picking');
     btn.classList.add('cancel');
-    btnText.textContent = 'SOS aktivní';
-    btn.querySelector('i').className = 'ph ph-first-aid-kit text-xl text-rose-500';
+    btnText.textContent = 'Zrušit';
+    btn.querySelector('i').className = 'ph ph-x text-lg text-white';
     map.getCanvas().style.cursor = '';
 
     _sosClearLayers();
@@ -721,6 +729,7 @@ async function handleSOSClick(lat, lng) {
 
         document.getElementById('sosDistText').textContent = fmtDist(path.distance);
         document.getElementById('sosTimeText').textContent = fmtTime(path.time);
+        document.getElementById('sosTimeSep').classList.remove('hidden');
     } catch (e) {
         const msg = e?.message || String(e);
         toast('Chyba trasy: ' + msg, 6000);
