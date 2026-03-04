@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="cs" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#18181b">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F9ED;</text></svg>">
+    <title>Klidná Trasa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        },
+                        surface: {
+                            light: '#ffffff',
+                            dark: '#18181b',
+                            lightSecondary: '#f4f4f5',
+                            darkSecondary: '#27272a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html, body { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; position: fixed; overscroll-behavior-y: none; touch-action: none; }
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right { display: none !important; }
+        .mapboxgl-ctrl-logo { display: none !important; }
+        .mapboxgl-ctrl-attrib { display: none !important; }
+        
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; padding: 10px 0; touch-action: pan-y; }
+        input[type=range]:focus { outline: none; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: #e5e7eb; border-radius: 4px; }
+        .dark input[type=range]::-webkit-slider-runnable-track { background: #3f3f46; }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 28px;
+            width: 28px;
+            border-radius: 50%;
+            background: currentColor;
+            cursor: pointer;
+            margin-top: -10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+            border: 3px solid #fff;
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:active { transform: scale(1.15); }
+        .dark input[type=range]::-webkit-slider-thumb { border-color: #18181b; }
+        
+        input[type=range]::-moz-range-track { width: 100%; height: 8px; cursor: pointer; background: #e5e7eb; border-radius: 4px; }
+        .dark input[type=range]::-moz-range-track { background: #3f3f46; }
+        input[type=range]::-moz-range-thumb {
+            height: 28px;
+            width: 28px;
+            border-radius: 50%;
+            background: currentColor;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+            border: 3px solid #fff;
+            border: none;
+            transition: transform 0.1s;
+        }
+        input[type=range]::-moz-range-thumb:active { transform: scale(1.15); }
+        .dark input[type=range]::-moz-range-thumb { box-shadow: 0 2px 6px rgba(0,0,0,0.5); }
+
+        /* ── SOS ── */
+        .pin-sos-you {
+            background: #0f172a; border: 2px solid #38bdf8; color: #fff;
+            font-size: 0.72rem; font-weight: 700; padding: 3px 9px;
+            border-radius: 12px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+        .pin-sos-park {
+            background: #052e16; border: 2px solid #10b981; color: #fff;
+            font-size: 0.72rem; font-weight: 700; padding: 3px 9px;
+            border-radius: 12px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+
+        /* ── Search Panel ── */
+        #searchPanel {
+            transition: opacity 0.22s ease, transform 0.22s ease;
+        }
+        #searchPanel.sp-hidden {
+            opacity: 0;
+            transform: translateY(-8px);
+            pointer-events: none;
+        }
+        #searchPanel.sp-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .addr-suggestion {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 14px; cursor: pointer;
+            transition: background 0.12s;
+        }
+        .addr-suggestion:hover, .addr-suggestion:active { background: rgba(0,0,0,0.05); }
+        .dark .addr-suggestion:hover { background: rgba(255,255,255,0.07); }
+        .addr-suggestion .addr-icon { color: #9ca3af; flex-shrink: 0; }
+        .addr-suggestion .addr-main { font-size: 0.82rem; font-weight: 500; }
+        .addr-suggestion .addr-sub { font-size: 0.72rem; color: #9ca3af; margin-top: 1px; }
+        .addr-field-wrap { position: relative; }
+        #addrFrom:focus, #addrTo:focus { outline: none; }
+        .addr-active-dot { transition: background 0.2s; }
+
+        /* ── Info cards slide up from footer ── */
+        #routeInfoCard, #sosInfoCard {
+            transition: transform 0.32s cubic-bezier(0.34,1.05,0.64,1), opacity 0.25s ease;
+        }
+        #routeInfoCard.card-hidden, #sosInfoCard.card-hidden {
+            transform: translateY(calc(100% + 1.5rem));
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ── Float buttons slide up with card ── */
+        #floatBtnsLeft, #floatBtnsRight { transition: bottom 0.32s cubic-bezier(0.34,1.05,0.64,1); }
+
+        /* ── Toast ── */
+        #toast {
+            position: fixed; bottom: 6.5rem; left: 50%; transform: translateX(-50%);
+            background: rgba(24,24,27,0.92); color: #f4f4f5;
+            padding: 10px 20px; border-radius: 24px;
+            font-size: 0.85rem; font-weight: 500;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s; z-index: 9999;
+            white-space: nowrap; border-left: 3px solid #ef4444;
+        }
+        .dark #toast { background: rgba(39,39,42,0.95); color: #e4e4e7; }
+        #toast.show { opacity: 1; }
+    </style>
+</head>
+<body class="bg-surface-light dark:bg-surface-dark text-gray-900 dark:text-gray-100 overflow-hidden h-screen w-screen relative transition-colors duration-500 fixed inset-0 overscroll-none touch-none">
+
+    <div id="map" class="absolute inset-0 z-0"></div>
+
+    <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-surface-light/80 dark:from-surface-dark/90 to-transparent z-10 pointer-events-none"></div>
+
+    <div class="absolute top-12 left-4 right-4 z-20 flex justify-between items-start pointer-events-none">
+        <div class="flex flex-col gap-3 pointer-events-auto">
+        </div>
+        
+        <div class="flex flex-col gap-3 pointer-events-auto">
+            <!-- DEV: remove this button block when done -->
+            <button id="devThemeToggle" class="w-12 h-12 bg-surface-light dark:bg-surface-dark shadow-md dark:shadow-black/50 rounded-2xl flex items-center justify-center transition-transform active:scale-95 border border-gray-100 dark:border-gray-800" title="DEV: toggle theme">
+                <i class="ph ph-sun text-xl text-gray-700 dark:text-gray-200"></i>
+            </button>
+            <!-- /DEV -->
+            <button id="searchRouteBtn" class="w-12 h-12 bg-surface-light dark:bg-surface-dark shadow-md dark:shadow-black/50 rounded-2xl flex items-center justify-center transition-transform active:scale-95 border border-gray-100 dark:border-gray-800">
+                <i class="ph ph-magnifying-glass text-xl text-gray-700 dark:text-gray-200"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══════════ ADDRESS SEARCH PANEL ═══════════ -->
+    <div id="searchPanel" class="absolute inset-x-4 sp-hidden" style="top:3.2rem; z-index:25;">
+        <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-visible">
+
+            <!-- panel header with close -->
+            <div class="flex items-center justify-between px-3 pt-2.5 pb-1">
+                <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Trasa</span>
+                <button id="closePanelBtn" class="p-1 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <i class="ph ph-x text-base text-gray-400"></i>
+                </button>
+            </div>
+
+            <!-- FROM row -->
+            <div class="flex items-center gap-2 px-3 py-2.5 border-b border-gray-100 dark:border-gray-800">
+                <span class="addr-active-dot w-3 h-3 rounded-full border-2 border-brand-500 bg-white flex-shrink-0" id="dotFrom"></span>
+                <input id="addrFrom" type="text" inputmode="search" autocomplete="off" autocorrect="off" spellcheck="false"
+                       placeholder="Odkud…"
+                       class="flex-1 text-sm bg-transparent outline-none placeholder:text-gray-400 dark:text-gray-100 min-w-0">
+                <button id="geoFromBtn" title="Použít moji polohu"
+                        class="flex-shrink-0 p-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <i class="ph ph-crosshair text-base text-brand-600 dark:text-brand-400"></i>
+                </button>
+            </div>
+
+            <!-- TO row -->
+            <div class="flex items-center gap-2 px-3 py-2.5">
+                <i class="ph ph-map-pin text-base text-rose-500 flex-shrink-0"></i>
+                <input id="addrTo" type="text" inputmode="search" autocomplete="off" autocorrect="off" spellcheck="false"
+                       placeholder="Kam…"
+                       class="flex-1 text-sm bg-transparent outline-none placeholder:text-gray-400 dark:text-gray-100 min-w-0">
+                <button id="swapAddrBtn" title="Prohodit"
+                        class="flex-shrink-0 p-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <i class="ph ph-arrows-down-up text-base text-gray-400"></i>
+                </button>
+            </div>
+
+            <!-- Autocomplete suggestions -->
+            <div id="addrSuggestions" class="hidden border-t border-gray-100 dark:border-gray-800 max-h-56 overflow-y-auto rounded-b-2xl"></div>
+        </div>
+    </div>
+
+
+
+    <div id="floatBtnsRight" class="absolute bottom-28 right-4 z-20 flex flex-col gap-3">
+        <button id="toggle3DBtn" class="bg-surface-light dark:bg-surface-dark shadow-md dark:shadow-black/50 p-3 rounded-2xl flex items-center justify-center transition-transform active:scale-95 border border-gray-100 dark:border-gray-800">
+            <i class="ph ph-cube text-xl text-gray-700 dark:text-gray-200"></i>
+        </button>
+        <button id="locateBtn" class="bg-surface-light dark:bg-surface-dark shadow-md dark:shadow-black/50 p-3 rounded-2xl flex items-center justify-center transition-transform active:scale-95 border border-gray-100 dark:border-gray-800">
+            <i class="ph ph-crosshair text-xl text-gray-700 dark:text-gray-200"></i>
+        </button>
+    </div>
+
+    <!-- SOS floating button (bottom-left) -->
+    <div id="floatBtnsLeft" class="absolute bottom-28 left-4 z-20">
+        <button id="sosBtn" class="bg-surface-light dark:bg-surface-dark shadow-md dark:shadow-black/50 p-3 rounded-2xl flex items-center justify-center gap-2 transition-transform active:scale-95 border border-gray-100 dark:border-gray-800">
+            <i class="ph ph-first-aid-kit text-xl text-rose-500"></i>
+            <span id="sosBtnText" class="text-sm font-semibold text-gray-700 dark:text-gray-200">SOS</span>
+        </button>
+    </div>
+
+    <!-- Route info card (appears above footer after route is calculated) -->
+    <div id="routeInfoCard" class="absolute inset-x-4 z-20 card-hidden bg-surface-light dark:bg-surface-dark rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-4" style="bottom:6.25rem;">
+        <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 flex-1 min-w-0">
+                <i class="ph ph-person-simple-walk text-xl text-brand-600 dark:text-brand-400 flex-shrink-0"></i>
+                <div class="text-sm text-gray-700 dark:text-gray-200 flex gap-3">
+                    <span id="routeDistText" class="font-semibold"></span>
+                    <span class="text-gray-400 dark:text-gray-500">·</span>
+                    <span id="routeTimeText" class="text-gray-500 dark:text-gray-400"></span>
+                </div>
+            </div>
+            <button id="routeCloseBtnCard" class="flex-shrink-0 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xs font-semibold"><i class="ph ph-x text-base"></i></button>
+        </div>
+    </div>
+
+    <!-- SOS info card (appears above footer when SOS is active) -->
+    <div id="sosInfoCard" class="absolute inset-x-4 z-20 card-hidden bg-surface-light dark:bg-surface-dark rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-4" style="bottom:6.25rem;">
+        <div class="flex items-start justify-between gap-3">
+            <div class="flex-1 min-w-0">
+                <div class="font-semibold text-sm text-gray-800 dark:text-gray-100 truncate mb-1">&#x1F333; <span id="sosParkName">Park</span></div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 flex gap-3">
+                    <span id="sosDistText"></span>
+                    <span id="sosTimeText"></span>
+                </div>
+                <div id="sosSpinner" class="hidden items-center gap-2 text-xs text-gray-400 mt-2">
+                    <i class="ph ph-spinner-gap animate-spin"></i> Počítám trasu…
+                </div>
+            </div>
+            <button id="sosCancelBtn" class="flex-shrink-0 text-rose-500 text-xs font-semibold underline">&#x2715; Zrušit</button>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="toast"></div>
+
+    <div class="absolute bottom-4 inset-x-4 h-20 bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-3xl z-30 flex items-center justify-around px-2 pb-safe shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] pointer-events-auto">
+        <button class="flex flex-col items-center justify-center w-20 h-full text-brand-600 dark:text-brand-500 rounded-2xl hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors">
+            <i class="ph-fill ph-map-pin text-3xl mb-1"></i>
+            <span class="text-xs font-semibold">Mapa</span>
+        </button>
+        <button id="cyclistBtn" class="flex flex-col items-center justify-center w-20 h-full text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-2xl transition-colors">
+            <i class="ph ph-bicycle text-3xl mb-1"></i>
+            <span class="text-xs font-semibold">Kolo</span>
+        </button>
+        <button id="settingsBtn" class="flex flex-col items-center justify-center w-20 h-full text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-2xl transition-colors">
+            <i class="ph ph-sliders text-3xl mb-1"></i>
+            <span class="text-xs font-semibold">Nastavení</span>
+        </button>
+    </div>
+
+    <div id="backdrop" class="absolute inset-0 bg-black/40 z-40 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+    <div id="cyclistSheet" class="absolute bottom-0 inset-x-0 bg-surface-light dark:bg-surface-dark z-50 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.12)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.5)] bottom-sheet-transition transform translate-y-full flex flex-col max-h-[85vh]">
+        <div class="flex justify-center pt-3 pb-2 w-full">
+            <div class="w-12 h-1.5 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+        </div>
+
+        <div class="px-6 pb-4 pt-2 flex justify-between items-center border-b border-gray-100 dark:border-gray-800">
+            <h2 class="text-xl font-semibold">Cyklotrasy</h2>
+            <button id="closeCyclistSheetBtn" class="p-2 -mr-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
+                <i class="ph ph-x text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Sort pills -->
+        <div class="px-6 py-3 flex gap-2 border-b border-gray-100 dark:border-gray-800 flex-shrink-0">
+            <button data-sort="length" class="sort-pill active-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-brand-100 text-brand-700 dark:bg-zinc-700 dark:text-brand-300 border border-brand-300 dark:border-brand-700">Délka</button>
+            <button data-sort="noise" class="sort-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-500 dark:bg-zinc-800 dark:text-gray-400 border border-transparent">Hluk ↑</button>
+            <button data-sort="elevation" class="sort-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-500 dark:bg-zinc-800 dark:text-gray-400 border border-transparent">Převýšení ↑</button>
+        </div>
+
+        <div id="bikeRouteList" class="overflow-y-auto flex-1 px-4 py-3 space-y-2">
+            <p class="text-sm text-gray-400 px-2 py-4 text-center">Načítám trasy…</p>
+        </div>
+    </div>
+
+    <div id="bottomSheet" class="absolute bottom-0 inset-x-0 bg-surface-light dark:bg-surface-dark z-50 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.12)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.5)] bottom-sheet-transition transform translate-y-full flex flex-col max-h-[85vh]">
+        <div class="flex justify-center pt-3 pb-2 w-full" id="sheetHandle">
+            <div class="w-12 h-1.5 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+        </div>
+        
+        <div class="px-6 pb-4 pt-2 flex justify-between items-center border-b border-gray-100 dark:border-gray-800">
+            <h2 class="text-xl font-semibold">Parametry trasy</h2>
+            <button id="closeSheetBtn" class="p-2 -mr-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
+                <i class="ph ph-x text-lg"></i>
+            </button>
+        </div>
+
+        <div class="p-6 overflow-y-auto w-full">
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-3">
+                    <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200">Hluk</label>
+                    <span id="noiseValText" class="text-xs font-bold text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-900/30 px-3 py-1 rounded-full">Střední</span>
+                </div>
+                <div class="flex items-center gap-4 w-full">
+                    <i class="ph ph-speakers-none text-2xl text-gray-400 w-8 text-center"></i>
+                    <input type="range" id="noiseLevel" min="1" max="5" step="1" value="3" class="text-blue-500 dark:text-blue-500 focus:outline-none flex-1 touch-pan-y">
+                    <i class="ph ph-speaker-high text-2xl text-gray-400 w-8 text-center"></i>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-3">
+                    <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200">Kvalita ovzduší</label>
+                    <span id="airValText" class="text-xs font-bold text-green-600 bg-green-50 dark:text-green-400 dark:bg-green-900/30 px-3 py-1 rounded-full">Střední</span>
+                </div>
+                <div class="flex items-center gap-4 w-full">
+                    <i class="ph ph-leaf text-2xl text-gray-400 w-8 text-center"></i>
+                    <input type="range" id="airLevel" min="1" max="5" step="1" value="3" class="text-green-500 dark:text-green-500 focus:outline-none flex-1 touch-pan-y">
+                    <i class="ph ph-factory text-2xl text-gray-400 w-8 text-center"></i>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-3">
+                    <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200">Maximální převýšení</label>
+                    <span id="elevationValText" class="text-xs font-bold text-orange-600 bg-orange-50 dark:text-orange-400 dark:bg-orange-900/30 px-3 py-1 rounded-full">Střední</span>
+                </div>
+                <div class="flex items-center gap-4 w-full">
+                    <i class="ph ph-arrows-out-line-horizontal text-2xl text-gray-400 w-8 text-center"></i>
+                    <input type="range" id="elevationLevel" min="1" max="5" step="1" value="3" class="text-orange-500 dark:text-orange-500 focus:outline-none flex-1 touch-pan-y">
+                    <i class="ph ph-trend-up text-2xl text-gray-400 w-8 text-center"></i>
+                </div>
+            </div>
+            
+            <div class="mt-8 mb-2">
+                <button id="applySettingsBtn" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-4 rounded-xl shadow-md active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
+                    <i class="ph ph-sliders text-xl"></i>
+                    Aplikovat nastavení
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

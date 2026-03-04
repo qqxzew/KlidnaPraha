@@ -7,8 +7,6 @@ graphhopper:
   graph.elevation.cache_dir: ./elevation_data
   custom_models.directory: .
   custom_areas.directory: ./custom_areas
-  custom_areas:
-    merged_parks: custom_areas/merged_parks.geojson
   import.osm.ignored_highways: ''
   graph.encoded_values: foot_access, hike_rating, foot_priority, foot_average_speed, average_slope
 

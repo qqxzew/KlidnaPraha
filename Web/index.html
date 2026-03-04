@@ -330,6 +330,16 @@
       0%,100% { box-shadow: 0 0 0 0 rgba(233,69,96,0.55); }
       50%      { box-shadow: 0 0 0 10px rgba(233,69,96,0); }
     }
+    #btn-cyclo, #btn-generate-link {
+      display: block; width: 100%; padding: 9px 12px; margin-bottom: 6px;
+      background: #1a2e1a; color: #56d364; border: 1px solid #2a5c2a;
+      border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; text-align: center; text-decoration: none;
+    }
+    #btn-cyclo:hover, #btn-generate-link:hover { background: #1e381e; border-color: #56d364; }
+    #btn-generate-link { background: #1a1f2e; color: #4fc3f7; border-color: #1f4f6e; }
+    #btn-generate-link:hover { background: #1e2838; border-color: #4fc3f7; }
+
     #btn-sos {
       width: calc(100% - 40px); margin: 14px 20px 6px;
       padding: 11px 0; border-radius: 10px;
@@ -371,6 +381,10 @@
 
 <div id="sidebar">
   <h1>Tichá <span>Praha</span></h1>
+
+  <!-- ══ Cyklotrasy + Generátor ══ -->
+  <a id="btn-cyclo" href="cyclo.html">🚴 Cyklotrasy Prahy</a>
+  <a id="btn-generate-link" href="generate.html">🗺️ Generátor trasy</a>
 
   <!-- ══ SOS ══ -->
   <button id="btn-sos" onclick="startSOS()">&#x1F198; SOS &ndash; Tiché místo</button>
@@ -1030,7 +1044,7 @@ let sosMark = null, sosDestMark = null, sosPolyLine = null;
 async function _ensureParks() {
   if (_parksGeoJSON) return;
   // Lightweight file: 274 Point features with {name, area_ha} – avoids loading 50 MB Parks.geojson
-  _parksGeoJSON = await fetchJSON('./parks_sos.geojson');
+  _parksGeoJSON = await fetchJSON('C:\\Users\\fandr\\Desktop\\Tichá Praha\\GreenZone\\SOS\\parks_sos.geojson');
 }
 
 // squared approx distance (lat-corrected) – sufficient for "nearest" ranking

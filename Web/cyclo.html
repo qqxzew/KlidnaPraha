@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyklotrasy Prahy – Tichá Praha</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  /* ── Base ─────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #0d1117; color: #e6edf3; }
+
+  /* ── Layout ───────────────────────────────────────────────── */
+  #app   { display: flex; flex-direction: column; height: 100vh; }
+  #topbar { flex-shrink: 0; background: #161b22; border-bottom: 1px solid #30363d;
+    padding: 10px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #content { flex: 1; display: flex; min-height: 0; }
+  #sidebar { width: 370px; flex-shrink: 0; display: flex; flex-direction: column;
+    border-right: 1px solid #30363d; overflow: hidden; }
+  #map-wrap { flex: 1; position: relative; }
+  #map      { width: 100%; height: 100%; }
+
+  /* ── Top bar ──────────────────────────────────────────────── */
+  #topbar h1 { font-size: 1.05rem; font-weight: 600; white-space: nowrap;
+    color: #58a6ff; margin-right: 4px; }
+  #topbar a.back { font-size: 0.82rem; color: #8b949e; text-decoration: none;
+    padding: 4px 10px; border: 1px solid #30363d; border-radius: 6px;
+    white-space: nowrap; }
+  #topbar a.back:hover { color: #e6edf3; border-color: #58a6ff; }
+
+  .sep { width: 1px; height: 28px; background: #30363d; flex-shrink: 0; }
+
+  /* Sort buttons */
+  #sort-wrap { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .sort-lbl { font-size: 0.78rem; color: #8b949e; }
+  .btn-sort { font-size: 0.78rem; padding: 4px 10px; border-radius: 6px;
+    border: 1px solid #30363d; background: #21262d; color: #c9d1d9;
+    cursor: pointer; white-space: nowrap; }
+  .btn-sort:hover { border-color: #58a6ff; color: #58a6ff; }
+  .btn-sort.active { background: #1f6feb; border-color: #388bfd; color: #fff; }
+
+  /* Sliders inline in topbar */
+  #slider-wrap { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .sl-item { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #8b949e; }
+  .sl-item input[type=range] { width: 80px; accent-color: #58a6ff; cursor: pointer; }
+  .sl-val { color: #e6edf3; min-width: 46px; font-size: 0.78rem; }
+
+  /* Category filter */
+  #cat-wrap { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .cat-lbl { font-size: 0.78rem; color: #8b949e; }
+  .cat-chip { font-size: 0.75rem; padding: 3px 9px; border-radius: 12px;
+    border: 1px solid #30363d; background: #21262d; color: #c9d1d9;
+    cursor: pointer; user-select: none; }
+  .cat-chip.on { background: #1f6feb; border-color: #388bfd; color: #fff; }
+
+  /* Search */
+  #search { flex: 1 1 160px; padding: 5px 10px; border-radius: 6px;
+    border: 1px solid #30363d; background: #161b22; color: #e6edf3;
+    font-size: 0.82rem; min-width: 120px; max-width: 220px; }
+  #search::placeholder { color: #484f58; }
+  #search:focus { outline: none; border-color: #58a6ff; }
+
+  /* Stats line */
+  #stats { padding: 6px 12px; font-size: 0.75rem; color: #484f58;
+    border-bottom: 1px solid #21262d; flex-shrink: 0; }
+
+  /* ── Route cards ──────────────────────────────────────────── */
+  #route-list { flex: 1; overflow-y: auto; padding: 6px; }
+  #route-list::-webkit-scrollbar { width: 6px; }
+  #route-list::-webkit-scrollbar-track { background: #0d1117; }
+  #route-list::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+
+  .card { background: #161b22; border: 1px solid #21262d; border-radius: 8px;
+    padding: 10px 12px; margin-bottom: 6px; cursor: pointer;
+    transition: border-color .15s, background .15s; }
+  .card:hover { border-color: #30363d; background: #1c2128; }
+  .card.active { border-color: #58a6ff; background: #1a2332; }
+
+  .card-head { display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 8px; }
+  .card-name { font-size: 0.88rem; font-weight: 600; color: #e6edf3; line-height: 1.3; }
+  .card-num  { font-size: 0.72rem; color: #484f58; white-space: nowrap; margin-top: 1px; }
+
+  .card-meta { display: flex; gap: 10px; margin-top: 6px; }
+  .meta-pill { font-size: 0.72rem; padding: 2px 7px; border-radius: 10px;
+    background: #21262d; color: #8b949e; white-space: nowrap; }
+
+  /* Score bars */
+  .bars { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .bar-row { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: #8b949e; }
+  .bar-bg  { flex: 1; height: 5px; background: #21262d; border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width .3s; }
+  .bar-val { min-width: 34px; text-align: right; color: #8b949e; }
+
+  /* ── Map pop-up ───────────────────────────────────────────── */
+  .leaflet-popup-content-wrapper { background: #161b22; color: #e6edf3;
+    border: 1px solid #30363d; border-radius: 8px; }
+  .leaflet-popup-tip { background: #161b22; }
+  .leaflet-popup-content { font-size: 0.82rem; line-height: 1.5; }
+  .leaflet-popup-content b { color: #58a6ff; }
+
+  /* ── Info panel ───────────────────────────────────────────── */
+  #info-panel { position: absolute; top: 10px; right: 10px; z-index: 800;
+    background: rgba(22,27,34,.94); border: 1px solid #30363d; border-radius: 10px;
+    padding: 12px 14px; width: 240px; display: none; backdrop-filter: blur(4px); }
+  #info-panel h3 { font-size: 0.9rem; color: #58a6ff; margin-bottom: 4px; }
+  #info-panel p  { font-size: 0.78rem; color: #8b949e; margin-bottom: 8px; }
+  .info-row    { display: flex; justify-content: space-between; font-size: 0.78rem;
+    padding: 3px 0; border-bottom: 1px solid #21262d; }
+  .info-row:last-child { border: none; }
+  .info-key  { color: #8b949e; }
+  .info-val  { color: #e6edf3; font-weight: 500; }
+
+  /* ── Loader ───────────────────────────────────────────────── */
+  #loader { display: none; position: absolute; inset: 0; background: rgba(13,17,23,.7);
+    align-items: center; justify-content: center; z-index: 900; font-size: 1rem; color: #58a6ff; }
+  #loader.show { display: flex; }
+
+  /* ── Route legend ─────────────────────────────────────────── */
+  .legend { position: absolute; bottom: 20px; left: 10px; z-index: 800;
+    background: rgba(22,27,34,.9); border: 1px solid #30363d; border-radius: 8px;
+    padding: 8px 12px; font-size: 0.72rem; color: #8b949e; }
+  .legend-row { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+  .leg-line { width: 20px; height: 3px; border-radius: 2px; }
+
+  @media (max-width: 750px) {
+    #content { flex-direction: column; }
+    #sidebar { width: 100%; height: 40vh; border-right: none; border-bottom: 1px solid #30363d; }
+    #map-wrap { height: 60vh; }
+    #topbar { gap: 8px; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ── Top bar ────────────────────────────────────────────── -->
+  <div id="topbar">
+    <h1>🚴 Cyklotrasy Prahy</h1>
+    <a class="back" href="index.html">← Zpět na mapu</a>
+    <a class="back" href="generate.html" style="color:#4fc3f7;">🗺️ Generátor trasy</a>
+    <div class="sep"></div>
+
+    <div id="sort-wrap">
+      <span class="sort-lbl">Řadit:</span>
+      <button class="btn-sort active" data-sort="comfort">🎯 Komfort</button>
+      <button class="btn-sort" data-sort="noise">🔇 Nejtiší</button>
+      <button class="btn-sort" data-sort="air">💨 Vzduch</button>
+      <button class="btn-sort" data-sort="len_asc">📏 Kratší</button>
+      <button class="btn-sort" data-sort="len_desc">📏 Delší</button>
+    </div>
+    <div class="sep"></div>
+
+    <div id="slider-wrap">
+      <span class="sort-lbl">Váhy:</span>
+      <div class="sl-item">
+        🔊
+        <input type="range" id="sl-noise" min="0" max="1.4" step="0.2" value="1"
+          oninput="onSl('sl-noise','sv-noise')">
+        <span class="sl-val" id="sv-noise">Výchozí</span>
+      </div>
+      <div class="sl-item">
+        💨
+        <input type="range" id="sl-air" min="0" max="1.4" step="0.2" value="1"
+          oninput="onSl('sl-air','sv-air')">
+        <span class="sl-val" id="sv-air">Výchozí</span>
+      </div>
+    </div>
+    <div class="sep"></div>
+
+    <div id="cat-wrap">
+      <span class="cat-lbl">Typ:</span>
+      <span class="cat-chip on" data-cat="0">Magistrála</span>
+      <span class="cat-chip on" data-cat="1">Páteřní</span>
+      <span class="cat-chip on" data-cat="2">Lokální</span>
+    </div>
+    <div class="sep"></div>
+
+    <input id="search" type="text" placeholder="🔍 Hledat trasu…"
+      oninput="renderList()">
+  </div>
+
+  <!-- ── Content ──────────────────────────────────────────────── -->
+  <div id="content">
+    <div id="sidebar">
+      <div id="stats">Načítám trasy…</div>
+      <div id="route-list"></div>
+    </div>
+
+    <div id="map-wrap">
+      <div id="map"></div>
+      <div id="info-panel">
+        <h3 id="ip-name">–</h3>
+        <p id="ip-route">–</p>
+        <div class="info-row"><span class="info-key">Délka</span><span class="info-val" id="ip-len">–</span></div>
+        <div class="info-row"><span class="info-key">Hluk (den)</span><span class="info-val" id="ip-noise">–</span></div>
+        <div class="info-row"><span class="info-key">Ovzduší</span><span class="info-val" id="ip-air">–</span></div>
+        <div class="info-row"><span class="info-key">Kategorie</span><span class="info-val" id="ip-cat">–</span></div>
+        <div class="info-row"><span class="info-key">Začátek</span><span class="info-val" id="ip-from">–</span></div>
+        <div class="info-row"><span class="info-key">Konec</span><span class="info-val" id="ip-to">–</span></div>
+      </div>
+      <div class="legend">
+        <div class="legend-row"><div class="leg-line" style="background:#00e5ff"></div> Tichá trasa</div>
+        <div class="legend-row"><div class="leg-line" style="background:#ffa726"></div> Hlučnější trasa</div>
+        <div class="legend-row"><div class="leg-line" style="background:#ef5350;height:4px"></div> Hlučná trasa</div>
+      </div>
+      <div id="loader">⏳ Načítám geometrii…</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Constants ──────────────────────────────────────────────────────
+const ROUTES_INDEX = '../Cyclo/routes_index.json';
+const ROUTES_DIR   = '../Cyclo/routes/';
+
+const CAT_NAMES = { 0:'Magistrála', 1:'Páteřní trasa', 2:'Lokální trasa' };
+const CAT_COLORS = { 0:'#d946ef', 1:'#58a6ff', 2:'#56d364' };
+
+let routes = [];           // full index
+let activeId = null;       // currently highlighted route id
+let activeLayer = null;    // leaflet layer for active route
+let sortMode = 'comfort';
+let enabledCats = new Set([0, 1, 2]);
+
+// ── Leaflet map ────────────────────────────────────────────────────
+const map = L.map('map', { zoomControl: true }).setView([50.075, 14.44], 11);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap © CARTO',
+  maxZoom: 19
+}).addTo(map);
+
+// ── Slider helpers ─────────────────────────────────────────────────
+function sliderLabel(v) {
+  v = parseFloat(v);
+  if (v <= 0)    return 'Vypnuto';
+  if (v < 0.7)   return 'Méně';
+  if (v < 1.15)  return 'Výchozí';
+  return 'Více';
+}
+function onSl(id, vid) {
+  const v = parseFloat(document.getElementById(id).value);
+  document.getElementById(vid).textContent = sliderLabel(v);
+  // Persist to localStorage for sync with main page
+  try { localStorage.setItem(id, v); } catch(e) {}
+  renderList();
+}
+
+// Restore slider values from localStorage (set by main page)
+function restoreSliders() {
+  for (const id of ['sl-noise', 'sl-air']) {
+    try {
+      const stored = localStorage.getItem(id);
+      if (stored !== null) {
+        const el = document.getElementById(id);
+        el.value = stored;
+        const vid = id.replace('sl-','sv-');
+        document.getElementById(vid).textContent = sliderLabel(stored);
+      }
+    } catch(e) {}
+  }
+}
+
+// ── Scoring ────────────────────────────────────────────────────────
+function comfortScore(r) {
+  // Lower = better (quieter + cleaner)
+  const wNoise = parseFloat(document.getElementById('sl-noise').value);
+  const wAir   = parseFloat(document.getElementById('sl-air').value);
+  // Normalise: noise 0-100 → 0-1; air 1-5 → 0-1
+  const n = (r.noise_score / 100) * wNoise;
+  const a = ((r.air_score - 1) / 4) * wAir;
+  return n + a;
+}
+
+// ── Bar color helpers ──────────────────────────────────────────────
+function noiseColor(db) {
+  if (db < 45) return '#56d364';
+  if (db < 55) return '#d4c027';
+  if (db < 65) return '#ffa726';
+  return '#ef5350';
+}
+function airColor(lv) {
+  if (lv <= 1.2) return '#56d364';
+  if (lv <= 2.0) return '#d4c027';
+  if (lv <= 3.0) return '#ffa726';
+  return '#ef5350';
+}
+function routeColor(r) {
+  const db = r.noise_score;
+  if (db < 50) return '#00e5ff';
+  if (db < 60) return '#ffa726';
+  return '#ef5350';
+}
+
+// ── Filter + sort ──────────────────────────────────────────────────
+function filteredSorted() {
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  let list = routes.filter(r => {
+    if (!enabledCats.has(r.kategorie)) return false;
+    if (q && !r.jmeno.toLowerCase().includes(q) && !r.nazev.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  if (sortMode === 'comfort') {
+    list.sort((a, b) => comfortScore(a) - comfortScore(b));
+  } else if (sortMode === 'noise') {
+    list.sort((a, b) => a.noise_score - b.noise_score);
+  } else if (sortMode === 'air') {
+    list.sort((a, b) => a.air_score - b.air_score);
+  } else if (sortMode === 'len_asc') {
+    list.sort((a, b) => a.length_km - b.length_km);
+  } else if (sortMode === 'len_desc') {
+    list.sort((a, b) => b.length_km - a.length_km);
+  }
+  return list;
+}
+
+// ── Render card list ───────────────────────────────────────────────
+function renderList() {
+  const list = filteredSorted();
+  document.getElementById('stats').textContent =
+    `${list.length} tras (z ${routes.length} celkem)`;
+
+  const container = document.getElementById('route-list');
+  container.innerHTML = '';
+
+  for (const r of list) {
+    const card = document.createElement('div');
+    card.className = 'card' + (r.id === activeId ? ' active' : '');
+    card.dataset.id = r.id;
+
+    // Noise bar: 0-100 dB → bar width 0-100%
+    const noiseW = Math.min(100, r.noise_score);
+    // Air bar: 1-5 → 0-100%
+    const airW   = Math.min(100, (r.air_score - 1) / 4 * 100);
+
+    // Rank badge
+    const cs = comfortScore(r);
+    const rankPct = 100 - Math.round(cs * 100); // higher = better
+    const rankColor = rankPct > 66 ? '#56d364' : rankPct > 33 ? '#d4c027' : '#ef5350';
+
+    card.innerHTML = `
+      <div class="card-head">
+        <span class="card-name">${r.jmeno}</span>
+        <span class="card-num">${r.nazev}</span>
+      </div>
+      <div class="card-meta">
+        <span class="meta-pill" style="background:${CAT_COLORS[r.kategorie]}22;
+          color:${CAT_COLORS[r.kategorie]};">${CAT_NAMES[r.kategorie]}</span>
+        <span class="meta-pill">📏 ${r.length_km.toFixed(1)} km</span>
+        ${sortMode === 'comfort'
+          ? `<span class="meta-pill" style="color:${rankColor}">🎯 ${rankPct}%</span>`
+          : ''}
+      </div>
+      <div class="bars">
+        <div class="bar-row">
+          <span>🔊</span>
+          <div class="bar-bg"><div class="bar-fill"
+            style="width:${noiseW}%;background:${noiseColor(r.noise_score)}"></div></div>
+          <span class="bar-val">${r.noise_score.toFixed(0)} dB</span>
+        </div>
+        <div class="bar-row">
+          <span>💨</span>
+          <div class="bar-bg"><div class="bar-fill"
+            style="width:${airW}%;background:${airColor(r.air_score)}"></div></div>
+          <span class="bar-val">úr. ${r.air_score.toFixed(1)}</span>
+        </div>
+      </div>`;
+
+    card.addEventListener('click', () => selectRoute(r));
+    container.appendChild(card);
+  }
+}
+
+// ── Select + load route ────────────────────────────────────────────
+async function selectRoute(r) {
+  // Update active state
+  activeId = r.id;
+  document.querySelectorAll('.card').forEach(c =>
+    c.classList.toggle('active', c.dataset.id === r.id));
+
+  // Fill info panel
+  document.getElementById('ip-name').textContent = r.jmeno;
+  document.getElementById('ip-route').textContent = r.nazev;
+  document.getElementById('ip-len').textContent = r.length_km.toFixed(2) + ' km';
+  document.getElementById('ip-noise').textContent = r.noise_score.toFixed(1) + ' dB';
+  document.getElementById('ip-air').textContent = 'úroveň ' + r.air_score.toFixed(1);
+  document.getElementById('ip-cat').textContent = CAT_NAMES[r.kategorie];
+  document.getElementById('ip-from').textContent = r.pocatek || '–';
+  document.getElementById('ip-to').textContent   = r.konec   || '–';
+  document.getElementById('info-panel').style.display = 'block';
+
+  // Remove old layer
+  if (activeLayer) { map.removeLayer(activeLayer); activeLayer = null; }
+
+  // Load GeoJSON
+  document.getElementById('loader').classList.add('show');
+  try {
+    const resp = await fetch(ROUTES_DIR + r.id + '.geojson');
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const gj = await resp.json();
+
+    const col = routeColor(r);
+    activeLayer = L.geoJSON(gj, {
+      style: { color: col, weight: 4, opacity: 0.9 },
+      onEachFeature(f, ly) {
+        ly.bindPopup(`<b>${r.jmeno}</b><br>${r.nazev}<br>
+          🔊 ${r.noise_score.toFixed(1)} dB &nbsp; 💨 úr. ${r.air_score.toFixed(1)}<br>
+          📏 ${r.length_km.toFixed(2)} km`);
+      }
+    }).addTo(map);
+
+    map.fitBounds(activeLayer.getBounds(), { padding: [40, 40] });
+  } catch(e) {
+    alert('Chyba načítání trasy: ' + e.message);
+  }
+  document.getElementById('loader').classList.remove('show');
+}
+
+// ── Category chips ─────────────────────────────────────────────────
+document.querySelectorAll('.cat-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const cat = parseInt(chip.dataset.cat);
+    if (enabledCats.has(cat)) enabledCats.delete(cat);
+    else enabledCats.add(cat);
+    chip.classList.toggle('on', enabledCats.has(cat));
+    renderList();
+  });
+});
+
+// ── Sort buttons ───────────────────────────────────────────────────
+document.querySelectorAll('.btn-sort').forEach(btn => {
+  btn.addEventListener('click', () => {
+    sortMode = btn.dataset.sort;
+    document.querySelectorAll('.btn-sort').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderList();
+  });
+});
+
+// ── Init ───────────────────────────────────────────────────────────
+(async function init() {
+  restoreSliders();
+  try {
+    const resp = await fetch(ROUTES_INDEX);
+    routes = await resp.json();
+  } catch(e) {
+    document.getElementById('stats').textContent = 'Chyba načítání: ' + e.message;
+    return;
+  }
+  renderList();
+})();
+</script>
+</body>
+</html>

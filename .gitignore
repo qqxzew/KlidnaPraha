@@ -8,6 +8,8 @@ __pycache__/
 Grapphopper/graph-cache/
 Grapphopper/elevation_data/
 
+C:\Users\fandr\Desktop\Tichá Praha\Cyclo\routes
+
 # ── Большие исходные геоданные → хранятся в Git LFS (.gitattributes) ────────
 # Noise/HlukDen/noise_*.geojson    ← LFS
 # Noise/HlukNoc/noise_*.geojson    ← LFS

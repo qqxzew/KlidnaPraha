@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Výběr trasy – Tichá Praha</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  min-height: 100%;
+  background: #0d1117;
+  color: #e6edf3;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.topbar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 20px;
+  background: #161b22;
+  border-bottom: 1px solid #21262d;
+}
+.topbar a {
+  font-size: 0.8rem; color: #8b949e; text-decoration: none;
+  padding: 4px 10px; border-radius: 6px;
+  border: 1px solid #30363d;
+}
+.topbar a:hover { color: #e6edf3; border-color: #8b949e; }
+.topbar h1 { font-size: 1rem; font-weight: 700; color: #e6edf3; }
+
+.container {
+  max-width: 640px;
+  margin: 40px auto;
+  padding: 0 20px 60px;
+}
+
+.card {
+  background: #161b22;
+  border: 1px solid #21262d;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.card h2 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #8b949e;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 18px;
+}
+
+.slider-row {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 14px;
+}
+.slider-row:last-child { margin-bottom: 0; }
+.slider-label {
+  width: 150px; min-width: 150px;
+  font-size: 0.88rem; color: #c9d1d9;
+}
+.slider-row input[type=range] {
+  flex: 1;
+  accent-color: #4fc3f7;
+  cursor: pointer;
+}
+.slider-val {
+  width: 60px; text-align: right;
+  font-size: 0.85rem; color: #4fc3f7; font-weight: 600;
+}
+
+#btn-generate {
+  display: block; width: 100%;
+  padding: 14px;
+  background: #4fc3f7; color: #0d1117;
+  font-size: 1rem; font-weight: 700;
+  border: none; border-radius: 10px;
+  cursor: pointer;
+  transition: background .15s;
+  margin-bottom: 28px;
+}
+#btn-generate:hover { background: #81d4fa; }
+#btn-generate:disabled { background: #21262d; color: #8b949e; cursor: default; }
+
+#results { display: none; }
+#results h2 {
+  font-size: 0.85rem; font-weight: 600;
+  color: #8b949e; text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 12px;
+}
+
+.route-card {
+  background: #161b22;
+  border: 1px solid #21262d;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 10px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.route-rank {
+  font-size: 1.6rem; font-weight: 800;
+  color: #30363d; min-width: 28px; text-align: center;
+  padding-top: 2px;
+}
+.route-info { flex: 1; min-width: 0; }
+.route-name {
+  font-size: 0.95rem; font-weight: 600;
+  color: #e6edf3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.route-sub {
+  font-size: 0.78rem; color: #8b949e; margin-top: 3px;
+}
+.route-badges { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.badge {
+  font-size: 0.72rem; font-weight: 600;
+  padding: 2px 8px; border-radius: 20px;
+  white-space: nowrap;
+}
+
+.score-bar-bg {
+  flex: 1; height: 5px; background: #21262d; border-radius: 3px; overflow: hidden;
+}
+.score-bar-fill { height: 100%; border-radius: 3px; }
+
+.no-match {
+  text-align: center; color: #8b949e;
+  font-size: 0.9rem; padding: 32px; line-height: 1.6;
+}
+
+.cat-row {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.cat-btn {
+  padding: 5px 14px; border-radius: 20px; cursor: pointer;
+  font-size: 0.8rem; font-weight: 600;
+  border: 1px solid #30363d; background: #161b22; color: #8b949e;
+  transition: all .15s;
+}
+.cat-btn.active {
+  background: #ffa657; color: #0d1117; border-color: #ffa657;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html">← Mapa</a>
+  <a href="cyclo.html">🚴 Cyklotrasy</a>
+  <h1>🗺️ Výběr trasy</h1>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Parametry trasy</h2>
+    <div class="slider-row">
+      <span class="slider-label">Délka trasy</span>
+      <input type="range" id="sl-len" min="1" max="80" step="1" value="20">
+      <span class="slider-val" id="lbl-len">20 km</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-label">Flexibilita délky</span>
+      <input type="range" id="sl-flex" min="10" max="100" step="5" value="30">
+      <span class="slider-val" id="lbl-flex">±30 %</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Komfort</h2>
+    <div class="slider-row">
+      <span class="slider-label">Důležitost ticha</span>
+      <input type="range" id="sl-noise" min="0" max="1.4" step="0.05" value="0.7">
+      <span class="slider-val" id="lbl-noise">0.70</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-label">Důležitost vzduchu</span>
+      <input type="range" id="sl-air" min="0" max="1.4" step="0.05" value="0.7">
+      <span class="slider-val" id="lbl-air">0.70</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Kategorie</h2>
+    <div class="cat-row">
+      <button class="cat-btn active" data-cat="0">Magistrála</button>
+      <button class="cat-btn active" data-cat="1">Páteřní</button>
+      <button class="cat-btn active" data-cat="2">Lokální</button>
+    </div>
+  </div>
+
+  <button id="btn-generate">Najít trasy</button>
+
+  <div id="results">
+    <h2>Doporučené trasy</h2>
+    <div id="results-list"></div>
+  </div>
+
+</div>
+
+<script>
+const KAT_LABELS = ['Magistrála', 'Páteřní', 'Lokální'];
+let index = null;
+let enabledCats = new Set([0, 1, 2]);
+
+async function loadIndex() {
+  if (index) return;
+  const r = await fetch('../Cyclo/routes_index.json');
+  index = await r.json();
+}
+
+function v(id) { return parseFloat(document.getElementById(id).value); }
+
+function updateLabels() {
+  document.getElementById('lbl-len').textContent   = v('sl-len') + ' km';
+  document.getElementById('lbl-flex').textContent  = '±' + v('sl-flex') + ' %';
+  document.getElementById('lbl-noise').textContent = v('sl-noise').toFixed(2);
+  document.getElementById('lbl-air').textContent   = v('sl-air').toFixed(2);
+}
+
+['sl-len', 'sl-flex', 'sl-noise', 'sl-air'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    updateLabels();
+    localStorage.setItem(id, document.getElementById(id).value);
+  });
+});
+
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const c = parseInt(btn.dataset.cat);
+    if (enabledCats.has(c)) {
+      if (enabledCats.size > 1) { enabledCats.delete(c); btn.classList.remove('active'); }
+    } else {
+      enabledCats.add(c); btn.classList.add('active');
+    }
+  });
+});
+
+// lower score = better route
+function comfortScore(r, wNoise, wAir) {
+  return (r.noise_score / 100) * wNoise + ((r.air_score - 1) / 4) * wAir;
+}
+
+async function generate() {
+  const btn = document.getElementById('btn-generate');
+  btn.disabled = true; btn.textContent = 'Načítám…';
+  try { await loadIndex(); }
+  catch (e) {
+    document.getElementById('results-list').innerHTML =
+      '<p class="no-match">Nepodařilo se načíst data.</p>';
+    document.getElementById('results').style.display = '';
+    btn.disabled = false; btn.textContent = 'Najít trasy';
+    return;
+  }
+
+  const target = v('sl-len');
+  const flex   = v('sl-flex') / 100;
+  const wN     = v('sl-noise');
+  const wA     = v('sl-air');
+
+  let candidates = index.filter(r =>
+    r.length_km >= target * (1 - flex) &&
+    r.length_km <= target * (1 + flex) &&
+    enabledCats.has(r.kategorie)
+  );
+  candidates.sort((a, b) => comfortScore(a, wN, wA) - comfortScore(b, wN, wA));
+  renderResults(candidates.slice(0, 5), candidates.length);
+
+  btn.disabled = false; btn.textContent = 'Najít trasy';
+}
+
+function noiseColor(db) {
+  if (db < 40) return '#56d364';
+  if (db < 55) return '#79c0ff';
+  if (db < 65) return '#ffa657';
+  return '#f85149';
+}
+function noiseLabel(db) {
+  if (db < 40) return 'Velmi tichá';
+  if (db < 55) return 'Tichá';
+  if (db < 65) return 'Hlučnější';
+  return 'Hlučná';
+}
+function airColor(s) {
+  if (s <= 1.5) return '#4fc3f7';
+  if (s <= 3)   return '#d2a8ff';
+  return '#ffa657';
+}
+function airLabel(s) {
+  if (s <= 1.5) return 'Čistý vzduch';
+  if (s <= 3)   return 'Střední vzduch';
+  return 'Horší vzduch';
+}
+
+function renderResults(routes, total) {
+  const el = document.getElementById('results-list');
+  if (!routes.length) {
+    el.innerHTML = '<p class="no-match">Žádné trasy neodpovídají.<br>Zkuste upravit délku nebo kategorii.</p>';
+    document.getElementById('results').style.display = '';
+    return;
+  }
+
+  el.innerHTML = routes.map((r, i) => {
+    const db     = Math.round(r.noise_score);
+    const nc     = noiseColor(db);
+    const ac     = airColor(r.air_score);
+    const nPct   = Math.min(100, Math.round(db * 100 / 90));
+    const aPct   = Math.min(100, Math.round((r.air_score - 1) * 100 / 4));
+    const ends   = (r.pocatek && r.konec)
+      ? `<div class="route-sub">${r.pocatek} → ${r.konec}</div>` : '';
+    const jmeno  = r.jmeno
+      ? `<span style="color:#8b949e;font-weight:400"> – ${r.jmeno}</span>` : '';
+
+    return `<div class="route-card">
+      <div class="route-rank">${i + 1}</div>
+      <div class="route-info">
+        <div class="route-name">${r.nazev}${jmeno}</div>
+        ${ends}
+        <div class="route-badges" style="margin-top:8px">
+          <span class="badge" style="background:${nc}22;color:${nc};border:1px solid ${nc}44">🔊 ${db} dB · ${noiseLabel(db)}</span>
+          <span class="badge" style="background:${ac}22;color:${ac};border:1px solid ${ac}44">💨 ${airLabel(r.air_score)}</span>
+          <span class="badge" style="background:#2b1e2e;color:#d2a8ff;border:1px solid #4a2b6e">📏 ${r.length_km.toFixed(1)} km</span>
+          <span class="badge" style="background:#2b1e1a;color:#ffa657;border:1px solid #5a3a2a">${KAT_LABELS[r.kategorie] ?? '–'}</span>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:10px">
+          <div style="flex:1">
+            <div style="font-size:0.68rem;color:#8b949e;margin-bottom:3px">Hluk</div>
+            <div class="score-bar-bg"><div class="score-bar-fill" style="width:${nPct}%;background:${nc}"></div></div>
+          </div>
+          <div style="flex:1">
+            <div style="font-size:0.68rem;color:#8b949e;margin-bottom:3px">Vzduch</div>
+            <div class="score-bar-bg"><div class="score-bar-fill" style="width:${aPct}%;background:${ac}"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('') + (total > 5
+    ? `<p style="text-align:center;color:#8b949e;font-size:0.78rem;margin-top:8px">Zobrazeno 5 z ${total} odpovídajících tras</p>`
+    : '');
+
+  document.getElementById('results').style.display = '';
+}
+
+(function init() {
+  ['sl-noise', 'sl-air'].forEach(id => {
+    const s = localStorage.getItem(id);
+    if (s != null) document.getElementById(id).value = s;
+  });
+  updateLabels();
+  document.getElementById('btn-generate').addEventListener('click', generate);
+})();
+</script>
+</body>
+</html>
