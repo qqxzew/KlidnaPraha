@@ -7,63 +7,63 @@
     },
     {
       "if": "in_air_level_3",
-      "multiply_by": 0.95
+      "multiply_by": 0.93
     },
     {
       "if": "in_air_level_4",
-      "multiply_by": 0.8
+      "multiply_by": 0.78
     },
     {
       "if": "in_air_level_5",
-      "multiply_by": 0.5
+      "multiply_by": 0.60
     },
     {
       "if": "in_noise_night_25_30",
-      "multiply_by": 0.95
+      "multiply_by": 0.96
     },
     {
       "if": "in_noise_night_30_35",
-      "multiply_by": 0.95
+      "multiply_by": 0.93
     },
     {
       "if": "in_noise_night_35_40",
-      "multiply_by": 0.9
+      "multiply_by": 0.89
     },
     {
       "if": "in_noise_night_40_45",
-      "multiply_by": 0.9
+      "multiply_by": 0.84
     },
     {
       "if": "in_noise_night_45_50",
-      "multiply_by": 0.85
+      "multiply_by": 0.77
     },
     {
       "if": "in_noise_night_50_55",
-      "multiply_by": 0.8
+      "multiply_by": 0.68
     },
     {
       "if": "in_noise_night_55_60",
-      "multiply_by": 0.6
+      "multiply_by": 0.56
     },
     {
       "if": "in_noise_night_60_65",
-      "multiply_by": 0.3
+      "multiply_by": 0.42
     },
     {
       "if": "in_noise_night_65_70",
-      "multiply_by": 0.15
+      "multiply_by": 0.30
     },
     {
       "if": "in_noise_night_70_75",
-      "multiply_by": 0.05
+      "multiply_by": 0.22
     },
     {
       "if": "in_noise_night_75_80",
-      "multiply_by": 0.01
+      "multiply_by": 0.15
     },
     {
       "if": "in_noise_night_80_85",
-      "multiply_by": 0.01
+      "multiply_by": 0.12
     }
   ]
 }

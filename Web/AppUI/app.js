@@ -278,56 +278,70 @@ let markerEnd = null;
 const GH_URL = 'http://localhost:8989/route';
 
 const _BASE_NOISE_DAY = [
-  ['in_noise_day_25_30',0.95],['in_noise_day_30_35',0.95],['in_noise_day_35_40',0.90],
-  ['in_noise_day_40_45',0.90],['in_noise_day_45_50',0.85],['in_noise_day_50_55',0.80],
-  ['in_noise_day_55_60',0.70],['in_noise_day_60_65',0.50],['in_noise_day_65_70',0.30],
-  ['in_noise_day_70_75',0.20],['in_noise_day_75_80',0.10],['in_noise_day_80_85',0.05],
-  ['in_noise_day_85_90',0.01],
+  ['in_noise_day_25_30',0.97],['in_noise_day_30_35',0.95],['in_noise_day_35_40',0.92],
+  ['in_noise_day_40_45',0.88],['in_noise_day_45_50',0.82],['in_noise_day_50_55',0.74],
+  ['in_noise_day_55_60',0.64],['in_noise_day_60_65',0.52],['in_noise_day_65_70',0.40],
+  ['in_noise_day_70_75',0.30],['in_noise_day_75_80',0.22],['in_noise_day_80_85',0.18],
+  ['in_noise_day_85_90',0.15],
 ];
 const _BASE_NOISE_NIGHT = [
-  ['in_noise_night_25_30',0.95],['in_noise_night_30_35',0.95],['in_noise_night_35_40',0.90],
-  ['in_noise_night_40_45',0.90],['in_noise_night_45_50',0.85],['in_noise_night_50_55',0.80],
-  ['in_noise_night_55_60',0.60],['in_noise_night_60_65',0.30],['in_noise_night_65_70',0.15],
-  ['in_noise_night_70_75',0.05],['in_noise_night_75_80',0.01],['in_noise_night_80_85',0.01],
+  ['in_noise_night_25_30',0.96],['in_noise_night_30_35',0.93],['in_noise_night_35_40',0.89],
+  ['in_noise_night_40_45',0.84],['in_noise_night_45_50',0.77],['in_noise_night_50_55',0.68],
+  ['in_noise_night_55_60',0.56],['in_noise_night_60_65',0.42],['in_noise_night_65_70',0.30],
+  ['in_noise_night_70_75',0.22],['in_noise_night_75_80',0.15],['in_noise_night_80_85',0.12],
 ];
 const _BASE_AIR = [
-  ['in_air_level_3',0.95],['in_air_level_4',0.80],['in_air_level_5',0.50],
+  ['in_air_level_3',0.93],['in_air_level_4',0.78],['in_air_level_5',0.60],
 ];
 
-// Přesná kopie z index.html: scale je 0.0–1.4 (float)
-function _scaleMult(base, scale) {
-    return Math.round(Math.max(0.01, 1 - (1 - base) * scale) * 1000) / 1000;
+// Elevation slope conditions — steeper edge = lower priority
+// average_slope is 0.0–1.0 in GH (tan of grade: 0.05≈3°, 0.10≈6°, 0.17≈10°)
+const _BASE_ELEV = [
+    ['average_slope > 0.05', 0.90],
+    ['average_slope > 0.08', 0.75],
+    ['average_slope > 0.12', 0.55],
+    ['average_slope > 0.17', 0.35],
+];
+
+// Clamp adjusted priority to [0.10, 1.0] — floor of 0.10 prevents extreme detours
+function _scaleMult(base, factor) {
+    return Math.round(Math.max(0.10, Math.min(1.0, 1 - (1 - base) * factor)) * 1000) / 1000;
 }
 
-// Převod ползунку 1–5 → scale 0.0–1.4 (stejná stupnice jako v index.html)
-// Piecewise tak, aby střed (3) = 1.0 (výchozí hodnota ze starého souboru):
-//   1 → 1.4 (maximal avoidance)
-//   2 → 1.2
-//   3 → 1.0  (výchozí — přesně stejné jako v index.html)
-//   4 → 0.5
-//   5 → 0.0  (nezáleží / vypnuto)
+// Slider 1–5 → penalty factor:
+//   1 → 2.0  (maximum avoidance)
+//   2 → 1.5
+//   3 → 1.0  (default)
+//   4 → 0.4  (nearly ignore)
+//   5 → 0.0  (off, multiply_by = 1.0)
 function _sliderToScale(v) {
-    if (v <= 3) return Math.round((1.4 - (v - 1) * 0.2) * 100) / 100;
-    else        return Math.round((1.0 - (v - 3) * 0.5) * 100) / 100;
+    return [2.0, 1.5, 1.0, 0.4, 0.0][v - 1] ?? 1.0;
 }
 
 function buildCustomModel() {
-    const sN = _sliderToScale(parseInt(document.getElementById('noiseLevel').value));
-    const sA = _sliderToScale(parseInt(document.getElementById('airLevel').value));
-    const sE = _sliderToScale(parseInt(document.getElementById('elevationLevel').value));
-    
-    // distance_influence: stejná logika jako v index.html — scale 0→5, scale 1.4→103
-    const distance_influence = Math.round(5 + sE * 65);
-    
-    // Čas přirozený – den (ranní nebo denní hodiny)
+    const nV = parseInt(document.getElementById('noiseLevel').value);
+    const aV = parseInt(document.getElementById('airLevel').value);
+    const eV = parseInt(document.getElementById('elevationLevel').value);
+    const sN = _sliderToScale(nV);
+    const sA = _sliderToScale(aV);
+    const sE = _sliderToScale(eV);
+
+    // Each slider independently sets distance_influence (willingness to detour).
+    // Slider 1 (max avoidance) -> di=15  (big detours OK).
+    // Slider 3 (neutral)       -> di=65.
+    // Slider 5 (ignore factor) -> di=100 (stick to shortest path).
+    // Final di = min across all sliders: the most demanding preference wins.
+    const _DI = [15, 35, 65, 88, 100];
+    const distance_influence = Math.min(_DI[nV - 1], _DI[aV - 1], _DI[eV - 1]);
+
     const hour = new Date().getHours();
-    const mode = (hour >= 7 && hour < 22) ? 'day' : 'night';
-    const noiseBase = mode === 'day' ? _BASE_NOISE_DAY : _BASE_NOISE_NIGHT;
-    
+    const noiseBase = (hour >= 7 && hour < 22) ? _BASE_NOISE_DAY : _BASE_NOISE_NIGHT;
+
     const priority = [
         { if: '!in_merged_parks', multiply_by: 0.85 },
         ..._BASE_AIR.map(([k,v]) => ({ if: k, multiply_by: _scaleMult(v, sA) })),
         ...noiseBase.map(([k,v]) => ({ if: k, multiply_by: _scaleMult(v, sN) })),
+        ...(sE > 0 ? _BASE_ELEV.map(([k,v]) => ({ if: k, multiply_by: _scaleMult(v, sE) })) : []),
     ];
     return { distance_influence, priority };
 }
@@ -362,9 +376,8 @@ async function calculateRoute() {
     }
 
     const customModel = buildCustomModel();
-    // Používáme comfort_walk_day/night — stejně jako v index.html (testovacím souboru)
-    const hour = new Date().getHours();
-    const profile = (hour >= 7 && hour < 22) ? 'comfort_walk_day' : 'comfort_walk_night';
+    // Use normal_walk — no baked-in comfort model, all penalties come from JS only
+    const profile = 'normal_walk';
     
     const body = {
         points: [[ptStart.lng, ptStart.lat], [ptEnd.lng, ptEnd.lat]],
@@ -453,6 +466,7 @@ async function fetchJSON(url) {
 // NAVIGATION MODE
 // ═══════════════════════════════════════════════════════════
 let _navMode     = false;
+let _navFromSOS  = false;
 let _navWatchId  = null;
 let _navUserMarker = null;
 let _navPrevLat  = null, _navPrevLng = null;
@@ -492,8 +506,14 @@ function startNavigation() {
     if (!_routeCoords.length) { toast('Nejprve vypočítej trasu.', 3000); return; }
     _navMode = true;
 
-    document.getElementById('routeInfoCard').classList.add('card-hidden');
-    document.getElementById('navStartRow').classList.add('hidden');
+    _navFromSOS = !document.getElementById('sosInfoCard').classList.contains('card-hidden');
+    if (_navFromSOS) {
+        document.getElementById('sosInfoCard').classList.add('card-hidden');
+        document.getElementById('sosNavRow').classList.add('hidden');
+    } else {
+        document.getElementById('routeInfoCard').classList.add('card-hidden');
+        document.getElementById('navStartRow').classList.add('hidden');
+    }
     document.getElementById('navHUD').classList.remove('nav-hidden');
     document.getElementById('floatBtnsRight').style.display = 'none';
     if (userMarker) userMarker.getElement().style.opacity = '0';
@@ -527,8 +547,14 @@ function stopNavigation() {
     document.getElementById('navHUD').classList.add('nav-hidden');
     document.getElementById('floatBtnsRight').style.display = '';
     map.easeTo({ pitch: 0, bearing: 0, zoom: 14, duration: 900 });
-    document.getElementById('routeInfoCard').classList.remove('card-hidden');
-    document.getElementById('navStartRow').classList.remove('hidden');
+    if (_navFromSOS) {
+        document.getElementById('sosInfoCard').classList.remove('card-hidden');
+        document.getElementById('sosNavRow').classList.remove('hidden');
+    } else {
+        document.getElementById('routeInfoCard').classList.remove('card-hidden');
+        document.getElementById('navStartRow').classList.remove('hidden');
+    }
+    _navFromSOS = false;
     _syncFloatBtns();
 }
 
@@ -663,6 +689,9 @@ function cancelSOS() {
     document.getElementById('sosBtnText').textContent = 'Potřebuji klid';
     btn.querySelector('i').className = 'ph-fill ph-leaf text-lg text-white';
     map.getCanvas().style.cursor = '';
+    document.getElementById('sosNavRow').classList.add('hidden');
+    _routeCoords = [];
+    _navFromSOS = false;
     const card = document.getElementById('sosInfoCard');
     card.classList.add('card-hidden');
     card.classList.remove('mode-med', 'mode-lib');
@@ -714,8 +743,12 @@ async function _startSOSWithMode(mode) {
                 timeout: 6000
             });
         });
-        gotGeo = true;
-        handleSOSClick(pos.coords.latitude, pos.coords.longitude);
+        if (!isInPrague(pos.coords.longitude, pos.coords.latitude)) {
+            toast('Vaše GPS poloha je mimo Prahu. Klikněte na svou polohu na mapě.', 5000);
+        } else {
+            gotGeo = true;
+            handleSOSClick(pos.coords.latitude, pos.coords.longitude);
+        }
     } catch (_) {
         // Geo failed or denied → switch to manual tap mode
     }
@@ -757,7 +790,7 @@ async function handleSOSClick(lat, lng) {
     // "You are here" marker
     const youEl = document.createElement('div');
     youEl.className = 'pin-sos-you';
-    youEl.textContent = '\ud83d\udccd Jsem zde';
+    youEl.textContent = 'Jsem zde';
     sosMark = new mapboxgl.Marker({ element: youEl, anchor: 'bottom' })
         .setLngLat([lng, lat]).addTo(map);
 
@@ -844,6 +877,8 @@ async function handleSOSClick(lat, lng) {
         );
         map.fitBounds(bounds, { padding: 80, maxZoom: 16 });
 
+        _routeCoords = coords;
+        document.getElementById('sosNavRow').classList.remove('hidden');
         document.getElementById('sosDistText').textContent = fmtDist(path.distance);
         document.getElementById('sosTimeText').textContent = fmtTime(path.time);
         document.getElementById('sosTimeSep').classList.remove('hidden');
@@ -886,14 +921,15 @@ document.getElementById('routeCloseBtnCard').addEventListener('click', () => {
 
 document.getElementById('navStartBtn').addEventListener('click', startNavigation);
 document.getElementById('navStopBtn').addEventListener('click', stopNavigation);
+document.getElementById('sosNavBtn').addEventListener('click', startNavigation);
 
 // Click on map to add Start / End
 map.on('click', (e) => {
     const { lng, lat } = e.lngLat;
 
-    // SOS picking mode takes priority
-    if (sosPickingMode) {
-        handleSOSClick(lat, lng);
+    // SOS active: picking mode handles the tap; if SOS card is just showing, block route building
+    if (sosPickingMode || sosMark) {
+        if (sosPickingMode) handleSOSClick(lat, lng);
         return;
     }
 
@@ -1036,8 +1072,7 @@ let _lastResults = [];
 function _syncFloatBtns() {
     const cardVisible = !document.getElementById('routeInfoCard').classList.contains('card-hidden')
                      || !document.getElementById('sosInfoCard').classList.contains('card-hidden');
-    const bottom = cardVisible ? '10.5rem' : '7rem';
-    document.getElementById('floatBtnsLeft').style.bottom  = bottom;
+    const bottom = cardVisible ? '11.5rem' : '7rem';
     document.getElementById('floatBtnsRight').style.bottom = bottom;
 }
 
