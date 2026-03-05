@@ -185,6 +185,34 @@
         }
         .dark #toast { background: rgba(39,39,42,0.95); color: #e4e4e7; }
         #toast.show { opacity: 1; }
+
+        /* ── Navigation mode ── */
+        .nav-puck {
+            width: 28px; height: 38px;
+            display: flex; flex-direction: column; align-items: center;
+            pointer-events: none; user-select: none;
+        }
+        .nav-puck-arrow {
+            width: 0; height: 0;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-bottom: 15px solid #22c55e;
+            filter: drop-shadow(0 1px 3px rgba(34,197,94,0.45));
+        }
+        .nav-puck-body {
+            width: 18px; height: 18px; border-radius: 50%;
+            background: #22c55e;
+            border: 3px solid #fff;
+            margin-top: -3px;
+            box-shadow: 0 2px 8px rgba(34,197,94,0.5), 0 0 0 4px rgba(34,197,94,0.15);
+            animation: nav-breathe 2.2s ease-in-out infinite;
+        }
+        @keyframes nav-breathe {
+            0%, 100% { box-shadow: 0 2px 8px rgba(34,197,94,.5), 0 0 0 4px rgba(34,197,94,.15); }
+            50%       { box-shadow: 0 2px 8px rgba(34,197,94,.7), 0 0 0 8px rgba(34,197,94,.07); }
+        }
+        #navHUD { transition: opacity 0.3s ease, transform 0.3s ease; }
+        #navHUD.nav-hidden { opacity: 0; transform: translateY(-8px); pointer-events: none; }
     </style>
 </head>
 <body class="bg-surface-light dark:bg-surface-dark text-gray-900 dark:text-gray-100 overflow-hidden h-screen w-screen relative transition-colors duration-500 fixed inset-0 overscroll-none touch-none">
@@ -286,6 +314,29 @@
                 </div>
             </div>
             <button id="routeCloseBtnCard" class="flex-shrink-0 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xs font-semibold"><i class="ph ph-x text-base"></i></button>
+        </div>
+        <!-- Navigate button row, shown once route is computed -->
+        <div id="navStartRow" class="hidden mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
+            <button id="navStartBtn" class="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white py-2.5 rounded-xl font-semibold text-sm active:scale-[0.97] transition-transform shadow-sm">
+                <i class="ph-fill ph-navigation text-base"></i>
+                Navigovat
+            </button>
+        </div>
+    </div>
+
+    <!-- Navigation HUD (shown during navigation) -->
+    <div id="navHUD" class="nav-hidden absolute inset-x-4 z-30" style="top:3.25rem;">
+        <div class="bg-surface-light/96 dark:bg-zinc-900/96 backdrop-blur-md rounded-2xl shadow-lg border border-gray-100 dark:border-zinc-800 px-4 py-3 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-100 dark:bg-brand-900/40 flex items-center justify-center flex-shrink-0">
+                <i class="ph-fill ph-navigation text-xl text-brand-600 dark:text-brand-400"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+                <div id="navDistRemain" class="font-bold text-base text-gray-900 dark:text-gray-100">—</div>
+                <div id="navTimeRemain" class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Čekám na GPS…</div>
+            </div>
+            <button id="navStopBtn" class="flex-shrink-0 px-3 py-1.5 rounded-xl bg-gray-100 dark:bg-zinc-800 text-xs font-semibold text-gray-600 dark:text-gray-300 active:scale-95 transition-transform">
+                Konec
+            </button>
         </div>
     </div>
 

@@ -386,6 +386,7 @@ async function calculateRoute() {
         const data = await r.json();
         const path = data.paths[0];
         const coords = decodePolyline(path.points);
+        _routeCoords = coords; // store for navigation
         
         // Draw route on Mapbox
         if (map.getSource('route')) {
@@ -417,6 +418,7 @@ async function calculateRoute() {
         document.getElementById('routeDistText').textContent = fmtDist(path.distance);
         document.getElementById('routeTimeText').textContent = fmtTime(walkTimeMs);
         document.getElementById('routeInfoCard').classList.remove('card-hidden');
+        document.getElementById('navStartRow').classList.remove('hidden');
         _syncFloatBtns();
     } catch (e) {
         console.error('Chyba při výpočtu trasy:', e);
@@ -445,6 +447,121 @@ async function fetchJSON(url) {
     const r = await fetch(url);
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     return r.json();
+}
+
+// ═══════════════════════════════════════════════════════════
+// NAVIGATION MODE
+// ═══════════════════════════════════════════════════════════
+let _navMode     = false;
+let _navWatchId  = null;
+let _navUserMarker = null;
+let _navPrevLat  = null, _navPrevLng = null;
+let _navBearing  = 0;
+let _routeCoords = []; // [[lng, lat], ...]
+
+function _haversineM(lat1, lon1, lat2, lon2) {
+    const R = 6371000;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function _bearingTo(lat1, lon1, lat2, lon2) {
+    const r = Math.PI / 180;
+    const dLon = (lon2 - lon1) * r;
+    const y = Math.sin(dLon) * Math.cos(lat2 * r);
+    const x = Math.cos(lat1 * r) * Math.sin(lat2 * r) - Math.sin(lat1 * r) * Math.cos(lat2 * r) * Math.cos(dLon);
+    return (Math.atan2(y, x) / r + 360) % 360;
+}
+
+function _navRemaining(lat, lng) {
+    let minIdx = 0, minD = Infinity;
+    for (let i = 0; i < _routeCoords.length; i++) {
+        const d = _haversineM(lat, lng, _routeCoords[i][1], _routeCoords[i][0]);
+        if (d < minD) { minD = d; minIdx = i; }
+    }
+    let rem = 0;
+    for (let i = minIdx; i < _routeCoords.length - 1; i++) {
+        rem += _haversineM(_routeCoords[i][1], _routeCoords[i][0], _routeCoords[i+1][1], _routeCoords[i+1][0]);
+    }
+    return rem;
+}
+
+function startNavigation() {
+    if (!_routeCoords.length) { toast('Nejprve vypočítej trasu.', 3000); return; }
+    _navMode = true;
+
+    document.getElementById('routeInfoCard').classList.add('card-hidden');
+    document.getElementById('navStartRow').classList.add('hidden');
+    document.getElementById('navHUD').classList.remove('nav-hidden');
+    document.getElementById('floatBtnsRight').style.display = 'none';
+    if (userMarker) userMarker.getElement().style.opacity = '0';
+    _syncFloatBtns();
+
+    // Navigation puck: arrow points screen-up = forward (map rotates to heading-up)
+    const el = document.createElement('div');
+    el.className = 'nav-puck';
+    el.innerHTML = '<div class="nav-puck-arrow"></div><div class="nav-puck-body"></div>';
+    const startCoord = _routeCoords[0];
+    _navUserMarker = new mapboxgl.Marker({ element: el, anchor: 'center', rotationAlignment: 'viewport' })
+        .setLngLat(startCoord)
+        .addTo(map);
+
+    map.easeTo({ pitch: 60, zoom: 17.5, center: startCoord, duration: 900 });
+
+    if (!('geolocation' in navigator)) { toast('GPS není dostupné.', 4000); stopNavigation(); return; }
+    _navWatchId = navigator.geolocation.watchPosition(
+        _navTick,
+        (err) => toast('GPS chyba: ' + err.message, 3500),
+        { enableHighAccuracy: true, maximumAge: 500 }
+    );
+}
+
+function stopNavigation() {
+    _navMode = false;
+    if (_navWatchId !== null) { navigator.geolocation.clearWatch(_navWatchId); _navWatchId = null; }
+    if (_navUserMarker) { _navUserMarker.remove(); _navUserMarker = null; }
+    _navPrevLat = null; _navPrevLng = null;
+    if (userMarker) userMarker.getElement().style.opacity = '1';
+    document.getElementById('navHUD').classList.add('nav-hidden');
+    document.getElementById('floatBtnsRight').style.display = '';
+    map.easeTo({ pitch: 0, bearing: 0, zoom: 14, duration: 900 });
+    document.getElementById('routeInfoCard').classList.remove('card-hidden');
+    document.getElementById('navStartRow').classList.remove('hidden');
+    _syncFloatBtns();
+}
+
+function _navTick(pos) {
+    const lat = pos.coords.latitude;
+    const lng = pos.coords.longitude;
+    const hdg = pos.coords.heading; // native compass heading when available
+
+    // Bearing: prefer device compass, fall back to movement vector
+    if (hdg !== null && !isNaN(hdg) && hdg >= 0) {
+        _navBearing = hdg;
+    } else if (_navPrevLat !== null) {
+        const moved = _haversineM(lat, lng, _navPrevLat, _navPrevLng);
+        if (moved > 3) _navBearing = _bearingTo(_navPrevLat, _navPrevLng, lat, lng);
+    }
+    _navPrevLat = lat; _navPrevLng = lng;
+
+    // Move puck to live GPS position
+    if (_navUserMarker) _navUserMarker.setLngLat([lng, lat]);
+
+    // Rotate map so direction of travel is always screen-up
+    map.easeTo({ center: [lng, lat], bearing: _navBearing, pitch: 60, zoom: 17.5, duration: 700 });
+
+    // Update HUD
+    const rem = _navRemaining(lat, lng);
+    const lastPt = _routeCoords[_routeCoords.length - 1];
+    if (lastPt && _haversineM(lat, lng, lastPt[1], lastPt[0]) < 20) {
+        document.getElementById('navDistRemain').textContent = 'Jsi na místě ✓';
+        document.getElementById('navTimeRemain').textContent = '';
+    } else {
+        document.getElementById('navDistRemain').textContent = fmtDist(rem);
+        document.getElementById('navTimeRemain').textContent = 'ještě ~ ' + fmtTime((rem / 3500) * 3600000);
+    }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -750,6 +867,9 @@ document.getElementById('sosChoiceCancel').addEventListener('click', () => {
     cancelSOS();
 });
 document.getElementById('routeCloseBtnCard').addEventListener('click', () => {
+    if (_navMode) stopNavigation();
+    document.getElementById('navStartRow').classList.add('hidden');
+    _routeCoords = [];
     document.getElementById('routeInfoCard').classList.add('card-hidden');
     _syncFloatBtns();
     if (map.getSource('route')) {
@@ -763,6 +883,9 @@ document.getElementById('routeCloseBtnCard').addEventListener('click', () => {
     _markerFrom = null; _markerTo = null;
     _spClose();
 });
+
+document.getElementById('navStartBtn').addEventListener('click', startNavigation);
+document.getElementById('navStopBtn').addEventListener('click', stopNavigation);
 
 // Click on map to add Start / End
 map.on('click', (e) => {
