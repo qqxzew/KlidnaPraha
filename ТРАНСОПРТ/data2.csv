@@ -1,0 +1,3291 @@
+﻿"Applied filters:
+proele_vazkra_nazpln is Hlavní město Praha
+progra_nazpln is Základní územní jednotky";
+;
+Trasa;Počet cest
+Praha 1 →  A/B Můstek;9 053 220
+Praha 1 →  A/C Muzeum;4 677 550
+Praha 8 →  B/C Florenc;4 574 248
+Praha 5 →  B Anděl;4 065 705
+Praha 4 →  C Budějovická;3 946 005
+Praha 6 →  A Dejvická;3 511 645
+Praha 4 →  C Pankrác;3 437 757
+Praha 8 →  C Kobylisy;3 001 903
+Praha 1 →  B/C Florenc;2 725 770
+Praha 2 →  C I. P. Pavlova;2 655 013
+Praha 1 →  B Náměstí Republiky;2 626 512
+Praha 11 →  C Chodov;2 520 581
+Praha 4 →  C Kačerov;2 264 504
+Praha 4 →  C Pražského povstání;2 233 910
+Praha 2 →  A/C Muzeum;2 131 624
+Praha 10 →  A Strašnická;1 837 169
+Praha 7 →  C Vltavská;1 804 798
+Praha 1 →  B Národní třída;1 746 318
+Praha 2 →  B Karlovo náměstí;1 729 823
+Praha 6 →  A Hradčanská;1 705 841
+Praha 8 →  B Palmovka;1 658 870
+Praha 13 →  B Nové Butovice;1 649 078
+Praha 6 →  A Nádraží Veleslavín;1 613 654
+Praha 9 →  B Vysočanská;1 575 994
+Praha 6 →  A Bořislavka;1 563 057
+Praha 7 →  C Nádraží Holešovice;1 515 385
+Praha 11 →  C Háje;1 511 064
+Praha 1 →  A Staroměstská;1 483 679
+Praha 5 →  B Smíchovské nádraží;1 454 252
+Praha 2 →  A Náměstí Míru;1 416 535
+Praha 9 →  B Českomoravská;1 373 784
+Praha 3 →  B/C Florenc;1 361 252
+Praha 8 →  C Ládví;1 353 528
+Praha 3 →  A Flora;1 351 001
+Praha 4 →  C Vyšehrad;1 333 652
+Praha 10 →  A Želivského;1 277 955
+Praha 8 →  B Křižíkova;1 263 057
+Praha 13 →  B Lužiny;1 261 376
+Praha 13 →  B Hůrka;1 241 744
+Praha 6 →  A Petřiny;1 240 654
+Praha 3 →  A Jiřího z Poděbrad;1 223 122
+Praha 10 →  A Skalka;1 222 514
+Praha 14 →  B Černý Most;1 168 645
+Praha 20 →  B Černý Most;1 138 366
+Praha 14 →  B Hloubětín;1 055 938
+Praha 11 →  C Opatov;1 050 334
+Praha 9 →  C Střížkov;1 007 843
+Praha 13 →  B Stodůlky;980 676
+Praha 14 →  B Rajská zahrada;958 739
+Praha 13 →  B Luka;920 493
+Praha 18 →  C Letňany;917 796
+Praha 1 →  C Hlavní nádraží;910 036
+Praha 12 →  C Kačerov;889 434
+Praha 5 →  B Nové Butovice;868 348
+Praha 5 →  A Nemocnice Motol;868 066
+Praha 4 →  A/C Muzeum;862 342
+Praha 2 →  A/B Můstek;852 950
+Praha-Zličín →  B Zličín;839 616
+Praha 4 →  B Smíchovské nádraží;823 529
+Praha 1 →  A Malostranská;820 087
+Praha 9 →  C Prosek;798 000
+Praha 7 →  B/C Florenc;706 032
+Praha 6 →  A/B Můstek;701 470
+Praha 1 →  C I. P. Pavlova;690 798
+Praha 10 →  C I. P. Pavlova;689 649
+Praha 3 →  C Hlavní nádraží;682 601
+Praha 9 →  B Palmovka;627 964
+Praha 5 →  B Radlická;618 770
+Praha 11 →  C Roztyly;608 065
+Praha 3 →  A/B Můstek;607 326
+Praha 5 →  C I. P. Pavlova;581 232
+Praha 4 →  B Karlovo náměstí;576 407
+Praha 3 →  A Želivského;569 048
+Praha 15 →  A Skalka;567 964
+Praha 5 →  A/B Můstek;562 984
+Praha-Suchdol →  A Dejvická;552 186
+Praha-Kunratice →  C Chodov;542 305
+Praha 8 →  B Invalidovna;531 560
+Praha 10 →  A Flora;519 642
+Praha 4 →  C I. P. Pavlova;513 343
+Praha 9 →  B/C Florenc;503 476
+Praha 8 →  C Nádraží Holešovice;500 759
+Praha 5 →  B Jinonice;497 194
+Praha 10 →  A Náměstí Míru;481 573
+Praha 10 →  B Karlovo náměstí;470 753
+Praha 5 →  B Karlovo náměstí;456 330
+Praha 8 →  A/B Můstek;440 598
+Praha 4 →  B/C Florenc;430 016
+Praha 3 →  A/C Muzeum;421 100
+Praha 6 →  C Vltavská;419 820
+Praha-Libuš →  C Kačerov;416 399
+Praha-Čakovice →  C Letňany;401 115
+Praha 10 →  A/B Můstek;395 962
+Praha 12 →  B Smíchovské nádraží;393 275
+Praha 6 →  A Malostranská;385 739
+Praha 1 →  B Karlovo náměstí;382 097
+Praha 9 →  B Kolbenova;381 892
+Praha 10 →  B/C Florenc;375 406
+Praha 7 →  B Palmovka;370 328
+Praha 6 →  A/C Muzeum;366 576
+Praha 8 →  A/C Muzeum;366 536
+Praha 2 →  B/C Florenc;365 022
+Praha 10 →  A/C Muzeum;364 670
+Praha 2 →  C Vyšehrad;354 678
+Praha 4 →  A/B Můstek;352 162
+Praha-Zbraslav →  B Smíchovské nádraží;347 054
+Praha 15 →  C Háje;344 204
+Praha 1 →  B Anděl;342 235
+Praha 2 →  A Jiřího z Poděbrad;339 073
+Praha 22 →  C Háje;309 015
+Praha-Dolní Chabry →  C Kobylisy;297 093
+Praha 7 →  B Náměstí Republiky;293 286
+Praha 4 →  C Roztyly;284 237
+Praha 5 →  B/C Florenc;282 142
+Praha 7 →  A Hradčanská;275 240
+Praha 13 →  A Nemocnice Motol;270 132
+Praha 3 →  B Náměstí Republiky;269 750
+Praha 4 →  C Chodov;258 053
+Praha 1 →  C Vltavská;257 478
+Praha 19 →  C Letňany;253 993
+Praha-Řeporyje →  B Luka;245 754
+Praha 9 →  C Ládví;240 266
+Praha 8 →  C Vltavská;233 703
+Praha 3 →  C I. P. Pavlova;233 211
+Praha 11 →  B Smíchovské nádraží;231 315
+Praha 8 →  B Vysočanská;228 360
+Praha 8 →  B Náměstí Republiky;221 826
+Praha-Ďáblice →  C Ládví;219 256
+Praha 15 →  C Opatov;218 754
+Praha-Troja →  C Nádraží Holešovice;217 002
+Praha 7 →  A/B Můstek;216 522
+Praha 7 →  A/C Muzeum;215 852
+Praha 8 →  C Střížkov;214 694
+Praha-Petrovice →  C Háje;213 787
+Praha 9 →  A/B Můstek;211 750
+Praha 16 →  B Smíchovské nádraží;209 497
+Praha 5 →  B Národní třída;209 038
+Praha 18 →  B Vysočanská;207 586
+Praha 13 →  B Zličín;206 547
+Praha 13 →  B Anděl;203 941
+Praha 6 →  B/C Florenc;201 522
+Praha-Kunratice →  C Budějovická;196 952
+Praha 8 →  C Hlavní nádraží;196 582
+Praha 6 →  C Nádraží Holešovice;194 940
+Praha 11 →  A/C Muzeum;190 592
+Praha 5 →  A/C Muzeum;188 582
+Praha 3 →  B Palmovka;187 587
+Praha 2 →  C Hlavní nádraží;187 010
+Praha 6 →  A Staroměstská;183 518
+Praha 13 →  A/B Můstek;180 482
+Praha-Dolní Měcholupy →  A Skalka;176 938
+Praha-Řeporyje →  B Stodůlky;176 462
+Praha 2 →  B Anděl;176 001
+Praha 4 →  C Hlavní nádraží;175 393
+Praha-Kunratice →  C Kačerov;160 419
+Praha 5 →  B Náměstí Republiky;160 264
+Praha 11 →  C Kačerov;159 515
+Praha 10 →  B Vysočanská;155 881
+Praha-Újezd →  C Opatov;153 461
+Praha-Šeberov →  C Opatov;151 895
+Praha-Vinoř →  C Letňany;151 867
+Praha 14 →  B Kolbenova;151 678
+Praha 2 →  B Národní třída;149 854
+Praha-Troja →  C Kobylisy;149 661
+Praha 11 →  C Budějovická;147 857
+Praha-Křeslice →  C Háje;145 979
+Praha 12 →  B Karlovo náměstí;145 420
+Praha 9 →  A/C Muzeum;141 542
+Praha 13 →  B Smíchovské nádraží;140 552
+Praha-Nebušice →  A Bořislavka;139 008
+Praha 10 →  A Jiřího z Poděbrad;136 091
+Praha 6 →  B Anděl;133 938
+Praha 14 →  B/C Florenc;133 096
+Praha 1 →  C Nádraží Holešovice;133 058
+Praha 20 →  B Rajská zahrada;132 668
+Praha 3 →  A Náměstí Míru;131 172
+Praha 17 →  B Anděl;130 054
+Praha 18 →  C Střížkov;129 832
+Praha 15 →  A Strašnická;129 409
+Praha 2 →  C Pražského povstání;128 637
+Praha-Velká Chuchle →  B Smíchovské nádraží;127 656
+Praha 4 →  B Anděl;127 187
+Praha 9 →  B Hloubětín;127 014
+Praha-Řeporyje →  B Lužiny;126 197
+Praha 14 →  B Palmovka;125 344
+Praha 14 →  B Vysočanská;124 294
+Praha 14 →  A/B Můstek;122 786
+Praha 4 →  A Staroměstská;119 865
+Praha 8 →  C I. P. Pavlova;119 487
+Praha 3 →  B Vysočanská;118 464
+Praha 1 →  C Vyšehrad;118 066
+Praha 12 →  C Budějovická;116 287
+Praha-Lysolaje →  A Dejvická;115 614
+Praha 5 →  A Malostranská;113 881
+Praha 6 →  C I. P. Pavlova;113 808
+Praha 21 →  B Černý Most;112 501
+Praha 11 →  B/C Florenc;111 698
+Praha 17 →  A Nemocnice Motol;111 625
+Praha 6 →  B Zličín;110 365
+Praha 2 →  B Náměstí Republiky;110 208
+Praha 10 →  A Depo Hostivař;109 393
+Praha-Lipence →  B Smíchovské nádraží;108 893
+Praha-Štěrboholy →  A Skalka;108 668
+Praha 6 →  B Náměstí Republiky;108 611
+Praha 1 →  A Hradčanská;108 545
+Praha 5 →  C Budějovická;108 246
+Praha 1 →  A Náměstí Míru;106 202
+Praha 18 →  C Prosek;105 730
+Praha 7 →  C Hlavní nádraží;103 769
+Praha-Dolní Počernice →  B Černý Most;103 181
+Praha 9 →  C Kobylisy;103 135
+Praha 9 →  B Invalidovna;101 128
+Praha 8 →  B Anděl;100 284
+Praha 1 →  A Dejvická;100 226
+Praha 11 →  C I. P. Pavlova;98 000
+Praha 11 →  C Pankrác;97 896
+Praha 10 →  C Pankrác;97 608
+Praha 5 →  B Hůrka;97 008
+Praha 6 →  A Nemocnice Motol;95 988
+Praha 8 →  B Českomoravská;95 737
+Praha 5 →  A Petřiny;95 521
+Praha 7 →  A Staroměstská;94 133
+Praha 9 →  B Náměstí Republiky;92 182
+Praha 10 →  C Kačerov;92 119
+Praha 1 →  B Smíchovské nádraží;91 189
+Praha 9 →  C Vltavská;91 155
+Praha 2 →  A Staroměstská;90 725
+Praha 1 →  C Pankrác;90 479
+Praha 13 →  B/C Florenc;90 360
+Praha 10 →  C Hlavní nádraží;90 115
+Praha 2 →  C Pankrác;89 201
+Praha 4 →  C Vltavská;89 120
+Praha 9 →  C Nádraží Holešovice;87 251
+Praha 6 →  B Národní třída;83 753
+Praha 1 →  C Pražského povstání;82 833
+Praha 13 →  B Karlovo náměstí;82 596
+Praha 4 →  B Náměstí Republiky;81 760
+Praha 4 →  A Želivského;81 228
+Praha-Slivenec →  B Nové Butovice;79 702
+Praha-Satalice →  B Rajská zahrada;78 766
+Praha 11 →  A/B Můstek;77 092
+Praha 10 →  B Anděl;76 965
+Praha 17 →  C I. P. Pavlova;76 836
+Praha-Zličín →  B Stodůlky;75 811
+Praha 3 →  B Národní třída;74 631
+Praha 7 →  C Kobylisy;74 494
+Praha-Dubeč →  A Skalka;73 939
+Praha 1 →  C Budějovická;73 762
+Praha 7 →  C I. P. Pavlova;73 191
+Praha 3 →  B Karlovo náměstí;72 893
+Praha 8 →  B Karlovo náměstí;72 505
+Praha-Slivenec →  B Smíchovské nádraží;72 075
+Praha 1 →  B Křižíkova;71 147
+Praha 8 →  B Národní třída;70 703
+Praha-Šeberov →  C Chodov;69 976
+Praha 1 →  C Chodov;68 147
+Praha 2 →  C Vltavská;68 015
+Praha-Čakovice →  B Vysočanská;67 421
+Praha 9 →  C Hlavní nádraží;66 918
+Praha 9 →  B Křižíkova;66 898
+Praha 1 →  B Palmovka;66 606
+Praha-Dubeč →  B Černý Most;66 344
+Praha 3 →  B Křižíkova;66 034
+Praha 4 →  C Nádraží Holešovice;65 785
+Praha 10 →  C Budějovická;65 290
+Praha 6 →  A Náměstí Míru;64 988
+Praha 4 →  C Opatov;64 836
+Praha 1 →  A Flora;64 101
+Praha 14 →  B Českomoravská;63 747
+Praha-Březiněves →  C Ládví;63 608
+Praha 4 →  B Národní třída;63 126
+Praha 5 →  C Hlavní nádraží;62 511
+Praha 14 →  B Náměstí Republiky;62 377
+Praha-Zličín →  A Nemocnice Motol;61 834
+Praha 2 →  C Budějovická;61 754
+Praha 18 →  C Ládví;61 581
+Praha 2 →  A Flora;61 568
+Praha-Libuš →  B Smíchovské nádraží;61 256
+Praha 1 →  C Kobylisy;60 935
+Praha 13 →  B Náměstí Republiky;60 833
+Praha 3 →  B Anděl;60 744
+Praha 15 →  C Chodov;60 363
+Praha 5 →  C Vyšehrad;60 324
+Praha 12 →  A Staroměstská;60 268
+Praha 2 →  B Smíchovské nádraží;60 068
+Praha-Běchovice →  B Černý Most;59 791
+Praha 5 →  B Lužiny;59 512
+Praha 5 →  A Staroměstská;58 920
+Praha 10 →  B Náměstí Republiky;58 729
+Praha-Kunratice →  C Opatov;58 614
+Praha 6 →  B Karlovo náměstí;58 206
+Praha-Dolní Měcholupy →  C Háje;58 138
+Praha-Libuš →  C Budějovická;58 056
+Praha 10 →  C Chodov;58 040
+Praha 2 →  C Chodov;57 668
+Praha 5 →  A Dejvická;57 405
+Praha 16 →  C Hlavní nádraží;56 960
+Praha 6 →  C Hlavní nádraží;56 546
+Praha 20 →  B Hloubětín;56 530
+Praha 11 →  C Vyšehrad;56 147
+Praha-Kunratice →  C Roztyly;55 771
+Praha 18 →  B Palmovka;55 642
+Praha-Čakovice →  B Palmovka;55 608
+Praha 8 →  C Prosek;55 370
+Praha 5 →  C Vltavská;55 126
+Praha 12 →  A/C Muzeum;54 790
+Praha 6 →  C Kobylisy;54 754
+Praha 9 →  B Anděl;54 657
+Praha 13 →  B Národní třída;53 991
+Praha 6 →  B Palmovka;53 451
+Praha-Satalice →  C Letňany;53 233
+Praha-Újezd →  C Háje;53 022
+Praha 22 →  C Hlavní nádraží;52 816
+Praha 11 →  C Pražského povstání;52 760
+Praha 9 →  B Černý Most;52 611
+Praha 7 →  B Křižíkova;52 175
+Praha 12 →  C Pankrác;52 115
+Praha 14 →  A Skalka;52 097
+Praha 12 →  A/B Můstek;52 012
+Praha 10 →  B Palmovka;51 478
+Praha 22 →  A Skalka;51 391
+Praha 15 →  B Smíchovské nádraží;51 253
+Praha 18 →  B/C Florenc;51 034
+Praha 6 →  B Stodůlky;51 016
+Praha 9 →  A Flora;51 011
+Praha 4 →  A Náměstí Míru;50 920
+Praha 4 →  C Háje;50 538
+Praha 4 →  A Strašnická;50 339
+Praha 15 →  A/B Můstek;50 228
+Praha 10 →  A Staroměstská;50 149
+Praha-Libuš →  C Chodov;49 431
+Praha 8 →  C Pankrác;48 979
+Praha 9 →  C I. P. Pavlova;48 965
+Praha 7 →  B Anděl;48 785
+Praha-Kunratice →  A/C Muzeum;48 746
+Praha-Suchdol →  A Hradčanská;48 659
+Praha 1 →  B Českomoravská;48 171
+Praha 11 →  C Hlavní nádraží;47 785
+Praha 10 →  C Pražského povstání;47 750
+Praha-Suchdol →  A/B Můstek;47 578
+Praha 10 →  B Smíchovské nádraží;47 542
+Praha 13 →  C I. P. Pavlova;47 107
+Praha 10 →  B Národní třída;47 060
+Praha 5 →  B Palmovka;46 687
+Praha 12 →  B/C Florenc;46 556
+Praha 8 →  C Vyšehrad;46 342
+Praha 3 →  A Staroměstská;46 336
+Praha 2 →  C Nádraží Holešovice;46 111
+Praha 8 →  C Budějovická;46 009
+Praha 4 →  A Flora;45 845
+Praha 4 →  A Dejvická;45 587
+Praha 8 →  A Dejvická;45 546
+Praha 6 →  A Flora;44 950
+Praha 17 →  B Zličín;44 816
+Praha-Zličín →  B Anděl;44 763
+Praha 9 →  B Karlovo náměstí;44 246
+Praha 1 →  B Vysočanská;44 244
+Praha 20 →  B/C Florenc;44 194
+Praha 3 →  C Vltavská;44 088
+Praha 5 →  A Náměstí Míru;43 756
+Praha 20 →  A/B Můstek;43 618
+Praha 4 →  C Kobylisy;43 489
+Praha 10 →  C Vyšehrad;42 927
+Praha 8 →  B Černý Most;42 694
+Praha 5 →  C Pankrác;42 165
+Praha 17 →  B Stodůlky;41 952
+Praha 3 →  A Strašnická;41 438
+Praha 13 →  A/C Muzeum;41 408
+Praha-Přední Kopanina →  A Bořislavka;41 368
+Praha 12 →  C Chodov;41 300
+Praha 9 →  C Letňany;41 225
+Praha 9 →  B Národní třída;40 903
+Praha 5 →  A Bořislavka;40 885
+Praha 12 →  B Anděl;40 872
+Praha 1 →  B Invalidovna;40 800
+Praha 15 →  A/C Muzeum;40 738
+Praha 2 →  A Dejvická;40 656
+Praha 14 →  A/C Muzeum;40 388
+Praha-Troja →  B/C Florenc;40 320
+Praha 3 →  C Vyšehrad;40 298
+Praha 2 →  A Malostranská;40 161
+Praha 10 →  C Opatov;40 049
+Praha 7 →  B Karlovo náměstí;39 977
+Praha-Nebušice →  A Nádraží Veleslavín;39 927
+Praha-Petrovice →  A Skalka;39 692
+Praha 18 →  A/C Muzeum;39 344
+Praha-Čakovice →  C Prosek;39 005
+Praha 22 →  C Opatov;38 923
+Praha 5 →  A Nádraží Veleslavín;38 813
+Praha-Dolní Počernice →  B Rajská zahrada;38 796
+Praha 19 →  B Vysočanská;38 433
+Praha 10 →  A Dejvická;38 162
+Praha 1 →  C Kačerov;38 078
+Praha 8 →  A Staroměstská;37 902
+Praha 1 →  A Jiřího z Poděbrad;37 684
+Praha 5 →  B Luka;37 560
+Praha 10 →  C Vltavská;37 495
+Praha 7 →  A Dejvická;37 483
+Praha 8 →  C Letňany;37 361
+Praha 8 →  C Chodov;37 267
+Praha-Kunratice →  C Pankrác;36 987
+Praha 6 →  C Vyšehrad;36 647
+Praha 6 →  C Pankrác;36 477
+Praha-Zbraslav →  B Anděl;36 453
+Praha 6 →  B Nové Butovice;36 007
+Praha 5 →  B Zličín;35 960
+Praha-Štěrboholy →  A Depo Hostivař;35 591
+Praha 15 →  A Flora;35 487
+Praha 7 →  A Malostranská;35 333
+Praha 10 →  C Roztyly;35 272
+Praha 8 →  C Pražského povstání;35 199
+Praha 5 →  B Křižíkova;35 144
+Praha 8 →  B Smíchovské nádraží;34 759
+Praha 7 →  B Invalidovna;34 741
+Praha-Řeporyje →  B Hůrka;34 602
+Praha 3 →  C Pankrác;34 520
+Praha 17 →  A Petřiny;34 491
+Praha 5 →  C Nádraží Holešovice;34 471
+Praha 4 →  A Skalka;34 398
+Praha-Zličín →  A/B Můstek;33 926
+Praha 18 →  C Kobylisy;33 902
+Praha 4 →  B Vysočanská;33 897
+Praha 1 →  A Bořislavka;33 870
+Praha 6 →  C Budějovická;33 815
+Praha 5 →  C Chodov;33 495
+Praha 2 →  C Kačerov;33 407
+Praha-Vinoř →  B Vysočanská;33 388
+Praha 5 →  C Pražského povstání;33 322
+Praha-Kolovraty →  C Hlavní nádraží;33 128
+Praha 6 →  C Chodov;33 046
+Praha 14 →  C Letňany;32 997
+Praha 7 →  B Národní třída;32 937
+Praha 14 →  C Hlavní nádraží;32 531
+Praha 5 →  A Hradčanská;32 521
+Praha 14 →  B Invalidovna;32 363
+Praha 4 →  B Palmovka;32 350
+Praha-Řeporyje →  B Nové Butovice;32 005
+Praha 2 →  C Kobylisy;31 758
+Praha 20 →  B Vysočanská;31 657
+Praha-Zličín →  B Luka;31 576
+Praha 4 →  A Malostranská;31 549
+Praha-Řeporyje →  B Smíchovské nádraží;31 437
+Praha 15 →  A Želivského;31 340
+Praha-Suchdol →  C Kobylisy;31 195
+Praha-Ďáblice →  C Kobylisy;31 163
+Praha 9 →  A Skalka;30 882
+Praha 3 →  C Chodov;30 804
+Praha 1 →  B Nové Butovice;30 803
+Praha-Křeslice →  C Opatov;30 769
+Praha 22 →  C Chodov;30 562
+Praha 10 →  A Malostranská;30 518
+Praha-Troja →  C Vltavská;30 367
+Praha 15 →  C Hlavní nádraží;30 198
+Praha 2 →  A Hradčanská;30 135
+Praha 3 →  C Nádraží Holešovice;29 754
+Praha 8 →  A Hradčanská;29 722
+Praha 8 →  A Flora;29 637
+Praha 3 →  C Budějovická;29 492
+Praha 7 →  C Vyšehrad;29 419
+Praha 11 →  A Skalka;29 412
+Praha 3 →  B Invalidovna;29 348
+Praha-Satalice →  B Černý Most;29 331
+Praha 13 →  A Petřiny;29 296
+Praha-Kolovraty →  C Háje;29 276
+Praha-Dubeč →  C Háje;29 231
+Praha 6 →  C Pražského povstání;29 149
+Praha 10 →  A Hradčanská;29 117
+Praha 10 →  C Nádraží Holešovice;29 043
+Praha 3 →  B Českomoravská;28 928
+Praha 14 →  B Křižíkova;28 925
+Praha 1 →  B Černý Most;28 830
+Praha 5 →  B Vysočanská;28 777
+Praha 7 →  C Pankrác;28 603
+Praha-Řeporyje →  A Nemocnice Motol;28 443
+Praha 12 →  C I. P. Pavlova;28 378
+Praha 4 →  A Hradčanská;28 368
+Praha 3 →  A Dejvická;28 239
+Praha 2 →  B Palmovka;28 148
+Praha 14 →  B Anděl;27 841
+Praha-Suchdol →  A/C Muzeum;27 556
+Praha 1 →  A Želivského;27 214
+Praha 5 →  B Českomoravská;27 064
+Praha 3 →  A Skalka;26 927
+Praha 7 →  C Budějovická;26 837
+Praha 17 →  A Nádraží Veleslavín;26 774
+Praha 9 →  B Rajská zahrada;26 680
+Praha-Slivenec →  B Anděl;26 679
+Praha 21 →  C Hlavní nádraží;26 664
+Praha 3 →  A Malostranská;26 591
+Praha 14 →  B Karlovo náměstí;26 573
+Praha-Zličín →  B Lužiny;26 495
+Praha 7 →  B Českomoravská;26 357
+Praha 8 →  C Kačerov;26 168
+Praha-Slivenec →  B Lužiny;26 140
+Praha 6 →  B Smíchovské nádraží;26 057
+Praha 1 →  C Ládví;25 995
+Praha 4 →  B Nové Butovice;25 826
+Praha-Libuš →  A/C Muzeum;25 750
+Praha 6 →  A Želivského;25 735
+Praha 3 →  C Kobylisy;25 671
+Praha 11 →  C Vltavská;25 653
+Praha 5 →  C Kačerov;25 621
+Praha 10 →  B Černý Most;25 580
+Praha 1 →  A Nádraží Veleslavín;25 554
+Praha-Čakovice →  C Ládví;25 458
+Praha 3 →  B Smíchovské nádraží;25 382
+Praha 8 →  B Hloubětín;25 230
+Praha 19 →  C Prosek;25 205
+Praha-Dolní Měcholupy →  A Depo Hostivař;25 191
+Praha 3 →  C Pražského povstání;25 177
+Praha 6 →  A Jiřího z Poděbrad;25 126
+Praha 20 →  B Kolbenova;25 115
+Praha-Ďáblice →  C Letňany;25 060
+Praha-Kunratice →  B Smíchovské nádraží;24 964
+Praha 7 →  C Chodov;24 958
+Praha 8 →  B Kolbenova;24 889
+Praha 18 →  C Nádraží Holešovice;24 788
+Praha 15 →  B/C Florenc;24 750
+Praha 8 →  A Náměstí Míru;24 740
+Praha 4 →  B Černý Most;24 679
+Praha-Libuš →  C Pankrác;24 581
+Praha 5 →  C Kobylisy;24 527
+Praha 12 →  C Pražského povstání;24 488
+Praha-Klánovice →  B Černý Most;24 476
+Praha 14 →  B Národní třída;24 329
+Praha 16 →  B Anděl;24 290
+Praha-Újezd →  C Chodov;24 218
+Praha 5 →  B Stodůlky;24 076
+Praha 10 →  C Kobylisy;24 054
+Praha 5 →  B Černý Most;23 923
+Praha 3 →  B Černý Most;23 921
+Praha-Petrovice →  C Opatov;23 651
+Praha 11 →  B Anděl;23 591
+Praha 7 →  C Ládví;23 580
+Praha 6 →  A Skalka;23 489
+Praha-Kunratice →  C I. P. Pavlova;23 453
+Praha-Kunratice →  B/C Florenc;23 370
+Praha 4 →  B Českomoravská;23 326
+Praha 9 →  C Budějovická;23 312
+Praha 5 →  A Flora;23 287
+Praha 18 →  A/B Můstek;23 276
+Praha 4 →  B Křižíkova;23 232
+Praha 7 →  B Vysočanská;23 188
+Praha 19 →  B Rajská zahrada;22 926
+Praha 15 →  C I. P. Pavlova;22 831
+Praha 15 →  A Depo Hostivař;22 775
+Praha 2 →  B Křižíkova;22 690
+Praha 3 →  A Hradčanská;22 408
+Praha-Troja →  A Dejvická;22 286
+Praha 7 →  C Pražského povstání;22 174
+Praha 11 →  B Karlovo náměstí;22 106
+Praha 2 →  B Vysočanská;22 098
+Praha-Zbraslav →  A/B Můstek;21 796
+Praha 5 →  B Invalidovna;21 782
+Praha-Čakovice →  B/C Florenc;21 750
+Praha 15 →  B Vysočanská;21 638
+Praha 20 →  B Palmovka;21 554
+Praha 4 →  C Ládví;21 495
+Praha 17 →  A/B Můstek;21 494
+Praha 8 →  A Malostranská;21 263
+Praha 9 →  C Pankrác;21 166
+Praha-Zličín →  B Nové Butovice;21 077
+Praha-Zličín →  B Hůrka;21 061
+Praha 9 →  C Vyšehrad;21 001
+Praha 3 →  C Prosek;20 981
+Praha 11 →  B Náměstí Republiky;20 959
+Praha-Dolní Počernice →  B Palmovka;20 834
+Praha-Suchdol →  C Nádraží Holešovice;20 789
+Praha 20 →  B Náměstí Republiky;20 785
+Praha 12 →  C Vyšehrad;20 734
+Praha 10 →  C Prosek;20 714
+Praha 11 →  A Želivského;20 662
+Praha-Klánovice →  C Hlavní nádraží;20 556
+Praha 9 →  B Smíchovské nádraží;20 473
+Praha 3 →  C Ládví;20 432
+Praha-Zličín →  C I. P. Pavlova;20 428
+Praha 6 →  B Vysočanská;20 295
+Praha 22 →  A/C Muzeum;20 288
+Praha 1 →  B Lužiny;20 253
+Praha 1 →  B Hloubětín;20 246
+Praha 1 →  A Strašnická;20 233
+Praha 15 →  B Karlovo náměstí;20 227
+Praha 21 →  A Skalka;20 121
+Praha 8 →  A Želivského;20 049
+Praha-Řeporyje →  A/B Můstek;19 848
+Praha 6 →  B Luka;19 810
+Praha-Petrovice →  B Smíchovské nádraží;19 788
+Praha-Klánovice →  B Náměstí Republiky;19 682
+Praha 20 →  B Českomoravská;19 641
+Praha 2 →  A Želivského;19 629
+Praha 6 →  A Strašnická;19 469
+Praha-Troja →  A/C Muzeum;19 418
+Praha 3 →  C Kačerov;19 372
+Praha-Řeporyje →  B Anděl;19 310
+Praha 22 →  B Smíchovské nádraží;19 220
+Praha 10 →  B Českomoravská;19 113
+Praha 7 →  B Smíchovské nádraží;19 067
+Praha 10 →  C Háje;18 928
+Praha 6 →  B Křižíkova;18 865
+Praha-Čakovice →  C Střížkov;18 778
+Praha 12 →  C Hlavní nádraží;18 747
+Praha 9 →  C Chodov;18 678
+Praha 9 →  A Hradčanská;18 632
+Praha 2 →  A Strašnická;18 627
+Praha 11 →  C Nádraží Holešovice;18 560
+Praha 4 →  A Jiřího z Poděbrad;18 510
+Praha 8 →  B Rajská zahrada;18 481
+Praha 4 →  A Nádraží Veleslavín;18 423
+Praha-Dolní Chabry →  B/C Florenc;18 416
+Praha 6 →  C Kačerov;18 394
+Praha 2 →  B Českomoravská;18 122
+Praha 2 →  B Nové Butovice;18 031
+Praha 12 →  C Roztyly;18 022
+Praha 1 →  C Roztyly;17 940
+Praha 2 →  A Nádraží Veleslavín;17 931
+Praha 21 →  B Náměstí Republiky;17 884
+Praha 4 →  C Letňany;17 874
+Praha-Petrovice →  C Chodov;17 841
+Praha 13 →  A Dejvická;17 828
+Praha-Šeberov →  C Háje;17 779
+Praha 13 →  B Palmovka;17 688
+Praha 6 →  B Českomoravská;17 624
+Praha-Přední Kopanina →  A Nádraží Veleslavín;17 605
+Praha 1 →  A Skalka;17 581
+Praha 18 →  C Vltavská;17 519
+Praha-Zličín →  A Nádraží Veleslavín;17 474
+Praha-Koloděje →  A Skalka;17 456
+Praha-Dolní Měcholupy →  A Strašnická;17 238
+Praha 2 →  A Bořislavka;17 237
+Praha 15 →  C Budějovická;17 195
+Praha-Zbraslav →  B Karlovo náměstí;17 145
+Praha 13 →  A Nádraží Veleslavín;17 097
+Praha 13 →  B Radlická;17 051
+Praha 7 →  A Náměstí Míru;17 035
+Praha-Kunratice →  C Pražského povstání;16 947
+Praha 11 →  A Flora;16 917
+Praha 15 →  C Roztyly;16 822
+Praha 1 →  B Hůrka;16 731
+Praha-Lipence →  C Hlavní nádraží;16 640
+Praha 10 →  A Nádraží Veleslavín;16 603
+Praha 18 →  B Českomoravská;16 502
+Praha 2 →  B Černý Most;16 482
+Praha-Zličín →  B/C Florenc;16 460
+Praha-Dolní Chabry →  C Nádraží Holešovice;16 423
+Praha 1 →  C Střížkov;16 414
+Praha 4 →  A Bořislavka;16 351
+Praha 22 →  B/C Florenc;16 304
+Praha-Čakovice →  A/C Muzeum;16 186
+Praha 2 →  C Ládví;16 170
+Praha-Kunratice →  A/B Můstek;16 100
+Praha-Křeslice →  C Chodov;16 036
+Praha 9 →  A Dejvická;15 908
+Praha 12 →  B Národní třída;15 855
+Praha 20 →  A/C Muzeum;15 814
+Praha 10 →  B Křižíkova;15 793
+Praha-Dolní Počernice →  A Skalka;15 746
+Praha 9 →  A Želivského;15 717
+Praha-Velká Chuchle →  B Anděl;15 699
+Praha 9 →  A Staroměstská;15 625
+Praha 1 →  B Zličín;15 559
+Praha 15 →  C Kačerov;15 548
+Praha 6 →  B Černý Most;15 525
+Praha 7 →  C Kačerov;15 390
+Praha 1 →  A Petřiny;15 298
+Praha 12 →  B Náměstí Republiky;15 288
+Praha 6 →  B Lužiny;15 252
+Praha-Kunratice →  C Vyšehrad;15 246
+Praha 20 →  C Letňany;15 194
+Praha-Suchdol →  A Malostranská;15 190
+Praha 8 →  B Nové Butovice;15 130
+Praha-Ďáblice →  C Střížkov;15 113
+Praha 7 →  B Černý Most;15 088
+Praha-Ďáblice →  B/C Florenc;15 066
+Praha 16 →  A/C Muzeum;15 036
+Praha 14 →  C I. P. Pavlova;15 033
+Praha 16 →  A/B Můstek;14 874
+Praha 14 →  A Depo Hostivař;14 727
+Praha-Vinoř →  C Prosek;14 689
+Praha 15 →  A Náměstí Míru;14 660
+Praha 6 →  C Ládví;14 639
+Praha 4 →  B Invalidovna;14 615
+Praha 12 →  A Želivského;14 594
+Praha-Čakovice →  C Kobylisy;14 569
+Praha-Ďáblice →  B Vysočanská;14 531
+Praha 8 →  A Nádraží Veleslavín;14 520
+Praha-Libuš →  B/C Florenc;14 488
+Praha-Satalice →  B Hloubětín;14 434
+Praha 1 →  B Kolbenova;14 406
+Praha 9 →  C Pražského povstání;14 350
+Praha 2 →  C Roztyly;14 314
+Praha-Zličín →  B Smíchovské nádraží;14 281
+Praha 13 →  C Hlavní nádraží;14 257
+Praha 5 →  A Jiřího z Poděbrad;14 249
+Praha-Kunratice →  C Hlavní nádraží;14 209
+Praha 8 →  A Jiřího z Poděbrad;14 187
+Praha 18 →  C Hlavní nádraží;14 015
+Praha 3 →  A Nádraží Veleslavín;14 002
+Praha 11 →  A Staroměstská;13 999
+Praha 6 →  B Hůrka;13 988
+Praha 2 →  A Skalka;13 954
+Praha-Velká Chuchle →  B Karlovo náměstí;13 944
+Praha 4 →  B Lužiny;13 900
+Praha 10 →  A Bořislavka;13 876
+Praha 17 →  B Karlovo náměstí;13 804
+Praha 1 →  C Letňany;13 758
+Praha 7 →  A Flora;13 696
+Praha 13 →  A Bořislavka;13 663
+Praha 1 →  C Opatov;13 609
+Praha 1 →  B Rajská zahrada;13 589
+Praha 8 →  A Bořislavka;13 574
+Praha 4 →  C Střížkov;13 409
+Praha-Nebušice →  A Dejvická;13 402
+Praha 7 →  C Střížkov;13 396
+Praha 2 →  B Invalidovna;13 382
+Praha 14 →  C Opatov;13 348
+Praha 5 →  A Skalka;13 339
+Praha 4 →  C Prosek;13 232
+Praha 14 →  B Smíchovské nádraží;13 136
+Praha 21 →  A/B Můstek;13 134
+Praha 1 →  C Háje;13 127
+Praha 9 →  C Kačerov;13 025
+Praha 14 →  C Vltavská;12 991
+Praha 8 →  C Opatov;12 945
+Praha 10 →  B Nové Butovice;12 939
+Praha 21 →  B Rajská zahrada;12 926
+Praha 5 →  A Želivského;12 895
+Praha-Dolní Počernice →  B Hloubětín;12 772
+Praha 4 →  B Zličín;12 758
+Praha 5 →  B Hloubětín;12 711
+Praha 5 →  A Strašnická;12 689
+Praha 15 →  B Černý Most;12 634
+Praha 1 →  B Luka;12 607
+Praha 1 →  C Prosek;12 546
+Praha-Štěrboholy →  A Strašnická;12 518
+Praha 10 →  B Rajská zahrada;12 503
+Praha 12 →  C Opatov;12 493
+Praha 3 →  A Bořislavka;12 460
+Praha 9 →  A Náměstí Míru;12 453
+Praha 16 →  B/C Florenc;12 404
+Praha-Libuš →  C I. P. Pavlova;12 404
+Praha-Troja →  A/B Můstek;12 390
+Praha 2 →  C Opatov;12 363
+Praha 11 →  A Dejvická;12 356
+Praha-Nebušice →  A/B Můstek;12 206
+Praha-Lochkov →  B Smíchovské nádraží;12 201
+Praha-Čakovice →  A/B Můstek;12 178
+Praha 4 →  B Hůrka;12 172
+Praha-Zličín →  B Karlovo náměstí;12 161
+Praha-Dolní Měcholupy →  C Opatov;12 149
+Praha 17 →  B/C Florenc;12 120
+Praha 11 →  C Kobylisy;12 099
+Praha 19 →  C Střížkov;12 092
+Praha 10 →  C Ládví;11 914
+Praha 2 →  C Letňany;11 894
+Praha-Libuš →  C Opatov;11 890
+Praha-Dubeč →  B Rajská zahrada;11 868
+Praha 10 →  A Nemocnice Motol;11 854
+Praha-Dolní Chabry →  A/C Muzeum;11 796
+Praha-Velká Chuchle →  A/B Můstek;11 768
+Praha 2 →  B Lužiny;11 731
+Praha 6 →  C Letňany;11 729
+Praha 2 →  C Háje;11 702
+Praha 15 →  C Pankrác;11 673
+Praha 13 →  B Vysočanská;11 617
+Praha-Suchdol →  A Staroměstská;11 608
+Praha 3 →  C Střížkov;11 592
+Praha 19 →  B/C Florenc;11 514
+Praha 7 →  C Letňany;11 472
+Praha 18 →  B Hloubětín;11 467
+Praha 1 →  A Nemocnice Motol;11 436
+Praha-Koloděje →  B Černý Most;11 425
+Praha 8 →  C Háje;11 399
+Praha 3 →  B Hloubětín;11 336
+Praha 8 →  A Skalka;11 323
+Praha-Zbraslav →  B/C Florenc;11 322
+Praha 20 →  C Hlavní nádraží;11 303
+Praha 7 →  A Bořislavka;11 290
+Praha 13 →  C Budějovická;11 283
+Praha 10 →  B Hloubětín;11 188
+Praha-Lipence →  B Anděl;11 136
+Praha 6 →  B Invalidovna;11 095
+Praha 18 →  B Náměstí Republiky;11 080
+Praha 22 →  A/B Můstek;11 040
+Praha 3 →  B Nové Butovice;11 038
+Praha-Šeberov →  C Budějovická;10 994
+Praha-Slivenec →  A/B Můstek;10 948
+Praha 4 →  B Hloubětín;10 888
+Praha-Suchdol →  A Bořislavka;10 871
+Praha 15 →  B Rajská zahrada;10 817
+Praha 13 →  B Jinonice;10 786
+Praha 14 →  C Prosek;10 768
+Praha 8 →  C Roztyly;10 741
+Praha 9 →  A Depo Hostivař;10 730
+Praha 17 →  A/C Muzeum;10 604
+Praha 9 →  A Malostranská;10 575
+Praha 9 →  C Opatov;10 526
+Praha 4 →  A Nemocnice Motol;10 517
+Praha-Libuš →  A/B Můstek;10 512
+Praha 18 →  C I. P. Pavlova;10 485
+Praha-Ďáblice →  A/C Muzeum;10 456
+Praha-Zličín →  B Náměstí Republiky;10 428
+Praha 13 →  C Vyšehrad;10 372
+Praha-Libuš →  C Pražského povstání;10 358
+Praha 13 →  B Křižíkova;10 356
+Praha-Březiněves →  C Letňany;10 350
+Praha 8 →  A Strašnická;10 314
+Praha 9 →  B Nové Butovice;10 277
+Praha-Dolní Měcholupy →  A/B Můstek;10 232
+Praha 1 →  B Stodůlky;10 207
+Praha-Řeporyje →  B/C Florenc;10 200
+Praha 3 →  C Opatov;10 197
+Praha-Ďáblice →  C Nádraží Holešovice;10 180
+Praha 4 →  B Luka;10 170
+Praha-Dolní Počernice →  B Náměstí Republiky;10 166
+Praha 3 →  B Kolbenova;10 159
+Praha 5 →  C Ládví;10 159
+Praha 11 →  B Národní třída;10 131
+Praha 6 →  B Hloubětín;10 058
+Praha-Suchdol →  B/C Florenc;10 004
+Praha 13 →  C Vltavská;10 002
+Praha 7 →  B Hloubětín;9 978
+Praha 21 →  A/C Muzeum;9 958
+Praha 5 →  C Roztyly;9 924
+Praha 11 →  B Vysočanská;9 923
+Praha 7 →  C Prosek;9 919
+Praha 5 →  C Háje;9 825
+Praha-Šeberov →  C Roztyly;9 824
+Praha-Lysolaje →  A Hradčanská;9 814
+Praha 10 →  B Kolbenova;9 811
+Praha 2 →  C Střížkov;9 809
+Praha 7 →  A Jiřího z Poděbrad;9 700
+Praha-Řeporyje →  B Karlovo náměstí;9 691
+Praha 13 →  B Českomoravská;9 672
+Praha 5 →  C Opatov;9 643
+Praha 11 →  A Strašnická;9 642
+Praha 10 →  B Invalidovna;9 641
+Praha 10 →  C Střížkov;9 625
+Praha 13 →  A Hradčanská;9 600
+Praha-Troja →  A Hradčanská;9 575
+Praha-Šeberov →  A/C Muzeum;9 544
+Praha 10 →  C Letňany;9 530
+Praha-Štěrboholy →  C Opatov;9 515
+Praha-Řeporyje →  B Zličín;9 497
+Praha 6 →  C Střížkov;9 486
+Praha 17 →  A Bořislavka;9 467
+Praha 2 →  B Zličín;9 442
+Praha-Zličín →  A Petřiny;9 400
+Praha-Slivenec →  B Luka;9 365
+Praha 2 →  B Hůrka;9 289
+Praha-Dolní Chabry →  B Vysočanská;9 288
+Praha-Zličín →  A/C Muzeum;9 280
+Praha 11 →  A Náměstí Míru;9 279
+Praha 20 →  B Anděl;9 259
+Praha 8 →  B Zličín;9 240
+Praha 8 →  B Lužiny;9 212
+Praha-Čakovice →  C Nádraží Holešovice;9 185
+Praha 12 →  C Nádraží Holešovice;9 179
+Praha-Běchovice →  B Rajská zahrada;9 170
+Praha 5 →  B Rajská zahrada;9 163
+Praha 13 →  C Chodov;9 102
+Praha 13 →  C Nádraží Holešovice;9 091
+Praha-Lysolaje →  A/B Můstek;9 060
+Praha-Slivenec →  B Stodůlky;8 953
+Praha 14 →  C Nádraží Holešovice;8 932
+Praha 13 →  A Staroměstská;8 921
+Praha-Dolní Počernice →  C Hlavní nádraží;8 909
+Praha 20 →  B Křižíkova;8 900
+Praha 22 →  C Budějovická;8 873
+Praha 4 →  B Rajská zahrada;8 853
+Praha-Štěrboholy →  A/B Můstek;8 798
+Praha 7 →  A Nádraží Veleslavín;8 792
+Praha 17 →  B Luka;8 779
+Praha 15 →  C Vyšehrad;8 770
+Praha 21 →  B/C Florenc;8 742
+Praha 2 →  B Hloubětín;8 735
+Praha 13 →  C Pankrác;8 683
+Praha 13 →  B Černý Most;8 682
+Praha 20 →  B Karlovo náměstí;8 663
+Praha 3 →  B Rajská zahrada;8 658
+Praha-Křeslice →  B Smíchovské nádraží;8 643
+Praha 15 →  B Náměstí Republiky;8 633
+Praha 4 →  B Stodůlky;8 623
+Praha 18 →  B Černý Most;8 593
+Praha 15 →  B Anděl;8 573
+Praha 12 →  C Vltavská;8 540
+Praha 16 →  B Karlovo náměstí;8 535
+Praha 14 →  C Chodov;8 481
+Praha 13 →  A Náměstí Míru;8 440
+Praha 14 →  C Budějovická;8 436
+Praha 14 →  A Strašnická;8 399
+Praha 20 →  B Invalidovna;8 344
+Praha-Libuš →  C Vyšehrad;8 301
+Praha-Dolní Počernice →  A/B Můstek;8 298
+Praha 3 →  C Letňany;8 293
+Praha 10 →  A Petřiny;8 288
+Praha 2 →  B Luka;8 287
+Praha 5 →  C Letňany;8 284
+Praha 6 →  C Prosek;8 248
+Praha 3 →  C Háje;8 239
+Praha 2 →  A Nemocnice Motol;8 222
+Praha-Březiněves →  C Kobylisy;8 209
+Praha 4 →  A Petřiny;8 185
+Praha 2 →  A Petřiny;8 133
+Praha 11 →  B Černý Most;8 132
+Praha 6 →  C Háje;8 089
+Praha 22 →  C I. P. Pavlova;8 087
+Praha 6 →  C Opatov;8 030
+Praha 9 →  C Háje;7 987
+Praha 7 →  A Želivského;7 977
+Praha 17 →  A Hradčanská;7 940
+Praha 17 →  A Dejvická;7 919
+Praha 4 →  B Kolbenova;7 915
+Praha 17 →  C Vltavská;7 913
+Praha 5 →  B Kolbenova;7 859
+Praha 19 →  A/C Muzeum;7 856
+Praha 18 →  B Rajská zahrada;7 847
+Praha-Zbraslav →  C Kačerov;7 831
+Praha-Újezd →  B Smíchovské nádraží;7 819
+Praha 14 →  A Dejvická;7 815
+Praha 10 →  B Zličín;7 783
+Praha 14 →  A Flora;7 742
+Praha 18 →  B Anděl;7 734
+Praha 7 →  B Kolbenova;7 734
+Praha 19 →  C Ládví;7 733
+Praha 13 →  C Kobylisy;7 730
+Praha 9 →  A Jiřího z Poděbrad;7 692
+Praha 8 →  B Hůrka;7 676
+Praha-Čakovice →  C Vltavská;7 656
+Praha 22 →  A Depo Hostivař;7 652
+Praha 5 →  C Střížkov;7 649
+Praha 8 →  A Nemocnice Motol;7 649
+Praha 7 →  B Nové Butovice;7 643
+Praha 14 →  C Pankrác;7 636
+Praha 14 →  C Vyšehrad;7 618
+Praha-Křeslice →  A/C Muzeum;7 612
+Praha-Klánovice →  A/B Můstek;7 586
+Praha 14 →  C Kobylisy;7 579
+Praha-Zbraslav →  C Budějovická;7 523
+Praha 9 →  A Strašnická;7 519
+Praha-Slivenec →  A Nemocnice Motol;7 504
+Praha-Petrovice →  A/C Muzeum;7 480
+Praha 3 →  A Nemocnice Motol;7 449
+Praha-Zličín →  B Národní třída;7 429
+Praha-Suchdol →  B Náměstí Republiky;7 426
+Praha 2 →  C Prosek;7 422
+Praha 14 →  A Želivského;7 388
+Praha-Slivenec →  B Hůrka;7 366
+Praha 14 →  C Střížkov;7 356
+Praha-Troja →  B Vysočanská;7 326
+Praha 11 →  A Malostranská;7 317
+Praha 20 →  B Národní třída;7 310
+Praha 3 →  C Roztyly;7 300
+Praha 3 →  A Petřiny;7 293
+Praha 6 →  C Roztyly;7 250
+Praha 11 →  B Palmovka;7 243
+Praha 18 →  B Invalidovna;7 242
+Praha-Dubeč →  A Strašnická;7 238
+Praha 6 →  B Radlická;7 225
+Praha 13 →  A Flora;7 214
+Praha-Újezd →  A/C Muzeum;7 214
+Praha 12 →  C Háje;7 200
+Praha 22 →  C Roztyly;7 200
+Praha 11 →  A Hradčanská;7 187
+Praha 11 →  C Letňany;7 161
+Praha-Kolovraty →  A/C Muzeum;7 154
+Praha-Běchovice →  B Náměstí Republiky;7 143
+Praha 17 →  B Národní třída;7 142
+Praha 22 →  C Pankrác;7 108
+Praha-Kunratice →  C Háje;7 108
+Praha-Libuš →  C Roztyly;7 091
+Praha 15 →  A Staroměstská;7 062
+Praha-Dolní Chabry →  C Ládví;7 040
+Praha-Vinoř →  B/C Florenc;6 988
+Praha 10 →  B Lužiny;6 963
+Praha-Troja →  C Hlavní nádraží;6 956
+Praha 13 →  A Malostranská;6 954
+Praha 2 →  B Rajská zahrada;6 954
+Praha-Štěrboholy →  B Černý Most;6 948
+Praha-Slivenec →  C Budějovická;6 921
+Praha 7 →  C Opatov;6 900
+Praha-Dolní Měcholupy →  B Černý Most;6 899
+Praha-Klánovice →  A/C Muzeum;6 872
+Praha-Lochkov →  B Anděl;6 835
+Praha 22 →  A Strašnická;6 828
+Praha-Běchovice →  C Hlavní nádraží;6 782
+Praha-Dolní Chabry →  C Vltavská;6 767
+Praha-Zbraslav →  B Národní třída;6 744
+Praha 7 →  C Roztyly;6 724
+Praha 17 →  B Nové Butovice;6 721
+Praha 22 →  C Kačerov;6 711
+Praha-Dubeč →  A/B Můstek;6 698
+Praha 19 →  C Kobylisy;6 682
+Praha 14 →  A Staroměstská;6 680
+Praha-Dolní Počernice →  B/C Florenc;6 668
+Praha-Libuš →  C Hlavní nádraží;6 665
+Praha 8 →  B Luka;6 664
+Praha 20 →  A Skalka;6 661
+Praha 9 →  A Nádraží Veleslavín;6 652
+Praha-Čakovice →  B Náměstí Republiky;6 616
+Praha-Kolovraty →  C Opatov;6 574
+Praha 15 →  C Prosek;6 565
+Praha 13 →  C Kačerov;6 553
+Praha-Dolní Měcholupy →  A/C Muzeum;6 544
+Praha-Klánovice →  B/C Florenc;6 538
+Praha 11 →  C Ládví;6 530
+Praha-Zbraslav →  B Náměstí Republiky;6 511
+Praha-Lipence →  A/B Můstek;6 500
+Praha-Štěrboholy →  B Vysočanská;6 483
+Praha 17 →  A Malostranská;6 439
+Praha 3 →  B Zličín;6 404
+Praha 14 →  B Nové Butovice;6 389
+Praha-Dolní Měcholupy →  A Flora;6 386
+Praha 12 →  A Dejvická;6 377
+Praha 8 →  A Petřiny;6 342
+Praha 18 →  B Karlovo náměstí;6 326
+Praha 7 →  A Petřiny;6 318
+Praha 7 →  C Háje;6 314
+Praha 15 →  C Nádraží Holešovice;6 302
+Praha 7 →  B Rajská zahrada;6 290
+Praha-Štěrboholy →  B Rajská zahrada;6 282
+Praha-Petrovice →  C Roztyly;6 281
+Praha-Kunratice →  A Dejvická;6 257
+Praha 14 →  A Hradčanská;6 249
+Praha 17 →  B Lužiny;6 246
+Praha-Čakovice →  C Hlavní nádraží;6 242
+Praha-Troja →  B Náměstí Republiky;6 238
+Praha 13 →  C Pražského povstání;6 224
+Praha 13 →  B Invalidovna;6 215
+Praha 15 →  C Pražského povstání;6 207
+Praha 12 →  C Kobylisy;6 184
+Praha 19 →  B Palmovka;6 171
+Praha-Satalice →  B Náměstí Republiky;6 143
+Praha 6 →  B Rajská zahrada;6 127
+Praha-Vinoř →  C Střížkov;6 126
+Praha 9 →  C Roztyly;6 119
+Praha 5 →  C Prosek;6 108
+Praha 11 →  B Nové Butovice;6 095
+Praha 15 →  A Dejvická;6 092
+Praha-Čakovice →  B Českomoravská;6 083
+Praha 10 →  B Luka;6 071
+Praha 14 →  A Náměstí Míru;6 066
+Praha 17 →  C Vyšehrad;6 059
+Praha-Řeporyje →  B Náměstí Republiky;6 038
+Praha 2 →  B Stodůlky;6 021
+Praha 9 →  A Bořislavka;6 005
+Praha 12 →  A Malostranská;5 985
+Praha 17 →  B Náměstí Republiky;5 950
+Praha 19 →  B Náměstí Republiky;5 941
+Praha 12 →  B Palmovka;5 931
+Praha 7 →  A Skalka;5 928
+Praha 19 →  A/B Můstek;5 916
+Praha 1 →  B Radlická;5 913
+Praha-Štěrboholy →  A Želivského;5 896
+Praha-Ďáblice →  C Vltavská;5 868
+Praha-Šeberov →  C Kačerov;5 866
+Praha-Zbraslav →  A/C Muzeum;5 864
+Praha 7 →  A Strašnická;5 853
+Praha 8 →  B Stodůlky;5 853
+Praha 3 →  B Lužiny;5 850
+Praha-Vinoř →  B Černý Most;5 848
+Praha 7 →  A Nemocnice Motol;5 847
+Praha 2 →  B Kolbenova;5 840
+Praha-Dolní Měcholupy →  A Želivského;5 831
+Praha-Kolovraty →  B/C Florenc;5 768
+Praha 10 →  B Hůrka;5 752
+Praha-Běchovice →  A/B Můstek;5 728
+Praha-Benice →  C Háje;5 706
+Praha 14 →  C Kačerov;5 685
+Praha-Lysolaje →  A Bořislavka;5 651
+Praha-Vinoř →  A/C Muzeum;5 650
+Praha-Slivenec →  B Karlovo náměstí;5 631
+Praha-Satalice →  B Vysočanská;5 626
+Praha 13 →  A Želivského;5 621
+Praha-Újezd →  C Roztyly;5 603
+Praha-Zličín →  A Bořislavka;5 591
+Praha 9 →  B Zličín;5 573
+Praha 21 →  B Hloubětín;5 567
+Praha 4 →  B Radlická;5 528
+Praha 11 →  B Českomoravská;5 525
+Praha 19 →  C Nádraží Holešovice;5 524
+Praha 20 →  C Prosek;5 488
+Praha 14 →  C Ládví;5 479
+Praha-Troja →  C I. P. Pavlova;5 436
+Praha 20 →  C I. P. Pavlova;5 425
+Praha 14 →  C Háje;5 421
+Praha 11 →  A Nádraží Veleslavín;5 409
+Praha 15 →  C Vltavská;5 409
+Praha-Běchovice →  A Skalka;5 408
+Praha-Satalice →  A/B Můstek;5 390
+Praha 3 →  B Hůrka;5 387
+Praha-Dolní Chabry →  A/B Můstek;5 382
+Praha 6 →  B Kolbenova;5 360
+Praha 16 →  B Stodůlky;5 359
+Praha 21 →  B Smíchovské nádraží;5 351
+Praha-Řeporyje →  B Národní třída;5 346
+Praha-Vinoř →  B Českomoravská;5 343
+Praha-Zbraslav →  C Hlavní nádraží;5 336
+Praha-Dubeč →  B Hloubětín;5 307
+Praha-Satalice →  B/C Florenc;5 302
+Praha-Petrovice →  C Kačerov;5 285
+Praha 11 →  A Jiřího z Poděbrad;5 282
+Praha-Suchdol →  B Anděl;5 254
+Praha-Šeberov →  B Smíchovské nádraží;5 254
+Praha 18 →  B Národní třída;5 236
+Praha-Dolní Měcholupy →  C Chodov;5 204
+Praha 21 →  A Depo Hostivař;5 196
+Praha-Čakovice →  B Hloubětín;5 165
+Praha 19 →  B Hloubětín;5 162
+Praha 22 →  A Želivského;5 150
+Praha-Dolní Chabry →  B Palmovka;5 104
+Praha-Petrovice →  C Budějovická;5 086
+Praha-Nebušice →  A Hradčanská;5 080
+Praha-Vinoř →  C Ládví;5 071
+Praha-Dolní Počernice →  A/C Muzeum;5 066
+Praha-Libuš →  B Anděl;5 061
+Praha 9 →  B Lužiny;5 055
+Praha-Štěrboholy →  A Flora;5 038
+Praha 16 →  C Budějovická;5 027
+Praha 13 →  A Skalka;4 985
+Praha-Běchovice →  B/C Florenc;4 982
+Praha 12 →  B Nové Butovice;4 981
+Praha 10 →  B Stodůlky;4 961
+Praha-Štěrboholy →  A/C Muzeum;4 950
+Praha-Újezd →  C Budějovická;4 935
+Praha-Dolní Měcholupy →  C Hlavní nádraží;4 892
+Praha 18 →  B Křižíkova;4 880
+Praha 14 →  C Pražského povstání;4 874
+Praha-Kunratice →  B Karlovo náměstí;4 843
+Praha 11 →  B Rajská zahrada;4 786
+Praha-Královice →  A Skalka;4 747
+Praha-Kolovraty →  C Chodov;4 742
+Praha 11 →  B Křižíkova;4 718
+Praha-Slivenec →  B/C Florenc;4 706
+Praha-Šeberov →  C I. P. Pavlova;4 691
+Praha-Kunratice →  A Skalka;4 686
+Praha-Kolovraty →  A Skalka;4 682
+Praha 18 →  C Vyšehrad;4 681
+Praha-Velká Chuchle →  B/C Florenc;4 680
+Praha 14 →  A Malostranská;4 601
+Praha 13 →  A Jiřího z Poděbrad;4 594
+Praha-Satalice →  B Kolbenova;4 578
+Praha-Lysolaje →  A/C Muzeum;4 558
+Praha 7 →  B Lužiny;4 554
+Praha-Nebušice →  A/C Muzeum;4 552
+Praha-Petrovice →  C Pankrác;4 546
+Praha-Březiněves →  B/C Florenc;4 540
+Praha-Petrovice →  A Strašnická;4 533
+Praha 18 →  C Budějovická;4 517
+Praha-Satalice →  C Prosek;4 496
+Praha 18 →  B Kolbenova;4 493
+Praha-Suchdol →  C Vltavská;4 492
+Praha 21 →  C Háje;4 431
+Praha-Kunratice →  C Vltavská;4 430
+Praha-Dolní Počernice →  B Vysočanská;4 428
+Praha-Vinoř →  B Rajská zahrada;4 426
+Praha-Čakovice →  B Invalidovna;4 398
+Praha 11 →  A Bořislavka;4 384
+Praha 19 →  B Českomoravská;4 380
+Praha 18 →  C Pankrác;4 374
+Praha-Dolní Měcholupy →  B Smíchovské nádraží;4 372
+Praha-Kunratice →  B Náměstí Republiky;4 364
+Praha-Dubeč →  A Flora;4 358
+Praha-Troja →  A Staroměstská;4 352
+Praha-Přední Kopanina →  A Dejvická;4 340
+Praha 12 →  A Hradčanská;4 336
+Praha 15 →  A Jiřího z Poděbrad;4 334
+Praha-Šeberov →  B/C Florenc;4 334
+Praha 8 →  B Radlická;4 328
+Praha 17 →  B Hůrka;4 311
+Praha-Čakovice →  B Anděl;4 294
+Praha 12 →  A Náměstí Míru;4 289
+Praha-Řeporyje →  A/C Muzeum;4 288
+Praha 16 →  B Národní třída;4 269
+Praha 7 →  B Zličín;4 254
+Praha 19 →  B Černý Most;4 233
+Praha-Ďáblice →  A/B Můstek;4 228
+Praha-Čakovice →  C I. P. Pavlova;4 221
+Praha 2 →  B Radlická;4 179
+Praha 22 →  B Černý Most;4 173
+Praha 3 →  B Luka;4 171
+Praha-Libuš →  B Karlovo náměstí;4 169
+Praha 9 →  B Hůrka;4 165
+Praha 21 →  B Vysočanská;4 138
+Praha 11 →  C Střížkov;4 125
+Praha 16 →  B Náměstí Republiky;4 115
+Praha 9 →  A Nemocnice Motol;4 101
+Praha 22 →  C Vyšehrad;4 097
+Praha-Velká Chuchle →  C Hlavní nádraží;4 089
+Praha-Běchovice →  C Háje;4 074
+Praha 9 →  B Luka;4 072
+Praha-Zličín →  A Dejvická;4 064
+Praha-Dolní Měcholupy →  B/C Florenc;4 060
+Praha-Újezd →  C Kačerov;4 045
+Praha-Šeberov →  C Pankrác;4 028
+Praha 11 →  B Zličín;4 009
+Praha 22 →  A Flora;4 000
+Praha 11 →  C Prosek;3 999
+Praha-Újezd →  C I. P. Pavlova;3 996
+Praha-Petrovice →  A/B Můstek;3 980
+Praha-Ďáblice →  B Palmovka;3 979
+Praha-Újezd →  B/C Florenc;3 962
+Praha 12 →  B Vysočanská;3 961
+Praha 7 →  B Hůrka;3 957
+Praha 15 →  C Kobylisy;3 956
+Praha-Ďáblice →  C Hlavní nádraží;3 951
+Praha-Nedvězí →  C Háje;3 928
+Praha 15 →  A Malostranská;3 917
+Praha 15 →  B Národní třída;3 909
+Praha 12 →  B Českomoravská;3 893
+Praha-Dolní Chabry →  C Hlavní nádraží;3 886
+Praha-Kunratice →  B Anděl;3 882
+Praha-Královice →  C Háje;3 877
+Praha-Velká Chuchle →  C Budějovická;3 877
+Praha 11 →  A Nemocnice Motol;3 871
+Praha-Kolovraty →  A/B Můstek;3 868
+Praha 17 →  B Smíchovské nádraží;3 844
+Praha-Zličín →  C Hlavní nádraží;3 823
+Praha 14 →  B Zličín;3 817
+Praha-Dolní Počernice →  B Kolbenova;3 804
+Praha 22 →  C Pražského povstání;3 785
+Praha 12 →  B Křižíkova;3 784
+Praha 12 →  B Černý Most;3 764
+Praha-Velká Chuchle →  C Kačerov;3 758
+Praha-Újezd →  C Pankrác;3 757
+Praha-Čakovice →  B Černý Most;3 751
+Praha-Dubeč →  A Depo Hostivař;3 748
+Praha-Kunratice →  C Nádraží Holešovice;3 748
+Praha 19 →  C Vltavská;3 740
+Praha 17 →  C Hlavní nádraží;3 726
+Praha 15 →  A Hradčanská;3 698
+Praha 15 →  B Palmovka;3 696
+Praha 3 →  B Stodůlky;3 695
+Praha-Suchdol →  C I. P. Pavlova;3 691
+Praha-Vinoř →  C Kobylisy;3 681
+Praha-Lipence →  B/C Florenc;3 658
+Praha-Dolní Měcholupy →  B Vysočanská;3 644
+Praha 18 →  C Chodov;3 642
+Praha-Nebušice →  A Petřiny;3 641
+Praha 20 →  C Budějovická;3 637
+Praha-Zbraslav →  C I. P. Pavlova;3 601
+Praha-Březiněves →  B Vysočanská;3 595
+Praha 14 →  A Nádraží Veleslavín;3 592
+Praha-Velká Chuchle →  A/C Muzeum;3 590
+Praha 20 →  B Smíchovské nádraží;3 583
+Praha 9 →  B Stodůlky;3 575
+Praha 6 →  B Jinonice;3 569
+Praha-Běchovice →  B Hloubětín;3 550
+Praha-Libuš →  C Háje;3 549
+Praha-Petrovice →  C I. P. Pavlova;3 548
+Praha-Ďáblice →  C Prosek;3 546
+Praha-Troja →  B Palmovka;3 546
+Praha-Koloděje →  C Háje;3 545
+Praha-Křeslice →  B/C Florenc;3 540
+Praha-Březiněves →  A/C Muzeum;3 534
+Praha 12 →  A Flora;3 531
+Praha-Běchovice →  A/C Muzeum;3 530
+Praha-Vinoř →  A/B Můstek;3 530
+Praha-Lipence →  A/C Muzeum;3 516
+Praha-Lysolaje →  C Nádraží Holešovice;3 516
+Praha-Petrovice →  B/C Florenc;3 510
+Praha-Suchdol →  A Nádraží Veleslavín;3 509
+Praha-Velká Chuchle →  A Staroměstská;3 496
+Praha 13 →  A Strašnická;3 494
+Praha-Satalice →  A/C Muzeum;3 486
+Praha-Křeslice →  C Budějovická;3 477
+Praha-Křeslice →  C Roztyly;3 474
+Praha-Lipence →  B Karlovo náměstí;3 458
+Praha-Dolní Chabry →  C I. P. Pavlova;3 448
+Praha-Klánovice →  B Smíchovské nádraží;3 447
+Praha-Kunratice →  A Staroměstská;3 438
+Praha 18 →  A Flora;3 411
+Praha 21 →  B Kolbenova;3 393
+Praha-Křeslice →  C Kačerov;3 376
+Praha 12 →  C Letňany;3 372
+Praha-Suchdol →  C Hlavní nádraží;3 368
+Praha 19 →  C Hlavní nádraží;3 358
+Praha-Řeporyje →  C I. P. Pavlova;3 357
+Praha 14 →  A Jiřího z Poděbrad;3 351
+Praha-Slivenec →  B Náměstí Republiky;3 348
+Praha-Běchovice →  B Palmovka;3 344
+Praha 16 →  C I. P. Pavlova;3 309
+Praha-Dubeč →  B/C Florenc;3 306
+Praha 11 →  B Lužiny;3 296
+Praha-Klánovice →  B Rajská zahrada;3 286
+Praha 18 →  C Pražského povstání;3 272
+Praha 13 →  B Hloubětín;3 269
+Praha-Suchdol →  A Náměstí Míru;3 268
+Praha 1 →  B Jinonice;3 257
+Praha 11 →  B Hůrka;3 243
+Praha 21 →  A Strašnická;3 231
+Praha 20 →  C Háje;3 222
+Praha 3 →  A Depo Hostivař;3 195
+Praha 20 →  C Střížkov;3 182
+Praha-Velká Chuchle →  B Národní třída;3 124
+Praha 7 →  B Luka;3 115
+Praha 17 →  A Staroměstská;3 098
+Praha-Křeslice →  C I. P. Pavlova;3 091
+Praha-Troja →  B Anděl;3 083
+Praha 21 →  B Palmovka;3 077
+Praha-Slivenec →  B Národní třída;3 044
+Praha-Troja →  C Ládví;3 044
+Praha 20 →  C Kobylisy;3 039
+Praha-Vinoř →  B Palmovka;3 019
+Praha 12 →  A Skalka;2 991
+Praha 17 →  C Pražského povstání;2 982
+Praha 13 →  C Letňany;2 969
+Praha 15 →  B Českomoravská;2 958
+Praha 22 →  B Náměstí Republiky;2 958
+Praha 15 →  B Hloubětín;2 954
+Praha 10 →  B Radlická;2 947
+Praha 20 →  C Chodov;2 942
+Praha 18 →  A Dejvická;2 932
+Praha 17 →  B Palmovka;2 931
+Praha 13 →  B Rajská zahrada;2 923
+Praha 13 →  C Ládví;2 923
+Praha 18 →  B Smíchovské nádraží;2 905
+Praha 4 →  B Jinonice;2 904
+Praha 11 →  B Invalidovna;2 877
+Praha-Březiněves →  C Nádraží Holešovice;2 866
+Praha-Dubeč →  C Opatov;2 865
+Praha 9 →  A Petřiny;2 864
+Praha 12 →  B Zličín;2 850
+Praha-Zbraslav →  A Staroměstská;2 849
+Praha-Čakovice →  B Národní třída;2 841
+Praha 7 →  B Stodůlky;2 839
+Praha-Koloděje →  B Náměstí Republiky;2 837
+Praha 12 →  B Lužiny;2 822
+Praha 20 →  C Pankrác;2 822
+Praha 22 →  C Vltavská;2 818
+Praha-Šeberov →  A/B Můstek;2 808
+Praha-Ďáblice →  C I. P. Pavlova;2 805
+Praha-Libuš →  B Náměstí Republiky;2 805
+Praha-Dolní Měcholupy →  B Rajská zahrada;2 797
+Praha-Štěrboholy →  C Háje;2 797
+Praha-Čakovice →  B Rajská zahrada;2 793
+Praha-Křeslice →  A/B Můstek;2 756
+Praha-Újezd →  A/B Můstek;2 742
+Praha-Dolní Počernice →  A Depo Hostivař;2 736
+Praha-Dubeč →  B Vysočanská;2 718
+Praha 15 →  A Nádraží Veleslavín;2 716
+Praha-Dubeč →  A/C Muzeum;2 710
+Praha-Řeporyje →  A Petřiny;2 707
+Praha-Štěrboholy →  B Palmovka;2 704
+Praha 15 →  C Střížkov;2 693
+Praha 13 →  C Háje;2 688
+Praha 11 →  B Hloubětín;2 685
+Praha-Zličín →  A Hradčanská;2 681
+Praha 20 →  C Nádraží Holešovice;2 674
+Praha 20 →  C Vltavská;2 668
+Praha 22 →  B Karlovo náměstí;2 666
+Praha 20 →  A Depo Hostivař;2 665
+Praha-Suchdol →  C Chodov;2 656
+Praha-Křeslice →  C Pankrác;2 641
+Praha 18 →  C Kačerov;2 640
+Praha 19 →  C I. P. Pavlova;2 640
+Praha 17 →  A Náměstí Míru;2 634
+Praha 18 →  A Skalka;2 633
+Praha-Suchdol →  B Národní třída;2 616
+Praha 12 →  B Invalidovna;2 602
+Praha-Přední Kopanina →  A/B Můstek;2 592
+Praha 20 →  A Strašnická;2 589
+Praha-Dubeč →  A Želivského;2 589
+Praha 14 →  A Bořislavka;2 588
+Praha 20 →  C Vyšehrad;2 587
+Praha-Troja →  B Karlovo náměstí;2 584
+Praha-Libuš →  A Staroměstská;2 577
+Praha-Šeberov →  C Hlavní nádraží;2 575
+Praha 12 →  B Hůrka;2 568
+Praha 13 →  B Kolbenova;2 564
+Praha 16 →  C Kačerov;2 563
+Praha-Zličín →  C Vltavská;2 562
+Praha-Lysolaje →  A Malostranská;2 557
+Praha-Petrovice →  B Černý Most;2 557
+Praha-Čakovice →  B Karlovo náměstí;2 551
+Praha-Libuš →  C Vltavská;2 540
+Praha-Štěrboholy →  B/C Florenc;2 538
+Praha 12 →  A Jiřího z Poděbrad;2 519
+Praha 18 →  A Staroměstská;2 511
+Praha-Koloděje →  C Hlavní nádraží;2 510
+Praha-Dolní Měcholupy →  A Náměstí Míru;2 503
+Praha-Zličín →  C Vyšehrad;2 503
+Praha 14 →  B Lužiny;2 486
+Praha-Zličín →  B Palmovka;2 483
+Praha 11 →  B Luka;2 470
+Praha 14 →  B Hůrka;2 467
+Praha-Slivenec →  A/C Muzeum;2 466
+Praha-Zličín →  A Staroměstská;2 466
+Praha-Vinoř →  C Nádraží Holešovice;2 459
+Praha-Zbraslav →  B Lužiny;2 431
+Praha-Zbraslav →  C Pankrác;2 425
+Praha 12 →  A Nádraží Veleslavín;2 419
+Praha-Petrovice →  A Flora;2 412
+Praha 17 →  C Nádraží Holešovice;2 406
+Praha-Nebušice →  A Malostranská;2 403
+Praha-Velká Chuchle →  B Náměstí Republiky;2 398
+Praha-Kolovraty →  B Smíchovské nádraží;2 397
+Praha-Suchdol →  A Flora;2 393
+Praha-Slivenec →  C I. P. Pavlova;2 387
+Praha-Štěrboholy →  C Chodov;2 386
+Praha 13 →  C Střížkov;2 384
+Praha 11 →  A Petřiny;2 376
+Praha-Dolní Chabry →  C Střížkov;2 375
+Praha 2 →  B Jinonice;2 365
+Praha 11 →  B Stodůlky;2 361
+Praha 21 →  B Českomoravská;2 357
+Praha 8 →  B Jinonice;2 357
+Praha 20 →  C Ládví;2 355
+Praha 13 →  C Opatov;2 352
+Praha-Dolní Měcholupy →  C I. P. Pavlova;2 340
+Praha 22 →  C Nádraží Holešovice;2 339
+Praha-Březiněves →  C Střížkov;2 336
+Praha-Suchdol →  B Karlovo náměstí;2 335
+Praha-Újezd →  C Pražského povstání;2 327
+Praha 13 →  C Roztyly;2 324
+Praha-Čakovice →  A Flora;2 314
+Praha 17 →  C Pankrác;2 298
+Praha-Šeberov →  C Pražského povstání;2 287
+Praha-Dolní Chabry →  B Náměstí Republiky;2 284
+Praha-Koloděje →  B Rajská zahrada;2 283
+Praha-Přední Kopanina →  B Zličín;2 283
+Praha 20 →  A Staroměstská;2 279
+Praha-Nebušice →  A Staroměstská;2 275
+Praha-Čakovice →  B Křižíkova;2 274
+Praha 14 →  C Roztyly;2 273
+Praha 14 →  A Nemocnice Motol;2 252
+Praha-Libuš →  A Dejvická;2 251
+Praha-Kunratice →  B Národní třída;2 232
+Praha 12 →  A Strašnická;2 228
+Praha 20 →  C Opatov;2 220
+Praha 15 →  B Nové Butovice;2 216
+Praha-Dubeč →  C Chodov;2 208
+Praha 9 →  B Radlická;2 203
+Praha-Satalice →  B Českomoravská;2 172
+Praha-Satalice →  C Střížkov;2 160
+Praha 21 →  C Letňany;2 159
+Praha 12 →  C Ládví;2 152
+Praha-Zbraslav →  B Palmovka;2 139
+Praha 15 →  C Letňany;2 138
+Praha-Šeberov →  C Vyšehrad;2 138
+Praha-Zličín →  C Nádraží Holešovice;2 134
+Praha-Satalice →  B Palmovka;2 126
+Praha-Štěrboholy →  C I. P. Pavlova;2 124
+Praha 16 →  B Lužiny;2 122
+Praha 22 →  B Anděl;2 116
+Praha-Suchdol →  C Pankrác;2 113
+Praha-Koloděje →  A/B Můstek;2 112
+Praha-Lysolaje →  A Staroměstská;2 108
+Praha 22 →  A Dejvická;2 104
+Praha 12 →  A Nemocnice Motol;2 093
+Praha-Petrovice →  C Vyšehrad;2 090
+Praha-Běchovice →  B Vysočanská;2 086
+Praha 3 →  B Radlická;2 083
+Praha 15 →  A Petřiny;2 082
+Praha-Zličín →  C Budějovická;2 076
+Praha-Kunratice →  A Malostranská;2 073
+Praha 21 →  C I. P. Pavlova;2 055
+Praha-Satalice →  C Hlavní nádraží;2 054
+Praha 15 →  A Bořislavka;2 048
+Praha 15 →  B Křižíkova;2 047
+Praha-Dolní Počernice →  B Českomoravská;2 043
+Praha-Zličín →  C Pankrác;2 040
+Praha 7 →  B Radlická;2 039
+Praha 20 →  A Flora;2 035
+Praha 19 →  B Kolbenova;2 034
+Praha 12 →  B Hloubětín;2 032
+Praha-Újezd →  C Vyšehrad;2 029
+Praha-Dubeč →  B Palmovka;2 026
+Praha 18 →  C Háje;2 020
+Praha 12 →  B Luka;2 015
+Praha-Čakovice →  C Vyšehrad;2 009
+Praha 20 →  A Dejvická;2 004
+Praha 17 →  C Budějovická;1 998
+Praha-Čakovice →  C Budějovická;1 995
+Praha-Lipence →  C Budějovická;1 992
+Praha-Libuš →  A Náměstí Míru;1 989
+Praha 18 →  A Malostranská;1 986
+Praha-Čakovice →  B Kolbenova;1 979
+Praha-Dolní Chabry →  B Anděl;1 971
+Praha 21 →  B Karlovo náměstí;1 970
+Praha-Petrovice →  C Hlavní nádraží;1 956
+Praha-Zličín →  B Křižíkova;1 955
+Praha 16 →  C Vltavská;1 952
+Praha-Kunratice →  C Kobylisy;1 952
+Praha-Zbraslav →  B Nové Butovice;1 934
+Praha-Vinoř →  C Vltavská;1 933
+Praha-Zličín →  A Malostranská;1 925
+Praha 21 →  A Flora;1 919
+Praha-Benice →  C Opatov;1 918
+Praha-Dubeč →  B Kolbenova;1 909
+Praha 12 →  A Bořislavka;1 905
+Praha-Kunratice →  B Vysočanská;1 902
+Praha 20 →  A Hradčanská;1 897
+Praha 16 →  C Pankrác;1 895
+Praha-Petrovice →  C Pražského povstání;1 895
+Praha 21 →  B Anděl;1 888
+Praha-Řeporyje →  C Hlavní nádraží;1 887
+Praha-Dolní Počernice →  B Invalidovna;1 886
+Praha-Koloděje →  A Strašnická;1 877
+Praha 16 →  B Nové Butovice;1 875
+Praha-Suchdol →  C Budějovická;1 874
+Praha-Řeporyje →  B Palmovka;1 872
+Praha-Kunratice →  A Hradčanská;1 863
+Praha 12 →  B Stodůlky;1 857
+Praha-Dolní Měcholupy →  C Budějovická;1 854
+Praha 18 →  A Hradčanská;1 852
+Praha-Běchovice →  C Letňany;1 849
+Praha-Lipence →  B Národní třída;1 848
+Praha 14 →  B Luka;1 841
+Praha-Vinoř →  C Hlavní nádraží;1 831
+Praha-Zličín →  C Chodov;1 828
+Praha-Štěrboholy →  B Náměstí Republiky;1 827
+Praha 11 →  B Kolbenova;1 823
+Praha 18 →  B Nové Butovice;1 822
+Praha-Suchdol →  C Vyšehrad;1 814
+Praha 15 →  C Ládví;1 810
+Praha-Troja →  C Pankrác;1 798
+Praha-Zličín →  B Černý Most;1 798
+Praha 20 →  A Želivského;1 796
+Praha 20 →  A Náměstí Míru;1 788
+Praha 18 →  A Náměstí Míru;1 785
+Praha-Suchdol →  B Palmovka;1 780
+Praha-Újezd →  C Hlavní nádraží;1 780
+Praha 21 →  B Národní třída;1 769
+Praha-Zličín →  B Českomoravská;1 763
+Praha-Vinoř →  B Náměstí Republiky;1 759
+Praha-Petrovice →  A Želivského;1 747
+Praha-Ďáblice →  B Náměstí Republiky;1 741
+Praha 19 →  B Anděl;1 740
+Praha-Zličín →  A Náměstí Míru;1 738
+Praha-Slivenec →  B Zličín;1 735
+Praha-Troja →  B Národní třída;1 734
+Praha-Nedvězí →  C Hlavní nádraží;1 729
+Praha-Zbraslav →  C Chodov;1 727
+Praha-Zličín →  B Vysočanská;1 727
+Praha-Dubeč →  C Hlavní nádraží;1 725
+Praha 22 →  C Kobylisy;1 722
+Praha-Dubeč →  B Náměstí Republiky;1 718
+Praha-Benice →  C Hlavní nádraží;1 717
+Praha-Zbraslav →  C Vyšehrad;1 717
+Praha-Dolní Měcholupy →  C Prosek;1 713
+Praha 12 →  C Střížkov;1 710
+Praha 20 →  C Pražského povstání;1 704
+Praha 16 →  C Vyšehrad;1 702
+Praha-Kunratice →  A Želivského;1 701
+Praha 15 →  A Nemocnice Motol;1 698
+Praha-Zbraslav →  B Vysočanská;1 697
+Praha 16 →  B Černý Most;1 695
+Praha-Suchdol →  A Petřiny;1 690
+Praha-Libuš →  C Kobylisy;1 683
+Praha 10 →  B Jinonice;1 681
+Praha 14 →  B Stodůlky;1 672
+Praha 20 →  A Malostranská;1 663
+Praha 20 →  C Kačerov;1 662
+Praha 22 →  A Náměstí Míru;1 661
+Praha-Běchovice →  B Smíchovské nádraží;1 660
+Praha 16 →  B Zličín;1 657
+Praha 18 →  C Opatov;1 657
+Praha-Řeporyje →  C Budějovická;1 644
+Praha-Vinoř →  B Hloubětín;1 634
+Praha-Libuš →  B Národní třída;1 622
+Praha 12 →  C Prosek;1 620
+Praha-Libuš →  C Nádraží Holešovice;1 615
+Praha-Ďáblice →  B Černý Most;1 611
+Praha 17 →  C Kobylisy;1 598
+Praha 21 →  C Prosek;1 593
+Praha 13 →  C Prosek;1 584
+Praha-Kunratice →  A Náměstí Míru;1 580
+Praha-Suchdol →  C Kačerov;1 574
+Praha-Čakovice →  C Pankrác;1 569
+Praha-Čakovice →  A Skalka;1 563
+Praha 18 →  A Nádraží Veleslavín;1 559
+Praha-Klánovice →  B Hloubětín;1 545
+Praha-Klánovice →  B Vysočanská;1 543
+Praha 17 →  C Chodov;1 542
+Praha 15 →  B Kolbenova;1 536
+Praha-Dolní Měcholupy →  B Náměstí Republiky;1 532
+Praha 16 →  C Nádraží Holešovice;1 531
+Praha-Dolní Počernice →  A Strašnická;1 531
+Praha-Štěrboholy →  A Náměstí Míru;1 531
+Praha-Čakovice →  A Dejvická;1 529
+Praha 3 →  B Jinonice;1 528
+Praha-Štěrboholy →  C Prosek;1 528
+Praha 18 →  A Želivského;1 522
+Praha-Kolovraty →  A Strašnická;1 522
+Praha-Dolní Počernice →  C I. P. Pavlova;1 517
+Praha-Dolní Chabry →  C Letňany;1 516
+Praha 21 →  A Želivského;1 513
+Praha-Kunratice →  B Černý Most;1 512
+Praha-Kunratice →  A Nádraží Veleslavín;1 509
+Praha 17 →  B Křižíkova;1 508
+Praha-Křeslice →  C Pražského povstání;1 507
+Praha-Dubeč →  A Náměstí Míru;1 505
+Praha 17 →  B Vysočanská;1 501
+Praha-Dolní Měcholupy →  B Anděl;1 499
+Praha-Kunratice →  A Flora;1 491
+Praha-Benice →  C Chodov;1 490
+Praha-Zbraslav →  A Malostranská;1 487
+Praha-Křeslice →  C Hlavní nádraží;1 480
+Praha-Štěrboholy →  B Hloubětín;1 479
+Praha-Troja →  A Malostranská;1 473
+Praha 4 →  A Depo Hostivař;1 467
+Praha-Čakovice →  C Chodov;1 467
+Praha 14 →  A Petřiny;1 463
+Praha 16 →  C Pražského povstání;1 462
+Praha-Suchdol →  B Vysočanská;1 461
+Praha-Březiněves →  C Vltavská;1 457
+Praha-Lysolaje →  C Kobylisy;1 454
+Praha 22 →  A Staroměstská;1 453
+Praha-Dolní Měcholupy →  C Kačerov;1 450
+Praha-Křeslice →  C Vyšehrad;1 450
+Praha-Lysolaje →  B/C Florenc;1 436
+Praha-Suchdol →  C Pražského povstání;1 436
+Praha-Troja →  C Budějovická;1 435
+Praha 18 →  A Bořislavka;1 434
+Praha-Vinoř →  C I. P. Pavlova;1 433
+Praha-Dolní Měcholupy →  C Pankrác;1 427
+Praha-Přední Kopanina →  A/C Muzeum;1 416
+Praha-Troja →  C Chodov;1 414
+Praha-Řeporyje →  B Radlická;1 413
+Praha-Čakovice →  B Smíchovské nádraží;1 412
+Praha-Satalice →  C Ládví;1 401
+Praha 20 →  B Nové Butovice;1 400
+Praha-Troja →  C Pražského povstání;1 397
+Praha 19 →  B Karlovo náměstí;1 396
+Praha-Dolní Počernice →  B Smíchovské nádraží;1 388
+Praha 12 →  B Kolbenova;1 380
+Praha-Troja →  C Vyšehrad;1 378
+Praha-Štěrboholy →  B Anděl;1 366
+Praha-Dolní Počernice →  B Karlovo náměstí;1 364
+Praha-Koloděje →  A/C Muzeum;1 358
+Praha-Kunratice →  C Letňany;1 355
+Praha-Zbraslav →  C Vltavská;1 353
+Praha-Vinoř →  B Anděl;1 352
+Praha-Velká Chuchle →  C I. P. Pavlova;1 335
+Praha 6 →  A Depo Hostivař;1 331
+Praha-Běchovice →  B Českomoravská;1 330
+Praha 17 →  A Flora;1 325
+Praha-Suchdol →  A Želivského;1 323
+Praha-Zbraslav →  C Nádraží Holešovice;1 323
+Praha-Satalice →  C Kobylisy;1 322
+Praha 22 →  B Vysočanská;1 320
+Praha-Březiněves →  C Prosek;1 318
+Praha-Zličín →  A Flora;1 315
+Praha-Dolní Chabry →  C Prosek;1 314
+Praha-Dolní Počernice →  B Anděl;1 313
+Praha-Slivenec →  B Jinonice;1 306
+Praha 16 →  B Vysočanská;1 304
+Praha-Zličín →  C Pražského povstání;1 304
+Praha 22 →  B Palmovka;1 303
+Praha-Běchovice →  B Kolbenova;1 300
+Praha-Slivenec →  B Radlická;1 298
+Praha 22 →  C Letňany;1 296
+Praha-Dolní Chabry →  C Pankrác;1 293
+Praha-Satalice →  C Nádraží Holešovice;1 290
+Praha-Kunratice →  B Palmovka;1 283
+Praha-Běchovice →  A Depo Hostivař;1 282
+Praha-Dolní Měcholupy →  B Karlovo náměstí;1 280
+Praha-Březiněves →  C Hlavní nádraží;1 274
+Praha 21 →  B Křižíkova;1 270
+Praha-Zbraslav →  B Křižíkova;1 268
+Praha-Dolní Chabry →  C Vyšehrad;1 267
+Praha 21 →  C Vyšehrad;1 261
+Praha-Řeporyje →  A Dejvická;1 257
+Praha-Koloděje →  B/C Florenc;1 256
+Praha 9 →  B Jinonice;1 249
+Praha-Čakovice →  A Staroměstská;1 247
+Praha 18 →  B Zličín;1 245
+Praha-Dolní Měcholupy →  A Staroměstská;1 243
+Praha-Zbraslav →  C Kobylisy;1 240
+Praha 20 →  A Jiřího z Poděbrad;1 239
+Praha-Přední Kopanina →  A Hradčanská;1 237
+Praha-Suchdol →  A Nemocnice Motol;1 235
+Praha-Zličín →  B Radlická;1 235
+Praha-Lipence →  C I. P. Pavlova;1 233
+Praha-Suchdol →  B Smíchovské nádraží;1 232
+Praha 11 →  B Radlická;1 231
+Praha 17 →  B Českomoravská;1 229
+Praha 15 →  B Zličín;1 227
+Praha-Benice →  A Skalka;1 227
+Praha 18 →  A Jiřího z Poděbrad;1 224
+Praha 12 →  B Rajská zahrada;1 219
+Praha-Zbraslav →  C Opatov;1 216
+Praha-Dolní Chabry →  B Černý Most;1 214
+Praha 1 →  A Depo Hostivař;1 213
+Praha-Dubeč →  B Českomoravská;1 212
+Praha-Lipence →  B Náměstí Republiky;1 208
+Praha-Kolovraty →  B Národní třída;1 204
+Praha-Řeporyje →  C Chodov;1 203
+Praha 15 →  B Lužiny;1 202
+Praha-Zbraslav →  A Dejvická;1 202
+Praha 15 →  B Invalidovna;1 198
+Praha-Ďáblice →  B Anděl;1 195
+Praha-Ďáblice →  C Pankrác;1 194
+Praha-Dolní Měcholupy →  B Palmovka;1 190
+Praha 19 →  B Křižíkova;1 189
+Praha-Křeslice →  A Skalka;1 188
+Praha-Ďáblice →  B Českomoravská;1 186
+Praha-Dolní Chabry →  B Karlovo náměstí;1 182
+Praha-Březiněves →  A/B Můstek;1 180
+Praha-Čakovice →  C Pražského povstání;1 179
+Praha 19 →  B Invalidovna;1 174
+Praha 18 →  A Strašnická;1 173
+Praha 17 →  A Skalka;1 171
+Praha-Klánovice →  C I. P. Pavlova;1 170
+Praha-Řeporyje →  A Nádraží Veleslavín;1 169
+Praha-Satalice →  B Křižíkova;1 169
+Praha-Dolní Počernice →  A Flora;1 163
+Praha-Ďáblice →  B Hloubětín;1 162
+Praha-Dolní Počernice →  B Národní třída;1 162
+Praha 12 →  A Petřiny;1 161
+Praha-Zličín →  C Kačerov;1 161
+Praha-Dolní Měcholupy →  C Roztyly;1 153
+Praha-Dolní Počernice →  C Chodov;1 151
+Praha-Štěrboholy →  B Karlovo náměstí;1 148
+Praha 22 →  B Rajská zahrada;1 146
+Praha-Suchdol →  B Křižíkova;1 139
+Praha-Dolní Počernice →  B Křižíkova;1 131
+Praha 20 →  B Zličín;1 129
+Praha-Satalice →  B Národní třída;1 128
+Praha-Dolní Počernice →  C Letňany;1 124
+Praha-Čakovice →  C Kačerov;1 123
+Praha 21 →  C Budějovická;1 118
+Praha-Troja →  C Střížkov;1 116
+Praha-Slivenec →  C Hlavní nádraží;1 115
+Praha-Březiněves →  C I. P. Pavlova;1 113
+Praha-Klánovice →  B Anděl;1 113
+Praha-Štěrboholy →  B Českomoravská;1 112
+Praha-Kunratice →  A Strašnická;1 108
+Praha-Ďáblice →  B Národní třída;1 107
+Praha-Zbraslav →  A Hradčanská;1 107
+Praha 16 →  B Palmovka;1 102
+Praha-Libuš →  A Malostranská;1 095
+Praha 16 →  C Kobylisy;1 093
+Praha 17 →  C Kačerov;1 092
+Praha 19 →  C Budějovická;1 090
+Praha 16 →  B Luka;1 089
+Praha 18 →  B Lužiny;1 089
+Praha-Dolní Chabry →  C Budějovická;1 089
+Praha-Štěrboholy →  C Budějovická;1 089
+Praha-Zbraslav →  C Pražského povstání;1 089
+Praha-Lochkov →  A/B Můstek;1 086
+Praha-Nebušice →  B Anděl;1 084
+Praha 21 →  C Pankrác;1 078
+Praha-Nebušice →  B/C Florenc;1 076
+Praha-Troja →  C Letňany;1 076
+Praha 19 →  A Dejvická;1 075
+Praha-Křeslice →  A Želivského;1 073
+Praha-Ďáblice →  C Budějovická;1 070
+Praha 16 →  A Nádraží Veleslavín;1 069
+Praha-Zličín →  C Kobylisy;1 069
+Praha-Slivenec →  A Malostranská;1 065
+Praha 7 →  B Jinonice;1 058
+Praha-Královice →  C Hlavní nádraží;1 055
+Praha-Suchdol →  A Jiřího z Poděbrad;1 055
+Praha-Kolovraty →  C I. P. Pavlova;1 050
+Praha 22 →  A Malostranská;1 048
+Praha-Libuš →  B Palmovka;1 039
+Praha 16 →  C Chodov;1 038
+Praha-Ďáblice →  C Vyšehrad;1 036
+Praha-Zličín →  B Invalidovna;1 033
+Praha-Satalice →  B Anděl;1 032
+Praha 17 →  B Černý Most;1 031
+Praha-Běchovice →  B Anděl;1 027
+Praha-Dolní Chabry →  A Staroměstská;1 025
+Praha-Libuš →  A Želivského;1 025
+Praha-Ďáblice →  B Karlovo náměstí;1 021
+Praha-Satalice →  C I. P. Pavlova;1 021
+Praha-Řeporyje →  B Vysočanská;1 019
+Praha 22 →  B Národní třída;1 018
+Praha-Libuš →  A Skalka;1 014
+Praha 19 →  C Vyšehrad;1 009
+Praha-Petrovice →  B Anděl;1 008
+Praha 15 →  B Hůrka;1 007
+Praha 14 →  B Radlická;1 005
+Praha-Dubeč →  C I. P. Pavlova;997
+Praha-Slivenec →  C Pankrác;997
+Praha 19 →  C Pankrác;994
+Praha 19 →  C Chodov;993
+Praha-Libuš →  A Flora;990
+Praha 5 →  A Depo Hostivař;987
+Praha-Petrovice →  C Vltavská;986
+Praha-Dolní Měcholupy →  C Vltavská;985
+Praha-Kunratice →  B Křižíkova;984
+Praha-Řeporyje →  A Bořislavka;984
+Praha-Zbraslav →  B Zličín;984
+Praha-Řeporyje →  C Vltavská;982
+Praha-Čakovice →  A Malostranská;981
+Praha-Zličín →  A Skalka;980
+Praha 16 →  A Dejvická;977
+Praha 17 →  C Opatov;977
+Praha-Kunratice →  B Nové Butovice;969
+Praha-Zbraslav →  B Českomoravská;967
+Praha-Troja →  A Náměstí Míru;965
+Praha-Lysolaje →  B Náměstí Republiky;964
+Praha-Velká Chuchle →  B Palmovka;962
+Praha-Dolní Měcholupy →  C Nádraží Holešovice;959
+Praha-Dubeč →  B Karlovo náměstí;958
+Praha-Velká Chuchle →  B Nové Butovice;958
+Praha-Zbraslav →  A Náměstí Míru;958
+Praha-Dubeč →  A Staroměstská;956
+Praha-Suchdol →  B Českomoravská;954
+Praha-Štěrboholy →  C Pankrác;954
+Praha-Satalice →  C Vltavská;953
+Praha-Nebušice →  B Náměstí Republiky;952
+Praha 17 →  A Želivského;951
+Praha-Satalice →  B Karlovo náměstí;950
+Praha-Kolovraty →  B Karlovo náměstí;944
+Praha-Zličín →  A Jiřího z Poděbrad;944
+Praha-Kunratice →  B Českomoravská;943
+Praha 20 →  B Lužiny;942
+Praha-Řeporyje →  C Nádraží Holešovice;941
+Praha-Klánovice →  A Skalka;940
+Praha-Zbraslav →  B Hůrka;939
+Praha-Řeporyje →  C Pankrác;937
+Praha-Dolní Měcholupy →  A Malostranská;934
+Praha 12 →  B Radlická;931
+Praha-Dubeč →  B Smíchovské nádraží;931
+Praha-Suchdol →  A Strašnická;931
+Praha-Dubeč →  B Anděl;930
+Praha-Lysolaje →  B Anděl;928
+Praha 22 →  A Jiřího z Poděbrad;926
+Praha-Satalice →  B Invalidovna;925
+Praha-Běchovice →  A Strašnická;924
+Praha 19 →  B Národní třída;922
+Praha-Dolní Měcholupy →  A Dejvická;922
+Praha 17 →  B Invalidovna;921
+Praha-Dolní Chabry →  C Pražského povstání;920
+Praha-Slivenec →  A Dejvická;920
+Praha-Kunratice →  C Ládví;919
+Praha-Štěrboholy →  C Hlavní nádraží;913
+Praha-Nebušice →  A Náměstí Míru;911
+Praha-Újezd →  C Vltavská;909
+Praha-Dolní Chabry →  C Chodov;906
+Praha-Libuš →  B Nové Butovice;905
+Praha 16 →  A Malostranská;904
+Praha-Řeporyje →  B Černý Most;903
+Praha-Řeporyje →  B Křižíkova;900
+Praha 21 →  A Dejvická;899
+Praha-Čakovice →  A Hradčanská;898
+Praha 18 →  B Radlická;897
+Praha-Zbraslav →  A Nádraží Veleslavín;896
+Praha-Zbraslav →  B Stodůlky;895
+Praha-Suchdol →  C Ládví;892
+Praha 22 →  B Nové Butovice;891
+Praha 8 →  A Depo Hostivař;891
+Praha 16 →  B Hůrka;890
+Praha-Troja →  A Bořislavka;890
+Praha 21 →  A Náměstí Míru;888
+Praha-Koloděje →  A Flora;880
+Praha 11 →  A Depo Hostivař;877
+Praha-Libuš →  B Černý Most;876
+Praha-Čakovice →  A Nádraží Veleslavín;874
+Praha-Řeporyje →  C Vyšehrad;874
+Praha-Dolní Chabry →  A Dejvická;873
+Praha 22 →  A Hradčanská;871
+Praha 16 →  B Křižíkova;868
+Praha-Kunratice →  A Jiřího z Poděbrad;867
+Praha-Řeporyje →  A Staroměstská;864
+Praha-Běchovice →  B Karlovo náměstí;863
+Praha-Libuš →  A Hradčanská;863
+Praha-Štěrboholy →  B Smíchovské nádraží;860
+Praha-Dolní Počernice →  C Háje;859
+Praha-Dolní Chabry →  B Národní třída;858
+Praha 17 →  A Jiřího z Poděbrad;857
+Praha-Křeslice →  C Vltavská;856
+Praha-Dolní Měcholupy →  B Hloubětín;855
+Praha 16 →  A Staroměstská;854
+Praha-Dubeč →  C Kačerov;851
+Praha-Čakovice →  A Náměstí Míru;848
+Praha-Dubeč →  C Budějovická;847
+Praha-Petrovice →  A Náměstí Míru;847
+Praha-Vinoř →  B Kolbenova;846
+Praha-Vinoř →  B Křižíkova;846
+Praha-Zbraslav →  B Černý Most;845
+Praha-Libuš →  B Vysočanská;843
+Praha-Suchdol →  B Černý Most;843
+Praha-Koloděje →  B Hloubětín;842
+Praha-Šeberov →  C Vltavská;842
+Praha-Řeporyje →  B Českomoravská;840
+Praha-Troja →  A Flora;840
+Praha-Březiněves →  B Palmovka;838
+Praha 22 →  B Křižíkova;837
+Praha 20 →  A Nádraží Veleslavín;835
+Praha 21 →  B Invalidovna;835
+Praha 18 →  B Hůrka;832
+Praha-Dolní Měcholupy →  A Jiřího z Poděbrad;832
+Praha 18 →  A Nemocnice Motol;831
+Praha-Klánovice →  B Českomoravská;825
+Praha 20 →  A Bořislavka;821
+Praha-Velká Chuchle →  C Pankrác;821
+Praha-Koloděje →  B Smíchovské nádraží;820
+Praha-Dolní Měcholupy →  C Vyšehrad;819
+Praha-Zličín →  A Želivského;819
+Praha-Troja →  C Prosek;817
+Praha-Běchovice →  B Národní třída;816
+Praha-Troja →  B Křižíkova;815
+Praha 20 →  A Nemocnice Motol;813
+Praha-Petrovice →  C Nádraží Holešovice;813
+Praha-Čakovice →  A Želivského;812
+Praha-Troja →  B Českomoravská;812
+Praha 18 →  C Roztyly;808
+Praha-Suchdol →  B Zličín;808
+Praha-Kolovraty →  C Budějovická;802
+Praha-Suchdol →  A Skalka;801
+Praha-Lysolaje →  C Vltavská;800
+Praha-Zličín →  B Jinonice;800
+Praha-Zbraslav →  B Invalidovna;799
+Praha 16 →  A Náměstí Míru;797
+Praha-Suchdol →  B Nové Butovice;794
+Praha 19 →  B Smíchovské nádraží;792
+Praha-Zličín →  A Strašnická;792
+Praha-Křeslice →  A Dejvická;790
+Praha-Slivenec →  C Kačerov;789
+Praha 21 →  C Chodov;786
+Praha-Klánovice →  B Národní třída;785
+Praha-Řeporyje →  A Hradčanská;785
+Praha-Šeberov →  B Anděl;782
+Praha-Lochkov →  C Budějovická;779
+Praha 21 →  C Nádraží Holešovice;778
+Praha-Dolní Chabry →  B Smíchovské nádraží;778
+Praha-Petrovice →  A Staroměstská;778
+Praha-Klánovice →  C Chodov;776
+Praha-Štěrboholy →  A Staroměstská;776
+Praha-Dolní Chabry →  B Českomoravská;774
+Praha-Řeporyje →  C Kobylisy;772
+Praha-Petrovice →  B Karlovo náměstí;771
+Praha-Vinoř →  B Národní třída;769
+Praha-Troja →  C Kačerov;768
+Praha-Velká Chuchle →  C Chodov;766
+Praha-Zbraslav →  A Bořislavka;765
+Praha 17 →  C Letňany;764
+Praha-Kolovraty →  C Roztyly;762
+Praha-Nebušice →  C Vltavská;762
+Praha 20 →  B Stodůlky;761
+Praha-Zličín →  B Hloubětín;758
+Praha 16 →  A Hradčanská;757
+Praha 18 →  A Petřiny;756
+Praha-Dolní Chabry →  C Kačerov;756
+Praha-Klánovice →  B Karlovo náměstí;756
+Praha-Řeporyje →  A Malostranská;756
+Praha 19 →  C Pražského povstání;752
+Praha 20 →  C Roztyly;751
+Praha-Újezd →  B Náměstí Republiky;748
+Praha 15 →  B Stodůlky;745
+Praha-Šeberov →  A Dejvická;745
+Praha-Újezd →  A Flora;745
+Praha-Kolovraty →  C Vltavská;744
+Praha-Vinoř →  A Skalka;743
+Praha-Klánovice →  B Palmovka;742
+Praha-Dolní Měcholupy →  C Kobylisy;740
+Praha-Vinoř →  B Invalidovna;737
+Praha-Dolní Počernice →  C Vyšehrad;735
+Praha-Troja →  B Smíchovské nádraží;735
+Praha 16 →  A Flora;734
+Praha 20 →  B Hůrka;734
+Praha-Křeslice →  B Anděl;734
+Praha-Čakovice →  B Nové Butovice;733
+Praha-Běchovice →  A Flora;730
+Praha-Řeporyje →  A Náměstí Míru;730
+Praha-Kunratice →  B Hloubětín;729
+Praha-Troja →  B Černý Most;727
+Praha 16 →  B Českomoravská;725
+Praha-Březiněves →  B Náměstí Republiky;725
+Praha-Zbraslav →  A Flora;725
+Praha 21 →  C Vltavská;724
+Praha 22 →  B Českomoravská;721
+Praha 2 →  A Depo Hostivař;720
+Praha-Zbraslav →  C Roztyly;720
+Praha-Lipence →  C Kačerov;719
+Praha-Vinoř →  B Karlovo náměstí;719
+Praha-Královice →  A Depo Hostivař;718
+Praha-Újezd →  B Karlovo náměstí;718
+Praha-Dubeč →  B Národní třída;717
+Praha-Kolovraty →  B Náměstí Republiky;717
+Praha-Velká Chuchle →  C Vltavská;717
+Praha-Dubeč →  C Pankrác;716
+Praha-Nebušice →  A Nemocnice Motol;715
+Praha-Velká Chuchle →  C Nádraží Holešovice;712
+Praha-Lochkov →  B Karlovo náměstí;711
+Praha-Slivenec →  B Palmovka;706
+Praha-Dubeč →  B Křižíkova;703
+Praha-Slivenec →  A Petřiny;703
+Praha-Zbraslav →  B Luka;702
+Praha 21 →  C Opatov;701
+Praha-Nebušice →  C Nádraží Holešovice;699
+Praha-Lipence →  B Lužiny;696
+Praha-Velká Chuchle →  C Vyšehrad;694
+Praha 21 →  C Pražského povstání;692
+Praha-Běchovice →  C I. P. Pavlova;689
+Praha-Nedvězí →  A/C Muzeum;688
+Praha-Řeporyje →  C Pražského povstání;685
+Praha-Štěrboholy →  A Malostranská;684
+Praha-Benice →  A/C Muzeum;682
+Praha-Libuš →  B Českomoravská;681
+Praha-Suchdol →  B Invalidovna;681
+Praha-Šeberov →  C Nádraží Holešovice;681
+Praha-Čakovice →  C Háje;679
+Praha-Čakovice →  A Jiřího z Poděbrad;675
+Praha-Řeporyje →  A Želivského;675
+Praha-Dolní Chabry →  B Kolbenova;671
+Praha-Dubeč →  B Invalidovna;671
+Praha-Kunratice →  C Střížkov;669
+Praha-Suchdol →  C Střížkov;669
+Praha-Velká Chuchle →  A Malostranská;665
+Praha 20 →  B Luka;664
+Praha-Ďáblice →  C Pražského povstání;664
+Praha 11 →  B Jinonice;659
+Praha 16 →  A Želivského;658
+Praha-Zbraslav →  C Háje;657
+Praha-Klánovice →  C Háje;655
+Praha-Petrovice →  B Náměstí Republiky;655
+Praha-Slivenec →  C Vyšehrad;655
+Praha-Dolní Počernice →  A Želivského;653
+Praha-Kolovraty →  C Pankrác;651
+Praha-Kunratice →  A Bořislavka;651
+Praha 18 →  B Luka;650
+Praha 22 →  C Prosek;650
+Praha-Slivenec →  C Vltavská;650
+Praha-Štěrboholy →  C Střížkov;650
+Praha-Libuš →  B Křižíkova;647
+Praha-Šeberov →  B Náměstí Republiky;646
+Praha-Ďáblice →  C Chodov;645
+Praha-Klánovice →  B Kolbenova;642
+Praha-Vinoř →  C Pankrác;639
+Praha-Zbraslav →  A Jiřího z Poděbrad;639
+Praha-Klánovice →  C Vyšehrad;637
+Praha-Zbraslav →  A Želivského;637
+Praha-Újezd →  A Želivského;635
+Praha-Koloděje →  C Letňany;634
+Praha-Libuš →  A Nádraží Veleslavín;634
+Praha-Suchdol →  B Hloubětín;630
+Praha 19 →  A Skalka;628
+Praha-Ďáblice →  C Kačerov;628
+Praha 14 →  B Jinonice;627
+Praha-Slivenec →  C Kobylisy;627
+Praha-Zličín →  B Rajská zahrada;627
+Praha 15 →  B Luka;626
+Praha 18 →  B Stodůlky;624
+Praha-Klánovice →  C Prosek;624
+Praha-Kunratice →  B Rajská zahrada;623
+Praha-Ďáblice →  A Flora;621
+Praha-Slivenec →  B Křižíkova;619
+Praha-Koloděje →  A Želivského;618
+Praha-Řeporyje →  C Kačerov;616
+Praha 22 →  B Hloubětín;614
+Praha 22 →  A Nádraží Veleslavín;612
+Praha-Velká Chuchle →  A Náměstí Míru;609
+Praha-Libuš →  C Letňany;608
+Praha-Štěrboholy →  C Letňany;606
+Praha-Dolní Počernice →  C Pankrác;601
+Praha-Petrovice →  B Vysočanská;601
+Praha-Kunratice →  C Prosek;599
+Praha-Zličín →  C Letňany;599
+Praha-Koloděje →  C Budějovická;598
+Praha 19 →  A Staroměstská;597
+Praha-Vinoř →  C Vyšehrad;594
+Praha-Ďáblice →  B Křižíkova;593
+Praha-Přední Kopanina →  A Staroměstská;593
+Praha-Újezd →  B Anděl;593
+Praha-Velká Chuchle →  A Dejvická;593
+Praha 22 →  C Ládví;592
+Praha-Řeporyje →  C Letňany;592
+Praha-Ďáblice →  A Dejvická;590
+Praha-Petrovice →  C Kobylisy;590
+Praha-Velká Chuchle →  C Pražského povstání;590
+Praha-Lochkov →  B Stodůlky;589
+Praha 17 →  B Hloubětín;587
+Praha-Velká Chuchle →  B Zličín;586
+Praha 17 →  A Strašnická;585
+Praha-Řeporyje →  B Invalidovna;585
+Praha-Troja →  A Nádraží Veleslavín;583
+Praha-Čakovice →  C Opatov;582
+Praha-Újezd →  C Nádraží Holešovice;582
+Praha-Královice →  C Opatov;581
+Praha-Čakovice →  A Strašnická;577
+Praha-Libuš →  B Hloubětín;575
+Praha-Běchovice →  C Vyšehrad;574
+Praha-Běchovice →  B Invalidovna;573
+Praha-Velká Chuchle →  B Křižíkova;572
+Praha-Satalice →  C Budějovická;571
+Praha-Slivenec →  A Nádraží Veleslavín;571
+Praha-Královice →  A/C Muzeum;570
+Praha-Újezd →  A Staroměstská;570
+Praha-Běchovice →  B Křižíkova;569
+Praha 20 →  A Petřiny;567
+Praha-Libuš →  C Ládví;566
+Praha-Kolovraty →  C Vyšehrad;563
+Praha-Nebušice →  A Flora;563
+Praha-Šeberov →  B Karlovo náměstí;563
+Praha-Velká Chuchle →  B Vysočanská;563
+Praha-Zličín →  C Ládví;562
+Praha 22 →  B Luka;561
+Praha-Dubeč →  C Roztyly;561
+Praha-Dolní Počernice →  C Budějovická;559
+Praha-Kolovraty →  C Kačerov;559
+Praha-Libuš →  A Bořislavka;559
+Praha-Velká Chuchle →  B Lužiny;559
+Praha-Dolní Měcholupy →  B Českomoravská;558
+Praha-Klánovice →  C Budějovická;556
+Praha 15 →  B Radlická;554
+Praha-Koloděje →  A Depo Hostivař;554
+Praha-Královice →  C Chodov;554
+Praha-Štěrboholy →  C Vyšehrad;553
+Praha-Lysolaje →  A Náměstí Míru;552
+Praha-Řeporyje →  A Flora;552
+Praha-Kunratice →  B Hůrka;551
+Praha-Slivenec →  C Chodov;550
+Praha 19 →  A Hradčanská;546
+Praha-Satalice →  B Smíchovské nádraží;546
+Praha-Dolní Chabry →  B Hloubětín;543
+Praha-Štěrboholy →  B Kolbenova;543
+Praha 19 →  C Kačerov;542
+Praha-Klánovice →  C Pankrác;541
+Praha-Kunratice →  A Nemocnice Motol;541
+Praha-Dolní Měcholupy →  A Hradčanská;540
+Praha-Přední Kopanina →  B/C Florenc;538
+Praha-Řeporyje →  C Ládví;538
+Praha-Nebušice →  B Karlovo náměstí;537
+Praha-Satalice →  A Flora;536
+Praha-Satalice →  C Pankrác;536
+Praha-Královice →  A Strašnická;535
+Praha-Dolní Měcholupy →  C Střížkov;534
+Praha-Suchdol →  C Prosek;533
+Praha 16 →  C Opatov;531
+Praha 16 →  C Háje;530
+Praha-Zbraslav →  C Ládví;530
+Praha-Zličín →  C Roztyly;529
+Praha-Libuš →  A Strašnická;528
+Praha-Dolní Chabry →  A Flora;527
+Praha-Libuš →  C Prosek;527
+Praha-Slivenec →  A Staroměstská;527
+Praha-Slivenec →  B Vysočanská;526
+Praha-Lipence →  C Pankrác;525
+Praha-Vinoř →  C Chodov;525
+Praha-Libuš →  A Jiřího z Poděbrad;523
+Praha-Petrovice →  B Nové Butovice;523
+Praha 21 →  C Kobylisy;521
+Praha-Dolní Měcholupy →  B Národní třída;520
+Praha-Šeberov →  B Vysočanská;520
+Praha-Velká Chuchle →  B Hůrka;520
+Praha-Zbraslav →  A Nemocnice Motol;520
+Praha-Dubeč →  C Nádraží Holešovice;519
+Praha-Štěrboholy →  A Jiřího z Poděbrad;518
+Praha-Běchovice →  C Chodov;516
+Praha-Zličín →  C Háje;514
+Praha-Lipence →  C Vyšehrad;513
+Praha-Petrovice →  A Malostranská;512
+Praha-Zbraslav →  A Strašnická;512
+Praha-Zličín →  C Opatov;511
+Praha 16 →  A Nemocnice Motol;508
+Praha-Čakovice →  A Bořislavka;507
+Praha-Šeberov →  A Staroměstská;507
+Praha-Štěrboholy →  C Kačerov;507
+Praha-Nebušice →  C I. P. Pavlova;506
+Praha-Suchdol →  C Letňany;506
+Praha 16 →  B Invalidovna;504
+Praha-Slivenec →  C Nádraží Holešovice;504
+Praha-Ďáblice →  B Kolbenova;499
+Praha 22 →  A Nemocnice Motol;498
+Praha-Dolní Měcholupy →  C Pražského povstání;497
+Praha 21 →  A Staroměstská;496
+Praha-Křeslice →  A Staroměstská;494
+Praha-Štěrboholy →  B Národní třída;493
+Praha-Čakovice →  A Nemocnice Motol;491
+Praha-Dolní Počernice →  A Náměstí Míru;491
+Praha-Přední Kopanina →  A Malostranská;491
+Praha-Satalice →  C Vyšehrad;490
+Praha-Štěrboholy →  B Křižíkova;490
+Praha-Petrovice →  A Dejvická;489
+Praha-Vinoř →  A Dejvická;489
+Praha 12 →  B Jinonice;487
+Praha-Kunratice →  B Zličín;487
+Praha 17 →  C Střížkov;485
+Praha-Dubeč →  C Prosek;482
+Praha-Křeslice →  C Nádraží Holešovice;482
+Praha-Libuš →  C Střížkov;482
+Praha-Běchovice →  A Želivského;480
+Praha-Březiněves →  B Anděl;480
+Praha-Lipence →  B Nové Butovice;480
+Praha-Lipence →  B Stodůlky;480
+Praha-Zbraslav →  A Skalka;480
+Praha-Kolovraty →  A Flora;479
+Praha-Libuš →  B Rajská zahrada;479
+Praha-Velká Chuchle →  B Jinonice;479
+Praha-Dubeč →  A Malostranská;478
+Praha-Újezd →  A Skalka;478
+Praha-Dolní Chabry →  A Hradčanská;476
+Praha-Lysolaje →  B Karlovo náměstí;476
+Praha-Běchovice →  C Budějovická;475
+Praha-Klánovice →  A Flora;474
+Praha-Křeslice →  B Karlovo náměstí;474
+Praha-Lysolaje →  C I. P. Pavlova;474
+Praha 20 →  B Radlická;473
+Praha-Běchovice →  C Opatov;471
+Praha-Suchdol →  C Háje;471
+Praha-Libuš →  A Nemocnice Motol;470
+Praha-Štěrboholy →  C Vltavská;469
+Praha 21 →  C Kačerov;468
+Praha 16 →  B Rajská zahrada;467
+Praha-Lochkov →  C Hlavní nádraží;467
+Praha-Dubeč →  C Vyšehrad;465
+Praha-Lysolaje →  A Nádraží Veleslavín;465
+Praha-Zbraslav →  B Hloubětín;465
+Praha 17 →  C Ládví;463
+Praha-Suchdol →  C Opatov;463
+Praha-Velká Chuchle →  A Hradčanská;462
+Praha-Řeporyje →  B Jinonice;461
+Praha 16 →  A Bořislavka;459
+Praha 19 →  A Flora;459
+Praha-Dolní Měcholupy →  A Bořislavka;459
+Praha-Štěrboholy →  C Pražského povstání;459
+Praha-Dolní Chabry →  B Invalidovna;456
+Praha 16 →  A Strašnická;454
+Praha-Velká Chuchle →  B Stodůlky;453
+Praha 21 →  A Jiřího z Poděbrad;452
+Praha-Kolovraty →  B Anděl;452
+Praha 21 →  A Hradčanská;451
+Praha-Běchovice →  C Kačerov;451
+Praha 16 →  A Skalka;450
+Praha 22 →  C Střížkov;450
+Praha-Zbraslav →  C Letňany;450
+Praha-Klánovice →  B Nové Butovice;449
+Praha 22 →  B Invalidovna;448
+Praha-Slivenec →  C Pražského povstání;448
+Praha-Dubeč →  A Hradčanská;447
+Praha-Klánovice →  A Dejvická;446
+Praha 21 →  B Lužiny;445
+Praha-Libuš →  B Invalidovna;445
+Praha-Libuš →  B Zličín;445
+Praha-Vinoř →  C Budějovická;445
+Praha-Řeporyje →  A Skalka;444
+Praha-Křeslice →  B Náměstí Republiky;443
+Praha-Slivenec →  A Náměstí Míru;443
+Praha-Benice →  B/C Florenc;440
+Praha-Lipence →  B Palmovka;440
+Praha-Troja →  A Želivského;436
+Praha-Újezd →  A Malostranská;436
+Praha 16 →  A Petřiny;435
+Praha-Královice →  A/B Můstek;434
+Praha-Dubeč →  A Dejvická;433
+Praha-Koloděje →  B Anděl;431
+Praha-Satalice →  C Kačerov;431
+Praha-Troja →  A Jiřího z Poděbrad;431
+Praha 16 →  C Letňany;430
+Praha-Běchovice →  C Pankrác;429
+Praha-Řeporyje →  B Kolbenova;427
+Praha-Šeberov →  A Želivského;427
+Praha-Ďáblice →  A Staroměstská;426
+Praha 17 →  C Háje;425
+Praha 7 →  A Depo Hostivař;425
+Praha-Petrovice →  B Národní třída;425
+Praha-Zbraslav →  C Střížkov;425
+Praha-Petrovice →  A Depo Hostivař;424
+Praha-Troja →  B Hloubětín;424
+Praha 19 →  A Želivského;423
+Praha-Dolní Chabry →  A Želivského;423
+Praha-Šeberov →  C Kobylisy;422
+Praha-Královice →  B/C Florenc;420
+Praha-Kunratice →  B Lužiny;418
+Praha-Lysolaje →  C Budějovická;416
+Praha-Ďáblice →  B Rajská zahrada;415
+Praha-Štěrboholy →  C Kobylisy;413
+Praha-Štěrboholy →  C Nádraží Holešovice;411
+Praha-Velká Chuchle →  C Kobylisy;411
+Praha-Troja →  B Nové Butovice;410
+Praha 22 →  A Bořislavka;409
+Praha-Lysolaje →  B Národní třída;409
+Praha 16 →  C Ládví;408
+Praha-Klánovice →  B Křižíkova;408
+Praha-Suchdol →  C Roztyly;408
+Praha-Újezd →  A Náměstí Míru;408
+Praha 16 →  B Hloubětín;406
+Praha-Libuš →  B Hůrka;406
+Praha-Čakovice →  B Zličín;405
+Praha-Kunratice →  B Kolbenova;405
+Praha-Běchovice →  C Kobylisy;403
+Praha-Kunratice →  B Invalidovna;403
+Praha 16 →  A Jiřího z Poděbrad;402
+Praha 17 →  C Roztyly;402
+Praha-Dolní Měcholupy →  C Ládví;402
+Praha-Klánovice →  C Pražského povstání;402
+Praha-Dolní Chabry →  A Malostranská;401
+Praha-Dolní Počernice →  C Pražského povstání;401
+Praha-Újezd →  C Kobylisy;400
+Praha-Ďáblice →  A Hradčanská;399
+Praha-Dolní Počernice →  A Dejvická;398
+Praha-Křeslice →  C Kobylisy;398
+Praha-Přední Kopanina →  B Náměstí Republiky;398
+Praha-Vinoř →  A Hradčanská;398
+Praha 21 →  B Nové Butovice;397
+Praha-Slivenec →  B Černý Most;397
+Praha-Slivenec →  B Českomoravská;397
+Praha 16 →  B Jinonice;396
+Praha-Újezd →  B Národní třída;396
+Praha-Kolovraty →  C Kobylisy;395
+Praha-Zbraslav →  B Rajská zahrada;395
+Praha-Běchovice →  C Prosek;394
+Praha-Březiněves →  B Karlovo náměstí;394
+Praha 17 →  B Kolbenova;393
+Praha-Čakovice →  C Roztyly;393
+Praha-Řeporyje →  C Opatov;389
+Praha-Nebušice →  B Zličín;388
+Praha-Nebušice →  C Hlavní nádraží;388
+Praha-Štěrboholy →  A Dejvická;388
+Praha-Kunratice →  A Petřiny;387
+Praha-Troja →  B Invalidovna;386
+Praha 19 →  A Nádraží Veleslavín;385
+Praha 19 →  A Náměstí Míru;385
+Praha-Klánovice →  A Staroměstská;385
+Praha-Běchovice →  C Vltavská;384
+Praha-Petrovice →  B Rajská zahrada;384
+Praha-Nebušice →  C Kobylisy;383
+Praha-Šeberov →  B Národní třída;383
+Praha-Ďáblice →  B Smíchovské nádraží;382
+Praha-Vinoř →  B Smíchovské nádraží;382
+Praha 19 →  C Háje;381
+Praha-Klánovice →  A Malostranská;379
+Praha 17 →  B Radlická;378
+Praha 21 →  A Nádraží Veleslavín;378
+Praha-Vinoř →  A Staroměstská;378
+Praha-Ďáblice →  B Invalidovna;377
+Praha 21 →  A Malostranská;376
+Praha-Dolní Chabry →  C Roztyly;376
+Praha-Koloděje →  B Vysočanská;376
+Praha-Suchdol →  B Hůrka;375
+Praha-Suchdol →  B Rajská zahrada;375
+Praha-Běchovice →  A Dejvická;374
+Praha-Kolovraty →  A Dejvická;374
+Praha-Nebušice →  B Národní třída;374
+Praha-Dolní Chabry →  A Náměstí Míru;373
+Praha-Dolní Chabry →  B Nové Butovice;373
+Praha-Koloděje →  B Palmovka;373
+Praha-Nedvězí →  C Opatov;373
+Praha-Satalice →  B Nové Butovice;373
+Praha 16 →  C Roztyly;371
+Praha-Čakovice →  B Lužiny;371
+Praha-Šeberov →  A Skalka;371
+Praha-Zličín →  C Prosek;371
+Praha-Slivenec →  B Invalidovna;370
+Praha-Zličín →  B Kolbenova;369
+Praha-Běchovice →  C Pražského povstání;368
+Praha-Ďáblice →  A Náměstí Míru;367
+Praha-Satalice →  C Chodov;365
+Praha-Dolní Měcholupy →  C Letňany;364
+Praha-Dubeč →  A Jiřího z Poděbrad;364
+Praha-Vinoř →  A Nádraží Veleslavín;364
+Praha-Benice →  B Černý Most;363
+Praha-Koloděje →  C Opatov;363
+Praha-Ďáblice →  A Malostranská;362
+Praha-Vinoř →  A Flora;362
+Praha-Dolní Chabry →  B Rajská zahrada;361
+Praha-Lochkov →  B/C Florenc;360
+Praha-Běchovice →  A Náměstí Míru;358
+Praha-Dolní Počernice →  C Opatov;358
+Praha-Křeslice →  A Malostranská;357
+Praha 22 →  B Zličín;356
+Praha-Dolní Počernice →  A Malostranská;356
+Praha-Dubeč →  C Vltavská;356
+Praha-Zličín →  C Střížkov;354
+Praha-Březiněves →  B Hloubětín;353
+Praha-Lysolaje →  A Flora;353
+Praha-Řeporyje →  C Háje;353
+Praha-Dolní Chabry →  B Křižíkova;352
+Praha-Lipence →  C Vltavská;352
+Praha-Slivenec →  A Flora;352
+Praha 22 →  B Lužiny;351
+Praha-Přední Kopanina →  A Petřiny;351
+Praha-Troja →  B Kolbenova;351
+Praha-Klánovice →  C Vltavská;350
+Praha-Křeslice →  A Flora;350
+Praha-Řeporyje →  A Jiřího z Poděbrad;350
+Praha-Slivenec →  A Hradčanská;350
+Praha-Vinoř →  C Kačerov;349
+Praha-Velká Chuchle →  A Flora;348
+Praha 19 →  C Opatov;347
+Praha-Vinoř →  B Radlická;346
+Praha-Klánovice →  A Náměstí Míru;345
+Praha-Nebušice →  A Želivského;344
+Praha 19 →  A Jiřího z Poděbrad;342
+Praha-Dolní Měcholupy →  B Křižíkova;342
+Praha-Suchdol →  B Stodůlky;342
+Praha-Zbraslav →  B Jinonice;342
+Praha-Troja →  C Háje;341
+Praha-Královice →  B Černý Most;339
+Praha-Nebušice →  B Stodůlky;339
+Praha-Libuš →  B Kolbenova;338
+Praha-Koloděje →  C Pankrác;337
+Praha-Nebušice →  A Jiřího z Poděbrad;337
+Praha-Přední Kopanina →  C Nádraží Holešovice;337
+Praha-Velká Chuchle →  B Českomoravská;337
+Praha-Zbraslav →  B Radlická;337
+Praha-Běchovice →  C Střížkov;336
+Praha-Řeporyje →  B Hloubětín;336
+Praha 19 →  A Malostranská;334
+Praha-Libuš →  A Petřiny;334
+Praha 13 →  A Depo Hostivař;333
+Praha-Klánovice →  C Kobylisy;333
+Praha-Kolovraty →  A Staroměstská;333
+Praha-Kolovraty →  C Nádraží Holešovice;333
+Praha-Klánovice →  C Kačerov;331
+Praha-Kolovraty →  A Jiřího z Poděbrad;331
+Praha-Štěrboholy →  C Ládví;331
+Praha-Březiněves →  B Českomoravská;329
+Praha-Dolní Měcholupy →  A Nemocnice Motol;329
+Praha-Dolní Počernice →  A Staroměstská;328
+Praha-Dolní Počernice →  C Kobylisy;327
+Praha 22 →  B Hůrka;326
+Praha-Dolní Chabry →  C Háje;326
+Praha-Slivenec →  A Bořislavka;326
+Praha-Dubeč →  C Pražského povstání;325
+Praha-Zbraslav →  B Kolbenova;325
+Praha-Koloděje →  B Karlovo náměstí;324
+Praha-Čakovice →  A Petřiny;323
+Praha-Dolní Chabry →  A Strašnická;323
+Praha-Dolní Počernice →  C Kačerov;323
+Praha-Nebušice →  B Nové Butovice;320
+Praha-Kolovraty →  A Želivského;319
+Praha-Velká Chuchle →  B Černý Most;319
+Praha-Nebušice →  C Budějovická;318
+Praha-Slivenec →  B Hloubětín;318
+Praha-Lochkov →  B Národní třída;317
+Praha-Satalice →  A Skalka;316
+Praha-Vinoř →  C Háje;316
+Praha 21 →  C Střížkov;315
+Praha-Klánovice →  C Nádraží Holešovice;314
+Praha-Kolovraty →  A Malostranská;314
+Praha-Kolovraty →  B Černý Most;314
+Praha-Ďáblice →  B Nové Butovice;313
+Praha-Křeslice →  B Černý Most;313
+Praha-Petrovice →  A Jiřího z Poděbrad;313
+Praha-Újezd →  A Dejvická;313
+Praha-Libuš →  B Luka;311
+Praha-Koloděje →  B Kolbenova;310
+Praha-Dubeč →  C Kobylisy;309
+Praha-Nebušice →  B Palmovka;309
+Praha-Dolní Měcholupy →  A Nádraží Veleslavín;308
+Praha-Lysolaje →  C Kačerov;308
+Praha-Lysolaje →  C Pankrác;308
+Praha-Slivenec →  C Ládví;308
+Praha-Kunratice →  B Radlická;307
+Praha-Dolní Počernice →  B Nové Butovice;305
+Praha-Klánovice →  C Letňany;305
+Praha-Královice →  A Flora;305
+Praha-Petrovice →  B Palmovka;305
+Praha-Troja →  A Petřiny;304
+Praha 17 →  B Rajská zahrada;303
+Praha-Šeberov →  A Flora;303
+Praha 21 →  A Nemocnice Motol;302
+Praha-Lipence →  A Dejvická;302
+Praha-Nebušice →  A Skalka;302
+Praha-Slivenec →  A Skalka;302
+Praha-Březiněves →  C Vyšehrad;301
+Praha-Ďáblice →  A Nádraží Veleslavín;300
+Praha-Běchovice →  A Malostranská;299
+Praha-Lipence →  A Staroměstská;298
+Praha-Lochkov →  A/C Muzeum;298
+Praha-Velká Chuchle →  A Želivského;298
+Praha-Vinoř →  C Pražského povstání;298
+Praha-Dolní Počernice →  A Nádraží Veleslavín;297
+Praha-Přední Kopanina →  A Náměstí Míru;297
+Praha-Újezd →  A Jiřího z Poděbrad;297
+Praha 19 →  A Strašnická;296
+Praha-Dolní Chabry →  A Bořislavka;296
+Praha-Slivenec →  B Rajská zahrada;296
+Praha-Šeberov →  B Rajská zahrada;296
+Praha-Vinoř →  A Strašnická;296
+Praha-Lipence →  B Vysočanská;295
+Praha-Štěrboholy →  A Hradčanská;295
+Praha-Březiněves →  B Černý Most;294
+Praha-Ďáblice →  C Opatov;294
+Praha-Petrovice →  A Hradčanská;294
+Praha-Štěrboholy →  B Nové Butovice;293
+Praha-Běchovice →  B Nové Butovice;292
+Praha-Klánovice →  C Střížkov;292
+Praha-Štěrboholy →  B Zličín;292
+Praha-Klánovice →  A Hradčanská;291
+Praha-Újezd →  A Nádraží Veleslavín;291
+Praha 19 →  B Lužiny;290
+Praha-Březiněves →  C Pankrác;290
+Praha-Lochkov →  B Nové Butovice;290
+Praha-Březiněves →  C Budějovická;289
+Praha-Dolní Chabry →  C Opatov;288
+Praha-Troja →  A Strašnická;287
+Praha-Dolní Počernice →  C Prosek;286
+Praha-Koloděje →  A Náměstí Míru;286
+Praha-Koloděje →  C I. P. Pavlova;286
+Praha 21 →  C Ládví;285
+Praha-Lysolaje →  C Hlavní nádraží;285
+Praha-Dolní Chabry →  B Lužiny;284
+Praha-Satalice →  C Pražského povstání;284
+Praha-Velká Chuchle →  B Luka;283
+Praha-Čakovice →  B Luka;282
+Praha-Koloděje →  C Chodov;282
+Praha-Koloděje →  C Kačerov;282
+Praha 21 →  C Roztyly;281
+Praha-Suchdol →  B Lužiny;281
+Praha-Troja →  A Skalka;281
+Praha-Dolní Počernice →  C Roztyly;279
+Praha-Satalice →  A Dejvická;279
+Praha 22 →  B Stodůlky;278
+Praha-Nedvězí →  A/B Můstek;278
+Praha-Šeberov →  B Nové Butovice;278
+Praha-Újezd →  B Palmovka;278
+Praha-Dolní Měcholupy →  B Kolbenova;277
+Praha-Klánovice →  C Opatov;277
+Praha-Křeslice →  B Vysočanská;276
+Praha-Lipence →  C Háje;276
+Praha-Dubeč →  C Ládví;275
+Praha-Kunratice →  B Luka;275
+Praha-Štěrboholy →  C Roztyly;275
+Praha-Troja →  B Zličín;275
+Praha-Dolní Počernice →  C Nádraží Holešovice;274
+Praha-Koloděje →  B Národní třída;274
+Praha-Křeslice →  A Strašnická;274
+Praha-Libuš →  B Lužiny;274
+Praha-Petrovice →  C Prosek;274
+Praha-Ďáblice →  A Bořislavka;273
+Praha-Dolní Chabry →  A Skalka;273
+Praha-Klánovice →  A Želivského;273
+Praha-Řeporyje →  A Strašnická;273
+Praha-Velká Chuchle →  C Háje;273
+Praha-Běchovice →  C Nádraží Holešovice;272
+Praha-Nebušice →  C Pankrác;272
+Praha-Štěrboholy →  B Invalidovna;272
+Praha-Troja →  A Nemocnice Motol;272
+Praha 17 →  B Jinonice;271
+Praha 19 →  B Nové Butovice;271
+Praha-Šeberov →  A Malostranská;271
+Praha 16 →  B Kolbenova;270
+Praha-Březiněves →  B Národní třída;270
+Praha-Dolní Měcholupy →  B Nové Butovice;270
+Praha-Vinoř →  A Náměstí Míru;270
+Praha-Čakovice →  B Hůrka;269
+Praha-Lipence →  C Chodov;269
+Praha-Dolní Chabry →  A Jiřího z Poděbrad;268
+Praha-Nedvězí →  C Chodov;268
+Praha-Velká Chuchle →  B Invalidovna;268
+Praha-Křeslice →  A Náměstí Míru;267
+Praha-Slivenec →  A Želivského;267
+Praha-Velká Chuchle →  C Opatov;267
+Praha 22 →  A Petřiny;266
+Praha-Křeslice →  B Českomoravská;266
+Praha-Zbraslav →  A Petřiny;266
+Praha 22 →  B Kolbenova;265
+Praha-Troja →  B Rajská zahrada;265
+Praha-Lysolaje →  A Nemocnice Motol;264
+Praha 19 →  A Nemocnice Motol;263
+Praha-Běchovice →  A Hradčanská;262
+Praha 16 →  C Střížkov;261
+Praha-Březiněves →  C Pražského povstání;261
+Praha-Satalice →  A Želivského;261
+Praha-Újezd →  B Luka;260
+Praha-Slivenec →  A Strašnická;259
+Praha-Troja →  C Roztyly;259
+Praha 15 →  B Jinonice;258
+Praha 21 →  B Zličín;258
+Praha-Nebušice →  C Kačerov;256
+Praha-Lipence →  A Náměstí Míru;255
+Praha-Nebušice →  C Vyšehrad;255
+Praha 16 →  B Radlická;254
+Praha-Suchdol →  B Kolbenova;253
+Praha-Dolní Počernice →  C Vltavská;252
+Praha-Lochkov →  B Náměstí Republiky;252
+Praha-Újezd →  C Letňany;252
+Praha-Velká Chuchle →  A Skalka;252
+Praha-Zbraslav →  C Prosek;252
+Praha-Dolní Počernice →  A Jiřího z Poděbrad;251
+Praha-Královice →  B Smíchovské nádraží;251
+Praha-Kolovraty →  C Pražského povstání;250
+Praha-Šeberov →  A Hradčanská;250
+Praha-Lysolaje →  A Petřiny;248
+Praha-Velká Chuchle →  A Nádraží Veleslavín;248
+Praha-Nebušice →  C Chodov;247
+Praha-Březiněves →  C Kačerov;246
+Praha-Petrovice →  A Nádraží Veleslavín;246
+Praha-Přední Kopanina →  C Hlavní nádraží;246
+Praha-Satalice →  A Hradčanská;246
+Praha-Řeporyje →  C Střížkov;245
+Praha-Lochkov →  B Luka;243
+Praha-Velká Chuchle →  C Roztyly;243
+Praha 16 →  C Prosek;242
+Praha-Čakovice →  B Stodůlky;242
+Praha 17 →  C Prosek;241
+Praha-Dolní Měcholupy →  B Lužiny;241
+Praha-Lipence →  B Černý Most;241
+Praha-Petrovice →  B Českomoravská;241
+Praha-Újezd →  B Vysočanská;241
+Praha-Petrovice →  B Zličín;240
+Praha-Benice →  C Pankrác;239
+Praha 21 →  B Hůrka;238
+Praha-Lipence →  B Křižíkova;237
+Praha-Petrovice →  B Invalidovna;237
+Praha-Libuš →  B Stodůlky;236
+Praha-Slivenec →  C Háje;236
+Praha-Benice →  A/B Můstek;234
+Praha-Ďáblice →  A Jiřího z Poděbrad;234
+Praha-Dolní Měcholupy →  B Zličín;234
+Praha-Petrovice →  B Kolbenova;234
+Praha 21 →  A Bořislavka;233
+Praha-Ďáblice →  C Háje;233
+Praha-Dolní Chabry →  B Hůrka;233
+Praha-Klánovice →  A Strašnická;233
+Praha-Lipence →  A Malostranská;233
+Praha-Přední Kopanina →  B Anděl;233
+Praha-Vinoř →  A Bořislavka;233
+Praha-Dolní Měcholupy →  B Invalidovna;232
+Praha-Křeslice →  B Palmovka;232
+Praha-Lysolaje →  B Vysočanská;232
+Praha-Satalice →  A Staroměstská;232
+Praha-Satalice →  C Háje;232
+Praha-Velká Chuchle →  B Hloubětín;232
+Praha 19 →  A Bořislavka;231
+Praha-Řeporyje →  B Rajská zahrada;231
+Praha-Satalice →  C Opatov;231
+Praha-Šeberov →  A Náměstí Míru;231
+Praha-Velká Chuchle →  C Letňany;231
+Praha 18 →  A Depo Hostivař;230
+Praha-Lipence →  C Pražského povstání;230
+Praha-Lysolaje →  B Smíchovské nádraží;229
+Praha-Petrovice →  B Stodůlky;228
+Praha-Lipence →  B Zličín;227
+Praha-Běchovice →  A Staroměstská;225
+Praha-Petrovice →  B Křižíkova;225
+Praha-Velká Chuchle →  C Ládví;224
+Praha-Benice →  C Budějovická;223
+Praha-Ďáblice →  A Želivského;223
+Praha-Dolní Chabry →  B Stodůlky;223
+Praha-Koloděje →  B Českomoravská;222
+Praha-Klánovice →  C Ládví;221
+Praha-Lysolaje →  C Chodov;221
+Praha-Újezd →  B Českomoravská;220
+Praha-Petrovice →  C Ládví;219
+Praha 18 →  B Jinonice;218
+Praha-Křeslice →  B Nové Butovice;218
+Praha-Nedvězí →  A Skalka;218
+Praha-Březiněves →  A Staroměstská;217
+Praha 19 →  B Hůrka;216
+Praha-Klánovice →  B Invalidovna;216
+Praha-Přední Kopanina →  C Pražského povstání;215
+Praha-Velká Chuchle →  A Bořislavka;215
+Praha-Velká Chuchle →  A Nemocnice Motol;215
+Praha-Běchovice →  C Ládví;212
+Praha-Petrovice →  A Bořislavka;212
+Praha-Lipence →  C Kobylisy;211
+Praha-Vinoř →  A Malostranská;211
+Praha-Kolovraty →  A Hradčanská;210
+Praha-Přední Kopanina →  C Vltavská;210
+Praha-Přední Kopanina →  C Vyšehrad;210
+Praha-Řeporyje →  C Prosek;210
+Praha-Dubeč →  C Letňany;209
+Praha-Petrovice →  C Letňany;209
+Praha-Kolovraty →  B Vysočanská;207
+Praha-Troja →  C Opatov;207
+Praha-Lochkov →  B Lužiny;206
+Praha-Libuš →  B Radlická;205
+Praha-Dolní Chabry →  A Nádraží Veleslavín;204
+Praha-Křeslice →  B Národní třída;204
+Praha-Nedvězí →  B/C Florenc;204
+Praha-Štěrboholy →  A Bořislavka;204
+Praha-Březiněves →  A Dejvická;203
+Praha-Koloděje →  C Vyšehrad;203
+Praha-Křeslice →  A Hradčanská;203
+Praha-Újezd →  C Střížkov;203
+Praha-Šeberov →  B Křižíkova;202
+Praha 19 →  C Roztyly;201
+Praha-Dolní Počernice →  A Hradčanská;201
+Praha-Dubeč →  C Střížkov;201
+Praha-Kolovraty →  A Náměstí Míru;201
+Praha-Přední Kopanina →  A Nemocnice Motol;201
+Praha-Slivenec →  C Opatov;200
+Praha-Šeberov →  B Palmovka;200
+Praha-Újezd →  A Strašnická;200
+Praha-Újezd →  B Černý Most;199
+Praha-Slivenec →  A Jiřího z Poděbrad;198
+Praha-Újezd →  A Hradčanská;198
+Praha-Velká Chuchle →  B Kolbenova;198
+Praha-Ďáblice →  A Skalka;197
+Praha-Dolní Počernice →  C Střížkov;196
+Praha-Březiněves →  C Chodov;195
+Praha-Koloděje →  A Dejvická;195
+Praha-Lipence →  B Luka;195
+Praha-Lysolaje →  C Vyšehrad;193
+Praha-Štěrboholy →  A Nádraží Veleslavín;192
+Praha-Březiněves →  B Invalidovna;191
+Praha-Kunratice →  B Stodůlky;191
+Praha-Újezd →  C Prosek;190
+Praha 21 →  B Luka;189
+Praha-Koloděje →  A Staroměstská;189
+Praha-Slivenec →  C Roztyly;189
+Praha-Vinoř →  C Roztyly;189
+Praha 19 →  A Petřiny;188
+Praha-Přední Kopanina →  C I. P. Pavlova;188
+Praha-Březiněves →  B Křižíkova;187
+Praha-Benice →  C Roztyly;186
+Praha-Lipence →  A Želivského;186
+Praha-Nebušice →  C Pražského povstání;186
+Praha-Štěrboholy →  A Nemocnice Motol;186
+Praha-Běchovice →  C Roztyly;185
+Praha-Kunratice →  B Jinonice;185
+Praha-Lysolaje →  C Pražského povstání;185
+Praha-Běchovice →  A Jiřího z Poděbrad;183
+Praha-Kolovraty →  B Českomoravská;182
+Praha-Lipence →  A Nemocnice Motol;182
+Praha-Lysolaje →  B Palmovka;182
+Praha-Nebušice →  A Strašnická;182
+Praha-Královice →  B Rajská zahrada;181
+Praha-Kolovraty →  A Depo Hostivař;180
+Praha-Lipence →  A Strašnická;180
+Praha-Satalice →  A Malostranská;180
+Praha-Újezd →  C Ládví;180
+Praha 19 →  B Zličín;179
+Praha-Benice →  B Karlovo náměstí;179
+Praha-Benice →  C Kačerov;179
+Praha-Dolní Chabry →  A Petřiny;179
+Praha-Královice →  A Želivského;178
+Praha-Lipence →  C Nádraží Holešovice;178
+Praha-Přední Kopanina →  C Budějovická;178
+Praha-Troja →  B Luka;178
+Praha 12 →  A Depo Hostivař;177
+Praha-Koloděje →  C Vltavská;177
+Praha-Lipence →  C Opatov;177
+Praha-Vinoř →  B Nové Butovice;177
+Praha-Čakovice →  B Radlická;176
+Praha-Kolovraty →  B Palmovka;176
+Praha-Štěrboholy →  B Lužiny;176
+Praha-Březiněves →  A Malostranská;175
+Praha-Koloděje →  B Křižíkova;175
+Praha-Královice →  B Anděl;175
+Praha-Královice →  B Hůrka;175
+Praha-Lipence →  B Invalidovna;174
+Praha-Velká Chuchle →  A Jiřího z Poděbrad;174
+Praha 19 →  B Luka;173
+Praha-Březiněves →  A Flora;173
+Praha-Dubeč →  A Nádraží Veleslavín;173
+Praha-Koloděje →  A Malostranská;173
+Praha-Lipence →  B Radlická;173
+Praha-Dubeč →  A Nemocnice Motol;172
+Praha 20 →  B Jinonice;171
+Praha-Ďáblice →  A Strašnická;171
+Praha-Dolní Počernice →  C Ládví;171
+Praha-Lipence →  A Bořislavka;170
+Praha-Velká Chuchle →  B Radlická;170
+Praha-Klánovice →  A Nádraží Veleslavín;169
+Praha-Křeslice →  C Letňany;169
+Praha-Nebušice →  B Vysočanská;169
+Praha-Vinoř →  C Opatov;169
+Praha-Dolní Chabry →  A Nemocnice Motol;168
+Praha-Klánovice →  A Jiřího z Poděbrad;168
+Praha-Velká Chuchle →  A Strašnická;168
+Praha-Satalice →  A Strašnická;167
+Praha-Dolní Měcholupy →  B Hůrka;166
+Praha-Lipence →  B Hůrka;166
+Praha-Královice →  C I. P. Pavlova;165
+Praha-Královice →  C Roztyly;165
+Praha-Suchdol →  B Luka;165
+Praha-Křeslice →  A Jiřího z Poděbrad;164
+Praha-Křeslice →  B Křižíkova;164
+Praha-Přední Kopanina →  A Želivského;164
+Praha-Satalice →  A Náměstí Míru;164
+Praha-Šeberov →  B Černý Most;164
+Praha-Troja →  B Lužiny;163
+Praha-Lipence →  B Hloubětín;162
+Praha-Libuš →  B Jinonice;160
+Praha-Čakovice →  A Depo Hostivař;159
+Praha-Šeberov →  A Jiřího z Poděbrad;159
+Praha-Benice →  C I. P. Pavlova;158
+Praha-Újezd →  B Rajská zahrada;158
+Praha-Dubeč →  B Nové Butovice;157
+Praha-Křeslice →  A Nádraží Veleslavín;157
+Praha-Křeslice →  B Invalidovna;157
+Praha-Křeslice →  C Ládví;157
+Praha-Dolní Počernice →  B Radlická;156
+Praha-Nebušice →  B Černý Most;156
+Praha-Kolovraty →  B Nové Butovice;155
+Praha-Lipence →  A Flora;155
+Praha-Nebušice →  B Smíchovské nádraží;155
+Praha-Přední Kopanina →  A Flora;155
+Praha-Dolní Chabry →  B Zličín;154
+Praha-Dubeč →  A Bořislavka;154
+Praha-Petrovice →  B Hůrka;154
+Praha-Březiněves →  A Hradčanská;153
+Praha-Nebušice →  B Českomoravská;153
+Praha-Lysolaje →  B Nové Butovice;152
+Praha-Újezd →  B Nové Butovice;152
+Praha-Lochkov →  B Hůrka;151
+Praha-Velká Chuchle →  B Rajská zahrada;151
+Praha-Vinoř →  A Želivského;151
+Praha-Petrovice →  B Lužiny;150
+Praha-Šeberov →  A Strašnická;150
+Praha-Benice →  A Depo Hostivař;149
+Praha-Březiněves →  B Rajská zahrada;149
+Praha-Nedvězí →  C Kačerov;149
+Praha-Lysolaje →  A Strašnická;148
+Praha-Šeberov →  A Bořislavka;145
+Praha-Šeberov →  B Kolbenova;145
+Praha-Petrovice →  B Hloubětín;143
+Praha 19 →  A Depo Hostivař;142
+Praha-Březiněves →  B Kolbenova;142
+Praha-Lysolaje →  C Prosek;142
+Praha-Řeporyje →  C Roztyly;142
+Praha 21 →  B Stodůlky;141
+Praha-Koloděje →  A Jiřího z Poděbrad;141
+Praha-Šeberov →  C Ládví;141
+Praha-Troja →  B Hůrka;141
+Praha-Ďáblice →  B Zličín;140
+Praha-Lipence →  B Českomoravská;140
+Praha-Nebušice →  C Háje;140
+Praha 21 →  A Petřiny;139
+Praha-Lysolaje →  A Jiřího z Poděbrad;139
+Praha-Šeberov →  B Luka;139
+Praha-Újezd →  B Stodůlky;139
+Praha-Šeberov →  C Letňany;138
+Praha-Dubeč →  B Zličín;137
+Praha-Koloděje →  C Pražského povstání;137
+Praha-Šeberov →  A Nádraží Veleslavín;137
+Praha-Štěrboholy →  B Hůrka;137
+Praha-Vinoř →  B Jinonice;137
+Praha-Ďáblice →  A Nemocnice Motol;135
+Praha-Vinoř →  A Jiřího z Poděbrad;134
+Praha-Koloděje →  C Prosek;133
+Praha-Slivenec →  B Kolbenova;132
+Praha-Troja →  B Stodůlky;132
+Praha 19 →  B Stodůlky;131
+Praha-Benice →  A Strašnická;131
+Praha-Křeslice →  C Střížkov;131
+Praha-Újezd →  B Zličín;131
+Praha-Dolní Měcholupy →  B Luka;130
+Praha-Petrovice →  A Nemocnice Motol;129
+Praha-Dolní Počernice →  A Bořislavka;127
+Praha-Kunratice →  A Depo Hostivař;127
+Praha-Nebušice →  B Luka;127
+Praha-Šeberov →  C Prosek;127
+Praha-Velká Chuchle →  C Střížkov;127
+Praha-Nebušice →  C Ládví;126
+Praha-Slivenec →  C Letňany;126
+Praha-Březiněves →  A Nemocnice Motol;125
+Praha-Dolní Počernice →  A Nemocnice Motol;125
+Praha-Kolovraty →  B Hůrka;125
+Praha-Lipence →  A Hradčanská;125
+Praha-Královice →  B Karlovo náměstí;124
+Praha-Újezd →  A Bořislavka;123
+Praha-Koloděje →  C Roztyly;122
+Praha-Libuš →  A Depo Hostivař;122
+Praha-Šeberov →  A Petřiny;122
+Praha-Běchovice →  A Nemocnice Motol;121
+Praha-Běchovice →  B Lužiny;121
+Praha-Lochkov →  C I. P. Pavlova;121
+Praha-Kolovraty →  A Nádraží Veleslavín;120
+Praha-Benice →  C Vyšehrad;119
+Praha-Satalice →  B Lužiny;118
+Praha-Šeberov →  B Českomoravská;118
+Praha-Újezd →  A Nemocnice Motol;118
+Praha-Vinoř →  B Zličín;118
+Praha-Březiněves →  A Skalka;117
+Praha-Křeslice →  B Lužiny;117
+Praha-Přední Kopanina →  C Pankrác;117
+Praha-Běchovice →  A Nádraží Veleslavín;116
+Praha-Dolní Chabry →  B Luka;116
+Praha-Křeslice →  A Bořislavka;116
+Praha-Lipence →  C Prosek;116
+Praha-Nebušice →  B Lužiny;116
+Praha-Přední Kopanina →  B Karlovo náměstí;116
+Praha-Přední Kopanina →  B Stodůlky;116
+Praha-Lipence →  A Jiřího z Poděbrad;115
+Praha-Satalice →  A Petřiny;115
+Praha-Benice →  B Smíchovské nádraží;114
+Praha 21 →  B Radlická;113
+Praha-Březiněves →  A Náměstí Míru;113
+Praha-Újezd →  B Lužiny;113
+Praha-Velká Chuchle →  C Prosek;113
+Praha-Lipence →  C Letňany;112
+Praha-Lipence →  C Roztyly;112
+Praha-Přední Kopanina →  C Chodov;112
+Praha-Velká Chuchle →  A Petřiny;112
+Praha-Dolní Počernice →  A Petřiny;111
+Praha-Lochkov →  C Kačerov;111
+Praha-Satalice →  B Zličín;111
+Praha-Běchovice →  A Bořislavka;110
+Praha-Královice →  A Jiřího z Poděbrad;110
+Praha-Přední Kopanina →  B Smíchovské nádraží;110
+Praha-Běchovice →  B Zličín;109
+Praha-Březiněves →  B Smíchovské nádraží;109
+Praha-Křeslice →  B Hloubětín;109
+Praha-Královice →  B Náměstí Republiky;108
+Praha-Ďáblice →  A Petřiny;107
+Praha-Lipence →  A Nádraží Veleslavín;106
+Praha-Lipence →  A Skalka;106
+Praha-Satalice →  A Bořislavka;106
+Praha-Satalice →  B Hůrka;106
+Praha-Klánovice →  A Petřiny;105
+Praha-Satalice →  A Jiřího z Poděbrad;105
+Praha-Šeberov →  A Nemocnice Motol;105
+Praha-Lysolaje →  B Zličín;104
+Praha-Nebušice →  B Křižíkova;104
+Praha-Štěrboholy →  B Luka;104
+Praha-Kolovraty →  C Ládví;103
+Praha-Lysolaje →  A Želivského;103
+Praha-Klánovice →  A Bořislavka;102
+Praha-Klánovice →  C Roztyly;102
+Praha-Lochkov →  B Palmovka;102
+Praha-Petrovice →  A Petřiny;102
+Praha-Satalice →  A Nemocnice Motol;102
+Praha-Dolní Měcholupy →  A Petřiny;101
+Praha-Šeberov →  B Stodůlky;101
+Praha-Zličín →  A Depo Hostivař;101
+Praha-Dubeč →  B Radlická;100
+Praha-Přední Kopanina →  C Kobylisy;100
+Praha-Újezd →  B Křižíkova;100
+Praha-Koloděje →  A Hradčanská;99
+Praha-Suchdol →  B Radlická;99
+Praha-Čakovice →  B Jinonice;98
+Praha-Ďáblice →  C Roztyly;98
+Praha-Dubeč →  B Lužiny;98
+Praha-Nedvězí →  C Pankrác;98
+Praha-Satalice →  A Nádraží Veleslavín;98
+Praha-Štěrboholy →  B Stodůlky;98
+Praha-Kolovraty →  B Hloubětín;97
+Praha-Kolovraty →  B Zličín;97
+Praha-Petrovice →  C Střížkov;97
+Praha-Šeberov →  B Lužiny;97
+Praha-Klánovice →  A Nemocnice Motol;95
+Praha-Kolovraty →  B Rajská zahrada;95
+Praha-Nedvězí →  B Náměstí Republiky;95
+Praha-Koloděje →  C Střížkov;94
+Praha-Křeslice →  B Zličín;94
+Praha-Lysolaje →  B Křižíkova;94
+Praha-Přední Kopanina →  C Kačerov;94
+Praha-Benice →  C Letňany;93
+Praha-Březiněves →  A Nádraží Veleslavín;93
+Praha-Klánovice →  A Depo Hostivař;93
+Praha-Kolovraty →  C Střížkov;93
+Praha 22 →  B Radlická;92
+Praha-Klánovice →  B Stodůlky;92
+Praha-Lochkov →  B Zličín;92
+Praha-Vinoř →  A Nemocnice Motol;92
+Praha-Dolní Měcholupy →  B Stodůlky;91
+Praha-Křeslice →  B Rajská zahrada;91
+Praha-Lochkov →  A Malostranská;91
+Praha-Benice →  A Staroměstská;90
+Praha-Klánovice →  B Radlická;90
+Praha-Královice →  C Pankrác;90
+Praha-Královice →  C Kačerov;89
+Praha-Lipence →  B Rajská zahrada;89
+Praha-Benice →  B Národní třída;88
+Praha-Koloděje →  B Invalidovna;88
+Praha-Slivenec →  C Prosek;88
+Praha-Lochkov →  A Hradčanská;87
+Praha-Lochkov →  C Vltavská;87
+Praha-Klánovice →  B Lužiny;86
+Praha-Lochkov →  C Vyšehrad;86
+Praha-Ďáblice →  B Lužiny;85
+Praha-Klánovice →  B Hůrka;85
+Praha-Lochkov →  C Háje;85
+Praha-Ďáblice →  B Luka;84
+Praha-Lochkov →  B Vysočanská;83
+Praha-Nebušice →  B Invalidovna;83
+Praha-Přední Kopanina →  B Křižíkova;83
+Praha-Újezd →  B Invalidovna;83
+Praha-Březiněves →  A Želivského;82
+Praha-Přední Kopanina →  B Lužiny;82
+Praha-Ďáblice →  B Hůrka;81
+Praha-Dubeč →  A Petřiny;81
+Praha-Kolovraty →  A Bořislavka;81
+Praha-Lysolaje →  B Černý Most;81
+Praha-Lysolaje →  B Stodůlky;81
+Praha-Vinoř →  B Stodůlky;81
+Praha-Benice →  B Vysočanská;80
+Praha-Kolovraty →  C Letňany;80
+Praha-Královice →  C Budějovická;80
+Praha-Suchdol →  B Jinonice;80
+Praha-Březiněves →  C Háje;79
+Praha-Přední Kopanina →  B Palmovka;79
+Praha-Dolní Měcholupy →  B Radlická;78
+Praha-Dolní Počernice →  B Zličín;78
+Praha-Klánovice →  B Luka;78
+Praha-Benice →  B Rajská zahrada;77
+Praha-Březiněves →  A Bořislavka;77
+Praha-Dubeč →  B Luka;77
+Praha-Královice →  C Vyšehrad;77
+Praha-Přední Kopanina →  B Českomoravská;77
+Praha-Koloděje →  A Nádraží Veleslavín;76
+Praha-Kolovraty →  C Prosek;76
+Praha-Lysolaje →  A Skalka;76
+Praha-Nebušice →  B Rajská zahrada;76
+Praha-Nedvězí →  C Vyšehrad;76
+Praha-Štěrboholy →  B Radlická;76
+Praha-Újezd →  B Hůrka;76
+Praha-Lochkov →  C Chodov;75
+Praha-Lysolaje →  B Českomoravská;75
+Praha-Lysolaje →  B Radlická;75
+Praha-Nedvězí →  C I. P. Pavlova;75
+Praha-Vinoř →  B Luka;75
+Praha-Nebušice →  C Letňany;74
+Praha-Slivenec →  C Střížkov;74
+Praha-Benice →  B Náměstí Republiky;73
+Praha-Benice →  C Pražského povstání;73
+Praha-Březiněves →  C Opatov;73
+Praha-Koloděje →  C Ládví;73
+Praha-Křeslice →  B Luka;73
+Praha-Lipence →  C Střížkov;73
+Praha-Přední Kopanina →  A Jiřího z Poděbrad;73
+Praha-Šeberov →  B Zličín;73
+Praha-Štěrboholy →  A Petřiny;73
+Praha-Královice →  B Vysočanská;72
+Praha-Březiněves →  A Jiřího z Poděbrad;71
+Praha-Lysolaje →  C Ládví;71
+Praha-Satalice →  B Stodůlky;71
+Praha-Běchovice →  B Luka;70
+Praha-Koloděje →  B Radlická;70
+Praha-Křeslice →  A Nemocnice Motol;70
+Praha-Dolní Chabry →  B Radlická;69
+Praha-Dubeč →  B Stodůlky;69
+Praha-Kolovraty →  A Nemocnice Motol;69
+Praha-Křeslice →  B Hůrka;69
+Praha-Šeberov →  C Střížkov;69
+Praha-Benice →  B Anděl;68
+Praha-Koloděje →  C Kobylisy;68
+Praha-Královice →  C Pražského povstání;68
+Praha-Lysolaje →  B Lužiny;68
+Praha-Šeberov →  B Hůrka;68
+Praha-Újezd →  B Hloubětín;68
+Praha-Lochkov →  A Nemocnice Motol;67
+Praha-Nedvězí →  B Černý Most;67
+Praha 22 →  B Jinonice;66
+Praha-Křeslice →  A Petřiny;66
+Praha-Lochkov →  A Želivského;66
+Praha-Lochkov →  C Pankrác;66
+Praha-Šeberov →  B Invalidovna;66
+Praha-Lochkov →  A Bořislavka;65
+Praha-Petrovice →  B Jinonice;65
+Praha-Běchovice →  A Petřiny;64
+Praha-Běchovice →  B Stodůlky;64
+Praha-Benice →  A Bořislavka;64
+Praha-Ďáblice →  B Stodůlky;64
+Praha-Koloděje →  B Nové Butovice;64
+Praha-Benice →  C Nádraží Holešovice;63
+Praha-Újezd →  A Petřiny;63
+Praha-Březiněves →  A Petřiny;62
+Praha-Královice →  B Palmovka;62
+Praha-Nedvězí →  B Smíchovské nádraží;62
+Praha-Nedvězí →  C Budějovická;62
+Praha-Troja →  B Radlická;62
+Praha-Dolní Počernice →  B Stodůlky;61
+Praha-Lysolaje →  B Hůrka;61
+Praha-Březiněves →  A Strašnická;60
+Praha-Lochkov →  C Nádraží Holešovice;60
+Praha-Šeberov →  B Hloubětín;60
+Praha-Vinoř →  B Hůrka;60
+Praha-Dolní Počernice →  B Hůrka;59
+Praha-Petrovice →  B Luka;59
+Praha-Dolní Počernice →  B Luka;58
+Praha-Lysolaje →  B Rajská zahrada;58
+Praha-Nebušice →  B Hloubětín;58
+Praha-Vinoř →  A Petřiny;58
+Praha-Benice →  A Flora;57
+Praha-Dolní Chabry →  B Jinonice;57
+Praha-Dolní Počernice →  B Lužiny;57
+Praha-Nebušice →  C Roztyly;57
+Praha-Dubeč →  B Hůrka;56
+Praha-Nedvězí →  A Depo Hostivař;56
+Praha-Satalice →  C Roztyly;56
+Praha-Březiněves →  B Nové Butovice;55
+Praha-Lipence →  C Ládví;55
+Praha-Lochkov →  A Staroměstská;55
+Praha-Nedvězí →  A Staroměstská;55
+Praha-Přední Kopanina →  B Národní třída;55
+Praha-Koloděje →  C Nádraží Holešovice;54
+Praha-Křeslice →  C Prosek;54
+Praha 16 →  A Depo Hostivař;53
+Praha-Královice →  C Letňany;53
+Praha-Nedvězí →  A Strašnická;53
+Praha-Satalice →  B Luka;53
+Praha-Újezd →  B Radlická;53
+Praha-Ďáblice →  B Jinonice;52
+Praha-Křeslice →  B Radlická;52
+Praha-Březiněves →  B Zličín;51
+Praha-Lysolaje →  C Letňany;51
+Praha-Přední Kopanina →  B Kolbenova;51
+Praha-Přední Kopanina →  C Prosek;51
+Praha-Koloděje →  A Bořislavka;50
+Praha-Královice →  A Staroměstská;50
+Praha-Lochkov →  B Českomoravská;50
+Praha-Nebušice →  B Hůrka;50
+Praha-Přední Kopanina →  A Skalka;50
+Praha-Březiněves →  B Luka;49
+Praha-Březiněves →  C Roztyly;49
+Praha-Klánovice →  B Jinonice;49
+Praha-Kolovraty →  B Kolbenova;49
+Praha-Nebušice →  C Opatov;49
+Praha-Přední Kopanina →  B Vysočanská;49
+Praha-Koloděje →  A Nemocnice Motol;48
+Praha-Benice →  A Dejvická;47
+Praha-Dolní Měcholupy →  B Jinonice;47
+Praha-Královice →  A Bořislavka;47
+Praha-Lochkov →  C Kobylisy;47
+Praha-Benice →  B Palmovka;46
+Praha-Benice →  C Kobylisy;46
+Praha-Kolovraty →  B Luka;46
+Praha-Královice →  B Národní třída;46
+Praha-Lysolaje →  C Opatov;46
+Praha-Nebušice →  B Radlická;46
+Praha-Šeberov →  B Radlická;46
+Praha-Újezd →  B Kolbenova;46
+Praha-Vinoř →  B Lužiny;46
+Praha-Lipence →  B Jinonice;45
+Praha-Lysolaje →  B Hloubětín;45
+Praha-Štěrboholy →  B Jinonice;45
+Praha-Troja →  B Jinonice;45
+Praha-Březiněves →  B Hůrka;44
+Praha-Lysolaje →  C Střížkov;44
+Praha-Nebušice →  C Prosek;44
+Praha-Přední Kopanina →  B Hloubětín;44
+Praha-Přední Kopanina →  B Hůrka;44
+Praha-Troja →  A Depo Hostivař;44
+Praha 19 →  B Radlická;43
+Praha-Benice →  B Hloubětín;43
+Praha-Přední Kopanina →  C Letňany;43
+Praha-Benice →  C Vltavská;42
+Praha-Královice →  C Nádraží Holešovice;42
+Praha-Lipence →  A Petřiny;42
+Praha-Lochkov →  B Invalidovna;42
+Praha-Nedvězí →  C Ládví;42
+Praha-Královice →  A Malostranská;41
+Praha-Přední Kopanina →  A Strašnická;41
+Praha 17 →  A Depo Hostivař;40
+Praha-Kolovraty →  A Petřiny;40
+Praha-Královice →  B Hloubětín;40
+Praha-Petrovice →  B Radlická;40
+Praha-Kolovraty →  B Invalidovna;39
+Praha-Lochkov →  A Nádraží Veleslavín;39
+Praha-Nedvězí →  C Pražského povstání;39
+Praha-Ďáblice →  A Depo Hostivař;38
+Praha-Kolovraty →  B Křižíkova;38
+Praha-Březiněves →  B Lužiny;37
+Praha-Lipence →  B Kolbenova;37
+Praha-Lysolaje →  C Háje;37
+Praha-Nedvězí →  A Flora;37
+Praha-Nedvězí →  C Roztyly;37
+Praha-Přední Kopanina →  B Luka;37
+Praha-Lochkov →  B Černý Most;36
+Praha-Nedvězí →  B Anděl;36
+Praha-Přední Kopanina →  C Ládví;36
+Praha-Řeporyje →  A Depo Hostivař;36
+Praha-Běchovice →  B Hůrka;35
+Praha-Březiněves →  B Stodůlky;35
+Praha-Královice →  A Náměstí Míru;35
+Praha-Újezd →  B Jinonice;35
+Praha-Benice →  A Želivského;34
+Praha-Koloděje →  B Hůrka;34
+Praha-Nedvězí →  A Nemocnice Motol;34
+Praha-Zbraslav →  A Depo Hostivař;34
+Praha-Benice →  A Náměstí Míru;33
+Praha-Klánovice →  B Zličín;33
+Praha-Královice →  C Kobylisy;33
+Praha-Křeslice →  B Kolbenova;33
+Praha-Přední Kopanina →  B Černý Most;33
+Praha-Šeberov →  A Depo Hostivař;33
+Praha-Benice →  B Českomoravská;32
+Praha-Lysolaje →  B Invalidovna;32
+Praha-Lysolaje →  C Roztyly;32
+Praha-Nedvězí →  A Petřiny;32
+Praha-Nedvězí →  B Vysočanská;32
+Praha-Přední Kopanina →  B Nové Butovice;32
+Praha-Přední Kopanina →  C Opatov;32
+Praha-Koloděje →  B Luka;31
+Praha-Kolovraty →  B Lužiny;31
+Praha-Královice →  C Prosek;31
+Praha-Lochkov →  C Střížkov;31
+Praha-Lysolaje →  B Luka;31
+Praha-Lochkov →  B Křižíkova;30
+Praha-Nedvězí →  A Hradčanská;30
+Praha-Běchovice →  B Radlická;29
+Praha-Benice →  A Malostranská;29
+Praha-Kolovraty →  B Stodůlky;29
+Praha-Královice →  B Kolbenova;29
+Praha-Královice →  B Nové Butovice;29
+Praha-Křeslice →  A Depo Hostivař;29
+Praha-Nebušice →  C Střížkov;29
+Praha-Benice →  A Nemocnice Motol;28
+Praha-Lochkov →  A Skalka;28
+Praha-Běchovice →  B Jinonice;27
+Praha-Benice →  A Petřiny;27
+Praha-Benice →  B Křižíkova;27
+Praha-Dubeč →  B Jinonice;27
+Praha-Královice →  B Křižíkova;27
+Praha-Lochkov →  C Roztyly;27
+Praha-Nedvězí →  A Malostranská;27
+Praha-Nedvězí →  A Náměstí Míru;27
+Praha-Přední Kopanina →  C Háje;27
+Praha-Suchdol →  A Depo Hostivař;27
+Praha-Královice →  A Hradčanská;26
+Praha-Královice →  B Českomoravská;26
+Praha-Královice →  B Invalidovna;26
+Praha-Lochkov →  A Dejvická;26
+Praha-Lochkov →  A Flora;26
+Praha-Lochkov →  A Náměstí Míru;26
+Praha-Lochkov →  C Pražského povstání;26
+Praha-Nebušice →  B Kolbenova;26
+Praha-Lochkov →  A Strašnická;25
+Praha-Nedvězí →  C Letňany;25
+Praha-Benice →  A Jiřího z Poděbrad;24
+Praha-Benice →  B Kolbenova;24
+Praha-Benice →  B Nové Butovice;24
+Praha-Koloděje →  B Lužiny;24
+Praha-Křeslice →  B Jinonice;24
+Praha-Satalice →  A Depo Hostivař;24
+Praha-Satalice →  B Radlická;24
+Praha-Přední Kopanina →  B Invalidovna;23
+Praha-Kolovraty →  B Radlická;22
+Praha-Královice →  B Stodůlky;22
+Praha-Lysolaje →  B Kolbenova;22
+Praha-Nedvězí →  B Českomoravská;22
+Praha-Nedvězí →  B Hůrka;22
+Praha-Nedvězí →  B Palmovka;22
+Praha-Březiněves →  B Radlická;21
+Praha-Lochkov →  B Radlická;21
+Praha-Nedvězí →  A Bořislavka;21
+Praha-Nedvězí →  A Želivského;21
+Praha-Královice →  C Střížkov;20
+Praha-Lochkov →  C Opatov;20
+Praha-Přední Kopanina →  C Roztyly;20
+Praha-Ďáblice →  B Radlická;19
+Praha-Nebušice →  B Jinonice;19
+Praha-Královice →  A Petřiny;18
+Praha-Královice →  C Ládví;18
+Praha-Královice →  C Vltavská;18
+Praha-Újezd →  A Depo Hostivař;18
+Praha 19 →  B Jinonice;17
+Praha-Koloděje →  B Stodůlky;17
+Praha-Dolní Počernice →  B Jinonice;16
+Praha-Královice →  A Dejvická;16
+Praha-Vinoř →  A Depo Hostivař;16
+Praha-Lochkov →  B Rajská zahrada;15
+Praha-Přední Kopanina →  B Rajská zahrada;15
+Praha-Satalice →  B Jinonice;15
+Praha 21 →  B Jinonice;14
+Praha-Benice →  C Ládví;14
+Praha-Nebušice →  A Depo Hostivař;14
+Praha-Nedvězí →  B Karlovo náměstí;14
+Praha-Nedvězí →  B Národní třída;14
+Praha-Nedvězí →  B Zličín;14
+Praha-Nedvězí →  C Nádraží Holešovice;14
+Praha-Slivenec →  A Depo Hostivař;14
+Praha-Benice →  C Střížkov;13
+Praha-Dolní Chabry →  A Depo Hostivař;13
+Praha-Královice →  A Nádraží Veleslavín;13
+Praha-Královice →  B Lužiny;13
+Praha-Křeslice →  B Stodůlky;13
+Praha-Lochkov →  A Jiřího z Poděbrad;13
+Praha-Lochkov →  A Petřiny;13
+Praha-Nedvězí →  B Invalidovna;13
+Praha-Nedvězí →  C Prosek;13
+Praha-Benice →  B Invalidovna;12
+Praha-Koloděje →  B Zličín;12
+Praha-Lochkov →  C Ládví;12
+Praha-Nedvězí →  A Jiřího z Poděbrad;12
+Praha-Nedvězí →  C Střížkov;12
+Praha-Koloděje →  B Jinonice;11
+Praha-Přední Kopanina →  C Střížkov;11
+Praha-Královice →  B Jinonice;10
+Praha-Lochkov →  B Jinonice;10
+Praha-Královice →  B Zličín;9
+Praha-Přední Kopanina →  B Radlická;9
+Praha-Benice →  C Prosek;8
+Praha-Lochkov →  C Prosek;8
+Praha-Nedvězí →  B Křižíkova;8
+Praha-Nedvězí →  C Vltavská;8
+Praha-Benice →  B Stodůlky;7
+Praha-Benice →  B Zličín;7
+Praha-Nedvězí →  A Dejvická;7
+Praha-Nedvězí →  B Luka;7
+Praha-Nedvězí →  B Lužiny;7
+Praha-Nedvězí →  B Rajská zahrada;7
+Praha-Nedvězí →  C Kobylisy;7
+Praha-Přední Kopanina →  A Depo Hostivař;7
+Praha-Velká Chuchle →  A Depo Hostivař;7
+Praha-Lochkov →  B Kolbenova;6
+Praha-Nedvězí →  B Hloubětín;6
+Praha-Benice →  A Hradčanská;5
+Praha-Koloděje →  A Petřiny;5
+Praha-Kolovraty →  B Jinonice;5
+Praha-Královice →  A Nemocnice Motol;5
+Praha-Královice →  B Luka;5
+Praha-Lysolaje →  A Depo Hostivař;5
+Praha-Nedvězí →  A Nádraží Veleslavín;5
+Praha-Šeberov →  B Jinonice;5

@@ -268,6 +268,82 @@
         #navHUD { transition: opacity 0.3s ease, transform 0.3s ease; }
         #navHUD.nav-hidden { opacity: 0; transform: translateY(-8px); pointer-events: none; }
 
+        /* ── Transit popup ── */
+        .transit-popup .mapboxgl-popup-content {
+            padding: 10px 14px;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+            border: 1px solid rgba(0,0,0,0.07);
+            font-family: 'Inter', sans-serif;
+            min-width: 220px;
+            max-width: 300px;
+        }
+        .dark .transit-popup .mapboxgl-popup-content {
+            background: #27272a;
+            border-color: rgba(255,255,255,0.08);
+        }
+        .transit-popup .mapboxgl-popup-tip { display: none; }
+        .tp-inner { width: 100%; }
+        .tp-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+        .tp-badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; flex-shrink: 0; }
+        .tp-badge-tram { background: #c0392b; color: #fff; }
+        .tp-badge-bus  { background: #2d6fd9; color: #fff; }
+        .tp-name { font-size: 13px; color: #111827; font-weight: 600; }
+        .dark .tp-name { color: #f3f4f6; }
+        .tp-sub { font-size: 11px; color: #6b7280; margin-top: 1px; }
+        .dark .tp-sub { color: #71717a; }
+        .tp-sched { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+        .tp-route-row { display: grid; grid-template-columns: 32px 1fr auto; align-items: center; gap: 5px; }
+        .tp-rnum { font-size: 11px; font-weight: 700; background: #e5e7eb; color: #111; border-radius: 5px;
+                   padding: 1px 4px; text-align: center; }
+        .dark .tp-rnum { background: #3f3f46; color: #e5e7eb; }
+        .tp-dir { font-size: 11px; color: #374151; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .dark .tp-dir { color: #d1d5db; }
+        .tp-times { font-size: 11px; color: #374151; white-space: nowrap; }
+        .dark .tp-times { color: #d1d5db; }
+        .tp-times b { color: #16a34a; }
+        .dark .tp-times b { color: #4ade80; }
+        .tp-dot { color: #9ca3af; margin: 0 2px; }
+        .tp-hhmm { color: #6b7280; }
+        .tp-no-sched { font-size: 11px; color: #9ca3af; margin-top: 6px; }
+
+        /* ── Transit Navigator (planner) ── */
+        .tpn-sug { padding: 10px 14px; font-size: 13px; color: #374151; cursor: pointer; border-bottom: 1px solid #f3f4f6; }
+        .dark .tpn-sug { color: #d1d5db; border-color: #3f3f46; }
+        .tpn-sug:hover { background: #f9fafb; }
+        .dark .tpn-sug:hover { background: #3f3f46; }
+        .tpn-sug:last-child { border-bottom: none; }
+
+        #transitPlanSheet { transition: transform 0.35s cubic-bezier(0.34,1.05,0.64,1); }
+        #transitPlanSheet.sheet-hidden { transform: translateY(100%); pointer-events: none; }
+
+        .tpn-header { display: flex; align-items: baseline; gap: 8px; padding: 4px 0 12px; border-bottom: 1px solid #e5e7eb; margin-bottom: 10px; }
+        .dark .tpn-header { border-color: #3f3f46; }
+        .tpn-total { font-size: 22px; font-weight: 700; color: #111827; }
+        .dark .tpn-total { color: #f3f4f6; }
+        .tpn-hsub { font-size: 12px; color: #6b7280; }
+        .dark .tpn-hsub { color: #71717a; }
+
+        .tpn-leg { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; }
+        .tpn-walk { align-items: center; }
+        .tpn-wicon { font-size: 18px; flex-shrink: 0; }
+        .tpn-wt { font-size: 13px; font-weight: 600; color: #374151; }
+        .dark .tpn-wt { color: #d1d5db; }
+        .tpn-wsub { font-size: 11px; color: #9ca3af; }
+
+        .tpn-transit { border-left: 3px solid transparent; padding-left: 8px; gap: 0; flex-direction: column; border-radius: 12px; background: #f9fafb; padding: 10px 12px; margin: 2px 0; }
+        .dark .tpn-transit { background: #27272a; }
+        .tpn-tbar { display: none; }
+        .tpn-tbody { width: 100%; }
+        .tpn-thead { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+        .tpn-chip { font-size: 12px; font-weight: 700; color: #fff; padding: 2px 8px; border-radius: 20px; flex-shrink: 0; }
+        .tpn-tdest { font-size: 13px; font-weight: 600; color: #111827; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .dark .tpn-tdest { color: #f3f4f6; }
+        .tpn-tstops { font-size: 12px; color: #6b7280; margin-bottom: 2px; }
+        .dark .tpn-tstops { color: #a1a1aa; }
+        .tpn-tmeta { font-size: 11px; color: #9ca3af; }
+        .tpn-empty { padding: 20px 0; text-align: center; color: #9ca3af; font-size: 13px; }
+
         /* ── Route bottom sheet ── */
         #routeSheet {
             transition: transform 0.32s cubic-bezier(0.34,1.05,0.64,1);
@@ -340,7 +416,7 @@
 
             <!-- panel header with close -->
             <div class="flex items-center justify-between px-3 pt-2.5 pb-1">
-                <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Trasa</span>
+                <span id="searchPanelMode" class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Trasa</span>
                 <button id="closePanelBtn" class="p-1 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                     <i class="ph ph-x text-base text-gray-400"></i>
                 </button>
@@ -376,6 +452,9 @@
     </div>
 
 
+
+    <!-- Bottom-left SOS container (shown only during navigation) -->
+    <div id="floatBtnsNavLeft" class="hidden absolute z-20 flex flex-col gap-3" style="bottom: 7rem; left: 1rem;"></div>
 
     <div id="floatBtnsRight" class="absolute bottom-28 right-4 z-20 flex flex-col gap-3">
         <button id="toggle3DBtn" class="bg-surface-light dark:bg-surface-dark shadow-md dark:shadow-black/50 p-3 rounded-2xl flex items-center justify-center transition-transform active:scale-95 border border-gray-100 dark:border-gray-800">
@@ -442,8 +521,28 @@
                     </div>
                 </div>
             </div>
+            <!-- Transit plan state -->
+            <div id="sheetTransit" class="hidden px-4 pb-2 overflow-y-auto" style="max-height:45vh;">
+                <div id="transitCompare" class="hidden flex gap-2 mb-2">
+                    <div id="optTransitFast" class="route-opt" onclick="_selectTransitOpt('fast')">
+                        <div class="flex items-center gap-1.5 mb-1">
+                            <i class="ph-fill ph-lightning text-sm text-amber-500"></i>
+                            <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Nejrychlejší</span>
+                        </div>
+                        <div id="optTransitFastTime" class="font-bold text-sm text-gray-900 dark:text-gray-100">—</div>
+                    </div>
+                    <div id="optTransitQuiet" class="route-opt selected" onclick="_selectTransitOpt('quiet')">
+                        <div class="flex items-center gap-1.5 mb-1">
+                            <i class="ph-fill ph-ear-slash text-sm text-emerald-500"></i>
+                            <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Tichá</span>
+                        </div>
+                        <div id="optTransitQuietTime" class="font-bold text-sm text-gray-900 dark:text-gray-100">—</div>
+                    </div>
+                </div>
+                <div id="transitPlanResult"></div>
+            </div>
             <!-- Navigate button -->
-            <div class="px-4 pt-2" style="padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));">
+            <div id="sheetNavBtnWrap" class="px-4 pt-2" style="padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));">
                 <button id="sheetNavBtn" class="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white py-2.5 rounded-xl font-semibold text-sm active:scale-[0.97] transition-transform shadow-sm">
                     <i class="ph-fill ph-navigation text-base"></i>
                     Navigovat
@@ -670,19 +769,25 @@
     <div id="toast"></div>
 
     <div id="tabBar" class="absolute bottom-4 inset-x-4 h-20 bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-3xl z-30 flex items-center justify-around px-2 pb-safe shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] pointer-events-auto" style="transition:opacity 0.25s ease, transform 0.25s ease;">
-        <button class="flex flex-col items-center justify-center w-28 h-full text-brand-600 dark:text-brand-500 rounded-2xl hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors">
+        <button class="flex flex-col items-center justify-center w-20 h-full text-brand-600 dark:text-brand-500 rounded-2xl hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors">
             <i class="ph-fill ph-map-pin text-3xl mb-1"></i>
             <span class="text-xs font-semibold">Mapa</span>
         </button>
-        <button id="walkGenOpenBtn" class="flex flex-col items-center justify-center w-28 h-full text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-2xl transition-colors">
+        <button id="walkGenOpenBtn" class="flex flex-col items-center justify-center w-20 h-full text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-2xl transition-colors">
             <i class="ph ph-shuffle text-3xl mb-1"></i>
             <span class="text-xs font-semibold">Procházka</span>
         </button>
-        <button id="settingsBtn" class="flex flex-col items-center justify-center w-28 h-full text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-2xl transition-colors">
+        <button id="settingsBtn" class="flex flex-col items-center justify-center w-20 h-full text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-2xl transition-colors">
             <i class="ph ph-sliders text-3xl mb-1"></i>
             <span class="text-xs font-semibold">Nastavení</span>
         </button>
+        <button id="transitTabBtn" class="flex flex-col items-center justify-center w-20 h-full text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-2xl transition-colors">
+            <i class="ph ph-train-simple text-3xl mb-1"></i>
+            <span class="text-xs font-semibold">MHD</span>
+        </button>
     </div>
+
+
 
     <div id="backdrop" class="absolute inset-0 bg-black/40 z-40 opacity-0 pointer-events-none transition-opacity duration-300"></div>
 
@@ -733,6 +838,16 @@
                     <input type="range" id="elevationLevel" min="1" max="5" step="1" value="3" class="text-orange-500 dark:text-orange-500 focus:outline-none flex-1 touch-pan-y">
                     <i class="ph ph-trend-up text-2xl text-gray-400 w-8 text-center"></i>
                 </div>
+            </div>
+
+            <div class="mb-6 border-t border-gray-100 dark:border-gray-800 pt-5">
+                <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" id="avoidNoisyStops" class="w-5 h-5 rounded border-gray-300 dark:border-gray-600 text-red-500 focus:ring-red-400">
+                    <div>
+                        <span class="text-sm font-semibold text-gray-800 dark:text-gray-200">Vyhýbat se hlučným zastávkám</span>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">MHD trasa bude vyhýbat rušným přestupním uzlům</p>
+                    </div>
+                </label>
             </div>
             
             <div class="mt-8 mb-2">

@@ -640,7 +640,13 @@ function startNavigation() {
         _hideRouteSheet();
     }
     document.getElementById('navHUD').classList.remove('nav-hidden');
-    document.getElementById('floatBtnsRight').style.display = 'none';
+    // Move SOS to bottom-left, hide top-left area and top-right utility buttons
+    const _navLeft = document.getElementById('floatBtnsNavLeft');
+    _navLeft.appendChild(document.getElementById('sosBtn'));
+    _navLeft.classList.remove('hidden');
+    document.getElementById('floatBtnsLeft').style.visibility = 'hidden';
+    document.getElementById('searchRouteBtn').style.display = 'none';
+    document.getElementById('devThemeToggle').style.display = 'none';
     _syncFloatBtns();
 
     // Navigation puck: morph userMarker into arrow, or create a fresh one
@@ -681,7 +687,12 @@ function stopNavigation(showSummary = false) {
     }
     _navPrevLat = null; _navPrevLng = null;
     document.getElementById('navHUD').classList.add('nav-hidden');
-    document.getElementById('floatBtnsRight').style.display = '';
+    // Restore SOS to top-left and unhide top-right utility buttons
+    document.getElementById('floatBtnsLeft').appendChild(document.getElementById('sosBtn'));
+    document.getElementById('floatBtnsNavLeft').classList.add('hidden');
+    document.getElementById('floatBtnsLeft').style.visibility = '';
+    document.getElementById('searchRouteBtn').style.display = '';
+    document.getElementById('devThemeToggle').style.display = '';
     map.easeTo({ pitch: 0, bearing: 0, zoom: 14, duration: 900 });
     if (_navFromSOS) {
         document.getElementById('sosInfoCard').classList.remove('card-hidden');
@@ -822,6 +833,19 @@ function _sosClearLayers() {
     if (map.getSource('sos-route')) map.removeSource('sos-route');
 }
 
+// Clear all walk + transit route lines from the map and close the route sheet.
+function _clearAllRoutes() {
+    ['route-fast', 'route-klidna', 'route'].forEach(id => {
+        if (map.getLayer(id))  map.removeLayer(id);
+        if (map.getSource(id)) map.removeSource(id);
+    });
+    _routeCoords = []; _fastRouteCoords = []; _klidnaRouteCoords = [];
+    _clearTransitPlanMap();
+    _hideRouteSheet();
+    const st = document.getElementById('sheetTransit');
+    if (st) st.classList.add('hidden');
+}
+
 function cancelSOS() {
     _sosClearLayers();
     _hideSOSChoice();
@@ -844,6 +868,8 @@ async function startSOS() {
     const btn = document.getElementById('sosBtn');
     // If already active → cancel
     if (btn.classList.contains('cancel') || sosPickingMode) { cancelSOS(); return; }
+    // Clear any existing route before showing SOS
+    _clearAllRoutes();
     // Show choice modal
     _showSOSChoice();
 }
@@ -1054,12 +1080,19 @@ document.getElementById('routeSheetCloseBtn').addEventListener('click', () => {
         if (map.getLayer(id)) map.removeLayer(id);
         if (map.getSource(id)) map.removeSource(id);
     });
+    // Also clear transit plan polylines
+    _clearTransitPlanMap();
+    const st = document.getElementById('sheetTransit');
+    if (st) st.classList.add('hidden');
+    _tpMapStep = 0;
     ptStart = null; ptEnd = null;
     _coordFrom = null; _coordTo = null;
     _addrFrom.value = ''; _addrTo.value = '';
     _clearFromGPS();
     if (markerStart) { markerStart.remove(); markerStart = null; }
     if (markerEnd)   { markerEnd.remove();   markerEnd   = null; }
+    if (_tpMarkerFrom) { _tpMarkerFrom.remove(); _tpMarkerFrom = null; }
+    if (_tpMarkerTo)   { _tpMarkerTo.remove();   _tpMarkerTo   = null; }
     _markerFrom = null; _markerTo = null;
     _spClose();
 });
@@ -1074,6 +1107,12 @@ map.on('click', (e) => {
     // SOS active: picking mode handles the tap; if SOS card is just showing, block route building
     if (sosPickingMode || sosMark) {
         if (sosPickingMode) handleSOSClick(lat, lng);
+        return;
+    }
+
+    // MHD tab active → map-tap transit planner (all walking features disabled)
+    if (_transitVisible) {
+        _handleTransitMapClick(lat, lng);
         return;
     }
 
@@ -1137,16 +1176,20 @@ document.getElementById('applySettingsBtn').addEventListener('click', () => {
     routeSettings.noise = parseInt(document.getElementById('noiseLevel').value);
     routeSettings.air = parseInt(document.getElementById('airLevel').value);
     routeSettings.elevation = parseInt(document.getElementById('elevationLevel').value);
-    
+
     console.log('Nové parametry pro generování trasy:', routeSettings);
-    
+
     const btn = document.getElementById('applySettingsBtn');
     const originalContent = btn.innerHTML;
-    
+
     btn.innerHTML = '<i class="ph ph-spinner-gap animate-spin text-xl"></i> Přepočítávám...';
-    
-    // Přepočítáme trasu s novými hodnotami
-    calculateRoute().then(() => {
+
+    // Re-route based on current mode
+    const task = _transitVisible && (_coordFrom && _coordTo)
+        ? _tpAutoSearch()
+        : calculateRoute();
+
+    task.then(() => {
         btn.innerHTML = '<i class="ph ph-check-circle text-xl"></i> Trasa aktualizována';
         btn.classList.replace('bg-brand-600', 'bg-green-600');        
         setTimeout(() => {
@@ -1222,7 +1265,12 @@ function _spClose() {
 
 _searchBtn.addEventListener('click', () => {
     const isOpen = _searchPanel.classList.contains('sp-visible');
-    isOpen ? _spClose() : _spOpen();
+    if (isOpen) {
+        _spClose();
+    } else {
+        _clearAllRoutes();
+        _spOpen();
+    }
 });
 document.getElementById('closePanelBtn').addEventListener('click', () => _spClose());
 
@@ -1243,15 +1291,19 @@ let _lastResults = [];
 
 // ── Route sheet helpers ──────────────────────────────────
 function _syncNavBtn() {
-    const btn = document.getElementById('sheetNavBtn');
-    if (btn) btn.closest('div').classList.toggle('hidden', !_fromIsGPS);
+    const wrap = document.getElementById('sheetNavBtnWrap');
+    if (!wrap) return;
+    const show = _transitVisible ? (_routeCoords.length > 0) : _fromIsGPS;
+    wrap.classList.toggle('hidden', !show);
 }
 function _showRouteSheet(state) {
     _spClose(); // close address panel so the route sheet is clearly visible
     const sheetCompare = document.getElementById('sheetCompare');
     const sheetSingle  = document.getElementById('sheetSingle');
+    const sheetTransit = document.getElementById('sheetTransit');
     sheetCompare.classList.toggle('hidden', state !== 'compare');
     sheetSingle.classList.toggle('hidden',  state !== 'single');
+    if (sheetTransit) sheetTransit.classList.toggle('hidden', state !== 'transit');
     document.getElementById('routeSheet').classList.remove('sheet-hidden');
     const tb = document.getElementById('tabBar');
     if (tb) { tb.style.opacity = '0'; tb.style.transform = 'translateY(8px)'; tb.style.pointerEvents = 'none'; }
@@ -1280,6 +1332,8 @@ function _syncFloatBtns() {
         bottom = '7rem';
     }
     document.getElementById('floatBtnsRight').style.bottom = bottom;
+    const navLeft = document.getElementById('floatBtnsNavLeft');
+    if (navLeft && !navLeft.classList.contains('hidden')) navLeft.style.bottom = bottom;
 }
 
 // ── Swipe-down-to-close gesture on route sheet handle ───
@@ -1469,7 +1523,13 @@ function _selectResult(lng, lat, label) {
 function _updateMarker(which, lng, lat) {
     if (which === 'from') {
         ptStart = { lng, lat };
-        if (_markerFrom) {
+        if (_transitVisible) {
+            // In transit mode, always use teardrop pins
+            if (markerStart) markerStart.remove();
+            markerStart = new mapboxgl.Marker({ element: _makeTpPin('#22c55e'), anchor: 'bottom' })
+                .setLngLat([lng, lat]).addTo(map);
+            _markerFrom = markerStart;
+        } else if (_markerFrom) {
             if (_fromIsGPS) {
                 // Switching from GPS arrow to a typed address — restore userMarker dot, new separate pin
                 _clearFromGPS(); // restores dot, nulls _markerFrom & markerStart
@@ -1485,7 +1545,12 @@ function _updateMarker(which, lng, lat) {
         }
     } else {
         ptEnd = { lng, lat };
-        if (_markerTo) { _markerTo.setLngLat([lng, lat]); }
+        if (_transitVisible) {
+            if (markerEnd) markerEnd.remove();
+            markerEnd = new mapboxgl.Marker({ element: _makeTpPin('#ef4444'), anchor: 'bottom' })
+                .setLngLat([lng, lat]).addTo(map);
+            _markerTo = markerEnd;
+        } else if (_markerTo) { _markerTo.setLngLat([lng, lat]); }
         else {
             if (markerEnd) markerEnd.remove();
             _markerTo = new mapboxgl.Marker({ color: '#ef4444' }).setLngLat([lng, lat]).addTo(map);
@@ -1496,7 +1561,10 @@ function _updateMarker(which, lng, lat) {
 }
 
 function _maybeRoute() {
-    if (ptStart && ptEnd) calculateRoute();
+    if (ptStart && ptEnd) {
+        if (_transitVisible) _tpAutoSearch();
+        else calculateRoute();
+    }
 }
 
 // ── Input handlers ──
@@ -1955,3 +2023,891 @@ function _hideSummary() {
 }
 
 document.getElementById('summCloseBtn').addEventListener('click', _hideSummary);
+
+// ═══════════════════════════════════════════════════════════
+// TRANSIT (MHD) OVERLAY  — Google-Maps style with GTFS routes
+// ═══════════════════════════════════════════════════════════
+
+let _transitVisible = false;
+let _transitImagesLoaded = false;
+
+// Ray-casting point-in-polygon (lng/lat coords)
+function _pointInPoly(lng, lat, ring) {
+    let inside = false;
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+        const xi = ring[i][0], yi = ring[i][1];
+        const xj = ring[j][0], yj = ring[j][1];
+        if ((yi > lat) !== (yj > lat) && lng < (xj - xi) * (lat - yi) / (yj - yi) + xi)
+            inside = !inside;
+    }
+    return inside;
+}
+
+let _noisyStopIds = null; // Set of stop IDs inside avoid zones
+
+async function _ensureTransitData() {
+    if (window._transitLoaded) return;
+    const [sR, tramR, busR, schedR, busSchedR, graphR, coordsR, avoidR, edgeShapesR] = await Promise.all([
+        fetch('transit_stops.geojson'),
+        fetch('transit_tram_routes.geojson'),
+        fetch('transit_bus_routes.geojson'),
+        fetch('transit_schedule.json'),
+        fetch('transit_bus_schedule.json'),
+        fetch('transit_graph.json'),
+        fetch('transit_stops_coords.json'),
+        fetch('avoid_stops.geojson'),
+        fetch('transit_edge_shapes.json'),
+    ]);
+    window._transitStops        = await sR.json();
+    window._transitTramLines    = await tramR.json();
+    window._transitBusLines     = await busR.json();
+    window._transitSchedule     = await schedR.json();
+    window._transitBusSchedule  = await busSchedR.json();
+    window._transitGraph        = await graphR.json();
+    window._transitStopCoords   = await coordsR.json();
+    window._transitEdgeShapes   = await edgeShapesR.json();
+
+    // Build set of noisy stop IDs (stops inside avoid polygons)
+    const avoidGeo = await avoidR.json();
+    const avoidPolys = avoidGeo.features.map(f => f.geometry.coordinates[0]);
+    _noisyStopIds = new Set();
+    const sc = window._transitStopCoords;
+    for (const sid in sc) {
+        const [lat, lng] = sc[sid];
+        for (const ring of avoidPolys) {
+            if (_pointInPoly(lng, lat, ring)) { _noisyStopIds.add(sid); break; }
+        }
+    }
+    console.log('[MHD] Noisy stops:', _noisyStopIds.size, 'of', Object.keys(sc).length);
+
+    window._transitLoaded = true;
+}
+
+// Register white SDF arrow image (re-used by all layers, colored via icon-color)
+async function _ensureTransitImages() {
+    if (_transitImagesLoaded && map.hasImage('transit-arrow-sdf') && map.hasImage('transit-stop-pin')) return;
+    // Arrow SDF (for direction indicators)
+    await new Promise(resolve => {
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><polygon points="4,3 17,10 4,17 7,10" fill="white"/></svg>`;
+        const img = new Image(20, 20);
+        img.onload = () => {
+            try { if (!map.hasImage('transit-arrow-sdf')) map.addImage('transit-arrow-sdf', img, { sdf: true }); }
+            catch(_) {}
+            resolve();
+        };
+        img.onerror = resolve;
+        img.src = 'data:image/svg+xml,' + encodeURIComponent(svg);
+    });
+    // Bus-stop pin icon
+    await new Promise(resolve => {
+        const pin = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130" width="100" height="130">
+          <path d="M50 4 C24 4 3 25 3 51 C3 77 18 96 34 110 L50 126 L66 110 C82 96 97 77 97 51 C97 25 76 4 50 4 Z"
+                fill="white" stroke="#111" stroke-width="4.5" stroke-linejoin="round"/>
+          <rect x="18" y="20" width="64" height="48" rx="9" fill="none" stroke="#111" stroke-width="5"/>
+          <line x1="18" y1="38" x2="82" y2="38" stroke="#111" stroke-width="4"/>
+          <line x1="50" y1="38" x2="50" y2="68" stroke="#111" stroke-width="3.5"/>
+          <circle cx="30" cy="74" r="8" fill="none" stroke="#111" stroke-width="4.5"/>
+          <circle cx="70" cy="74" r="8" fill="none" stroke="#111" stroke-width="4.5"/>
+        </svg>`;
+        const img = new Image(100, 130);
+        img.onload = () => {
+            try { if (!map.hasImage('transit-stop-pin')) map.addImage('transit-stop-pin', img, { pixelRatio: 3 }); }
+            catch(_) {}
+            resolve();
+        };
+        img.onerror = resolve;
+        img.src = 'data:image/svg+xml,' + encodeURIComponent(pin);
+    });
+    _transitImagesLoaded = true;
+}
+
+// Only stop layers are shown permanently while MHD tab is active.
+// Route lines are drawn on-demand by _drawTransitPlan and cleared by _clearTransitPlanMap.
+const _TRANSIT_STOP_LAYERS = [
+    'transit-bus-stops', 'transit-tram-stops', 'transit-tram-labels',
+];
+const _TRANSIT_LAYERS = _TRANSIT_STOP_LAYERS; // alias kept for _removeTransitLayers
+const _TRANSIT_SOURCES = ['transit-stops'];
+
+async function _addTransitLayers() {
+    if (!window._transitLoaded) return;
+    await _ensureTransitImages();
+
+    const dark = document.documentElement.classList.contains('dark');
+    const bg   = dark ? '#18181b' : '#ffffff';
+    const txt  = dark ? '#e4e4e7' : '#1f2937';
+    const txth = dark ? '#18181b' : '#ffffff';
+
+    // ── Only stops source — route line sources loaded on-demand ──
+    if (!map.getSource('transit-stops'))
+        map.addSource('transit-stops', { type: 'geojson', data: window._transitStops });
+
+    // ── Transit stops ──
+    if (!map.getLayer('transit-tram-stops')) {
+        // Tram stops — pin icon
+        map.addLayer({
+            id: 'transit-tram-stops', type: 'symbol', source: 'transit-stops',
+            filter: ['==', 'type', 'tram'],
+            minzoom: 17,
+            layout: {
+                'icon-image': 'transit-stop-pin',
+                'icon-size': ['interpolate', ['linear'], ['zoom'], 17, 0.90, 20, 1.65],
+                'icon-anchor': 'bottom',
+                'icon-allow-overlap': true,
+            },
+        });
+        // Bus / trolleybus stops — same pin icon
+        map.addLayer({
+            id: 'transit-bus-stops', type: 'symbol', source: 'transit-stops',
+            filter: ['in', 'type', 'bus', 'trolleybus'],
+            minzoom: 17,
+            layout: {
+                'icon-image': 'transit-stop-pin',
+                'icon-size': ['interpolate', ['linear'], ['zoom'], 17, 0.90, 20, 1.65],
+                'icon-anchor': 'bottom',
+                'icon-allow-overlap': true,
+            },
+        });
+        // Stop name labels (shown even higher zoom)
+        map.addLayer({
+            id: 'transit-tram-labels', type: 'symbol', source: 'transit-stops',
+            filter: ['in', 'type', 'tram', 'bus', 'trolleybus'],
+            minzoom: 18,
+            layout: {
+                'text-field': ['get', 'name'],
+                'text-size': 11,
+                'text-font': ['DIN Pro Regular', 'Arial Unicode MS Regular'],
+                'text-anchor': 'top', 'text-offset': [0, 0.5],
+                'text-optional': true, 'text-max-width': 10,
+            },
+            paint: {
+                'text-color': txt,
+                'text-halo-color': txth, 'text-halo-width': 1.5,
+            }
+        });
+    }
+}
+
+function _removeTransitLayers() {
+    _TRANSIT_LAYERS.forEach(id  => { if (map.getLayer(id))   map.removeLayer(id); });
+    _TRANSIT_SOURCES.forEach(id => { if (map.getSource(id)) map.removeSource(id); });
+    // Also clean up line sources that may have been added on-demand
+    ['transit-tram', 'transit-bus'].forEach(id => { if (map.getSource(id)) map.removeSource(id); });
+}
+
+async function _toggleTransit() {
+    _transitVisible = !_transitVisible;
+    const btn        = document.getElementById('transitTabBtn');
+    const icon       = btn.querySelector('i');
+    const modeLabel  = document.getElementById('searchPanelMode');
+    if (_transitVisible) {
+        icon.className = 'ph-fill ph-train-simple text-3xl mb-1';
+        btn.classList.add('text-blue-600', 'dark:text-blue-400');
+        btn.classList.remove('text-gray-400', 'dark:text-gray-500');
+        if (modeLabel) modeLabel.textContent = 'MHD trasa';
+        // Clear any existing walk route and close panels
+        _clearWalkingState();
+        await _ensureTransitData();
+        if (map.isStyleLoaded()) await _addTransitLayers();
+        _spOpen();
+        toast('Zadejte odkud a kam nebo klepněte na mapu', 4000);
+    } else {
+        icon.className = 'ph ph-train-simple text-3xl mb-1';
+        btn.classList.remove('text-blue-600', 'dark:text-blue-400');
+        btn.classList.add('text-gray-400', 'dark:text-gray-500');
+        if (modeLabel) modeLabel.textContent = 'Trasa';
+        _removeTransitLayers();
+        _clearTransitMapState();
+        _spClose();
+    }
+}
+
+// Re-add layers after theme switch (style.load clears all custom layers + images)
+map.on('style.load', () => {
+    _transitImagesLoaded = false;
+    if (_transitVisible) setTimeout(() => _addTransitLayers(), 120);
+});
+
+// ── Stop popups ──
+const _transitPopup = new mapboxgl.Popup({
+    closeButton: false,
+    className: 'transit-popup',
+    maxWidth: '240px',
+    offset: 12,
+});
+
+function _getNextDepartures(gtfsIdsJson) {
+    if (!gtfsIdsJson) return [];
+    let ids;
+    try { ids = JSON.parse(gtfsIdsJson); } catch(e) { return []; }
+    const now = new Date();
+    const curMin = now.getHours() * 60 + now.getMinutes();
+    const entryMap = new Map();
+    for (const id of ids) {
+        const entries = [
+            ...(window._transitSchedule    ? (window._transitSchedule[id]    || []) : []),
+            ...(window._transitBusSchedule ? (window._transitBusSchedule[id] || []) : []),
+        ];
+        for (const en of entries) {
+            const key = en.r + '::' + en.dir;
+            if (!entryMap.has(key)) entryMap.set(key, { r: en.r, dir: en.dir, times: new Set() });
+            for (const t of en.times) entryMap.get(key).times.add(t);
+        }
+    }
+    const toMin = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+    const result = [];
+    for (const [, entry] of entryMap) {
+        const sorted = Array.from(entry.times).sort();
+        const upcoming = sorted.filter(t => {
+            const diff = toMin(t) - curMin;
+            return diff >= -1 && diff <= 180;
+        });
+        if (curMin > 21 * 60) {
+            sorted.filter(t => { const h = parseInt(t); return h < 4; }).forEach(t => upcoming.push(t));
+        }
+        result.push({ r: entry.r, dir: entry.dir, next: upcoming.slice(0, 4) });
+    }
+    result.sort((a, b) => {
+        if (!a.next.length && !b.next.length) return a.r.localeCompare(b.r);
+        if (!a.next.length) return 1;
+        if (!b.next.length) return -1;
+        return toMin(a.next[0]) - toMin(b.next[0]);
+    });
+    return result;
+}
+
+function _buildTransitPopupHTML(headerHTML, gtfsIdsJson) {
+    const deps = _getNextDepartures(gtfsIdsJson);
+    const now = new Date();
+    const curMin = now.getHours() * 60 + now.getMinutes();
+    const toMin = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+    const fmtDep = t => {
+        const diff = toMin(t) - curMin;
+        if (diff <= 0) return '<b>teď</b>';
+        if (diff < 60) return `<b>${diff}</b>&nbsp;min`;
+        return `<span class="tp-hhmm">${t}</span>`;
+    };
+    const visible = deps.filter(d => d.next.length).slice(0, 7);
+    let schedHTML;
+    if (visible.length) {
+        schedHTML = '<div class="tp-sched">' + visible.map(d =>
+            `<div class="tp-route-row">` +
+            `<span class="tp-rnum">${d.r}</span>` +
+            `<span class="tp-dir">${d.dir}</span>` +
+            `<span class="tp-times">${d.next.slice(0, 3).map(fmtDep).join('<span class="tp-dot">·</span>')}</span>` +
+            `</div>`
+        ).join('') + '</div>';
+    } else {
+        schedHTML = '<div class="tp-no-sched">Žádné odchody v nejbližší době</div>';
+    }
+    return `<div class="tp-inner">${headerHTML}${schedHTML}</div>`;
+}
+
+map.on('click', 'transit-tram-stops', (e) => {
+    if (!e.features.length) return;
+    const p = e.features[0].properties;
+    const header = `<div class="tp-row"><span class="tp-badge tp-badge-tram">🚋</span>` +
+        `<div><strong class="tp-name">${p.name}</strong><div class="tp-sub">Tramvaj · Zóna ${p.zone || 'P'}</div></div></div>`;
+    _transitPopup.setLngLat(e.lngLat)
+        .setHTML(_buildTransitPopupHTML(header, p.gtfsIds))
+        .addTo(map);
+});
+
+map.on('click', 'transit-bus-stops', (e) => {
+    if (!e.features.length) return;
+    const p = e.features[0].properties;
+    const icon = p.type === 'trolleybus' ? '🚎' : '🚌';
+    const label = p.type === 'trolleybus' ? 'Trolejbus' : 'Bus';
+    const header = `<div class="tp-row"><span class="tp-badge tp-badge-bus">${icon}</span>` +
+        `<div><strong class="tp-name">${p.name}</strong><div class="tp-sub">${label} · Zóna ${p.zone || 'P'}</div></div></div>`;
+    _transitPopup.setLngLat(e.lngLat)
+        .setHTML(_buildTransitPopupHTML(header, p.gtfsIds))
+        .addTo(map);
+});
+
+['transit-tram-stops', 'transit-bus-stops'].forEach(id => {
+    map.on('mouseenter', id, () => { map.getCanvas().style.cursor = 'pointer'; });
+    map.on('mouseleave', id, () => { map.getCanvas().style.cursor = ''; });
+});
+
+document.getElementById('transitTabBtn').addEventListener('click', _toggleTransit);
+
+// ═══════════════════════════════════════════════════════════
+// TRANSIT NAVIGATOR — Dijkstra router + planner UI
+// ═══════════════════════════════════════════════════════════
+let _transitStopNames = null;
+
+class MinHeap {
+    constructor(f) { this.h = []; this.f = f; }
+    push(v) {
+        this.h.push(v);
+        let i = this.h.length - 1;
+        while (i > 0) {
+            const p = (i - 1) >> 1;
+            if (this.f(this.h[p]) <= this.f(this.h[i])) break;
+            [this.h[p], this.h[i]] = [this.h[i], this.h[p]]; i = p;
+        }
+    }
+    pop() {
+        const top = this.h[0];
+        const last = this.h.pop();
+        if (this.h.length) {
+            this.h[0] = last;
+            let i = 0;
+            for (;;) {
+                let s = i, l = 2*i+1, r = 2*i+2;
+                if (l < this.h.length && this.f(this.h[l]) < this.f(this.h[s])) s = l;
+                if (r < this.h.length && this.f(this.h[r]) < this.f(this.h[s])) s = r;
+                if (s === i) break;
+                [this.h[s], this.h[i]] = [this.h[i], this.h[s]]; i = s;
+            }
+        }
+        return top;
+    }
+    get size() { return this.h.length; }
+}
+
+function _buildStopNameLookup() {
+    if (_transitStopNames) return;
+    _transitStopNames = {};
+    if (!window._transitStops) return;
+    for (const f of window._transitStops.features) {
+        const ids = f.properties.gtfsIds;
+        if (!ids) continue;
+        const { name, type } = f.properties;
+        try { for (const id of JSON.parse(ids)) _transitStopNames[id] = { name, type }; }
+        catch (_) {}
+    }
+}
+
+function _preProcessSchedules() {
+    for (const sch of [window._transitSchedule, window._transitBusSchedule]) {
+        if (!sch) continue;
+        for (const sid in sch)
+            for (const e of sch[sid])
+                if (!e._m) e._m = e.times.map(t => +t.slice(0, 2) * 60 + +t.slice(3, 5));
+    }
+}
+
+function _nextDepMin(sid, rname, curMin) {
+    let best = Infinity;
+    for (const sch of [window._transitSchedule, window._transitBusSchedule]) {
+        if (!sch) continue;
+        const entries = sch[sid];
+        if (!entries) continue;
+        for (const e of entries) {
+            if (e.r !== rname) continue;
+            const m = e._m;
+            if (!m?.length) continue;
+            let lo = 0, hi = m.length;
+            while (lo < hi) { const mid = (lo + hi) >> 1; if (m[mid] < curMin) lo = mid + 1; else hi = mid; }
+            if (lo < m.length && m[lo] < best) best = m[lo];
+        }
+    }
+    return best;
+}
+
+async function _planTransitRoute(fromCoord, toCoord, avoidNoisy = false) {
+    if (!window._transitGraph || !window._transitStopCoords) return { error: 'nodata' };
+    _buildStopNameLookup();
+    _preProcessSchedules();
+
+    const WALK_SPD = 80;   // m/min ≈ 4.8 km/h
+    const MAX_WALK = 2500; // max walk to/from a stop (m)
+    const K        = 15;   // nearest-stop candidates
+    const MAX_TF   = 3;    // max transfers
+    const HORIZON  = 180;  // total journey window (min)
+    const TF_PEN   = 5;    // transfer penalty added to sortT only (min) — prefers fewer transfers
+    const NOISY_MUL = 0.3; // 1.3x penalty: extra 30% of edge time in sortT for noisy stops
+
+    const noisy = avoidNoisy && _noisyStopIds && _noisyStopIds.size > 0;
+
+    const graph = window._transitGraph;
+    const sc    = window._transitStopCoords;
+
+    // For start: only graph nodes (need outgoing routes to board)
+    // For end: all stops in coords (includes terminus stops with no outgoing edges)
+    const nearestIn = (coord, pool) => {
+        const res = [];
+        for (const sid of pool) {
+            const c = sc[sid];
+            if (!c) continue;
+            const d = _haversineM(coord.lat, coord.lng, c[0], c[1]);
+            if (d <= MAX_WALK) res.push({ sid, d });
+        }
+        return res.sort((a, b) => a.d - b.d).slice(0, K);
+    };
+
+    const starts = nearestIn(fromCoord, Object.keys(graph));
+    const ends   = nearestIn(toCoord,   Object.keys(sc));
+    if (!starts.length) return { error: 'nostart' };
+    if (!ends.length)   return { error: 'noend' };
+
+    const endDist = new Map(ends.map(e => [e.sid, e.d]));
+
+    const now = new Date();
+    const t0  = now.getHours() * 60 + now.getMinutes();
+
+    // Each heap node: { sortT, t, sid, tf, route, legs, npen }
+    //   t      = actual clock arrival time (used for schedule lookups & total time)
+    //   sortT  = t + TF_PEN * tf + npen  (heap ordering — penalizes transfers + noisy stops)
+    //   npen   = accumulated noise penalty (only when avoidNoisy)
+    // Dominance: by sortT when avoidNoisy, by t otherwise
+    const heap = new MinHeap(n => n.sortT);
+    const best = new Map();
+
+    for (const s of starts) {
+        const walkMin = s.d / WALK_SPD;
+        const t = t0 + walkMin;
+        const npen = (noisy && _noisyStopIds.has(s.sid)) ? walkMin * NOISY_MUL : 0;
+        heap.push({ sortT: t + npen, t, sid: s.sid, tf: 0, route: null, npen,
+            legs: [{ type: 'walk', dist: s.d, fromSid: null, toSid: s.sid }] });
+    }
+
+    while (heap.size) {
+        const { sortT, t, sid, tf, route, legs, npen } = heap.pop();
+
+        // Dominance: use sortT when penalty active, otherwise actual t
+        const domVal = noisy ? sortT : t;
+        const bk = `${sid}\x01${tf}\x01${route || ''}`;
+        if ((best.get(bk) ?? Infinity) <= domVal) continue;
+        best.set(bk, domVal);
+
+        // Reached a destination stop?
+        if (endDist.has(sid)) {
+            const walkDist = endDist.get(sid);
+            return {
+                legs: [...legs, { type: 'walk', dist: walkDist, fromSid: sid, toSid: null }],
+                totalMin: Math.max(1, Math.round(t + walkDist / WALK_SPD - t0)),
+                t0,
+            };
+        }
+
+        if (t > t0 + HORIZON) continue;
+
+        for (const edge of (graph[sid] || [])) {
+            // Schedule lookup uses ACTUAL time t (not sortT which has TF penalties)
+            const dep = _nextDepMin(sid, edge.r, t);
+            if (dep === Infinity) continue;
+            const arr   = dep + edge.t / 60;
+            const isTf  = route !== null && route !== edge.r;
+            const newTf = tf + (isTf ? 1 : 0);
+            if (newTf > MAX_TF) continue;
+
+            // Noise penalty: 30% extra time for edges arriving at a noisy stop
+            const edgeNpen = (noisy && _noisyStopIds.has(edge.to)) ? (edge.t / 60) * NOISY_MUL : 0;
+            const newNpen = npen + edgeNpen;
+            const newSortT = arr + TF_PEN * newTf + newNpen;
+
+            const domVal2 = noisy ? newSortT : arr;
+            const bk2 = `${edge.to}\x01${newTf}\x01${edge.r}`;
+            if ((best.get(bk2) ?? Infinity) <= domVal2) continue;
+
+            // Build legs: extend current transit leg if same route, else start a new one
+            const last = legs[legs.length - 1];
+            let newLegs;
+            if (last.type === 'transit' && last.route === edge.r) {
+                newLegs = [...legs.slice(0, -1),
+                    { ...last, toSid: edge.to, stops: last.stops + 1, arrMin: arr }];
+            } else {
+                newLegs = [...legs,
+                    { type: 'transit', route: edge.r, fromSid: sid, toSid: edge.to,
+                      stops: 1, depMin: dep, arrMin: arr }];
+            }
+            heap.push({ sortT: newSortT, t: arr, sid: edge.to, tf: newTf, route: edge.r, legs: newLegs, npen: newNpen });
+        }
+    }
+    return { error: 'nroute' };
+}
+
+function _tpRouteColor(rname, type) {
+    if (type === 'metro') return rname === 'A' ? '#009A44' : rname === 'B' ? '#c8a800' : '#EE1C25';
+    if (type === 'trolleybus') return '#1565C0';
+    return '#c0392b';
+}
+
+function _renderTransitPlan(plan) {
+    const el = document.getElementById('transitPlanResult');
+    if (!plan || plan.error) {
+        const msg = !plan || plan.error === 'nodata'
+            ? 'Data MHD se načítájí… zkuste za chvíli.'
+            : plan.error === 'nostart'
+            ? 'V okolí vašeho výchozího bodu nebyla nalezena žádná zastávka (do 2,5 km).'
+            : plan.error === 'noend'
+            ? 'V okolí vašeho cíle nebyla nalezena žádná zastávka (do 2,5 km).'
+            : 'Spojení nenalezeno. Zkuste jiný čas nebo jiné místo.';
+        el.innerHTML = '<div class="tpn-empty">' + msg + '</div>';
+        return;
+    }
+    _buildStopNameLookup();
+    const nm = _transitStopNames;
+    const getName = (sid) => nm?.[sid]?.name || '';
+    const getType = (sid) => nm?.[sid]?.type || 'tram';
+    const ICON = { metro: '\uD83D\uDE87', tram: '\uD83D\uDE8B', trolleybus: '\uD83D\uDE8E', bus: '\uD83D\uDE8C' };
+    const fmtM  = (m) => { const mm = Math.round(m); return mm >= 60 ? `${Math.floor(mm/60)}\u00a0h\u00a0${mm%60}\u00a0min` : `${mm}\u00a0min`; };
+    const fmtHM = (m) => `${Math.floor(m/60).toString().padStart(2,'0')}:${(Math.round(m)%60).toString().padStart(2,'0')}`;
+
+    let html = `<div class="tpn-header"><b class="tpn-total">${fmtM(plan.totalMin)}</b><span class="tpn-hsub">celkov\u00e1 doba cesty</span></div>`;
+    for (const leg of plan.legs) {
+        if (leg.type === 'walk') {
+            const dm = Math.round(leg.dist / 80);
+            html += `<div class="tpn-leg tpn-walk"><span class="tpn-wicon">🚶</span><div><div class="tpn-wt">${Math.round(leg.dist)}\u00a0m p\u011b\u0161ky</div><div class="tpn-wsub">${dm}\u00a0min</div></div></div>`;
+        } else {
+            const typ   = getType(leg.fromSid);
+            const color = _tpRouteColor(leg.route, typ);
+            const icon  = ICON[typ] || ICON.tram;
+            const stops = leg.stops;
+            const sc2   = stops === 1 ? 'zast\u00e1vka' : stops < 5 ? 'zast\u00e1vky' : 'zast\u00e1vek';
+            html += `<div class="tpn-leg tpn-transit"><div class="tpn-tbar" style="background:${color}"></div><div class="tpn-tbody"><div class="tpn-thead"><span class="tpn-chip" style="background:${color}">${icon}\u00a0${leg.route}</span><span class="tpn-tdest">${getName(leg.toSid)}</span></div><div class="tpn-tstops">${getName(leg.fromSid)} \u2192 ${getName(leg.toSid)}</div><div class="tpn-tmeta">${stops}\u00a0${sc2} \u00b7 ${fmtHM(leg.depMin)}\u00a0\u2192\u00a0${fmtHM(leg.arrMin)}</div></div></div>`;
+        }
+    }
+    el.innerHTML = html;
+}
+
+// Map drawing of transit plan
+const _TP_MAP_IDS = [];
+function _clearTransitPlanMap() {
+    for (const id of _TP_MAP_IDS) {
+        if (map.getLayer(id))   map.removeLayer(id);
+        if (map.getSource(id))  map.removeSource(id);
+    }
+    _TP_MAP_IDS.length = 0;
+}
+// Fetch walk polyline via GraphHopper.
+// useComfort=true applies the user's custom model; false uses fast/direct routing.
+async function _fetchWalkPolyline(from, to, useComfort = true) {
+    try {
+        const model = useComfort ? buildCustomModel() : { distance_influence: 100, priority: [] };
+        const body = { points: [[from.lng, from.lat], [to.lng, to.lat]],
+            profile: 'normal_walk', points_encoded: true, instructions: false,
+            'ch.disable': true, custom_model: model };
+        const r = await fetch(GH_URL, { method: 'POST', headers: GH_HEADERS, body: JSON.stringify(body) });
+        if (!r.ok) throw new Error(`GH ${r.status}`);
+        return decodePolyline((await r.json()).paths[0].points);
+    } catch (_) {
+        return [[from.lng, from.lat], [to.lng, to.lat]];
+    }
+}
+
+// Follow directed graph edges for a given route, return ordered [lng,lat] stop coords.
+// When a stop has multiple outgoing edges on the same route (branch/variant),
+// pick the edge whose destination is closest to the final toSid stop.
+function _traceTransitLeg(fromSid, toSid, route) {
+    const sc = window._transitStopCoords;
+    const es = window._transitEdgeShapes;
+    const to_ = sc[toSid];
+    if (!to_) return [];
+
+    const coords  = [];
+    const visited = new Set();
+    let cur = fromSid;
+
+    while (cur && !visited.has(cur)) {
+        if (cur === toSid) break;
+        visited.add(cur);
+
+        const candidates = (window._transitGraph[cur] || [])
+            .filter(e => e.r === route && !visited.has(e.to));
+        if (!candidates.length) break;
+
+        let next = candidates[0];
+        if (candidates.length > 1) {
+            let bestD = Infinity;
+            for (const e of candidates) {
+                const ct = sc[e.to];
+                if (!ct) continue;
+                const dx = ct[1] - to_[1], dy = ct[0] - to_[0];
+                const d  = dx * dx + dy * dy;
+                if (d < bestD) { bestD = d; next = e; }
+            }
+        }
+
+        // Append shape geometry for this hop (all points except the last,
+        // which will be the first point of the next hop)
+        const key = `${cur}|${next.to}|${route}`;
+        const seg = es && es[key];
+        if (seg && seg.length > 0) {
+            for (let i = 0; i < seg.length - 1; i++) coords.push(seg[i]);
+        } else {
+            // Fallback: straight line from current stop
+            const c = sc[cur];
+            if (c) coords.push([c[1], c[0]]);
+        }
+
+        cur = next.to;
+        if (coords.length > 4000) break;
+    }
+
+    // Add the final stop (closes the last segment)
+    const cEnd = sc[toSid];
+    if (cEnd) coords.push([cEnd[1], cEnd[0]]);
+    return coords;
+}
+
+// Route through all stops of a transit leg via GH (follows roads/tracks, no comfort model).
+// Transit vehicle legs: connect stops in route order with straight segments.
+// We do NOT route through GH (pedestrian router follows sidewalks, not tram rails).
+function _fetchTransitPolyline(fromSid, toSid, route) {
+    return Promise.resolve(_traceTransitLeg(fromSid, toSid, route));
+}
+
+async function _drawTransitPlan(plan, from, to) {
+    _clearTransitPlanMap();
+    if (!plan) return;
+    const sc = window._transitStopCoords;
+    const gc = (sid) => { const c = sc?.[sid]; return c ? [c[1], c[0]] : null; };
+
+    // Collect all legs as jobs, then fetch walk + transit polylines in parallel
+    // custom model only for first and last walk legs (user walks to/from stops)
+    const jobs = [];
+    let idx = 0;
+    const firstLegIdx = plan.legs.findIndex(l => l.type === 'walk');
+    const lastLegIdx  = [...plan.legs].map((l,i)=>l.type==='walk'?i:-1).filter(i=>i>=0).pop() ?? -1;
+    for (const leg of plan.legs) {
+        const id = `tp-${idx}`;
+        if (leg.type === 'walk') {
+            const a = leg.fromSid ? { lat: sc[leg.fromSid][0], lng: sc[leg.fromSid][1] } : from;
+            const b = leg.toSid   ? { lat: sc[leg.toSid][0],   lng: sc[leg.toSid][1]   } : to;
+            const useComfort = (idx === firstLegIdx || idx === lastLegIdx);
+            jobs.push({ id, type: 'walk', fromPt: a, toPt: b, leg, useComfort });
+        } else {
+            jobs.push({ id, type: 'transit', leg });
+        }
+        idx++;
+    }
+
+    // Fetch all polylines in parallel (comfort model only for first/last walk legs)
+    const polylines = await Promise.all(jobs.map(j =>
+        j.type === 'walk'
+            ? _fetchWalkPolyline(j.fromPt, j.toPt, j.useComfort)
+            : _fetchTransitPolyline(j.leg.fromSid, j.leg.toSid, j.leg.route)
+    ));
+
+    // Draw all legs
+    for (let i = 0; i < jobs.length; i++) {
+        const j = jobs[i];
+        const coords = polylines[i];
+        if (!coords || coords.length < 2) continue;
+        if (map.getSource(j.id)) continue;
+        map.addSource(j.id, { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: coords } } });
+        if (j.type === 'walk') {
+            map.addLayer({ id: j.id, type: 'line', source: j.id, layout: { 'line-join': 'round', 'line-cap': 'round' },
+                paint: { 'line-color': '#6b7280', 'line-width': 3, 'line-opacity': 0.8, 'line-dasharray': [2, 2] } });
+        } else {
+            const typ   = _transitStopNames?.[j.leg.fromSid]?.type || 'tram';
+            const color = _tpRouteColor(j.leg.route, typ);
+            map.addLayer({ id: j.id, type: 'line', source: j.id, layout: { 'line-join': 'round', 'line-cap': 'round' },
+                paint: { 'line-color': color, 'line-width': 5, 'line-opacity': 0.92 } });
+        }
+        _TP_MAP_IDS.push(j.id);
+    }
+
+    // Flatten all leg polylines into _routeCoords so startNavigation() can track progress
+    const navCoords = [];
+    for (const coords of polylines) {
+        if (!coords || coords.length < 2) continue;
+        if (navCoords.length > 0) navCoords.pop(); // merge junction point
+        navCoords.push(...coords);
+    }
+    _routeCoords = navCoords;
+
+    const allPts = plan.legs.flatMap(leg => {
+        const pts = [];
+        if (leg.fromSid) { const c = gc(leg.fromSid); if (c) pts.push(c); }
+        if (leg.toSid)   { const c = gc(leg.toSid);   if (c) pts.push(c); }
+        return pts;
+    });
+    allPts.push([from.lng, from.lat], [to.lng, to.lat]);
+    if (allPts.length > 1) {
+        const bounds = allPts.reduce((b, c) => b.extend(c), new mapboxgl.LngLatBounds(allPts[0], allPts[0]));
+        map.fitBounds(bounds, { padding: 80, maxZoom: 15, duration: 700 });
+    }
+}
+
+function _showTransitPlanSheet() {
+    _showRouteSheet('transit');
+}
+function _hideTransitPlanSheet() {
+    _hideRouteSheet();
+    const st = document.getElementById('sheetTransit');
+    if (st) st.classList.add('hidden');
+    _clearTransitMapState();
+}
+
+// ── Map-tap transit planner state ──
+function _clearWalkingState() {
+    if (_navMode) stopNavigation(false);
+    ptStart = null; ptEnd = null;
+    _coordFrom = null; _coordTo = null;
+    _addrFrom.value = ''; _addrTo.value = '';
+    _clearFromGPS();
+    if (markerStart) { markerStart.remove(); markerStart = null; }
+    if (markerEnd)   { markerEnd.remove();   markerEnd   = null; }
+    _markerFrom = null; _markerTo = null;
+    ['route-fast', 'route-klidna', 'route'].forEach(id => {
+        if (map.getLayer(id))  map.removeLayer(id);
+        if (map.getSource(id)) map.removeSource(id);
+    });
+    _routeCoords = []; _fastRouteCoords = []; _klidnaRouteCoords = [];
+    _hideRouteSheet();
+    _spClose();
+}
+
+let _tpMapStep    = 0;   // 0=empty 1=start set 2=both set
+let _tpMarkerFrom = null;
+let _tpMarkerTo   = null;
+
+// Transit compare state
+let _transitPlanFast  = null;
+let _transitPlanQuiet = null;
+let _activeTransitVariant = 'fast'; // 'fast' | 'quiet'
+
+function _selectTransitOpt(variant) {
+    _activeTransitVariant = variant;
+    const plan = variant === 'fast' ? _transitPlanFast : _transitPlanQuiet;
+    // highlight selected tab
+    const elF = document.getElementById('optTransitFast');
+    const elQ = document.getElementById('optTransitQuiet');
+    if (elF) elF.classList.toggle('selected', variant === 'fast');
+    if (elQ) elQ.classList.toggle('selected', variant === 'quiet');
+    // re-render + re-draw selected plan
+    _renderTransitPlan(plan);
+    if (plan && !plan.error && _coordFrom && _coordTo) {
+        _drawTransitPlan(plan, _coordFrom, _coordTo);
+        _syncNavBtn();
+    }
+}
+
+function _clearTransitMapState() {
+    _tpMapStep = 0;
+    if (_tpMarkerFrom) { _tpMarkerFrom.remove(); _tpMarkerFrom = null; }
+    if (_tpMarkerTo)   { _tpMarkerTo.remove();   _tpMarkerTo   = null; }
+    // Clear shared walk state used by transit map taps
+    ptStart = null; ptEnd = null;
+    _coordFrom = null; _coordTo = null;
+    _addrFrom.value = ''; _addrTo.value = '';
+    _clearFromGPS();
+    if (markerStart) { markerStart.remove(); markerStart = null; }
+    if (markerEnd)   { markerEnd.remove();   markerEnd   = null; }
+    _markerFrom = null; _markerTo = null;
+    _clearTransitPlanMap();
+    _hideRouteSheet();
+    const st = document.getElementById('sheetTransit');
+    if (st) st.classList.add('hidden');
+}
+
+function _makeTpPin(color) {
+    const el = document.createElement('div');
+    el.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 52" width="36" height="46">
+      <path d="M20 2 C9.5 2 1 10.5 1 21 C1 34 20 50 20 50 C20 50 39 34 39 21 C39 10.5 30.5 2 20 2 Z"
+            fill="${color}" stroke="rgba(0,0,0,0.25)" stroke-width="1.5"/>
+      <circle cx="20" cy="21" r="8" fill="rgba(255,255,255,0.9)"/>
+    </svg>`;
+    el.style.cssText = 'cursor:pointer;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4));';
+    return el;
+}
+
+function _handleTransitMapClick(lat, lng) {
+    _transitPopup.remove(); // close any stop popup
+
+    function _fillReverse(field, lng, lat) {
+        const input = field === 'from' ? _addrFrom : _addrTo;
+        input.value = '…';
+        _reverseGeocode(lng, lat).then(label => {
+            input.value = label || `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+        });
+    }
+
+    _spOpen();
+
+    if (!ptStart) {
+        ptStart = { lng, lat };
+        _coordFrom = { lng, lat };
+        _tpMapStep = 1;
+        if (markerStart) markerStart.remove();
+        markerStart = new mapboxgl.Marker({ element: _makeTpPin('#22c55e'), anchor: 'bottom' })
+            .setLngLat([lng, lat]).addTo(map);
+        _markerFrom = markerStart;
+        _activeField = 'from';
+        _fillReverse('from', lng, lat);
+        setTimeout(() => { _addrTo.focus(); _activeField = 'to'; }, 120);
+        toast('Klepněte na cíl cesty', 2500);
+    } else if (!ptEnd) {
+        ptEnd = { lng, lat };
+        _coordTo = { lng, lat };
+        _tpMapStep = 2;
+        if (markerEnd) markerEnd.remove();
+        markerEnd = new mapboxgl.Marker({ element: _makeTpPin('#ef4444'), anchor: 'bottom' })
+            .setLngLat([lng, lat]).addTo(map);
+        _markerTo = markerEnd;
+        _activeField = 'to';
+        _fillReverse('to', lng, lat);
+        _tpAutoSearch();
+    } else {
+        // Third tap — restart
+        _clearTransitMapState();
+        toast('Klepněte na start', 2000);
+    }
+}
+
+async function _tpAutoSearch() {
+    if (!_coordFrom || !_coordTo) return;
+    document.getElementById('transitPlanResult').innerHTML = '<div class="tpn-empty">Hledám spojení…</div>';
+    document.getElementById('routeFromLabel').textContent = _addrFrom.value || 'Odkud…';
+    document.getElementById('routeToLabel').textContent   = _addrTo.value   || 'Kam…';
+    _showTransitPlanSheet();
+
+    const avoidCb = document.getElementById('avoidNoisyStops');
+    const wantQuiet = avoidCb && avoidCb.checked;
+    const cmpEl = document.getElementById('transitCompare');
+
+    try {
+        await _ensureTransitData();
+
+        if (wantQuiet) {
+            // Two routes: fast + quiet
+            const [planFast, planQuiet] = await Promise.all([
+                _planTransitRoute(_coordFrom, _coordTo, false),
+                _planTransitRoute(_coordFrom, _coordTo, true),
+            ]);
+            _transitPlanFast  = planFast;
+            _transitPlanQuiet = planQuiet;
+
+            // Show compare tabs
+            if (cmpEl) cmpEl.classList.remove('hidden');
+            const fmtM = (m) => { const mm = Math.round(m); return mm >= 60 ? `${Math.floor(mm/60)} h ${mm%60} min` : `${mm} min`; };
+            const elFT = document.getElementById('optTransitFastTime');
+            const elQT = document.getElementById('optTransitQuietTime');
+            if (elFT) elFT.textContent = planFast && !planFast.error ? fmtM(planFast.totalMin) : '—';
+            if (elQT) elQT.textContent = planQuiet && !planQuiet.error ? fmtM(planQuiet.totalMin) : '—';
+
+            // Default to quiet variant
+            _activeTransitVariant = 'quiet';
+            const oF = document.getElementById('optTransitFast');
+            const oQ = document.getElementById('optTransitQuiet');
+            if (oF) oF.classList.remove('selected');
+            if (oQ) oQ.classList.add('selected');
+
+            const plan = planQuiet && !planQuiet.error ? planQuiet : planFast;
+            _renderTransitPlan(plan);
+            if (plan && !plan.error) {
+                await _drawTransitPlan(plan, _coordFrom, _coordTo);
+                _syncNavBtn();
+            }
+        } else {
+            // Single route (fastest)
+            if (cmpEl) cmpEl.classList.add('hidden');
+            _transitPlanFast = null;
+            _transitPlanQuiet = null;
+            const plan = await _planTransitRoute(_coordFrom, _coordTo, false);
+            _renderTransitPlan(plan);
+            if (plan && !plan.error) {
+                await _drawTransitPlan(plan, _coordFrom, _coordTo);
+                _syncNavBtn();
+            }
+        }
+    } catch(e) {
+        document.getElementById('transitPlanResult').innerHTML = `<div class="tpn-empty">Chyba: ${e.message}</div>`;
+        console.error('[MHD planner]', e);
+    }
+}
