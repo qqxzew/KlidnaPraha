@@ -1308,14 +1308,16 @@ function _sheetCollapse() {
 }
 
 function _showRouteSheet(state) {
-    _spClose(); // close address panel so the route sheet is clearly visible
+    if (state !== 'transit') _spClose(); // close address panel for walk/route modes only
     const sheetCompare = document.getElementById('sheetCompare');
     const sheetSingle  = document.getElementById('sheetSingle');
     const sheetTransit = document.getElementById('sheetTransit');
     sheetCompare.classList.toggle('hidden', state !== 'compare');
     sheetSingle.classList.toggle('hidden',  state !== 'single');
     if (sheetTransit) sheetTransit.classList.toggle('hidden', state !== 'transit');
-    _sheetCollapse(); // always open in peek (compact) state
+    // Transit result: open expanded so the plan is visible; walk/route: peek
+    if (state === 'transit') _sheetExpand();
+    else _sheetCollapse();
     const tb = document.getElementById('tabBar');
     if (tb) { tb.style.opacity = '0'; tb.style.transform = 'translateY(8px)'; tb.style.pointerEvents = 'none'; }
     _syncNavBtn();
