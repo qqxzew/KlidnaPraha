@@ -1293,6 +1293,20 @@ function _syncNavBtn() {
     const show = _transitVisible ? (_routeCoords.length > 0) : _fromIsGPS;
     wrap.classList.toggle('hidden', !show);
 }
+function _sheetExpand() {
+    const sheet = document.getElementById('routeSheet');
+    sheet.classList.remove('sheet-peek', 'sheet-hidden');
+    sheet.style.transform = '';
+    _syncFloatBtns();
+}
+function _sheetCollapse() {
+    const sheet = document.getElementById('routeSheet');
+    sheet.classList.remove('sheet-hidden');
+    sheet.classList.add('sheet-peek');
+    sheet.style.transform = '';
+    _syncFloatBtns();
+}
+
 function _showRouteSheet(state) {
     _spClose(); // close address panel so the route sheet is clearly visible
     const sheetCompare = document.getElementById('sheetCompare');
@@ -1301,14 +1315,17 @@ function _showRouteSheet(state) {
     sheetCompare.classList.toggle('hidden', state !== 'compare');
     sheetSingle.classList.toggle('hidden',  state !== 'single');
     if (sheetTransit) sheetTransit.classList.toggle('hidden', state !== 'transit');
-    document.getElementById('routeSheet').classList.remove('sheet-hidden');
+    _sheetCollapse(); // always open in peek (compact) state
     const tb = document.getElementById('tabBar');
     if (tb) { tb.style.opacity = '0'; tb.style.transform = 'translateY(8px)'; tb.style.pointerEvents = 'none'; }
     _syncNavBtn();
     _syncFloatBtns();
 }
 function _hideRouteSheet() {
-    document.getElementById('routeSheet').classList.add('sheet-hidden');
+    const sheet = document.getElementById('routeSheet');
+    sheet.classList.add('sheet-hidden');
+    sheet.classList.remove('sheet-peek');
+    sheet.style.transform = '';
     const tb = document.getElementById('tabBar');
     if (tb) { tb.style.opacity = ''; tb.style.transform = ''; tb.style.pointerEvents = ''; }
     _syncFloatBtns();
@@ -1321,8 +1338,12 @@ function _syncFloatBtns() {
     const sosVisible   = !document.getElementById('sosInfoCard').classList.contains('card-hidden');
     let bottom;
     if (sheetVisible) {
-        const inner = sheet.querySelector('div');
-        bottom = (inner ? inner.offsetHeight + 16 : 300) + 'px';
+        if (sheet.classList.contains('sheet-peek')) {
+            bottom = (200 + 16) + 'px'; // 200px peek height + gap
+        } else {
+            const inner = document.getElementById('routeSheetInner') || sheet.querySelector('div');
+            bottom = (inner ? inner.offsetHeight + 16 : 300) + 'px';
+        }
     } else if (sosVisible) {
         bottom = '11.5rem';
     } else {
@@ -1333,31 +1354,57 @@ function _syncFloatBtns() {
     if (navLeft && !navLeft.classList.contains('hidden')) navLeft.style.bottom = bottom;
 }
 
-// ── Swipe-down-to-close gesture on route sheet handle ───
+// ── Peek / expand / close gesture on route sheet handle ───
 (function () {
     const handle = document.getElementById('routeSheetHandle');
     const sheet  = document.getElementById('routeSheet');
-    let startY = 0, dragging = false;
+    const PEEK_H = 200;
+    let startY = 0, startPeek = false, dragging = false;
+
+    // Tap handle = toggle peek ↔ expanded
+    handle.addEventListener('click', (e) => {
+        if (e.target.closest('#routeSheetCloseBtn')) return;
+        if (sheet.classList.contains('sheet-hidden')) return;
+        if (sheet.classList.contains('sheet-peek')) _sheetExpand();
+        else _sheetCollapse();
+    });
+
     handle.addEventListener('touchstart', e => {
-        startY   = e.touches[0].clientY;
-        dragging = true;
+        startY    = e.touches[0].clientY;
+        startPeek = sheet.classList.contains('sheet-peek');
+        dragging  = true;
         sheet.style.transition = 'none';
     }, { passive: true });
+
     handle.addEventListener('touchmove', e => {
         if (!dragging) return;
         const dy = e.touches[0].clientY - startY;
-        if (dy > 0) sheet.style.transform = `translateY(${dy}px)`;
+        if (startPeek) {
+            const baseOffset = Math.max(0, sheet.offsetHeight - PEEK_H);
+            const offset = Math.max(0, baseOffset + dy);
+            sheet.classList.remove('sheet-peek');
+            sheet.style.transform = `translateY(${offset}px)`;
+        } else {
+            if (dy > 0) {
+                sheet.classList.remove('sheet-peek');
+                sheet.style.transform = `translateY(${dy}px)`;
+            }
+        }
     }, { passive: true });
+
     handle.addEventListener('touchend', e => {
         if (!dragging) return;
         dragging = false;
         sheet.style.transition = '';
+        sheet.style.transform = '';
         const dy = e.changedTouches[0].clientY - startY;
-        if (dy > 90) {
-            // Dismiss: same as close button
-            document.getElementById('routeSheetCloseBtn').click();
+        if (startPeek) {
+            if (dy < -50)       _sheetExpand();
+            else if (dy > 110)  document.getElementById('routeSheetCloseBtn').click();
+            else                _sheetCollapse();
         } else {
-            sheet.style.transform = '';
+            if (dy > 80) _sheetCollapse();
+            // else stay expanded
         }
     });
 })();

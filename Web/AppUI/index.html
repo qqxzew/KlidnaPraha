@@ -357,7 +357,22 @@
             transform: translateY(100%);
             pointer-events: none;
         }
-        #routeSheetHandle { touch-action: none; }
+        #routeSheet.sheet-peek {
+            /* max(0px,...) prevents floating above bottom when content is short */
+            transform: translateY(max(0px, calc(100% - 200px)));
+        }
+        #routeSheetHandle { touch-action: none; cursor: pointer; }
+        #routeSheetInner {
+            max-height: 74vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        #sheetTransit {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+        }
         .route-opt {
             flex: 1; border-radius: 14px; padding: 12px 14px; cursor: pointer;
             border: 2px solid transparent; transition: border-color 0.15s, background 0.15s;
@@ -474,7 +489,7 @@
 
     <!-- ═══════════ ROUTE BOTTOM SHEET ═══════════ -->
     <div id="routeSheet" class="absolute inset-x-0 bottom-0 z-30 sheet-hidden">
-        <div class="bg-surface-light dark:bg-surface-dark rounded-t-3xl shadow-2xl border-t border-gray-100 dark:border-zinc-800">
+        <div id="routeSheetInner" class="bg-surface-light dark:bg-surface-dark rounded-t-3xl shadow-2xl border-t border-gray-100 dark:border-zinc-800">
             <!-- Drag handle + close -->
             <div id="routeSheetHandle" class="flex items-center justify-between px-4 pt-3 pb-1 select-none">
                 <div class="w-6 flex-shrink-0"></div>
@@ -527,7 +542,7 @@
                 </div>
             </div>
             <!-- Transit plan state -->
-            <div id="sheetTransit" class="hidden px-4 pb-2 overflow-y-auto" style="max-height:45vh;">
+            <div id="sheetTransit" class="hidden px-4 pb-2">
                 <div id="transitCompare" class="hidden flex gap-2 mb-2">
                     <div id="optTransitFast" class="route-opt" onclick="_selectTransitOpt('fast')">
                         <div class="flex items-center gap-1.5 mb-1">
