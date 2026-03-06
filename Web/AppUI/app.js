@@ -1308,7 +1308,7 @@ function _sheetCollapse() {
 }
 
 function _showRouteSheet(state) {
-    if (state !== 'transit') _spClose(); // close address panel for walk/route modes only
+    _spClose();
     const sheetCompare = document.getElementById('sheetCompare');
     const sheetSingle  = document.getElementById('sheetSingle');
     const sheetTransit = document.getElementById('sheetTransit');
@@ -2440,7 +2440,10 @@ function _preProcessSchedules() {
         if (!sch) continue;
         for (const sid in sch)
             for (const e of sch[sid])
-                if (!e._m) e._m = e.times.map(t => +t.slice(0, 2) * 60 + +t.slice(3, 5));
+                if (!e._m) {
+                    e._m = e.times.map(t => +t.slice(0, 2) * 60 + +t.slice(3, 5));
+                    e._m.sort((a, b) => a - b);
+                }
     }
 }
 
@@ -2456,7 +2459,13 @@ function _nextDepMin(sid, rname, curMin) {
             if (!m?.length) continue;
             let lo = 0, hi = m.length;
             while (lo < hi) { const mid = (lo + hi) >> 1; if (m[mid] < curMin) lo = mid + 1; else hi = mid; }
-            if (lo < m.length && m[lo] < best) best = m[lo];
+            if (lo < m.length) {
+                if (m[lo] < best) best = m[lo];
+            } else {
+                // Wrap to next day: first departure + 1440 min
+                const nextDay = m[0] + 1440;
+                if (nextDay >= curMin && nextDay < best) best = nextDay;
+            }
         }
     }
     return best;
@@ -2471,9 +2480,9 @@ async function _planTransitRoute(fromCoord, toCoord, avoidNoisy = false) {
     const MAX_WALK = 2500; // max walk to/from a stop (m)
     const K        = 15;   // nearest-stop candidates
     const MAX_TF   = 3;    // max transfers
-    const HORIZON  = 180;  // total journey window (min)
+    const HORIZON  = 360;  // total journey window (min) — 6 hours covers late-night wrap
     const TF_PEN   = 5;    // transfer penalty (min) — only used in quiet mode to prefer fewer transfers
-    const NOISY_MUL = 9.0; // 9x penalty: strongly avoids noisy stops — forces detour when any alternative exists
+    const NOISY_MUL = 5.0; // 5x penalty: avoids noisy stops while keeping routes practical
 
     const noisy = avoidNoisy && _noisyStopIds && _noisyStopIds.size > 0;
 
@@ -2606,7 +2615,7 @@ function _renderTransitPlan(plan) {
     const getType = (sid) => nm?.[sid]?.type || 'tram';
     const ICON = { metro: '\uD83D\uDE87', tram: '\uD83D\uDE8B', trolleybus: '\uD83D\uDE8E', bus: '\uD83D\uDE8C' };
     const fmtM  = (m) => { const mm = Math.round(m); return mm >= 60 ? `${Math.floor(mm/60)}\u00a0h\u00a0${mm%60}\u00a0min` : `${mm}\u00a0min`; };
-    const fmtHM = (m) => `${Math.floor(m/60).toString().padStart(2,'0')}:${(Math.round(m)%60).toString().padStart(2,'0')}`;
+    const fmtHM = (m) => { const w = ((Math.round(m) % 1440) + 1440) % 1440; return `${Math.floor(w/60).toString().padStart(2,'0')}:${(w%60).toString().padStart(2,'0')}`; };
 
     let html = `<div class="tpn-header"><b class="tpn-total">${fmtM(plan.totalMin)}</b><span class="tpn-hsub">celkov\u00e1 doba cesty</span></div>`;
     for (const leg of plan.legs) {
@@ -2709,23 +2718,30 @@ function _traceTransitLeg(fromSid, toSid, route) {
 // Transit vehicle legs: connect stops in route order with straight segments.
 // We do NOT route through GH (pedestrian router follows sidewalks, not tram rails).
 function _fetchTransitPolyline(fromSid, toSid, route) {
-    return Promise.resolve(_traceTransitLeg(fromSid, toSid, route));
+    const coords = _traceTransitLeg(fromSid, toSid, route);
+    // Fallback: if trace returned nothing usable, draw straight line between stops
+    if (!coords || coords.length < 2) {
+        const sc = window._transitStopCoords;
+        const cA = sc?.[fromSid], cB = sc?.[toSid];
+        if (cA && cB) return Promise.resolve([[cA[1], cA[0]], [cB[1], cB[0]]]);
+    }
+    return Promise.resolve(coords);
 }
 
-async function _drawTransitPlan(plan, from, to) {
-    _clearTransitPlanMap();
+// prefix: 'tp-fast' / 'tp-quiet' / 'tp' — allows two plans on map simultaneously
+// opacity: line opacity for this plan's layers (0.92 = active, 0.25 = dimmed)
+async function _drawTransitPlan(plan, from, to, prefix, opacity) {
+    if (!prefix) prefix = 'tp';
+    if (opacity == null) opacity = 0.92;
     if (!plan) return;
     const sc = window._transitStopCoords;
-    const gc = (sid) => { const c = sc?.[sid]; return c ? [c[1], c[0]] : null; };
 
-    // Collect all legs as jobs, then fetch walk + transit polylines in parallel
-    // custom model only for first and last walk legs (user walks to/from stops)
     const jobs = [];
     let idx = 0;
     const firstLegIdx = plan.legs.findIndex(l => l.type === 'walk');
     const lastLegIdx  = [...plan.legs].map((l,i)=>l.type==='walk'?i:-1).filter(i=>i>=0).pop() ?? -1;
     for (const leg of plan.legs) {
-        const id = `tp-${idx}`;
+        const id = `${prefix}-${idx}`;
         if (leg.type === 'walk') {
             const a = leg.fromSid ? { lat: sc[leg.fromSid][0], lng: sc[leg.fromSid][1] } : from;
             const b = leg.toSid   ? { lat: sc[leg.toSid][0],   lng: sc[leg.toSid][1]   } : to;
@@ -2737,53 +2753,40 @@ async function _drawTransitPlan(plan, from, to) {
         idx++;
     }
 
-    // Fetch all polylines in parallel (comfort model only for first/last walk legs)
     const polylines = await Promise.all(jobs.map(j =>
         j.type === 'walk'
             ? _fetchWalkPolyline(j.fromPt, j.toPt, j.useComfort)
             : _fetchTransitPolyline(j.leg.fromSid, j.leg.toSid, j.leg.route)
     ));
 
-    // Draw all legs
     for (let i = 0; i < jobs.length; i++) {
         const j = jobs[i];
         const coords = polylines[i];
         if (!coords || coords.length < 2) continue;
-        if (map.getSource(j.id)) continue;
+        if (map.getSource(j.id)) { map.getSource(j.id).setData({ type: 'Feature', geometry: { type: 'LineString', coordinates: coords } }); continue; }
         map.addSource(j.id, { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: coords } } });
         if (j.type === 'walk') {
             map.addLayer({ id: j.id, type: 'line', source: j.id, layout: { 'line-join': 'round', 'line-cap': 'round' },
-                paint: { 'line-color': '#6b7280', 'line-width': 3, 'line-opacity': 0.8, 'line-dasharray': [2, 2] } });
+                paint: { 'line-color': '#6b7280', 'line-width': 3, 'line-opacity': opacity * 0.87, 'line-dasharray': [2, 2] } });
         } else {
             const typ   = _transitStopNames?.[j.leg.fromSid]?.type || 'tram';
             const color = _tpRouteColor(j.leg.route, typ);
             map.addLayer({ id: j.id, type: 'line', source: j.id, layout: { 'line-join': 'round', 'line-cap': 'round' },
-                paint: { 'line-color': color, 'line-width': 5, 'line-opacity': 0.92 } });
+                paint: { 'line-color': color, 'line-width': 5, 'line-opacity': opacity } });
         }
         _TP_MAP_IDS.push(j.id);
     }
 
-    // Flatten all leg polylines into _routeCoords so startNavigation() can track progress
+    // Return nav coords for the active plan
     const navCoords = [];
     for (const coords of polylines) {
         if (!coords || coords.length < 2) continue;
-        if (navCoords.length > 0) navCoords.pop(); // merge junction point
+        if (navCoords.length > 0) navCoords.pop();
         navCoords.push(...coords);
     }
-    _routeCoords = navCoords;
-
-    const allPts = plan.legs.flatMap(leg => {
-        const pts = [];
-        if (leg.fromSid) { const c = gc(leg.fromSid); if (c) pts.push(c); }
-        if (leg.toSid)   { const c = gc(leg.toSid);   if (c) pts.push(c); }
-        return pts;
-    });
-    allPts.push([from.lng, from.lat], [to.lng, to.lat]);
-    if (allPts.length > 1) {
-        const bounds = allPts.reduce((b, c) => b.extend(c), new mapboxgl.LngLatBounds(allPts[0], allPts[0]));
-        map.fitBounds(bounds, { padding: 80, maxZoom: 15, duration: 700 });
-    }
+    return navCoords;
 }
+
 
 function _showTransitPlanSheet() {
     _showRouteSheet('transit');
@@ -2831,13 +2834,27 @@ function _selectTransitOpt(variant) {
     const elQ = document.getElementById('optTransitQuiet');
     if (elF) elF.classList.toggle('selected', variant === 'fast');
     if (elQ) elQ.classList.toggle('selected', variant === 'quiet');
-    // re-render + re-draw selected plan
+    // re-render plan details
     _renderTransitPlan(plan);
-    if (plan && !plan.error && _coordFrom && _coordTo) {
-        _drawTransitPlan(plan, _coordFrom, _coordTo);
-        _syncNavBtn();
+    // Toggle opacity: active plan = bright, other = dimmed
+    _setTransitPlanOpacity('tp-fast',  variant === 'fast'  ? 0.92 : 0.25);
+    _setTransitPlanOpacity('tp-quiet', variant === 'quiet' ? 0.92 : 0.25);
+    // Update nav coords
+    if (variant === 'fast' && _transitNavCoordsFast) _routeCoords = _transitNavCoordsFast;
+    if (variant === 'quiet' && _transitNavCoordsQuiet) _routeCoords = _transitNavCoordsQuiet;
+    _syncNavBtn();
+}
+
+function _setTransitPlanOpacity(prefix, opacity) {
+    for (const id of _TP_MAP_IDS) {
+        if (!id.startsWith(prefix + '-')) continue;
+        if (!map.getLayer(id)) continue;
+        map.setPaintProperty(id, 'line-opacity', opacity);
     }
 }
+
+let _transitNavCoordsFast  = null;
+let _transitNavCoordsQuiet = null;
 
 function _clearTransitMapState() {
     _tpMapStep = 0;
@@ -2852,6 +2869,8 @@ function _clearTransitMapState() {
     if (markerEnd)   { markerEnd.remove();   markerEnd   = null; }
     _markerFrom = null; _markerTo = null;
     _clearTransitPlanMap();
+    _transitNavCoordsFast = null;
+    _transitNavCoordsQuiet = null;
     _hideRouteSheet();
     const st = document.getElementById('sheetTransit');
     if (st) st.classList.add('hidden');
@@ -2914,17 +2933,19 @@ function _handleTransitMapClick(lat, lng) {
 async function _tpAutoSearch() {
     if (!_coordFrom || !_coordTo) return;
 
-    // Signature for identical-route detection: e.g. "L22:stopA-stopB|walk"
     function _legsSig(plan) {
         if (!plan || plan.error) return '';
         return plan.legs.map(l =>
             l.type === 'transit' ? `${l.route}:${l.fromSid}-${l.toSid}` : l.type
         ).join('|');
     }
-    document.getElementById('transitPlanResult').innerHTML = '<div class="tpn-empty">Hledám spojení…</div>';
-    document.getElementById('routeFromLabel').textContent = _addrFrom.value || 'Odkud…';
-    document.getElementById('routeToLabel').textContent   = _addrTo.value   || 'Kam…';
-    _showTransitPlanSheet();
+    const fmtM = (m) => { const mm = Math.round(m); return mm >= 60 ? `${Math.floor(mm/60)} h ${mm%60} min` : `${mm} min`; };
+
+    // Show loading message (no sheet yet)
+    toast('Hledám spojení…', 10000);
+    _clearTransitPlanMap();
+    _transitNavCoordsFast = null;
+    _transitNavCoordsQuiet = null;
 
     const avoidCb = document.getElementById('avoidNoisyStops');
     const wantQuiet = avoidCb && avoidCb.checked;
@@ -2934,7 +2955,7 @@ async function _tpAutoSearch() {
         await _ensureTransitData();
 
         if (wantQuiet) {
-            // Two routes: fast + quiet
+            // ── Compare mode: both fast + quiet routes on map ──
             const [planFast, planQuiet] = await Promise.all([
                 _planTransitRoute(_coordFrom, _coordTo, false),
                 _planTransitRoute(_coordFrom, _coordTo, true),
@@ -2942,15 +2963,26 @@ async function _tpAutoSearch() {
             _transitPlanFast  = planFast;
             _transitPlanQuiet = planQuiet;
 
+            // Draw both plans: quiet = bright, fast = dimmed
+            if (planFast && !planFast.error) {
+                _transitNavCoordsFast = await _drawTransitPlan(planFast, _coordFrom, _coordTo, 'tp-fast', 0.25);
+            }
+            if (planQuiet && !planQuiet.error) {
+                _transitNavCoordsQuiet = await _drawTransitPlan(planQuiet, _coordFrom, _coordTo, 'tp-quiet', 0.92);
+                _routeCoords = _transitNavCoordsQuiet;
+            } else if (planFast && !planFast.error) {
+                _setTransitPlanOpacity('tp-fast', 0.92);
+                _transitNavCoordsFast && (_routeCoords = _transitNavCoordsFast);
+            }
+
             // Show compare tabs
             if (cmpEl) cmpEl.classList.remove('hidden');
-            const fmtM = (m) => { const mm = Math.round(m); return mm >= 60 ? `${Math.floor(mm/60)} h ${mm%60} min` : `${mm} min`; };
             const elFT = document.getElementById('optTransitFastTime');
             const elQT = document.getElementById('optTransitQuietTime');
             if (elFT) elFT.textContent = planFast && !planFast.error ? fmtM(planFast.totalMin) : '—';
             if (elQT) elQT.textContent = planQuiet && !planQuiet.error ? fmtM(planQuiet.totalMin) : '—';
 
-            // Default to quiet variant
+            // Default to quiet
             _activeTransitVariant = 'quiet';
             const oF = document.getElementById('optTransitFast');
             const oQ = document.getElementById('optTransitQuiet');
@@ -2959,7 +2991,7 @@ async function _tpAutoSearch() {
 
             const plan = planQuiet && !planQuiet.error ? planQuiet : planFast;
 
-            // Detect identical routes and label
+            // Detect identical routes
             const elQLabel = document.querySelector('#optTransitQuiet .text-xs');
             if (elQLabel) {
                 const sameRoute = _legsSig(planFast) === _legsSig(planQuiet) && !planFast?.error && !planQuiet?.error;
@@ -2967,25 +2999,39 @@ async function _tpAutoSearch() {
             }
 
             _renderTransitPlan(plan);
+
+            // Now show sheet (routes already on map)
+            document.getElementById('routeFromLabel').textContent = _addrFrom.value || 'Odkud…';
+            document.getElementById('routeToLabel').textContent   = _addrTo.value   || 'Kam…';
+            _showTransitPlanSheet();
+            _syncNavBtn();
+
             if (plan && !plan.error) {
-                await _drawTransitPlan(plan, _coordFrom, _coordTo);
-                _syncNavBtn();
-                const fmtM = (m) => { const mm = Math.round(m); return mm >= 60 ? `${Math.floor(mm/60)} h ${mm%60} min` : `${mm} min`; };
                 toast(`Nalezeno spojení za ${fmtM(plan.totalMin)} 🚌`, 3500);
             } else {
                 toast('Spojení nenalezeno.', 4000);
             }
         } else {
-            // Single route (fastest)
+            // ── Single route (fastest only, no tabs) ──
             if (cmpEl) cmpEl.classList.add('hidden');
             _transitPlanFast = null;
             _transitPlanQuiet = null;
             const plan = await _planTransitRoute(_coordFrom, _coordTo, false);
-            _renderTransitPlan(plan);
+
             if (plan && !plan.error) {
-                await _drawTransitPlan(plan, _coordFrom, _coordTo);
-                _syncNavBtn();
-                const fmtM = (m) => { const mm = Math.round(m); return mm >= 60 ? `${Math.floor(mm/60)} h ${mm%60} min` : `${mm} min`; };
+                _transitNavCoordsFast = await _drawTransitPlan(plan, _coordFrom, _coordTo, 'tp-fast', 0.92);
+                _routeCoords = _transitNavCoordsFast || [];
+            }
+
+            _renderTransitPlan(plan);
+
+            // Now show sheet (route already on map)
+            document.getElementById('routeFromLabel').textContent = _addrFrom.value || 'Odkud…';
+            document.getElementById('routeToLabel').textContent   = _addrTo.value   || 'Kam…';
+            _showTransitPlanSheet();
+            _syncNavBtn();
+
+            if (plan && !plan.error) {
                 toast(`Nalezeno spojení za ${fmtM(plan.totalMin)} 🚌`, 3500);
             } else {
                 toast('Spojení nenalezeno.', 4000);
@@ -2993,6 +3039,9 @@ async function _tpAutoSearch() {
         }
     } catch(e) {
         document.getElementById('transitPlanResult').innerHTML = `<div class="tpn-empty">Chyba: ${e.message}</div>`;
+        document.getElementById('routeFromLabel').textContent = _addrFrom.value || 'Odkud…';
+        document.getElementById('routeToLabel').textContent   = _addrTo.value   || 'Kam…';
+        _showTransitPlanSheet();
         toast('Chyba hledání spoje: ' + e.message, 5000);
         console.error('[MHD planner]', e);
     }
