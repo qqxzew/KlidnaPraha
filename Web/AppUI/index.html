@@ -6,9 +6,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#18181b">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F9ED;</text></svg>">
+    <meta name="theme-color" id="metaThemeColor" content="#ffffff">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
     <title>Klidná Praha</title>
     <meta name="description" content="Klidná Praha — aplikace pro nalezení klidných procházkových tras ve městě. Projekt Hackuj Stát 7.1.">
     <meta name="author" content="Andrii Fedorov">
@@ -48,6 +48,8 @@
     </script>
     <style>
         html, body { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; position: fixed; overscroll-behavior-y: none; touch-action: none; }
+        html.light { color-scheme: light; }
+        html.dark  { color-scheme: dark; }
         body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         .mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right { display: none !important; }
         .mapboxgl-ctrl-logo { display: none !important; }
@@ -193,32 +195,7 @@
         /* ── Float buttons slide up with card ── */
         #floatBtnsLeft, #floatBtnsRight { transition: bottom 0.32s cubic-bezier(0.34,1.05,0.64,1); }
 
-        /* ── Walk check banner ── */
-        #walkCheckBanner {
-            position: fixed; bottom: calc(5rem + max(1rem, env(safe-area-inset-bottom))); left: 50%;
-            transform: translateX(-50%) translateY(calc(100% + 8rem));
-            z-index: 9999; width: calc(100% - 2rem); max-width: 420px;
-            background: #fff;
-            border-radius: 18px; padding: 14px 18px 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.14);
-            border: 1px solid rgba(0,0,0,0.07);
-            transition: transform 0.4s cubic-bezier(0.34,1.2,0.64,1);
-            pointer-events: none;
-        }
-        .dark #walkCheckBanner { background: #18181b; border-color: rgba(255,255,255,0.07); }
-        .dark #walkCheckBanner #walkCheckTitle { color: #f3f4f6; }
-        .dark #walkCheckBanner #walkCheckSub   { color: #6b7280; }
-        .dark #walkCheckProgress { background: #27272a; }
-        #walkCheckBanner.show { transform: translateX(-50%) translateY(0); }
-        #walkCheckProgress {
-            height: 4px; background: #e5e7eb; border-radius: 9px;
-            margin-top: 10px; overflow: hidden;
-        }
-        #walkCheckProgressBar {
-            height: 100%; width: 0%; background: linear-gradient(90deg, #22c55e, #10b981);
-            border-radius: 9px;
-            transition: width 0.18s linear;
-        }
+
         /* ── Toast ── */
         #toast {
             position: fixed; bottom: 6.5rem; left: 50%; transform: translateX(-50%);
@@ -753,17 +730,7 @@
         </div>
     </div>
 
-    <!-- Walk check banner -->
-    <div id="walkCheckBanner">
-        <div class="flex items-center gap-3">
-            <span class="text-2xl leading-none">🏃</span>
-            <div>
-                <div class="text-sm font-bold text-gray-900" id="walkCheckTitle">Počkejte chvilku…</div>
-                <div class="text-xs text-gray-500 mt-0.5" id="walkCheckSub">Náš tým právě vyráží na trasu, aby ji pro vás otestoval!</div>
-            </div>
-        </div>
-        <div id="walkCheckProgress"><div id="walkCheckProgressBar"></div></div>
-    </div>
+
 
     <!-- Toast notification -->
     <div id="toast"></div>
