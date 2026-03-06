@@ -2074,7 +2074,17 @@ async function _ensureTransitData() {
             if (_pointInPoly(lng, lat, ring)) { _noisyStopIds.add(sid); break; }
         }
     }
-    console.log('[MHD] Noisy stops:', _noisyStopIds.size, 'of', Object.keys(sc).length);
+
+    // Expand radius: also mark stops within 250m of any confirmed noisy stop
+    const noisyCoords = [..._noisyStopIds].map(sid => sc[sid]).filter(Boolean);
+    for (const sid in sc) {
+        if (_noisyStopIds.has(sid)) continue;
+        const [lat, lng] = sc[sid];
+        for (const [nLat, nLng] of noisyCoords) {
+            if (_haversineM(lat, lng, nLat, nLng) <= 250) { _noisyStopIds.add(sid); break; }
+        }
+    }
+    console.log('[MHD] Noisy stops (incl. 250m buffer):', _noisyStopIds.size, 'of', Object.keys(sc).length);
 
     window._transitLoaded = true;
 }
@@ -2413,10 +2423,15 @@ async function _planTransitRoute(fromCoord, toCoord, avoidNoisy = false) {
     const K        = 15;   // nearest-stop candidates
     const MAX_TF   = 3;    // max transfers
     const HORIZON  = 180;  // total journey window (min)
-    const TF_PEN   = 5;    // transfer penalty added to sortT only (min) — prefers fewer transfers
+    const TF_PEN   = 5;    // transfer penalty (min) — only used in quiet mode to prefer fewer transfers
     const NOISY_MUL = 9.0; // 9x penalty: strongly avoids noisy stops — forces detour when any alternative exists
 
     const noisy = avoidNoisy && _noisyStopIds && _noisyStopIds.size > 0;
+
+    // Fast route: sort purely by actual time; quiet route: sort by t + TF_PEN*tf + npen
+    const sortKey = noisy
+        ? (t, tf, np) => t + TF_PEN * tf + np
+        : (t, tf, np) => t;
 
     const graph = window._transitGraph;
     const sc    = window._transitStopCoords;
@@ -2456,7 +2471,8 @@ async function _planTransitRoute(fromCoord, toCoord, avoidNoisy = false) {
         const walkMin = s.d / WALK_SPD;
         const t = t0 + walkMin;
         const npen = (noisy && _noisyStopIds.has(s.sid)) ? walkMin * NOISY_MUL : 0;
-        heap.push({ sortT: t + npen, t, sid: s.sid, tf: 0, route: null, npen,
+        const sT = sortKey(t, 0, npen);
+        heap.push({ sortT: sT, t, sid: s.sid, tf: 0, route: null, npen,
             legs: [{ type: 'walk', dist: s.d, fromSid: null, toSid: s.sid }] });
     }
 
@@ -2493,7 +2509,7 @@ async function _planTransitRoute(fromCoord, toCoord, avoidNoisy = false) {
             // Noise penalty: 30% extra time for edges arriving at a noisy stop
             const edgeNpen = (noisy && _noisyStopIds.has(edge.to)) ? (edge.t / 60) * NOISY_MUL : 0;
             const newNpen = npen + edgeNpen;
-            const newSortT = arr + TF_PEN * newTf + newNpen;
+            const newSortT = sortKey(arr, newTf, newNpen);
 
             const domVal2 = noisy ? newSortT : arr;
             const bk2 = `${edge.to}\x01${newTf}\x01${edge.r}`;
