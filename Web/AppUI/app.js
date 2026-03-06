@@ -2414,7 +2414,7 @@ async function _planTransitRoute(fromCoord, toCoord, avoidNoisy = false) {
     const MAX_TF   = 3;    // max transfers
     const HORIZON  = 180;  // total journey window (min)
     const TF_PEN   = 5;    // transfer penalty added to sortT only (min) — prefers fewer transfers
-    const NOISY_MUL = 0.3; // 1.3x penalty: extra 30% of edge time in sortT for noisy stops
+    const NOISY_MUL = 9.0; // 9x penalty: strongly avoids noisy stops — forces detour when any alternative exists
 
     const noisy = avoidNoisy && _noisyStopIds && _noisyStopIds.size > 0;
 
@@ -2848,6 +2848,14 @@ function _handleTransitMapClick(lat, lng) {
 
 async function _tpAutoSearch() {
     if (!_coordFrom || !_coordTo) return;
+
+    // Signature for identical-route detection: e.g. "L22:stopA-stopB|walk"
+    function _legsSig(plan) {
+        if (!plan || plan.error) return '';
+        return plan.legs.map(l =>
+            l.type === 'transit' ? `${l.route}:${l.fromSid}-${l.toSid}` : l.type
+        ).join('|');
+    }
     document.getElementById('transitPlanResult').innerHTML = '<div class="tpn-empty">Hledám spojení…</div>';
     document.getElementById('routeFromLabel').textContent = _addrFrom.value || 'Odkud…';
     document.getElementById('routeToLabel').textContent   = _addrTo.value   || 'Kam…';
@@ -2885,6 +2893,14 @@ async function _tpAutoSearch() {
             if (oQ) oQ.classList.add('selected');
 
             const plan = planQuiet && !planQuiet.error ? planQuiet : planFast;
+
+            // Detect identical routes and label
+            const elQLabel = document.querySelector('#optTransitQuiet .text-xs');
+            if (elQLabel) {
+                const sameRoute = _legsSig(planFast) === _legsSig(planQuiet) && !planFast?.error && !planQuiet?.error;
+                elQLabel.textContent = sameRoute ? '= nejrychlejší' : 'Tichá';
+            }
+
             _renderTransitPlan(plan);
             if (plan && !plan.error) {
                 await _drawTransitPlan(plan, _coordFrom, _coordTo);
