@@ -275,7 +275,11 @@ let ptEnd = null;
 let markerStart = null;
 let markerEnd = null;
 
-const GH_URL = 'http://localhost:8989/route';
+// GraphHopper URL: relative /route works via the proxy server (server.js).
+// To use a direct external tunnel instead, set GH_BASE_OVERRIDE.
+const GH_BASE_OVERRIDE = '';
+const GH_URL     = (GH_BASE_OVERRIDE || '') + '/route';
+const GH_HEADERS = { 'Content-Type': 'application/json' };
 
 const _BASE_NOISE_DAY = [
   ['in_noise_day_25_30',0.97],['in_noise_day_30_35',0.95],['in_noise_day_35_40',0.92],
@@ -346,6 +350,31 @@ function buildCustomModel() {
     return { distance_influence, priority };
 }
 
+// Build walk-generator custom model from walk-gen sliders (same logic as buildCustomModel).
+// All sliders at 5 = pure fast route.
+function buildWalkModel() {
+    const nV = parseInt(document.getElementById('walkNoiseLevel').value);
+    const aV = parseInt(document.getElementById('walkAirLevel').value);
+    const eV = parseInt(document.getElementById('walkElevLevel').value);
+    const sN = _sliderToScale(nV);
+    const sA = _sliderToScale(aV);
+    const sE = _sliderToScale(eV);
+
+    const _DI = [15, 35, 65, 88, 100];
+    const distance_influence = Math.min(_DI[nV - 1], _DI[aV - 1], _DI[eV - 1]);
+
+    const hour = new Date().getHours();
+    const noiseBase = (hour >= 7 && hour < 22) ? _BASE_NOISE_DAY : _BASE_NOISE_NIGHT;
+
+    const priority = [
+        { if: '!in_merged_parks', multiply_by: 0.85 },
+        ..._BASE_AIR.map(([k,v]) => ({ if: k, multiply_by: _scaleMult(v, sA) })),
+        ...noiseBase.map(([k,v]) => ({ if: k, multiply_by: _scaleMult(v, sN) })),
+        ...(sE > 0 ? _BASE_ELEV.map(([k,v]) => ({ if: k, multiply_by: _scaleMult(v, sE) })) : []),
+    ];
+    return { distance_influence, priority };
+}
+
 // Decode Google Encoded Polyline (precision 1e-5)
 function decodePolyline(enc) {
     const out = []; let i = 0, lat = 0, lng = 0;
@@ -367,6 +396,60 @@ function isInPrague(lng, lat) {
            lat >= PRAGUE_BOUNDS.minLat && lat <= PRAGUE_BOUNDS.maxLat;
 }
 
+// Stored coords for both route variants
+let _fastRouteCoords = [];
+let _klidnaRouteCoords = [];
+let _activeVariant   = 'klidna'; // 'fast' | 'klidna'
+
+async function _fetchRoute(from, to, customModel) {
+    const body = {
+        points: [[from.lng, from.lat], [to.lng, to.lat]],
+        profile: 'normal_walk',
+        points_encoded: true,
+        instructions: false,
+        'ch.disable': true,
+        custom_model: customModel,
+    };
+    const r = await fetch(GH_URL, {
+        method: 'POST',
+        headers: GH_HEADERS,
+        body: JSON.stringify(body),
+    });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const data = await r.json();
+    return data.paths[0];
+}
+
+function _drawRoute(coords, sourceId, layerId, color, width, opacity, dasharray) {
+    const geojson = {
+        type: 'Feature',
+        properties: {},
+        geometry: { type: 'LineString', coordinates: coords },
+    };
+    if (map.getSource(sourceId)) {
+        map.getSource(sourceId).setData(geojson);
+    } else {
+        map.addSource(sourceId, { type: 'geojson', data: geojson });
+        const paint = { 'line-color': color, 'line-width': width, 'line-opacity': opacity };
+        if (dasharray) paint['line-dasharray'] = dasharray;
+        map.addLayer({ id: layerId, type: 'line', source: sourceId,
+            layout: { 'line-join': 'round', 'line-cap': 'round' }, paint });
+    }
+}
+
+function _selectRouteOpt(variant) {
+    _activeVariant = variant;
+    const coords = variant === 'fast' ? _fastRouteCoords : _klidnaRouteCoords;
+    _routeCoords = coords;
+
+    document.getElementById('optFast').classList.toggle('selected', variant === 'fast');
+    document.getElementById('optKlidna').classList.toggle('selected', variant === 'klidna');
+
+    // Highlight chosen route, dim the other
+    if (map.getLayer('route-fast'))   map.setPaintProperty('route-fast',   'line-opacity', variant === 'fast'   ? 0.9 : 0.25);
+    if (map.getLayer('route-klidna')) map.setPaintProperty('route-klidna', 'line-opacity', variant === 'klidna' ? 0.9 : 0.25);
+}
+
 async function calculateRoute() {
     if (!ptStart || !ptEnd) return;
 
@@ -375,65 +458,108 @@ async function calculateRoute() {
         return;
     }
 
-    const customModel = buildCustomModel();
-    // Use normal_walk — no baked-in comfort model, all penalties come from JS only
-    const profile = 'normal_walk';
-    
-    const body = {
-        points: [[ptStart.lng, ptStart.lat], [ptEnd.lng, ptEnd.lat]],
-        profile: profile,
-        points_encoded: true,
-        instructions: false,
-        "ch.disable": true,
-        custom_model: customModel
-    };
-    
+    _showWalkBanner();
+
+    // Fast model: distance_influence=100, no penalties
+    const fastModel = { distance_influence: 100, priority: [] };
+    // Klidná model: full user preferences
+    const klidnaModel = buildCustomModel();
+
+    const nV = parseInt(document.getElementById('noiseLevel').value);
+    const aV = parseInt(document.getElementById('airLevel').value);
+    const eV = parseInt(document.getElementById('elevationLevel').value);
+    const allOff = nV === 5 && aV === 5 && eV === 5;
+
     try {
-        const r = await fetch(GH_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body),
-        });
-        
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        const data = await r.json();
-        const path = data.paths[0];
-        const coords = decodePolyline(path.points);
-        _routeCoords = coords; // store for navigation
-        
-        // Draw route on Mapbox
-        if (map.getSource('route')) {
-            map.getSource('route').setData({
-                type: 'Feature',
-                properties: {},
-                geometry: { type: 'LineString', coordinates: coords }
+        if (allOff) {
+            // All settings on "Nezáleží" — only fastest route, no compare
+            const fastPath = await _fetchRoute(ptStart, ptEnd, fastModel);
+            _fastRouteCoords   = decodePolyline(fastPath.points);
+            _klidnaRouteCoords = [];
+            _activeVariant     = 'fast';
+            _routeCoords       = _fastRouteCoords;
+
+            ['route-fast', 'route-klidna', 'route'].forEach(id => {
+                if (map.getLayer(id)) map.removeLayer(id);
+                if (map.getSource(id)) map.removeSource(id);
             });
-        } else {
-            map.addSource('route', {
-                type: 'geojson',
-                data: {
-                    type: 'Feature',
-                    properties: {},
-                    geometry: { type: 'LineString', coordinates: coords }
-                }
-            });
-            map.addLayer({
-                id: 'route',
-                type: 'line',
-                source: 'route',
-                layout: { 'line-join': 'round', 'line-cap': 'round' },
-                paint: { 'line-color': '#10b981', 'line-width': 5, 'line-opacity': 0.8 }
-            });
+            _drawRoute(_fastRouteCoords, 'route-fast', 'route-fast', '#f59e0b', 5, 0.9, null);
+
+            const fastTimeMs = (fastPath.distance / 3500) * 3600000;
+            _navRouteDist = fastPath.distance;
+            _navRouteTime = fastTimeMs;
+            _navRouteAvoidsNoise = false;
+            _navRouteAvoidsAir   = false;
+
+            document.getElementById('routeDistText').textContent = fmtDist(fastPath.distance);
+            document.getElementById('routeTimeText').textContent = fmtTime(fastTimeMs);
+            document.getElementById('routeFromLabel').textContent = _addrFrom.value.trim() || 'Startovní bod';
+            document.getElementById('routeToLabel').textContent   = _addrTo.value.trim()   || 'Cíl';
+            _hideWalkBanner(true);
+            _showRouteSheet('single');
+            return;
         }
 
-        // Show route info card with distance and walking time (3.5 km/h)
-        const walkTimeMs = (path.distance / 3500) * 3600000;
-        document.getElementById('routeDistText').textContent = fmtDist(path.distance);
-        document.getElementById('routeTimeText').textContent = fmtTime(walkTimeMs);
-        document.getElementById('routeInfoCard').classList.remove('card-hidden');
-        document.getElementById('navStartRow').classList.remove('hidden');
-        _syncFloatBtns();
+        const [fastPath, klidnaPath] = await Promise.all([
+            _fetchRoute(ptStart, ptEnd, fastModel),
+            _fetchRoute(ptStart, ptEnd, klidnaModel),
+        ]);
+
+        _fastRouteCoords   = decodePolyline(fastPath.points);
+        _klidnaRouteCoords = decodePolyline(klidnaPath.points);
+        _activeVariant     = 'klidna';
+        _routeCoords       = _klidnaRouteCoords;
+
+        // Draw both routes
+        _drawRoute(_fastRouteCoords,   'route-fast',   'route-fast',   '#f59e0b', 5, 0.3, [3, 2]);
+        _drawRoute(_klidnaRouteCoords, 'route-klidna', 'route-klidna', '#10b981', 5, 0.9, null);
+
+        // Remove legacy 'route' source if present
+        if (map.getLayer('route')) map.removeLayer('route');
+        if (map.getSource('route')) map.removeSource('route');
+
+        const fastTimeMs   = (fastPath.distance   / 3500) * 3600000;
+        const klidnaTimeMs = (klidnaPath.distance / 3500) * 3600000;
+
+        document.getElementById('optFastDist').textContent   = fmtDist(fastPath.distance);
+        document.getElementById('optFastTime').textContent   = fmtTime(fastTimeMs);
+        document.getElementById('optKlidnaDist').textContent = fmtDist(klidnaPath.distance);
+        document.getElementById('optKlidnaTime').textContent = fmtTime(klidnaTimeMs);
+
+        // Diff badge
+        const extraMin  = Math.round((klidnaTimeMs - fastTimeMs) / 60000);
+        const distDiff  = klidnaPath.distance - fastPath.distance;
+        const diffParts = [];
+        if (extraMin > 0)  diffParts.push(`+${extraMin} min navíc`);
+        else if (extraMin < 0) diffParts.push(`${extraMin} min ušetřeno`);
+        if (Math.abs(distDiff) > 50) diffParts.push(`${distDiff > 0 ? '+' : ''}${fmtDist(Math.abs(distDiff))} vzdálenosti`);
+
+        let qualityMsg = '';
+        if (nV <= 2) qualityMsg = 'Trasa maximálně vyhýbá hlučným ulicím 🤫';
+        else if (aV <= 2) qualityMsg = 'Trasa maximálně vyhýbá znečištěnému vzduchu 🌿';
+        else qualityMsg = 'Vyvážená klidná trasa přes tiché zóny';
+
+        const diffEl = document.getElementById('compareDiff');
+        if (diffParts.length) {
+            diffEl.innerHTML = `<span class="font-semibold">${diffParts.join(', ')}</span> — ${qualityMsg}`;
+        } else {
+            diffEl.textContent = qualityMsg;
+        }
+
+        // Show route sheet in compare mode
+        document.getElementById('routeFromLabel').textContent = _addrFrom.value.trim() || 'Startovní bod';
+        document.getElementById('routeToLabel').textContent   = _addrTo.value.trim()   || 'Cíl';
+        _showRouteSheet('compare');
+
+        // Store dist/time for summary
+        _navRouteDist = klidnaPath.distance;
+        _navRouteTime = klidnaTimeMs;
+        _navRouteAvoidsNoise = nV <= 2;
+        _navRouteAvoidsAir   = aV <= 2;
+
+        _hideWalkBanner(true);
     } catch (e) {
+        _hideWalkBanner(false);
         console.error('Chyba při výpočtu trasy:', e);
         toast('Chyba výpočtu trasy: ' + e.message, 5000);
     }
@@ -511,26 +637,30 @@ function startNavigation() {
         document.getElementById('sosInfoCard').classList.add('card-hidden');
         document.getElementById('sosNavRow').classList.add('hidden');
     } else {
-        document.getElementById('routeInfoCard').classList.add('card-hidden');
-        document.getElementById('navStartRow').classList.add('hidden');
+        _hideRouteSheet();
     }
     document.getElementById('navHUD').classList.remove('nav-hidden');
     document.getElementById('floatBtnsRight').style.display = 'none';
-    if (userMarker) userMarker.getElement().style.opacity = '0';
     _syncFloatBtns();
 
-    // Navigation puck: arrow points screen-up = forward (map rotates to heading-up)
-    const el = document.createElement('div');
-    el.className = 'nav-puck';
-    el.innerHTML = '<div class="nav-puck-arrow"></div><div class="nav-puck-body"></div>';
+    // Navigation puck: morph userMarker into arrow, or create a fresh one
     const startCoord = _routeCoords[0];
-    _navUserMarker = new mapboxgl.Marker({ element: el, anchor: 'center', rotationAlignment: 'viewport' })
-        .setLngLat(startCoord)
-        .addTo(map);
+    if (userMarker) {
+        _setMarkerArrow(userMarker.getElement());
+        userMarker.setLngLat(startCoord);
+        _navUserMarker = userMarker;
+    } else {
+        const el = document.createElement('div');
+        _setMarkerArrow(el);
+        _navUserMarker = new mapboxgl.Marker({ element: el, anchor: 'center' })
+            .setLngLat(startCoord)
+            .addTo(map);
+    }
 
     map.easeTo({ pitch: 60, zoom: 17.5, center: startCoord, duration: 900 });
 
     if (!('geolocation' in navigator)) { toast('GPS není dostupné.', 4000); stopNavigation(); return; }
+    _navMode._finishing = false;
     _navWatchId = navigator.geolocation.watchPosition(
         _navTick,
         (err) => toast('GPS chyba: ' + err.message, 3500),
@@ -538,12 +668,18 @@ function startNavigation() {
     );
 }
 
-function stopNavigation() {
+function stopNavigation(showSummary = false) {
     _navMode = false;
     if (_navWatchId !== null) { navigator.geolocation.clearWatch(_navWatchId); _navWatchId = null; }
-    if (_navUserMarker) { _navUserMarker.remove(); _navUserMarker = null; }
+    if (_navUserMarker) {
+        if (_navUserMarker === userMarker) {
+            _setMarkerDot(userMarker.getElement()); // restore dot in-place
+        } else {
+            _navUserMarker.remove();
+        }
+        _navUserMarker = null;
+    }
     _navPrevLat = null; _navPrevLng = null;
-    if (userMarker) userMarker.getElement().style.opacity = '1';
     document.getElementById('navHUD').classList.add('nav-hidden');
     document.getElementById('floatBtnsRight').style.display = '';
     map.easeTo({ pitch: 0, bearing: 0, zoom: 14, duration: 900 });
@@ -551,11 +687,12 @@ function stopNavigation() {
         document.getElementById('sosInfoCard').classList.remove('card-hidden');
         document.getElementById('sosNavRow').classList.remove('hidden');
     } else {
-        document.getElementById('routeInfoCard').classList.remove('card-hidden');
-        document.getElementById('navStartRow').classList.remove('hidden');
+        const hasCompare = _fastRouteCoords.length > 0 && _klidnaRouteCoords.length > 0;
+        _showRouteSheet(hasCompare ? 'compare' : 'single');
     }
     _navFromSOS = false;
     _syncFloatBtns();
+    if (showSummary) _showSummary();
 }
 
 function _navTick(pos) {
@@ -584,6 +721,11 @@ function _navTick(pos) {
     if (lastPt && _haversineM(lat, lng, lastPt[1], lastPt[0]) < 20) {
         document.getElementById('navDistRemain').textContent = 'Jsi na místě ✓';
         document.getElementById('navTimeRemain').textContent = '';
+        // Auto-stop after 3 s and show summary
+        if (!_navMode._finishing) {
+            _navMode._finishing = true;
+            setTimeout(() => stopNavigation(true), 3000);
+        }
     } else {
         document.getElementById('navDistRemain').textContent = fmtDist(rem);
         document.getElementById('navTimeRemain').textContent = 'ještě ~ ' + fmtTime((rem / 3500) * 3600000);
@@ -847,7 +989,7 @@ async function handleSOSClick(lat, lng) {
         };
         const res = await fetch(GH_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: GH_HEADERS,
             body: JSON.stringify(body)
         });
         if (!res.ok) {
@@ -894,6 +1036,7 @@ async function handleSOSClick(lat, lng) {
 
 document.getElementById('sosBtn').addEventListener('click', startSOS);
 document.getElementById('sosCancelBtn').addEventListener('click', cancelSOS);
+document.getElementById('sosNavBtn').addEventListener('click', startNavigation);
 document.getElementById('sosParkChoice').addEventListener('click', () => _startSOSWithMode('park'));
 document.getElementById('sosMedChoice').addEventListener('click',  () => _startSOSWithMode('med'));
 document.getElementById('sosLibChoice').addEventListener('click',  () => _startSOSWithMode('lib'));
@@ -901,27 +1044,28 @@ document.getElementById('sosChoiceCancel').addEventListener('click', () => {
     _hideSOSChoice();
     cancelSOS();
 });
-document.getElementById('routeCloseBtnCard').addEventListener('click', () => {
-    if (_navMode) stopNavigation();
-    document.getElementById('navStartRow').classList.add('hidden');
+document.getElementById('routeSheetCloseBtn').addEventListener('click', () => {
+    if (_navMode) stopNavigation(false);
     _routeCoords = [];
-    document.getElementById('routeInfoCard').classList.add('card-hidden');
-    _syncFloatBtns();
-    if (map.getSource('route')) {
-        map.getSource('route').setData({ type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: [] } });
-    }
+    _fastRouteCoords = [];
+    _klidnaRouteCoords = [];
+    _hideRouteSheet();
+    ['route-fast', 'route-klidna', 'route'].forEach(id => {
+        if (map.getLayer(id)) map.removeLayer(id);
+        if (map.getSource(id)) map.removeSource(id);
+    });
     ptStart = null; ptEnd = null;
     _coordFrom = null; _coordTo = null;
     _addrFrom.value = ''; _addrTo.value = '';
+    _clearFromGPS();
     if (markerStart) { markerStart.remove(); markerStart = null; }
     if (markerEnd)   { markerEnd.remove();   markerEnd   = null; }
     _markerFrom = null; _markerTo = null;
     _spClose();
 });
 
-document.getElementById('navStartBtn').addEventListener('click', startNavigation);
-document.getElementById('navStopBtn').addEventListener('click', stopNavigation);
-document.getElementById('sosNavBtn').addEventListener('click', startNavigation);
+document.getElementById('sheetNavBtn').addEventListener('click', startNavigation);
+document.getElementById('navStopBtn').addEventListener('click', () => stopNavigation(true));
 
 // Click on map to add Start / End
 map.on('click', (e) => {
@@ -967,14 +1111,16 @@ map.on('click', (e) => {
         ptStart = null; ptEnd = null;
         _coordFrom = null; _coordTo = null;
         _addrFrom.value = ''; _addrTo.value = '';
+        _clearFromGPS();
         if (markerStart) { markerStart.remove(); markerStart = null; }
         if (markerEnd)   { markerEnd.remove();   markerEnd   = null; }
         _markerFrom = null; _markerTo = null;
-        if (map.getSource('route')) {
-            map.getSource('route').setData({ type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: [] } });
-        }
-        document.getElementById('routeInfoCard').classList.add('card-hidden');
-        _syncFloatBtns();
+        ['route-fast', 'route-klidna', 'route'].forEach(id => {
+            if (map.getLayer(id)) map.removeLayer(id);
+            if (map.getSource(id)) map.removeSource(id);
+        });
+        _routeCoords = []; _fastRouteCoords = []; _klidnaRouteCoords = [];
+        _hideRouteSheet();
         _spClose();
         return;
     }
@@ -1002,8 +1148,7 @@ document.getElementById('applySettingsBtn').addEventListener('click', () => {
     // Přepočítáme trasu s novými hodnotami
     calculateRoute().then(() => {
         btn.innerHTML = '<i class="ph ph-check-circle text-xl"></i> Trasa aktualizována';
-        btn.classList.replace('bg-brand-600', 'bg-green-600');
-        
+        btn.classList.replace('bg-brand-600', 'bg-green-600');        
         setTimeout(() => {
             closeBottomSheet();
             setTimeout(() => {
@@ -1033,6 +1178,34 @@ let _coordTo     = null;
 let _geocodeTimer = null;
 let _markerFrom  = null;
 let _markerTo    = null;
+let _fromIsGPS   = false;     // 'from' marker is the user's GPS arrow
+
+function _setMarkerArrow(el) {
+    el.style.cssText = '';
+    el.className = 'nav-puck';
+    el.innerHTML = `
+        <svg class="nav-arrow-svg" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 3 L35 34 Q19 26 3 34 Z"
+                fill="#22c55e" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
+          <circle cx="19" cy="28" r="4"
+                  fill="#ffffff" opacity="0.92"/>
+        </svg>`;
+}
+
+function _setMarkerDot(el) {
+    el.className = '';
+    el.innerHTML = '';
+    el.style.cssText = 'width:16px;height:16px;background-color:#22c55e;border:3px solid #fff;border-radius:50%;box-shadow:0 0 10px rgba(0,0,0,0.3);';
+}
+
+function _clearFromGPS() {
+    if (!_fromIsGPS) return;
+    _fromIsGPS = false;
+    if (userMarker) _setMarkerDot(userMarker.getElement());
+    // Detach references without removing userMarker — it stays on map as a dot
+    if (markerStart === userMarker) markerStart = null;
+    if (_markerFrom === userMarker) _markerFrom = null;
+}
 
 function _spOpen() {
     _searchPanel.classList.remove('sp-hidden');
@@ -1068,13 +1241,75 @@ function _hideSuggestions() {
 // ── Geocoding via Nominatim (OSM) — nativní čeština, plná adresní databáze Praha ──
 let _lastResults = [];
 
+// ── Route sheet helpers ──────────────────────────────────
+function _syncNavBtn() {
+    const btn = document.getElementById('sheetNavBtn');
+    if (btn) btn.closest('div').classList.toggle('hidden', !_fromIsGPS);
+}
+function _showRouteSheet(state) {
+    _spClose(); // close address panel so the route sheet is clearly visible
+    const sheetCompare = document.getElementById('sheetCompare');
+    const sheetSingle  = document.getElementById('sheetSingle');
+    sheetCompare.classList.toggle('hidden', state !== 'compare');
+    sheetSingle.classList.toggle('hidden',  state !== 'single');
+    document.getElementById('routeSheet').classList.remove('sheet-hidden');
+    const tb = document.getElementById('tabBar');
+    if (tb) { tb.style.opacity = '0'; tb.style.transform = 'translateY(8px)'; tb.style.pointerEvents = 'none'; }
+    _syncNavBtn();
+    _syncFloatBtns();
+}
+function _hideRouteSheet() {
+    document.getElementById('routeSheet').classList.add('sheet-hidden');
+    const tb = document.getElementById('tabBar');
+    if (tb) { tb.style.opacity = ''; tb.style.transform = ''; tb.style.pointerEvents = ''; }
+    _syncFloatBtns();
+}
+
 // Raise/lower floating buttons when info card appears/disappears
 function _syncFloatBtns() {
-    const cardVisible = !document.getElementById('routeInfoCard').classList.contains('card-hidden')
-                     || !document.getElementById('sosInfoCard').classList.contains('card-hidden');
-    const bottom = cardVisible ? '11.5rem' : '7rem';
+    const sheet = document.getElementById('routeSheet');
+    const sheetVisible = !sheet.classList.contains('sheet-hidden');
+    const sosVisible   = !document.getElementById('sosInfoCard').classList.contains('card-hidden');
+    let bottom;
+    if (sheetVisible) {
+        const inner = sheet.querySelector('div');
+        bottom = (inner ? inner.offsetHeight + 16 : 300) + 'px';
+    } else if (sosVisible) {
+        bottom = '11.5rem';
+    } else {
+        bottom = '7rem';
+    }
     document.getElementById('floatBtnsRight').style.bottom = bottom;
 }
+
+// ── Swipe-down-to-close gesture on route sheet handle ───
+(function () {
+    const handle = document.getElementById('routeSheetHandle');
+    const sheet  = document.getElementById('routeSheet');
+    let startY = 0, dragging = false;
+    handle.addEventListener('touchstart', e => {
+        startY   = e.touches[0].clientY;
+        dragging = true;
+        sheet.style.transition = 'none';
+    }, { passive: true });
+    handle.addEventListener('touchmove', e => {
+        if (!dragging) return;
+        const dy = e.touches[0].clientY - startY;
+        if (dy > 0) sheet.style.transform = `translateY(${dy}px)`;
+    }, { passive: true });
+    handle.addEventListener('touchend', e => {
+        if (!dragging) return;
+        dragging = false;
+        sheet.style.transition = '';
+        const dy = e.changedTouches[0].clientY - startY;
+        if (dy > 90) {
+            // Dismiss: same as close button
+            document.getElementById('routeSheetCloseBtn').click();
+        } else {
+            sheet.style.transform = '';
+        }
+    });
+})();
 
 // Reverse geocode a map point (Nominatim)
 async function _reverseGeocode(lng, lat) {
@@ -1234,8 +1469,16 @@ function _selectResult(lng, lat, label) {
 function _updateMarker(which, lng, lat) {
     if (which === 'from') {
         ptStart = { lng, lat };
-        if (_markerFrom) { _markerFrom.setLngLat([lng, lat]); }
-        else {
+        if (_markerFrom) {
+            if (_fromIsGPS) {
+                // Switching from GPS arrow to a typed address — restore userMarker dot, new separate pin
+                _clearFromGPS(); // restores dot, nulls _markerFrom & markerStart
+                _markerFrom = new mapboxgl.Marker({ color: '#22c55e' }).setLngLat([lng, lat]).addTo(map);
+                markerStart = _markerFrom;
+            } else {
+                _markerFrom.setLngLat([lng, lat]);
+            }
+        } else {
             if (markerStart) markerStart.remove();
             _markerFrom = new mapboxgl.Marker({ color: '#22c55e' }).setLngLat([lng, lat]).addTo(map);
             markerStart = _markerFrom;
@@ -1348,8 +1591,28 @@ _geoFromBtn.addEventListener('click', () => {
                 return;
             }
             _coordFrom = { lng, lat };
+            ptStart = { lng, lat };
             _addrFrom.value = 'Moje poloha';
-            _updateMarker('from', lng, lat);
+            _fromIsGPS = true;
+            if (userMarker) {
+                // Morph the existing location dot into the arrow in-place
+                if (_markerFrom && _markerFrom !== userMarker) _markerFrom.remove();
+                if (markerStart && markerStart !== userMarker) markerStart.remove();
+                _setMarkerArrow(userMarker.getElement());
+                userMarker.setLngLat([lng, lat]);
+                _markerFrom = userMarker;
+                markerStart = userMarker;
+            } else {
+                // No dot yet — create a new marker that acts as both userMarker and markerStart
+                if (_markerFrom) { _markerFrom.remove(); _markerFrom = null; }
+                if (markerStart) { markerStart.remove(); markerStart = null; }
+                const el = document.createElement('div');
+                _setMarkerArrow(el);
+                userMarker = new mapboxgl.Marker({ element: el, anchor: 'center' }).setLngLat([lng, lat]).addTo(map);
+                _markerFrom = userMarker;
+                markerStart = userMarker;
+            }
+            map.flyTo({ center: [lng, lat], zoom: Math.max(map.getZoom(), 14) });
             _activeField = 'to';
             _addrTo.focus();
             _maybeRoute();
@@ -1370,3 +1633,325 @@ _swapBtn.addEventListener('click', () => {
     if (_coordTo)   { ptEnd   = _coordTo;   _updateMarker('to',   ptEnd.lng,   ptEnd.lat);   }
     _maybeRoute();
 });
+
+// ═══════════════════════════════════════════════════════════
+// WALK GENERATOR
+// ═══════════════════════════════════════════════════════════
+let _walkSelectedMin = 40;
+
+function _showWalkGen() {
+    const overlay = document.getElementById('walkGenOverlay');
+    const sheet   = document.getElementById('walkGenSheet');
+    overlay.style.pointerEvents = 'auto';
+    overlay.style.opacity = '1';
+    sheet.style.transform = 'translateY(0)';
+    // Highlight default selection
+    _setWalkTimeBtns(_walkSelectedMin);
+}
+
+function _hideWalkGen() {
+    const overlay = document.getElementById('walkGenOverlay');
+    const sheet   = document.getElementById('walkGenSheet');
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+    sheet.style.transform = 'translateY(100%)';
+}
+
+function _setWalkTimeBtns(min) {
+    document.querySelectorAll('.walk-time-btn').forEach(btn => {
+        const active = parseInt(btn.dataset.min) === min;
+        btn.classList.toggle('bg-brand-600', active);
+        btn.classList.toggle('text-white', active);
+        btn.classList.toggle('border-brand-600', active);
+        btn.classList.toggle('bg-gray-50', !active);
+        btn.classList.toggle('dark:bg-zinc-800', !active);
+        btn.classList.toggle('text-gray-700', !active);
+        btn.classList.toggle('dark:text-gray-200', !active);
+    });
+}
+
+document.querySelectorAll('.walk-time-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        _walkSelectedMin = parseInt(btn.dataset.min);
+        document.getElementById('walkCustomMin').value = '';
+        _setWalkTimeBtns(_walkSelectedMin);
+    });
+});
+
+document.getElementById('walkCustomMin').addEventListener('input', (e) => {
+    const v = parseInt(e.target.value);
+    if (v >= 20 && v <= 180) {
+        _walkSelectedMin = v;
+        _setWalkTimeBtns(-1); // clear preset highlights
+    }
+});
+
+// Show/hide hint when all walk sliders are at 5 (no eco factors)
+function _updateWalkAllOffHint() {
+    const allOff = parseInt(document.getElementById('walkNoiseLevel').value) === 5 &&
+                   parseInt(document.getElementById('walkAirLevel').value) === 5 &&
+                   parseInt(document.getElementById('walkElevLevel').value) === 5;
+    document.getElementById('walkAllOffHint').classList.toggle('hidden', !allOff);
+}
+
+updateSliderText('walkNoiseLevel', 'walkNoiseValText', {
+    '1': 'Velmi tichý', '2': 'Tichý', '3': 'Střední', '4': 'Hlučnější', '5': 'Nezáleží'
+});
+updateSliderText('walkAirLevel', 'walkAirValText', {
+    '1': 'Výborná', '2': 'Dobrá', '3': 'Střední', '4': 'Zhoršená', '5': 'Nezáleží'
+});
+updateSliderText('walkElevLevel', 'walkElevValText', {
+    '1': 'Plochý terén', '2': 'Mírné', '3': 'Střední', '4': 'Náročné', '5': 'Libovolné'
+});
+['walkNoiseLevel', 'walkAirLevel', 'walkElevLevel'].forEach(id => {
+    document.getElementById(id).addEventListener('input', _updateWalkAllOffHint);
+});
+
+document.getElementById('walkGenOpenBtn').addEventListener('click', _showWalkGen);
+document.getElementById('walkGenCancelBtn').addEventListener('click', _hideWalkGen);
+
+// ── Walk check banner ──
+let _walkBannerTimer = null;
+function _showWalkBanner() {
+    const banner = document.getElementById('walkCheckBanner');
+    const bar    = document.getElementById('walkCheckProgressBar');
+    const title  = document.getElementById('walkCheckTitle');
+    const sub    = document.getElementById('walkCheckSub');
+    if (!banner) return;
+    const msgs = [
+        ['🏃 Testujeme trasu…',      'Náš tým právě vyráží na trasu, aby ji pro vás otestoval!'],
+        ['👟 Ještě kousek…',        'Kolega si právě zavazuje tkaničky. Hned jsme zpátky!'],
+        ['🌳 Kontrolujeme parky…',  'Ověřujeme, že jsou lavičky volné a psi přátelští.'],
+        ['✅ Téměř hotovo!',        'Trasa schválena — žádné louže, žádní rozzlobení holubi.'],
+    ];
+    let step = 0;
+    banner.classList.add('show');
+    bar.style.width = '0%';
+    function tick() {
+        if (step < msgs.length) {
+            title.textContent = msgs[step][0];
+            sub.textContent   = msgs[step][1];
+            bar.style.width   = ((step + 1) / msgs.length * 92) + '%';
+            step++;
+        }
+    }
+    tick();
+    _walkBannerTimer = setInterval(tick, 1100);
+}
+function _hideWalkBanner(success) {
+    clearInterval(_walkBannerTimer);
+    const banner = document.getElementById('walkCheckBanner');
+    const bar    = document.getElementById('walkCheckProgressBar');
+    const title  = document.getElementById('walkCheckTitle');
+    const sub    = document.getElementById('walkCheckSub');
+    if (!banner) return;
+    if (success) {
+        bar.style.width = '100%';
+        title.textContent = '✅ Trasa připravena!';
+        sub.textContent   = 'Tým se vrátil. Trasa je vaše!';
+        setTimeout(() => banner.classList.remove('show'), 1000);
+    } else {
+        banner.classList.remove('show');
+    }
+}
+
+document.getElementById('walkGenStartBtn').addEventListener('click', async () => {
+    _hideWalkGen();
+    _showWalkBanner();
+
+    const btn = document.getElementById('walkGenStartBtn');
+    btn.innerHTML = '<i class="ph ph-spinner-gap animate-spin text-base"></i> Generuji…';
+    btn.disabled = true;
+
+    let originLat, originLng;
+    try {
+        const pos = await new Promise((resolve, reject) =>
+            navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true, timeout: 7000 })
+        );
+        originLat = pos.coords.latitude;
+        originLng = pos.coords.longitude;
+    } catch (_) {
+        // Fall back to map center
+        const c = map.getCenter();
+        originLat = c.lat; originLng = c.lng;
+    }
+
+    if (!isInPrague(originLng, originLat)) {
+        toast('Vaše poloha je mimo Prahu.', 4000);
+        btn.innerHTML = '<i class="ph-fill ph-shuffle text-base"></i> Vygenerovat trasu';
+        btn.disabled = false;
+        return;
+    }
+
+    // Walking speed & target
+    const WALK_SPEED = 3500 / 3600; // m/s  (3.5 km/h)
+    const targetTimeMs = _walkSelectedMin * 60 * 1000; // target in ms
+    const minTimeMs    = (_walkSelectedMin - 5) * 60 * 1000;
+    const maxTimeMs    = (_walkSelectedMin + 5) * 60 * 1000;
+    const targetDist   = WALK_SPEED * _walkSelectedMin * 60;
+
+    // Helper: project a point at bearing deg, distance m from origin
+    function _proj(lat, lng, bearDeg, distM) {
+        const Rr = 6371000;
+        const φ1 = lat * Math.PI / 180, λ1 = lng * Math.PI / 180;
+        const θ = bearDeg * Math.PI / 180, δ = distM / Rr;
+        const φ2 = Math.asin(Math.sin(φ1)*Math.cos(δ) + Math.cos(φ1)*Math.sin(δ)*Math.cos(θ));
+        const λ2 = λ1 + Math.atan2(Math.sin(θ)*Math.sin(δ)*Math.cos(φ1), Math.cos(δ) - Math.sin(φ1)*Math.sin(φ2));
+        return { lat: φ2*180/Math.PI, lng: λ2*180/Math.PI };
+    }
+
+    // Triangle loop: A → W1 → W2 → A (120° between waypoints)
+    // Crow-fly perimeter = r*(1 + √3 + 1) = r*3.732
+    // Prague detour factor ≈1.75 (dense grid)
+    const DETOUR = 1.75;
+    let radius = targetDist / (DETOUR * (2 + Math.sqrt(3)));
+
+    const b1 = Math.random() * 360;
+    const b2 = (b1 + 120) % 360;
+
+    // Pre-check initial waypoints are in Prague
+    const _w1 = _proj(originLat, originLng, b1, radius);
+    const _w2 = _proj(originLat, originLng, b2, radius);
+    if (!isInPrague(_w1.lng, _w1.lat) || !isInPrague(_w2.lng, _w2.lat)) {
+        toast('Vygenerovaný bod mimo Prahu. Zkuste to znovu.', 4000);
+        btn.innerHTML = '<i class="ph-fill ph-shuffle text-base"></i> Vygenerovat trasu';
+        btn.disabled = false;
+        _hideWalkBanner(false);
+        return;
+    }
+
+    ptStart = { lng: originLng, lat: originLat };
+    ptEnd   = { lng: originLng, lat: originLat };
+
+    const nV = parseInt(document.getElementById('walkNoiseLevel').value);
+    const aV = parseInt(document.getElementById('walkAirLevel').value);
+    const eV = parseInt(document.getElementById('walkElevLevel').value);
+    const allOff = nV === 5 && aV === 5 && eV === 5;
+    const klidnaModel = allOff ? { distance_influence: 100, priority: [] } : buildWalkModel();
+
+    const _ghFetch = (rad) => {
+        const pA = _proj(originLat, originLng, b1, rad);
+        const pB = _proj(originLat, originLng, b2, rad);
+        return fetch(GH_URL, {
+            method: 'POST', headers: GH_HEADERS,
+            body: JSON.stringify({
+                points: [[originLng, originLat], [pA.lng, pA.lat], [pB.lng, pB.lat], [originLng, originLat]],
+                profile: 'normal_walk', points_encoded: true, instructions: false,
+                'ch.disable': true, custom_model: klidnaModel,
+            }),
+        });
+    };
+
+    try {
+        // Iterative scaling: up to 5 attempts to land within ±5 min
+        let data, attempts = 0;
+        while (attempts < 5) {
+            const resp = await _ghFetch(radius);
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            data = await resp.json();
+            const gotTime = data.paths[0].time; // ms from GraphHopper
+            if (gotTime >= minTimeMs && gotTime <= maxTimeMs) break;
+            // Scale radius proportionally based on time ratio
+            const ratio = targetTimeMs / gotTime;
+            radius = radius * Math.max(0.3, Math.min(3, ratio));
+            attempts++;
+        }
+
+        const path = data.paths[0];
+        const coords = decodePolyline(path.points);
+        _routeCoords       = coords;
+        _klidnaRouteCoords = coords;
+        _fastRouteCoords   = [];
+        _activeVariant     = 'klidna';
+
+        // Clear old compare layers
+        ['route-fast', 'route-klidna', 'route'].forEach(id => {
+            if (map.getLayer(id)) map.removeLayer(id);
+            if (map.getSource(id)) map.removeSource(id);
+        });
+        _drawRoute(coords, 'route-klidna', 'route-klidna', '#10b981', 5, 0.9, null);
+
+        const walkTimeMs = path.time; // use GraphHopper's actual time
+        _navRouteDist = path.distance;
+        _navRouteTime = walkTimeMs;
+        _navRouteAvoidsNoise = nV <= 2;
+        _navRouteAvoidsAir   = aV <= 2;
+
+        // Show route sheet (single variant)
+        document.getElementById('routeDistText').textContent = fmtDist(path.distance);
+        document.getElementById('routeTimeText').textContent = fmtTime(walkTimeMs);
+        document.getElementById('routeFromLabel').textContent = '🚶 Procházka';
+        document.getElementById('routeToLabel').textContent   = fmtTime(walkTimeMs);
+        _showRouteSheet('single');
+
+        // Place origin marker
+        _clearFromGPS();
+        if (markerStart) markerStart.remove();
+        if (markerEnd)   markerEnd.remove();
+        markerStart = new mapboxgl.Marker({ color: '#22c55e' }).setLngLat([originLng, originLat]).addTo(map);
+        markerEnd = markerStart;
+        _markerFrom = markerStart; _markerTo = markerEnd;
+
+        const bounds = coords.reduce((b, c) => b.extend(c), new mapboxgl.LngLatBounds(coords[0], coords[0]));
+        map.fitBounds(bounds, { padding: 80, maxZoom: 16 });
+        _syncFloatBtns();
+        _hideWalkBanner(true);
+        toast(`Promenáda ${fmtTime(walkTimeMs)} vygenerována 🌿`, 3500);
+
+    } catch (e) {
+        _hideWalkBanner(false);
+        toast('Chyba generování trasy: ' + e.message, 5000);
+    }
+
+    btn.innerHTML = '<i class="ph-fill ph-shuffle text-base"></i> Vygenerovat trasu';
+    btn.disabled = false;
+});
+
+// ═══════════════════════════════════════════════════════════
+// SUMMARY SCREEN
+// ═══════════════════════════════════════════════════════════
+let _navRouteDist = 0;
+let _navRouteTime = 0;
+let _navRouteAvoidsNoise = false;
+let _navRouteAvoidsAir   = false;
+
+function _showSummary() {
+    document.getElementById('summTotalDist').textContent = fmtDist(_navRouteDist);
+    document.getElementById('summTotalTime').textContent = fmtTime(_navRouteTime);
+
+    const achievements = [];
+    if (_navRouteAvoidsNoise) {
+        achievements.push({ icon: '🤫', text: 'Vyhnuli jste se ulicím s vysokou hladinou hluku' });
+    }
+    if (_navRouteAvoidsAir) {
+        achievements.push({ icon: '🌿', text: 'Prošli jste zónou s čistším ovzduším' });
+    }
+    if (_navRouteDist > 2000) {
+        achievements.push({ icon: '🏃', text: `Ujili jste více než ${fmtDist(Math.floor(_navRouteDist / 1000) * 1000)}` });
+    }
+    achievements.push({ icon: '🌳', text: 'Trasa preferovala průchod parky a zelenými zónami' });
+
+    const el = document.getElementById('summAchievements');
+    el.innerHTML = achievements.map(a =>
+        `<div class="flex items-start gap-3 bg-gray-50 dark:bg-zinc-800 rounded-xl p-3">
+            <span class="text-xl leading-none flex-shrink-0">${a.icon}</span>
+            <span class="text-sm text-gray-700 dark:text-gray-200">${a.text}</span>
+        </div>`
+    ).join('');
+
+    const overlay = document.getElementById('summaryOverlay');
+    const card    = document.getElementById('summaryCard');
+    overlay.style.pointerEvents = 'auto';
+    overlay.style.opacity = '1';
+    card.style.transform = 'translateY(0)';
+}
+
+function _hideSummary() {
+    const overlay = document.getElementById('summaryOverlay');
+    const card    = document.getElementById('summaryCard');
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+    card.style.transform = 'translateY(100%)';
+}
+
+document.getElementById('summCloseBtn').addEventListener('click', _hideSummary);

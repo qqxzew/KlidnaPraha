@@ -9,7 +9,10 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#18181b">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F9ED;</text></svg>">
-    <title>Klidná Trasa</title>
+    <title>Klidná Praha</title>
+    <meta name="description" content="Klidná Praha — aplikace pro nalezení klidných procházkových tras ve městě. Projekt Hackuj Stát 7.1.">
+    <meta name="author" content="Andrii Fedorov">
+    <meta name="keywords" content="Praha, klidná trasa, hluk, ovzduší, procházka, Hackuj Stát, ticho">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
@@ -177,11 +180,11 @@
         #addrFrom:focus, #addrTo:focus { outline: none; }
         .addr-active-dot { transition: background 0.2s; }
 
-        /* ── Info cards slide up from footer ── */
-        #routeInfoCard, #sosInfoCard {
+        /* ── Info card (SOS) slide up from footer ── */
+        #sosInfoCard {
             transition: transform 0.32s cubic-bezier(0.34,1.05,0.64,1), opacity 0.25s ease;
         }
-        #routeInfoCard.card-hidden, #sosInfoCard.card-hidden {
+        #sosInfoCard.card-hidden {
             transform: translateY(calc(100% + 1.5rem));
             opacity: 0;
             pointer-events: none;
@@ -190,6 +193,32 @@
         /* ── Float buttons slide up with card ── */
         #floatBtnsLeft, #floatBtnsRight { transition: bottom 0.32s cubic-bezier(0.34,1.05,0.64,1); }
 
+        /* ── Walk check banner ── */
+        #walkCheckBanner {
+            position: fixed; bottom: calc(5rem + max(1rem, env(safe-area-inset-bottom))); left: 50%;
+            transform: translateX(-50%) translateY(calc(100% + 8rem));
+            z-index: 9999; width: calc(100% - 2rem); max-width: 420px;
+            background: #fff;
+            border-radius: 18px; padding: 14px 18px 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+            border: 1px solid rgba(0,0,0,0.07);
+            transition: transform 0.4s cubic-bezier(0.34,1.2,0.64,1);
+            pointer-events: none;
+        }
+        .dark #walkCheckBanner { background: #18181b; border-color: rgba(255,255,255,0.07); }
+        .dark #walkCheckBanner #walkCheckTitle { color: #f3f4f6; }
+        .dark #walkCheckBanner #walkCheckSub   { color: #6b7280; }
+        .dark #walkCheckProgress { background: #27272a; }
+        #walkCheckBanner.show { transform: translateX(-50%) translateY(0); }
+        #walkCheckProgress {
+            height: 4px; background: #e5e7eb; border-radius: 9px;
+            margin-top: 10px; overflow: hidden;
+        }
+        #walkCheckProgressBar {
+            height: 100%; width: 0%; background: linear-gradient(90deg, #22c55e, #10b981);
+            border-radius: 9px;
+            transition: width 0.18s linear;
+        }
         /* ── Toast ── */
         #toast {
             position: fixed; bottom: 6.5rem; left: 50%; transform: translateX(-50%);
@@ -214,31 +243,64 @@
 
         /* ── Navigation mode ── */
         .nav-puck {
-            width: 28px; height: 38px;
-            display: flex; flex-direction: column; align-items: center;
+            width: 38px; height: 38px;
             pointer-events: none; user-select: none;
         }
-        .nav-puck-arrow {
-            width: 0; height: 0;
-            border-left: 9px solid transparent;
-            border-right: 9px solid transparent;
-            border-bottom: 15px solid #22c55e;
-            filter: drop-shadow(0 1px 3px rgba(34,197,94,0.45));
+        .nav-arrow-svg {
+            width: 100%; height: 100%;
+            filter:
+                drop-shadow(0 0 6px rgba(34,197,94,0.55))
+                drop-shadow(0 2px 4px rgba(0,0,0,0.30));
+            animation: nav-glow 2s ease-in-out infinite;
         }
-        .nav-puck-body {
-            width: 18px; height: 18px; border-radius: 50%;
-            background: #22c55e;
-            border: 3px solid #fff;
-            margin-top: -3px;
-            box-shadow: 0 2px 8px rgba(34,197,94,0.5), 0 0 0 4px rgba(34,197,94,0.15);
-            animation: nav-breathe 2.2s ease-in-out infinite;
-        }
-        @keyframes nav-breathe {
-            0%, 100% { box-shadow: 0 2px 8px rgba(34,197,94,.5), 0 0 0 4px rgba(34,197,94,.15); }
-            50%       { box-shadow: 0 2px 8px rgba(34,197,94,.7), 0 0 0 8px rgba(34,197,94,.07); }
+        @keyframes nav-glow {
+            0%, 100% {
+                filter:
+                    drop-shadow(0 0 6px rgba(34,197,94,.55))
+                    drop-shadow(0 2px 4px rgba(0,0,0,.30));
+            }
+            50% {
+                filter:
+                    drop-shadow(0 0 12px rgba(34,197,94,.90))
+                    drop-shadow(0 2px 6px rgba(0,0,0,.35));
+            }
         }
         #navHUD { transition: opacity 0.3s ease, transform 0.3s ease; }
         #navHUD.nav-hidden { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+
+        /* ── Route bottom sheet ── */
+        #routeSheet {
+            transition: transform 0.32s cubic-bezier(0.34,1.05,0.64,1);
+        }
+        #routeSheet.sheet-hidden {
+            transform: translateY(100%);
+            pointer-events: none;
+        }
+        #routeSheetHandle { touch-action: none; }
+        .route-opt {
+            flex: 1; border-radius: 14px; padding: 12px 14px; cursor: pointer;
+            border: 2px solid transparent; transition: border-color 0.15s, background 0.15s;
+        }
+        .route-opt.selected { border-color: #22c55e; background: #f0fdf4; }
+        .dark .route-opt.selected { background: #052e16; border-color: #22c55e; }
+        .route-opt:not(.selected) { background: #f9fafb; }
+        .dark .route-opt:not(.selected) { background: #27272a; }
+
+        /* ── Walk generator overlay ── */
+        #walkGenOverlay {
+            transition: opacity 0.25s ease;
+        }
+        #walkGenSheet {
+            transition: transform 0.3s cubic-bezier(.32,1.15,.5,1);
+        }
+
+        /* ── Summary screen ── */
+        #summaryOverlay {
+            transition: opacity 0.35s ease;
+        }
+        #summaryCard {
+            transition: transform 0.35s cubic-bezier(0.34,1.05,0.64,1);
+        }
     </style>
 </head>
 <body class="bg-surface-light dark:bg-surface-dark text-gray-900 dark:text-gray-100 overflow-hidden h-screen w-screen relative transition-colors duration-500 fixed inset-0 overscroll-none touch-none">
@@ -326,25 +388,67 @@
 
 
 
-    <!-- Route info card (appears above footer after route is calculated) -->
-    <div id="routeInfoCard" class="absolute inset-x-4 z-20 card-hidden bg-surface-light dark:bg-surface-dark rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-4" style="bottom:7rem;">
-        <div class="flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3 flex-1 min-w-0">
-                <i class="ph ph-person-simple-walk text-xl text-brand-600 dark:text-brand-400 flex-shrink-0"></i>
-                <div class="text-sm text-gray-700 dark:text-gray-200 flex gap-3">
-                    <span id="routeDistText" class="font-semibold"></span>
-                    <span class="text-gray-400 dark:text-gray-500">·</span>
-                    <span id="routeTimeText" class="text-gray-500 dark:text-gray-400"></span>
+    <!-- ═══════════ ROUTE BOTTOM SHEET ═══════════ -->
+    <div id="routeSheet" class="absolute inset-x-0 bottom-0 z-30 sheet-hidden">
+        <div class="bg-surface-light dark:bg-surface-dark rounded-t-3xl shadow-2xl border-t border-gray-100 dark:border-zinc-800">
+            <!-- Drag handle + close -->
+            <div id="routeSheetHandle" class="flex items-center justify-between px-4 pt-3 pb-1 select-none">
+                <div class="w-6 flex-shrink-0"></div>
+                <div class="w-10 h-1 bg-gray-300 dark:bg-zinc-600 rounded-full"></div>
+                <div class="w-6 flex-shrink-0 flex justify-end">
+                    <button id="routeSheetCloseBtn" class="p-1 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors">
+                        <i class="ph ph-x text-sm text-gray-400"></i>
+                    </button>
                 </div>
             </div>
-            <button id="routeCloseBtnCard" class="flex-shrink-0 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xs font-semibold"><i class="ph ph-x text-base"></i></button>
-        </div>
-        <!-- Navigate button row, shown once route is computed -->
-        <div id="navStartRow" class="hidden mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
-            <button id="navStartBtn" class="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white py-2.5 rounded-xl font-semibold text-sm active:scale-[0.97] transition-transform shadow-sm">
-                <i class="ph-fill ph-navigation text-base"></i>
-                Navigovat
-            </button>
+            <!-- From / To summary -->
+            <div class="px-4 pb-2.5 flex items-center gap-1.5 min-w-0">
+                <span class="w-2.5 h-2.5 rounded-full border-2 border-brand-500 bg-white dark:bg-zinc-900 flex-shrink-0"></span>
+                <span id="routeFromLabel" class="text-xs text-gray-500 dark:text-gray-400 truncate flex-1 min-w-0">Odkud…</span>
+                <i class="ph ph-arrow-right text-[10px] text-gray-300 dark:text-zinc-600 flex-shrink-0 mx-0.5"></i>
+                <i class="ph ph-map-pin text-[10px] text-rose-400 flex-shrink-0"></i>
+                <span id="routeToLabel" class="text-xs text-gray-500 dark:text-gray-400 truncate flex-1 min-w-0">Kam…</span>
+            </div>
+            <!-- Compare state -->
+            <div id="sheetCompare" class="px-4 pb-2">
+                <div class="flex gap-2">
+                    <div id="optFast" class="route-opt" onclick="_selectRouteOpt('fast')">
+                        <div class="flex items-center gap-1.5 mb-1.5">
+                            <i class="ph-fill ph-lightning text-sm text-amber-500"></i>
+                            <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Nejrychlejší</span>
+                        </div>
+                        <div id="optFastDist" class="font-bold text-sm text-gray-900 dark:text-gray-100">—</div>
+                        <div id="optFastTime" class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">—</div>
+                    </div>
+                    <div id="optKlidna" class="route-opt selected" onclick="_selectRouteOpt('klidna')">
+                        <div class="flex items-center gap-1.5 mb-1.5">
+                            <i class="ph-fill ph-leaf text-sm text-emerald-500"></i>
+                            <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Klidná</span>
+                        </div>
+                        <div id="optKlidnaDist" class="font-bold text-sm text-gray-900 dark:text-gray-100">—</div>
+                        <div id="optKlidnaTime" class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">—</div>
+                    </div>
+                </div>
+                <div id="compareDiff" class="mt-2.5 text-xs text-gray-600 dark:text-gray-300 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl px-3 py-2 leading-snug"></div>
+            </div>
+            <!-- Single route state -->
+            <div id="sheetSingle" class="hidden px-4 pb-2">
+                <div class="flex items-center gap-3 py-1">
+                    <i class="ph ph-person-simple-walk text-xl text-brand-600 dark:text-brand-400 flex-shrink-0"></i>
+                    <div class="text-sm text-gray-700 dark:text-gray-200 flex gap-3">
+                        <span id="routeDistText" class="font-semibold"></span>
+                        <span class="text-gray-400 dark:text-gray-500">·</span>
+                        <span id="routeTimeText" class="text-gray-500 dark:text-gray-400"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Navigate button -->
+            <div class="px-4 pt-2" style="padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));">
+                <button id="sheetNavBtn" class="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white py-2.5 rounded-xl font-semibold text-sm active:scale-[0.97] transition-transform shadow-sm">
+                    <i class="ph-fill ph-navigation text-base"></i>
+                    Navigovat
+                </button>
+            </div>
         </div>
     </div>
 
@@ -402,7 +506,7 @@
             </div>
             <!-- header -->
             <div class="px-6 pt-3 pb-5">
-                <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-zinc-500 mb-1">Tichá Praha</p>
+                <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-zinc-500 mb-1">Klidná Praha</p>
                 <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 leading-snug">Kam se chceš<br>uchýlit?</h3>
             </div>
             <!-- choices -->
@@ -442,13 +546,137 @@
         </div>
     </div>
 
+    <!-- ═══════════ WALK GENERATOR OVERLAY ═══════════ -->
+    <div id="walkGenOverlay" class="absolute inset-0 z-50 flex items-end justify-center pointer-events-none opacity-0" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);">
+        <div id="walkGenSheet" class="w-full bg-surface-light dark:bg-zinc-900 rounded-t-3xl shadow-2xl pointer-events-auto transform translate-y-full pb-safe">
+            <div class="flex justify-center pt-3 pb-1">
+                <div class="w-10 h-1 bg-gray-200 dark:bg-zinc-700 rounded-full"></div>
+            </div>
+            <div class="px-6 pt-3 pb-4">
+                <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-zinc-500 mb-1">Klidná Praha</p>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 leading-snug">Vygenerovat<br>procházku</h3>
+            </div>
+            <div class="px-6 pb-4">
+                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">Délka procházky</label>
+                <div class="flex gap-2 flex-wrap">
+                    <button class="walk-time-btn px-4 py-2 rounded-xl text-sm font-semibold border border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 text-gray-700 dark:text-gray-200 active:scale-95 transition-transform" data-min="20">20 min</button>
+                    <button class="walk-time-btn px-4 py-2 rounded-xl text-sm font-semibold border border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 text-gray-700 dark:text-gray-200 active:scale-95 transition-transform" data-min="30">30 min</button>
+                    <button class="walk-time-btn px-4 py-2 rounded-xl text-sm font-semibold border border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 text-gray-700 dark:text-gray-200 active:scale-95 transition-transform" data-min="40">40 min</button>
+                    <button class="walk-time-btn px-4 py-2 rounded-xl text-sm font-semibold border border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 text-gray-700 dark:text-gray-200 active:scale-95 transition-transform" data-min="60">1 hod</button>
+                    <button class="walk-time-btn px-4 py-2 rounded-xl text-sm font-semibold border border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 text-gray-700 dark:text-gray-200 active:scale-95 transition-transform" data-min="90">1.5 hod</button>
+                </div>
+                <div class="mt-4 flex items-center gap-3">
+                    <label class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">nebo vlastní:</label>
+                    <input id="walkCustomMin" type="number" min="20" max="180" placeholder="min" class="w-20 px-3 py-2 rounded-xl border border-gray-200 dark:border-zinc-700 bg-transparent text-sm text-gray-900 dark:text-gray-100 outline-none focus:border-brand-500">
+                </div>
+            </div>
+            <!-- Route preference sliders -->
+            <div class="px-6 pb-4">
+                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-4">Parametry trasy</label>
+                <div class="mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200">Hluk</label>
+                        <span id="walkNoiseValText" class="text-xs font-bold text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-900/30 px-3 py-1 rounded-full">Tichý</span>
+                    </div>
+                    <div class="flex items-center gap-4 w-full">
+                        <i class="ph ph-speaker-none text-2xl text-gray-400 w-8 text-center"></i>
+                        <input type="range" id="walkNoiseLevel" min="1" max="5" step="1" value="2" class="text-blue-500 dark:text-blue-500 focus:outline-none flex-1 touch-pan-y">
+                        <i class="ph ph-speaker-high text-2xl text-gray-400 w-8 text-center"></i>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200">Kvalita ovzduší</label>
+                        <span id="walkAirValText" class="text-xs font-bold text-green-600 bg-green-50 dark:text-green-400 dark:bg-green-900/30 px-3 py-1 rounded-full">Dobrá</span>
+                    </div>
+                    <div class="flex items-center gap-4 w-full">
+                        <i class="ph ph-leaf text-2xl text-gray-400 w-8 text-center"></i>
+                        <input type="range" id="walkAirLevel" min="1" max="5" step="1" value="2" class="text-green-500 dark:text-green-500 focus:outline-none flex-1 touch-pan-y">
+                        <i class="ph ph-factory text-2xl text-gray-400 w-8 text-center"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200">Maximální převýšení</label>
+                        <span id="walkElevValText" class="text-xs font-bold text-orange-600 bg-orange-50 dark:text-orange-400 dark:bg-orange-900/30 px-3 py-1 rounded-full">Střední</span>
+                    </div>
+                    <div class="flex items-center gap-4 w-full">
+                        <i class="ph ph-arrows-out-line-horizontal text-2xl text-gray-400 w-8 text-center"></i>
+                        <input type="range" id="walkElevLevel" min="1" max="5" step="1" value="3" class="text-orange-500 dark:text-orange-500 focus:outline-none flex-1 touch-pan-y">
+                        <i class="ph ph-trend-up text-2xl text-gray-400 w-8 text-center"></i>
+                    </div>
+                </div>
+                <p id="walkAllOffHint" class="hidden mt-3 text-xs text-gray-400 dark:text-zinc-500 text-center">
+                    <i class="ph ph-lightning text-xs"></i>&nbsp;Pouze nejrychlejší trasa — klidné faktory se neuplatní
+                </p>
+            </div>
+
+            <div class="px-6 pb-6">
+                <button id="walkGenStartBtn" class="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white py-3.5 rounded-xl font-semibold text-sm active:scale-[0.97] transition-transform shadow-sm">
+                    <i class="ph-fill ph-shuffle text-base"></i>
+                    Vygenerovat trasu
+                </button>
+            </div>
+            <button id="walkGenCancelBtn" class="w-full py-3 text-sm text-gray-400 dark:text-zinc-500">Zrušit</button>
+        </div>
+    </div>
+
+    <!-- ═══════════ SUMMARY SCREEN ═══════════ -->
+    <div id="summaryOverlay" class="absolute inset-0 z-60 flex items-end justify-center pointer-events-none opacity-0" style="background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);z-index:60;">
+        <div id="summaryCard" class="w-full bg-surface-light dark:bg-zinc-900 rounded-t-3xl shadow-2xl pointer-events-auto transform translate-y-full pb-safe">
+            <div class="flex justify-center pt-3 pb-2">
+                <div class="w-10 h-1 bg-gray-200 dark:bg-zinc-700 rounded-full"></div>
+            </div>
+            <!-- Hero emoji -->
+            <div class="flex flex-col items-center pt-4 pb-2">
+                <div class="text-5xl mb-3">🌿</div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Procházka dokončena!</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Podívejte se, čemu jste se vyhnuli</p>
+            </div>
+            <!-- Stats grid -->
+            <div class="px-6 py-4 grid grid-cols-2 gap-3">
+                <div class="bg-emerald-50 dark:bg-emerald-900/30 rounded-2xl p-4 text-center">
+                    <div id="summTotalDist" class="font-bold text-lg text-emerald-700 dark:text-emerald-400">—</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Celkem ujito</div>
+                </div>
+                <div class="bg-emerald-50 dark:bg-emerald-900/30 rounded-2xl p-4 text-center">
+                    <div id="summTotalTime" class="font-bold text-lg text-emerald-700 dark:text-emerald-400">—</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Doba chůze</div>
+                </div>
+            </div>
+            <!-- Achievements -->
+            <div id="summAchievements" class="px-6 pb-4 flex flex-col gap-2"></div>
+            <div class="px-6 pb-6">
+                <button id="summCloseBtn" class="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white py-3.5 rounded-xl font-semibold text-sm active:scale-[0.97] transition-transform shadow-sm">
+                    Skvělé, pokračovat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Walk check banner -->
+    <div id="walkCheckBanner">
+        <div class="flex items-center gap-3">
+            <span class="text-2xl leading-none">🏃</span>
+            <div>
+                <div class="text-sm font-bold text-gray-900" id="walkCheckTitle">Počkejte chvilku…</div>
+                <div class="text-xs text-gray-500 mt-0.5" id="walkCheckSub">Náš tým právě vyráží na trasu, aby ji pro vás otestoval!</div>
+            </div>
+        </div>
+        <div id="walkCheckProgress"><div id="walkCheckProgressBar"></div></div>
+    </div>
+
     <!-- Toast notification -->
     <div id="toast"></div>
 
-    <div class="absolute bottom-4 inset-x-4 h-20 bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-3xl z-30 flex items-center justify-around px-2 pb-safe shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] pointer-events-auto">
+    <div id="tabBar" class="absolute bottom-4 inset-x-4 h-20 bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-3xl z-30 flex items-center justify-around px-2 pb-safe shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] pointer-events-auto" style="transition:opacity 0.25s ease, transform 0.25s ease;">
         <button class="flex flex-col items-center justify-center w-28 h-full text-brand-600 dark:text-brand-500 rounded-2xl hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors">
             <i class="ph-fill ph-map-pin text-3xl mb-1"></i>
             <span class="text-xs font-semibold">Mapa</span>
+        </button>
+        <button id="walkGenOpenBtn" class="flex flex-col items-center justify-center w-28 h-full text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-2xl transition-colors">
+            <i class="ph ph-shuffle text-3xl mb-1"></i>
+            <span class="text-xs font-semibold">Procházka</span>
         </button>
         <button id="settingsBtn" class="flex flex-col items-center justify-center w-28 h-full text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-2xl transition-colors">
             <i class="ph ph-sliders text-3xl mb-1"></i>
