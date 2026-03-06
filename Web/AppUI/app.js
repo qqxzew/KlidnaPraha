@@ -1775,9 +1775,54 @@ updateSliderText('walkElevLevel', 'walkElevValText', {
 document.getElementById('walkGenOpenBtn').addEventListener('click', _showWalkGen);
 document.getElementById('walkGenCancelBtn').addEventListener('click', _hideWalkGen);
 
+// ── Walk check banner ──
+let _walkBannerTimer = null;
+function _showWalkBanner() {
+    const banner = document.getElementById('walkCheckBanner');
+    const bar    = document.getElementById('walkCheckProgressBar');
+    const title  = document.getElementById('walkCheckTitle');
+    const sub    = document.getElementById('walkCheckSub');
+    if (!banner) return;
+    const msgs = [
+        ['🏃 Testujeme trasu…',      'Náš tým právě vyráží na trasu, aby ji pro vás otestoval!'],
+        ['👟 Ještě kousek…',        'Kolega si právě zavazuje tkaničky. Hned jsme zpátky!'],
+        ['🌳 Kontrolujeme parky…',  'Ověřujeme, že jsou lavičky volné a psi přátelští.'],
+        ['✅ Téměř hotovo!',        'Trasa schválena — žádné louže, žádní rozzlobení holubi.'],
+    ];
+    let step = 0;
+    banner.classList.add('show');
+    bar.style.width = '0%';
+    function tick() {
+        if (step < msgs.length) {
+            title.textContent = msgs[step][0];
+            sub.textContent   = msgs[step][1];
+            bar.style.width   = ((step + 1) / msgs.length * 92) + '%';
+            step++;
+        }
+    }
+    tick();
+    _walkBannerTimer = setInterval(tick, 1100);
+}
+function _hideWalkBanner(success) {
+    clearInterval(_walkBannerTimer);
+    const banner = document.getElementById('walkCheckBanner');
+    const bar    = document.getElementById('walkCheckProgressBar');
+    const title  = document.getElementById('walkCheckTitle');
+    const sub    = document.getElementById('walkCheckSub');
+    if (!banner) return;
+    if (success) {
+        bar.style.width = '100%';
+        title.textContent = '✅ Trasa připravena!';
+        sub.textContent   = 'Tým se vrátil. Trasa je vaše!';
+        setTimeout(() => banner.classList.remove('show'), 1000);
+    } else {
+        banner.classList.remove('show');
+    }
+}
 
 document.getElementById('walkGenStartBtn').addEventListener('click', async () => {
     _hideWalkGen();
+    _showWalkBanner();
 
     const btn = document.getElementById('walkGenStartBtn');
     btn.innerHTML = '<i class="ph ph-spinner-gap animate-spin text-base"></i> Generuji…';
@@ -1836,6 +1881,7 @@ document.getElementById('walkGenStartBtn').addEventListener('click', async () =>
         toast('Vygenerovaný bod mimo Prahu. Zkuste to znovu.', 4000);
         btn.innerHTML = '<i class="ph-fill ph-shuffle text-base"></i> Vygenerovat trasu';
         btn.disabled = false;
+        _hideWalkBanner(false);
             return;
     }
 
@@ -1912,9 +1958,11 @@ document.getElementById('walkGenStartBtn').addEventListener('click', async () =>
         _markerFrom = markerStart; _markerTo = markerEnd;
 
         _syncFloatBtns();
+        _hideWalkBanner(true);
         toast(`Promenáda ${fmtTime(walkTimeMs)} vygenerována 🌿`, 3500);
 
     } catch (e) {
+        _hideWalkBanner(false);
         toast('Chyba generování trasy: ' + e.message, 5000);
     }
 
