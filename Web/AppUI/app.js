@@ -458,6 +458,7 @@ async function calculateRoute() {
         return;
     }
 
+    toast('Vypočítávám trasu…', 8000);
 
     // Fast model: distance_influence=100, no penalties
     const fastModel = { distance_influence: 100, priority: [] };
@@ -1993,6 +1994,7 @@ let _noisyStopIds = null; // Set of stop IDs inside avoid zones
 
 async function _ensureTransitData() {
     if (window._transitLoaded) return;
+    toast('Načítám data MHD…', 12000);
     const [sR, tramR, busR, schedR, busSchedR, graphR, coordsR, avoidR, edgeShapesR] = await Promise.all([
         fetch('transit_stops.geojson'),
         fetch('transit_tram_routes.geojson'),
@@ -2839,6 +2841,10 @@ async function _tpAutoSearch() {
             if (plan && !plan.error) {
                 await _drawTransitPlan(plan, _coordFrom, _coordTo);
                 _syncNavBtn();
+                const fmtM = (m) => { const mm = Math.round(m); return mm >= 60 ? `${Math.floor(mm/60)} h ${mm%60} min` : `${mm} min`; };
+                toast(`Nalezeno spojení za ${fmtM(plan.totalMin)} 🚌`, 3500);
+            } else {
+                toast('Spojení nenalezeno.', 4000);
             }
         } else {
             // Single route (fastest)
@@ -2850,10 +2856,15 @@ async function _tpAutoSearch() {
             if (plan && !plan.error) {
                 await _drawTransitPlan(plan, _coordFrom, _coordTo);
                 _syncNavBtn();
+                const fmtM = (m) => { const mm = Math.round(m); return mm >= 60 ? `${Math.floor(mm/60)} h ${mm%60} min` : `${mm} min`; };
+                toast(`Nalezeno spojení za ${fmtM(plan.totalMin)} 🚌`, 3500);
+            } else {
+                toast('Spojení nenalezeno.', 4000);
             }
         }
     } catch(e) {
         document.getElementById('transitPlanResult').innerHTML = `<div class="tpn-empty">Chyba: ${e.message}</div>`;
+        toast('Chyba hledání spoje: ' + e.message, 5000);
         console.error('[MHD planner]', e);
     }
 }
