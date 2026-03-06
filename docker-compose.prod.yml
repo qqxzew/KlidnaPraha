@@ -1,0 +1,23 @@
+services:
+  graphhopper:
+    build: ./Grapphopper
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8989:8989"
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace/Grapphopper
+
+  web:
+    image: node:20-alpine
+    restart: unless-stopped
+    working_dir: /app
+    ports:
+      - "127.0.0.1:5500:5500"
+    volumes:
+      - ./:/app:ro
+    environment:
+      - GH_HOST=graphhopper
+    command: ["node", "server.js"]
+    depends_on:
+      - graphhopper
