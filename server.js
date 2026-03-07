@@ -3,8 +3,9 @@ const http = require('http');
 const fs   = require('fs');
 const path = require('path');
 
-const PORT    = 5500;
-const GH_PORT = 8989;
+const PORT    = parseInt(process.env.PORT || '5500', 10);
+const GH_HOST = process.env.GH_HOST || 'localhost';
+const GH_PORT = parseInt(process.env.GH_PORT || '8989', 10);
 const ROOT    = __dirname;
 
 const MIME = {
@@ -37,11 +38,11 @@ const server = http.createServer((req, res) => {
     // Proxy POST /route → GraphHopper
     if (req.method === 'POST' && req.url.startsWith('/route')) {
         const options = {
-            hostname: 'localhost',
+            hostname: GH_HOST,
             port: GH_PORT,
             path: req.url,
             method: 'POST',
-            headers: { ...req.headers, host: `localhost:${GH_PORT}` },
+            headers: { ...req.headers, host: `${GH_HOST}:${GH_PORT}` },
         };
         const proxy = http.request(options, (ghRes) => {
             res.writeHead(ghRes.statusCode, { ...ghRes.headers, ...cors });
