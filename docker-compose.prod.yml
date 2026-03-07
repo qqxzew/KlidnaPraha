@@ -7,6 +7,7 @@ services:
     volumes:
       - ./:/workspace
     working_dir: /workspace/Grapphopper
+    entrypoint: ["java", "-Xmx1500m", "-Xms1500m", "-jar", "/app/graphhopper.jar", "server", "Config.yaml"]
 
   web:
     image: node:20-alpine
